@@ -29,7 +29,9 @@ if 'diarization' not in st.session_state:
       break
     except:
       pass
-      
+
+if 'temp_path' in st.sesion_state:
+  st.write(st.session_state.temp_path)
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
