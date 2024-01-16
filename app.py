@@ -6,7 +6,6 @@ from modules import *
 from io import BytesIO
 import re
 import html2text
-from simple_diarizer.diarizer import Diarizer
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
@@ -20,15 +19,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.write("---")
-
-if 'diarization' not in st.session_state:
-  count = 0
-  while count == 0:
-    try:
-      st.session_state.diarization = Diarizer(embed_model='xvec', cluster_method='sc')
-      break
-    except:
-      pass
 
 
 # Inicio de sesión
@@ -45,29 +35,24 @@ if 'autenticado' not in st.session_state:
 
 
 if 'autenticado' in st.session_state:
-    if 'path' not in st.session_state:
+    if 'temp_path' not in st.session_state:
         st.success("¡Autenticado con éxito!")
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia. Asegúrate de que sea un archivo en formato MP3.")
-        archivo = st.file_uploader("Cargar archivo de audio")
+        archivo = st.file_uploader("Cargar archivo de audio", type=['mp3'])
         if st.button("Siguiente", type = "primary"):
-          with st.spinner("Cargando tu audio... ⌛"):
-            mp3_data = convertir_a_mp3(archivo)
-            # wav_data = convertir_mp3_a_wav_16khz_mono(mp3_data)
-            
-            with open('/mount/src/journo/audio.mp3', "wb") as f:
-                f.write(mp3_data)
-              
-            st.session_state.path = '/mount/src/journo/audio.mp3'
-            st.rerun()
+          temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
+          with open(temp_path, "wb") as f:
+              f.write(archivo.read())
+          st.session_state.temp_path = temp_path
+          st.rerun()
         
-    if 'path' in st.session_state and 'X' not in st.session_state:
+    if 'temp_path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]")
         Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]")
         Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
-      
         if st.button("Enviar", type = "primary"):
             st.session_state.X = X
             st.session_state.Y = Y
@@ -77,12 +62,7 @@ if 'autenticado' in st.session_state:
 
             with st.spinner("Cargando tu noticia... ⌛"):
                 st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
-                st.session_state.list_paths = dividir_audio(st.session_state.path, st.session_state.diarization)
-                st.write('division realizada')
-                st.session_state.transcription = generar_transcripcion_conjunta(st.session_state.list_paths)
-                st.write('transcripcion generada')
-                for path in st.session_state.list_paths:
-                  os.remove(path)
+                st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
                 st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.rerun()
               
