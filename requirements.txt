@@ -3,4 +3,4 @@ pydub
 imageio
 html2text
 simple-diarizer
-ffmpeg
+ffmpeg-python
