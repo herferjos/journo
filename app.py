@@ -78,6 +78,8 @@ if 'autenticado' in st.session_state:
                 st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
                 st.session_state.list_paths = dividir_audio(st.session_state.path, st.session_state.diarization)
                 st.session_state.transcription = generar_transcripcion_conjunta(st.session_state.list_paths)
+                for path in st.session_state.list_paths:
+                  os.remove(path)
                 st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.rerun()
               
