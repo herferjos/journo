@@ -112,7 +112,6 @@ def generar_noticia(transcripcion, X, Y, Z, A, B):
 
 
 def dividir_audio(audio, diarization):
-
     fragmentos = diarization.diarize(audio)
 
     fragmento_agrupados = {}
@@ -127,7 +126,7 @@ def dividir_audio(audio, diarization):
                 # Agregar el fragmento del hablante anterior
                 fragmento_agrupado = {
                     'speaker': actual_speaker,
-                    'path': f'fragmento_{len(fragmento_agrupados)+1}_{actual_speaker}.mp3',
+                    'path': f'/mount/src/fragmento_{len(fragmento_agrupados)+1}_{actual_speaker}.mp3',
                 }
                 fragmento_agrupados[actual_speaker] = fragmento_agrupado
 
@@ -144,7 +143,7 @@ def dividir_audio(audio, diarization):
     if actual_speaker is not None:
         fragmento_agrupado = {
             'speaker': actual_speaker,
-            'path': f'fragmento_{len(fragmento_agrupados)+1}_{actual_speaker}.mp3',
+            'path': f'/mount/src/fragmento_{len(fragmento_agrupados)+1}_{actual_speaker}.mp3',
         }
         fragmento_agrupados[actual_speaker] = fragmento_agrupado
 
@@ -152,7 +151,7 @@ def dividir_audio(audio, diarization):
 
     lista_resultados = []
 
-    for speaker, fragmento in sorted(fragmento_agrupados.items(), key=lambda x: x[1]['speaker']):
+    def process_fragmento(speaker, fragmento):
         start_segundos = fragmento['start']
         end_segundos = fragmento['end']
 
@@ -168,28 +167,16 @@ def dividir_audio(audio, diarization):
         # Guarda el fragmento de audio en un archivo (opcional, puedes comentar esta línea si no deseas guardar)
         audio_fragmento.export(nombre, format='mp3')
 
-        lista_resultados.append({
+        return {
             'speaker': fragmento['speaker'],
             'path': nombre,
-        })
+        }
+
+    with ThreadPoolExecutor() as executor:
+        lista_resultados = list(executor.map(lambda x: process_fragmento(x[0], x[1]), fragmento_agrupados.items()))
 
     return lista_resultados
 
-
-def convertir_mp3_a_wav_16khz_mono(mp3_data):
-    # Cargar los datos de audio desde la memoria
-    audio = AudioSegment.from_file(io.BytesIO(mp3_data), format="mp3")
-
-    # Configurar la frecuencia de muestreo a 16 kHz
-    audio = audio.set_frame_rate(16000)
-
-    # Configurar a mono
-    audio = audio.set_channels(1)
-
-    # Convertir a formato WAV
-    wav_data = audio.raw_data
-
-    return wav_data
 
 
 def convertir_a_mp3(archivo):
