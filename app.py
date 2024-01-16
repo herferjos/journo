@@ -39,7 +39,7 @@ if 'autenticado' in st.session_state:
     if 'temp_path' not in st.session_state:
         st.success("¡Autenticado con éxito!")
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia. Asegúrate de que sea un archivo en formato MP3.")
-        archivo = st.file_uploader("Cargar archivo de audio", type=['mp3'])
+        archivo = st.file_uploader("Cargar archivo de audio")
         if st.button("Siguiente", type = "primary"):
           with st.spinner("Cargando el audio... ⌛"):
             mp3_data = convertir_a_mp3(archivo)
