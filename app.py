@@ -40,12 +40,15 @@ if 'autenticado' in st.session_state:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia. Asegúrate de que sea un archivo en formato MP3.")
         archivo = st.file_uploader("Cargar archivo de audio", type=['mp3'])
         if st.button("Siguiente", type = "primary"):
+          with st.spinner("Cargando el audio... ⌛"):
+            mp3_data = convertir_a_mp3(archivo)
           temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
           with open(temp_path, "wb") as f:
-              f.write(archivo.read())
+              f.write(mp3_data)
           st.session_state.temp_path = temp_path
           st.rerun()
-        
+  
+  
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]")
