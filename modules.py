@@ -50,9 +50,7 @@ def cargar_diarization():
   
   while intentos < max_intentos:
       try:
-          # Intentar cargar Diarizer
-          st.session_state.diarization = Diarizer(embed_model='xvec', cluster_method='sc')
-          return diarization
+          return Diarizer(embed_model='xvec', cluster_method='sc')
       except HTTPError as e:
           # Manejar la excepción de límite de velocidad (403)
           if e.code == 403:
