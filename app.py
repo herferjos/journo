@@ -6,6 +6,7 @@ from modules import *
 from io import BytesIO
 import re
 import html2text
+from simple_diarizer.diarizer import Diarizer
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
@@ -19,6 +20,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.write("---")
+
+if 'diarization' not in st.session_state:
+  st.session_state.diarization = Diarizer(embed_model='xvec', cluster_method='sc')
 
 
 # Inicio de sesión
@@ -53,6 +57,9 @@ if 'autenticado' in st.session_state:
         Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
+
+        st.session_state.list_paths = dividir_audio(st.session_state.temp_path, st.session_state.diarization)
+      
         if st.button("Enviar", type = "primary"):
             st.session_state.X = X
             st.session_state.Y = Y
@@ -62,7 +69,7 @@ if 'autenticado' in st.session_state:
 
             with st.spinner("Cargando tu noticia... ⌛"):
                 st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
-                st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
+                st.session_state.transcription = generar_transcripcion_conjunta(st.session_state.list_paths)
                 st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.rerun()
               
