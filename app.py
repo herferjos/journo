@@ -30,7 +30,7 @@ if 'diarization' not in st.session_state:
     except:
       pass
 
-if 'temp_path' in st.sesion_state:
+if 'temp_path' in st.session_state:
   st.write(st.session_state.temp_path)
 
 # Inicio de sesión
