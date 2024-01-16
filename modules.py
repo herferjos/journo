@@ -199,6 +199,22 @@ def dividir_audio(audio, diarization):
     return lista_resultados
 
 
+def convertir_mp3_a_wav_16khz_mono(mp3_data):
+    # Cargar los datos de audio desde la memoria
+    audio = AudioSegment.from_file(io.BytesIO(mp3_data), format="mp3")
+
+    # Configurar la frecuencia de muestreo a 16 kHz
+    audio = audio.set_frame_rate(16000)
+
+    # Configurar a mono
+    audio = audio.set_channels(1)
+
+    # Convertir a formato WAV
+    wav_data = audio.raw_data
+
+    return wav_data
+
+
 def convertir_a_mp3(archivo):
     # Check if archivo is a bytes object
     if isinstance(archivo, bytes):
