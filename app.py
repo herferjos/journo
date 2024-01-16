@@ -51,7 +51,8 @@ if 'autenticado' in st.session_state:
           st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
           archivo = st.file_uploader("Cargar archivo de audio")
           st.write(type(archivo)
-          boton_siguiente = st.button("Siguiente", type = "primary")
+                   
+          boton_siguiente = st.button("Siguiente")
           
           if boton_siguiente:
               if archivo is not None:
