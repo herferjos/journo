@@ -22,7 +22,7 @@ st.markdown(
 st.write("---")
 
 if 'diarization' not in st.session_state:
-st.session_state.diarization = cargar_diarization()
+  st.session_state.diarization = cargar_diarization()
 
 
 # Inicio de sesión
