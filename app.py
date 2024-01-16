@@ -22,8 +22,13 @@ st.markdown(
 st.write("---")
 
 if 'diarization' not in st.session_state:
-  st.session_state.diarization = cargar_diarization()
-
+  while:
+    try:
+      st.session_state.diarization = Diarizer(embed_model='xvec', cluster_method='sc')
+      break
+    except:
+      pass
+      
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
