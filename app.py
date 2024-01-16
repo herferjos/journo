@@ -30,11 +30,6 @@ if 'diarization' not in st.session_state:
     except:
       pass
 
-st.write(os.getcwd())
-
-
-if 'temp_path' in st.session_state:
-  st.write(st.session_state.temp_path)
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
