@@ -22,7 +22,8 @@ st.markdown(
 st.write("---")
 
 if 'diarization' not in st.session_state:
-  while:
+  count = 0
+  while count == 0:
     try:
       st.session_state.diarization = Diarizer(embed_model='xvec', cluster_method='sc')
       break
