@@ -43,6 +43,32 @@ def verificar_credenciales(nombre_usuario, contraseña):
     return usuarios_permitidos.get(nombre_usuario) == contraseña
 
 
+def cargar_diarization():
+# Definir el número máximo de intentos
+  max_intentos = 5
+  intentos = 0
+  
+  while intentos < max_intentos:
+      try:
+          # Intentar cargar Diarizer
+          st.session_state.diarization = Diarizer(embed_model='xvec', cluster_method='sc')
+          return diarization
+      except HTTPError as e:
+          # Manejar la excepción de límite de velocidad (403)
+          if e.code == 403:
+              intentos += 1
+              st.warning(f"Intento {intentos}: Se alcanzó el límite de velocidad. Esperando antes de volver a intentar...")
+              # Puedes ajustar el tiempo de espera según tus necesidades
+              time.sleep(5)  # Esperar 5 segundos antes de volver a intentar
+          else:
+              # Si se produce otro tipo de error, mostrar un mensaje de error y salir del bucle
+              st.error(f"Error al cargar Diarizer: {e}")
+              break
+  else:
+      # Si se alcanza el número máximo de intentos, mostrar un mensaje de error
+      st.error(f"Se ha superado el número máximo de intentos ({max_intentos}). Por favor, inténtalo más tarde.")
+  
+
 # Funciones auxiliares
 def transcribe_audio(file_path):
     with open(file_path, "rb") as audio_file:
