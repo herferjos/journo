@@ -6,6 +6,7 @@ from modules import *
 from io import BytesIO
 import re
 import html2text
+from streamlit_annotation_tools import text_highlighter
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
@@ -56,21 +57,33 @@ if 'autenticado' in st.session_state:
         Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
-        if st.button("Enviar", type = "primary"):
-            st.session_state.X = X
-            st.session_state.Y = Y
-            st.session_state.Z = Z
-            st.session_state.A = A
-            st.session_state.B = B
+        boton_eviar = st.button("Enviar información", type = "primary")
 
-            with st.spinner("Cargando tu noticia... ⌛"):
-                st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
-                st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
-                st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.rerun()
-              
+        with st.spinner("Transcribiendo mientras tu noticia... ⌛"):
+            st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
+            st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
+
+        if boton_enviar:
+            with st.spinner("Enviando información... ⌛"):
+              st.session_state.X = X
+              st.session_state.Y = Y
+              st.session_state.Z = Z
+              st.session_state.A = A
+              st.session_state.B = B
+              st.rerun()
+
+
+    if 'transcription' in st.session_state and 'noticia_generada' not in st.session_state:
+        st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
+        st.session_state.anotaciones = text_highlighter(st.session_state.transcription)
+
+        if st.button("Generar noticia", type = "primary"):
+          with st.spinner("Generando noticia... ⌛"):
+            st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+        
 
     if 'noticia_generada' in st.session_state:
+        st.write(st.session_state.anotaciones)
         st.write("## ✔️¡Listo! Aquí tienes tu noticia:")
 
         estilo_bordes_redondeados = """
