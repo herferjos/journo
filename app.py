@@ -50,18 +50,18 @@ if 'autenticado' not in st.session_state:
 
 
 if 'autenticado' in st.session_state:
-    if 'temp_path' not in st.session_state:
+    if 'path' not in st.session_state:
         st.success("¡Autenticado con éxito!")
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia. Asegúrate de que sea un archivo en formato MP3.")
         archivo = st.file_uploader("Cargar archivo de audio")
         if st.button("Siguiente", type = "primary"):
           mp3_data = convertir_a_mp3(archivo)
-          wav_data = convertir_mp3_a_wav_16khz_mono(mp3_data)
+          # wav_data = convertir_mp3_a_wav_16khz_mono(mp3_data)
           
-          temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".wav").name
-          with open(temp_path, "wb") as f:
-              f.write(wav_data)
-          st.session_state.temp_path = temp_path
+          with open('/mount/src/journo/audio.mp3', "wb") as f:
+              f.write(mp3_data)
+            
+          st.session_state.path = '/mount/src/journo/audio.mp3'
           st.rerun()
         
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
@@ -72,7 +72,7 @@ if 'autenticado' in st.session_state:
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
 
-        st.session_state.list_paths = dividir_audio(st.session_state.temp_path, st.session_state.diarization)
+        st.session_state.list_paths = dividir_audio(st.session_state.path, st.session_state.diarization)
       
         if st.button("Enviar", type = "primary"):
             st.session_state.X = X
