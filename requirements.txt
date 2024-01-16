@@ -2,5 +2,4 @@ openai
 pydub
 imageio
 html2text
-simple-diarizer
-ffmpeg-python
+streamlit-annotation-tools
