@@ -59,7 +59,7 @@ if 'autenticado' in st.session_state:
           st.session_state.path = '/mount/src/journo/audio.mp3'
           st.rerun()
         
-    if 'temp_path' in st.session_state and 'X' not in st.session_state:
+    if 'path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]")
         Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]")
