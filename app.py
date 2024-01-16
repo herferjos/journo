@@ -51,8 +51,9 @@ if 'autenticado' in st.session_state:
           st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
           archivo = st.file_uploader("Cargar archivo de audio")
           st.write(type(archivo)
-                   
-          if st.button("Siguiente", type = "primary"):
+          boton_siguiente = st.button("Siguiente", type = "primary")
+          
+          if boton_siguiente:
               if archivo is not None:
                   # Convierte el audio a formato MP3
                   mp3_data = convertir_a_mp3(archivo)
