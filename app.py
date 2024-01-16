@@ -55,7 +55,7 @@ if 'autenticado' in st.session_state:
           
           temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".wav").name
           with open(temp_path, "wb") as f:
-              f.write(wav_data.read())
+              f.write(wav_data)
           st.session_state.temp_path = temp_path
           st.rerun()
         
