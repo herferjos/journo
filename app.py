@@ -6,7 +6,6 @@ from modules import *
 from io import BytesIO
 import re
 import html2text
-from streamlit_gsheets import GSheetsConnection
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
@@ -20,15 +19,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.write("---")
-
-
-# Create a connection object.
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-
-if 'data' not in st.session_state:
-  st.session_state.data = conn.read(usecols=[0, 1, 2, 3, 4, 5, 6], worksheet = "Hoja 1")
-  st.session_state.data = st.session_state.data.dropna(how='all')
 
 
 # Inicio de sesión
@@ -74,9 +64,6 @@ if 'autenticado' in st.session_state:
                 st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
                 st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
                 st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                nueva_fila = {'Transcripcion': st.session_state.transcription, 'X': st.session_state.X, 'Y': st.session_state.Y, 'Z': st.session_state.Z, 'A': st.session_state.A, 'B': st.session_state.B, 'Noticia': st.session_state.noticia_generada}
-                st.session_state.data = st.session_state.data.append(nueva_fila, ignore_index=True)
-                conn.update(worksheet = "Hoja 1", data=st.session_state.data)
                 st.rerun()
               
 
