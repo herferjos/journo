@@ -5,11 +5,9 @@ import os
 from io import BytesIO
 import tempfile
 import json
-from simple_diarizer.diarizer import Diarizer
 from pydub import AudioSegment
 import concurrent.futures
 import io
-
 
 
 # Configuración de la clave API de OpenAI
@@ -54,25 +52,6 @@ def transcribe_audio(file_path):
         # Accede al texto de la transcripción directamente desde el objeto de respuesta
         return transcript_response.text
 
-def generar_transcripcion_conjunta(lista_diccionarios):
-    audio_transcriptions = []
-
-    # Paralelizar la transcripción de los audios
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        # Usar map para aplicar la función transcribe_audio a cada archivo de audio
-        transcriptions = list(executor.map(transcribe_audio, [diccionario['path'] for diccionario in lista_diccionarios]))
-
-    # Añadir las transcripciones a los diccionarios correspondientes
-    for i, diccionario in enumerate(lista_diccionarios):
-        diccionario['transcription'] = transcriptions[i]
-        audio_transcriptions.append(diccionario)
-
-    # Generar la transcripción conjunta
-    transcripcion_conjunta = ""
-    for diccionario in sorted(audio_transcriptions, key=lambda x: x['speaker']):
-        transcripcion_conjunta += f"{diccionario['speaker']}: {diccionario['transcription']}\n\n"
-
-    return transcripcion_conjunta
     
 def generar_noticia(transcripcion, X, Y, Z, A, B):
     prompt = """
@@ -109,73 +88,6 @@ def generar_noticia(transcripcion, X, Y, Z, A, B):
     )
 
     return json.loads(response_noticia.choices[0].message.content)['noticia']
-
-
-def dividir_audio(audio, diarization):
-    fragmentos = diarization.diarize(audio)
-
-    fragmento_agrupados = {}
-    actual_speaker = None
-    start_speaker = None
-    end_speaker = None
-
-    for fragmento in fragmentos:
-        if fragmento['label'] != actual_speaker:
-            # Cambio de hablante
-            if actual_speaker is not None:
-                # Agregar el fragmento del hablante anterior
-                fragmento_agrupado = {
-                    'speaker': actual_speaker,
-                    'path': f'/mount/src/fragmento_{len(fragmento_agrupados)+1}_{actual_speaker}.mp3',
-                }
-                fragmento_agrupados[actual_speaker] = fragmento_agrupado
-
-            # Configurar nuevo hablante
-            actual_speaker = fragmento['label']
-            start_speaker = fragmento['start']
-            end_speaker = fragmento['end']
-
-        else:
-            # Continuación del mismo hablante
-            end_speaker = fragmento['end']
-
-    # Agregar el último fragmento
-    if actual_speaker is not None:
-        fragmento_agrupado = {
-            'speaker': actual_speaker,
-            'path': f'/mount/src/fragmento_{len(fragmento_agrupados)+1}_{actual_speaker}.mp3',
-        }
-        fragmento_agrupados[actual_speaker] = fragmento_agrupado
-
-    audio_original = AudioSegment.from_file(audio)
-
-    lista_resultados = []
-
-    def process_fragmento(speaker, fragmento):
-        start_segundos = fragmento['start']
-        end_segundos = fragmento['end']
-
-        # Convierte segundos a milisegundos
-        start_milisegundos = int(start_segundos * 1000)
-        end_milisegundos = int(end_segundos * 1000)
-
-        # Extrae el fragmento de audio
-        audio_fragmento = audio_original[start_milisegundos:end_milisegundos]
-
-        nombre = fragmento['path']
-
-        # Guarda el fragmento de audio en un archivo (opcional, puedes comentar esta línea si no deseas guardar)
-        audio_fragmento.export(nombre, format='mp3')
-
-        return {
-            'speaker': fragmento['speaker'],
-            'path': nombre,
-        }
-
-    with ThreadPoolExecutor() as executor:
-        lista_resultados = list(executor.map(lambda x: process_fragmento(x[0], x[1]), fragmento_agrupados.items()))
-
-    return lista_resultados
 
 
 
