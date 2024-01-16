@@ -4,3 +4,4 @@ pydub==0.25.1
 ffmpeg-python
 imageio
 html2text
+simple-diarizer == 0.0.13
