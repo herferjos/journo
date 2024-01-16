@@ -9,8 +9,7 @@ from simple_diarizer.diarizer import Diarizer
 from pydub import AudioSegment
 import concurrent.futures
 import io
-import time
-from requests.exceptions import HTTPError 
+
 
 
 # Configuración de la clave API de OpenAI
