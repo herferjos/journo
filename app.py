@@ -42,11 +42,14 @@ if 'autenticado' in st.session_state:
     if 'temp_path' not in st.session_state:
         st.success("¡Autenticado con éxito!")
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia. Asegúrate de que sea un archivo en formato MP3.")
-        archivo = st.file_uploader("Cargar archivo de audio", type=['mp3'])
+        archivo = st.file_uploader("Cargar archivo de audio")
         if st.button("Siguiente", type = "primary"):
-          temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
+          mp3_data = convertir_a_mp3(archivo)
+          wav_data = convertir_mp3_a_wav_16khz_mono(mp3_data)
+          
+          temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".wav").name
           with open(temp_path, "wb") as f:
-              f.write(archivo.read())
+              f.write(wav_data.read())
           st.session_state.temp_path = temp_path
           st.rerun()
         
