@@ -57,7 +57,7 @@ if 'autenticado' in st.session_state:
         Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
-        boton_eviar = st.button("Enviar información", type = "primary")
+        boton_enviar = st.button("Enviar información", type = "primary")
 
         with st.spinner("Transcribiendo mientras tu noticia... ⌛"):
             st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
