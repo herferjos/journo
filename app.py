@@ -66,8 +66,6 @@ if 'autenticado' in st.session_state:
         Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
-
-        st.session_state.list_paths = dividir_audio(st.session_state.path, st.session_state.diarization)
       
         if st.button("Enviar", type = "primary"):
             st.session_state.X = X
@@ -78,6 +76,7 @@ if 'autenticado' in st.session_state:
 
             with st.spinner("Cargando tu noticia... ⌛"):
                 st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
+                st.session_state.list_paths = dividir_audio(st.session_state.path, st.session_state.diarization)
                 st.session_state.transcription = generar_transcripcion_conjunta(st.session_state.list_paths)
                 st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.rerun()
