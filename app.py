@@ -50,14 +50,15 @@ if 'autenticado' in st.session_state:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia. Asegúrate de que sea un archivo en formato MP3.")
         archivo = st.file_uploader("Cargar archivo de audio")
         if st.button("Siguiente", type = "primary"):
-          mp3_data = convertir_a_mp3(archivo)
-          # wav_data = convertir_mp3_a_wav_16khz_mono(mp3_data)
-          
-          with open('/mount/src/journo/audio.mp3', "wb") as f:
-              f.write(mp3_data)
+          with st.spinner("Cargando tu audio... ⌛"):
+            mp3_data = convertir_a_mp3(archivo)
+            # wav_data = convertir_mp3_a_wav_16khz_mono(mp3_data)
             
-          st.session_state.path = '/mount/src/journo/audio.mp3'
-          st.rerun()
+            with open('/mount/src/journo/audio.mp3', "wb") as f:
+                f.write(mp3_data)
+              
+            st.session_state.path = '/mount/src/journo/audio.mp3'
+            st.rerun()
         
     if 'path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
