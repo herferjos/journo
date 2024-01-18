@@ -57,21 +57,19 @@ if 'autenticado' in st.session_state:
         Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
-        boton_enviar = st.button("Enviar información", type = "primary")
-
-        with st.spinner("Transcribiendo mientras tu noticia... ⌛"):
-            st.warning("Este proceso puede tardar unos minutos. ¡Recuerda revisarla antes de publicar!")
-            st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
-
-        if boton_enviar:
+      
+        if st.button("Enviar información", type = "primary"):
             with st.spinner("Enviando información... ⌛"):
               st.session_state.X = X
               st.session_state.Y = Y
               st.session_state.Z = Z
               st.session_state.A = A
               st.session_state.B = B
-              st.rerun()
 
+            with st.spinner("Transcribiendo mientras tu noticia... ⌛"):
+              st.warning("Este proceso puede tardar unos minutos.")
+              st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
+              st.rerun()
 
     if 'transcription' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
