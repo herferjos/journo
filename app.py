@@ -76,12 +76,11 @@ if 'autenticado' in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
 
         st.session_state.anotaciones = text_highlighter(st.session_state.transcription)
-          
+        st.write(st.session_state.anotaciones)
         if st.button("Generar noticia", type = "primary"):
           with st.spinner("Generando noticia... ⌛"):
             st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
         
-st.write(st.session_state.anotaciones)
 
     if 'noticia_generada' in st.session_state:
         
