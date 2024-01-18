@@ -76,19 +76,41 @@ if 'autenticado' in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
 
         st.session_state.anotaciones = text_highlighter(st.session_state.transcription)
-        if st.button("Generar noticia", type = "primary"):
-          with st.spinner("Generando noticia... ⌛"):
-            
-            anotaciones = []
-            
-            for elemento in st.session_state.anotaciones:
-              for item in elemento:
-                anotaciones.append(item['label'])
-                                   
-            st.session_state.anotaciones = anotaciones
+        col1, col2, col3 = st.columns([1, 1, 10])
+        with col1:
+          if st.button("Generar noticia", type = "primary"):
+            with st.spinner("Generando noticia... ⌛"):
               
-            st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-            st.rerun()
+              anotaciones = []
+              
+              for elemento in st.session_state.anotaciones:
+                for item in elemento:
+                  anotaciones.append(item['label'])
+                                     
+              st.session_state.anotaciones = anotaciones
+  
+              if st.session_state.anotaciones_reserva == st.session_state.anotaciones:
+                st.session_state.noticia_generada = st.session_state.noticia_generada_reserva
+              else:
+                st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              
+              st.rerun()
+              
+          with col3:
+            if st.button("Volver atrás", type = "primary"):
+              st.session_state.transcription_reserva = st.session_state.transcription
+              st.session_state.X_reserva = st.session_state.X
+              st.session_state.Y_reserva = st.session_state.Y
+              st.session_state.Z_reserva = st.session_state.Z
+              st.session_state.A_reserva = st.session_state.A
+              st.session_state.B_reserva = st.session_state.B
+              
+              del st.session_state['transcription']  
+              del st.session_state['X']  
+              del st.session_state['Y']  
+              del st.session_state['Z']  
+              del st.session_state['A']  
+              del st.session_state['B']  
 
     if 'noticia_generada' in st.session_state:
         st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
@@ -108,3 +130,11 @@ if 'autenticado' in st.session_state:
 
         # Mostrar el texto con bordes redondeados
         st.markdown(f'<div class="bordes-redondeados">{st.session_state.noticia_generada}</div>', unsafe_allow_html=True)
+
+        if st.button("Volver atrás", type = "primary"):
+          st.session_state.noticia_generada_reserva = st.session_state.noticia_generada
+          st.session_state.anotaciones_reserva = st.session_state.anotaciones
+          
+          del st.session_state['noticia_generada']
+          st.rerun()
+
