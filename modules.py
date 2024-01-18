@@ -88,7 +88,31 @@ def generar_noticia(transcripcion, X, Y, Z, A, B):
     )
 
     return json.loads(response_noticia.choices[0].message.content)['noticia']
+    
 
+def dialoguer(transcripcion, X, Y, Z, A, B):
+    
+    prompt = f"""Transforma la siguiente transcripcion en un dialogo sabiendo que:
+     - Cargo: {X}
+     - Nombre: {Y}
+     - Tema relevante: {Z}
+     - Dónde: {A}
+     - Cúando: {B}"""
+    
+    messages = [
+      {"role": "system", "content": prompt},
+      {"role": "system", "content": "Recuerda que debes extraer tanto las preguntas como respuestas en su debido orden con su personaje correspondiete. Debes responder con un JSON de la siguiente forma: {'personajes': [<lista de nombre de las personas que intervienen en orden>], 'dialogo':[<lista de dialogos de cada personaje ordenado>]}"},
+      {"role": "user", "content": transcripcion},
+    ]
+
+    response = openai_client.chat.completions.create(
+            model="gpt-3.5-turbo-1106",
+            messages=messages,
+            temperature=0,
+            response_format={"type": "json_object"}
+        )
+    
+    return json.loads(response.choices[0].message.content)['dialogo']
 
 
 def convertir_a_mp3(archivo):
