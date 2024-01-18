@@ -53,7 +53,7 @@ def transcribe_audio(file_path):
         return transcript_response.text
 
     
-def generar_noticia(transcripcion, X, Y, Z, A, B):
+def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     prompt = """
     Eres un asistente para periodistas que redacta un artículo periodístico informativo utilizando la cantidad máxima de tokens disponibles a partir de declaraciones realizadas por un individuo. 
     Te proporcionaré cinco variables clave: X (cargo del individuo), Y (nombre completo del individuo), Z (tema más relevante que protagonizará los primeros párrafos), A (dónde ha dicho las declaraciones) y B (cuándo ha dicho las declaraciones); además de la propias declaraciones. 
@@ -71,23 +71,22 @@ def generar_noticia(transcripcion, X, Y, Z, A, B):
     5. No añadas información que no esté presente en las declaraciones proporcionadas. El artículo debe basarse únicamente en dichas declaraciones, por lo que debes trabajar dentro de los límites de la información proporcionada.
     6. Evita repeticiones tanto de conceptos como de palabras en todo el artículo, asegurándote de mantener una fluidez y legibilidad óptimas. Utiliza sinónimos y expresiones diferentes para mantener la diversidad lingüística. Repasa constantemente el texto y su ortografía para asegurarte de que el resultado tenga sentido durante toda su extensión y mantenga los máximos estándares de calidad, claridad y compresibilidad para un público masivo. La extensión de las frases no debe ser de más de 15 palabras y se deben priorizar las proposiciones coordinadas sobre las subordinadas. Descarta emplear conectores innecesarios al comienzo de un párrafo, como “por consiguiente”, “conviene recordar”, “en otro orden de cosas” o similares. Elimina extensas frases parentéticas e incisos explicativos que alejan al sujeto del verbo. Utiliza la voz activa antes que la pasiva, elige preferentemente palabras cortas y evita las dobles negaciones.
     7. Asegúrate de que el resultado final incluya la mayor cantidad posible de declaraciones e informaciones relacionadas con el tema principal (Z) y todos los asuntos de mayor importancia que han sido comentados. Descarta la información más superflua e irrelevante para el artículo, como saludos y coletillas orales.
-    Debes responder con un JSON de la siguiente forma: {'noticia': <string de la noticia>}
     """
+    
     messages = [
         {"role": "system", "content": prompt},
-        {"role": "user", "content": f"Aquí tienes la información necesaria para redactar el artículo. X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {transcripcion}"},
-        {"role": "user", "content": "Recuerda responder en JSON con la estructura dada y seguir todas las iinstrucciones que te he proporcionado, no olvides ninguna, sino tendra terribles consecuencias para mi."},        
+        {"role": "user", "content": f"Aquí tienes la información necesaria para redactar el artículo. X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {declaraciones}."},
+        {"role": "user", "content": f"Los momentos destacados de las declaraciones fueron: {anotaciones}"},
+        {"role": "user", "content": "Recuerda seguir todas las instrucciones que te he proporcionado, no olvides ninguna, sino tendra terribles consecuencias para mi."}      
     ]
-
+    
     response_noticia = openai_client.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model="gpt-3.5-turbo-1106",
         messages=messages,
-        max_tokens=3500,
-        temperature=0,
-        response_format={"type": "json_object"}
+        temperature=0
     )
-
-    return json.loads(response_noticia.choices[0].message.content)['noticia']
+    
+    return response_noticia.choices[0].message.content
     
 
 def dialoguer(transcripcion, X, Y, Z, A, B):
