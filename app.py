@@ -86,16 +86,12 @@ if 'autenticado' in st.session_state:
                 anotaciones.append(item['label'])
                                    
             st.session_state.anotaciones = anotaciones
-
-            
               
             st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
         
 
     if 'noticia_generada' in st.session_state:
-        st.write(st.session_state.anotaciones)
-        st.write("""## ✔️¡Listo! 
-        Aquí tienes tu noticia:""")
+        st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
 
         estilo_bordes_redondeados = """
             <style>
