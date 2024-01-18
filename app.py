@@ -84,7 +84,7 @@ if 'autenticado' in st.session_state:
             
             for elemento in st.session_state.anotaciones:
               for item in elemento:
-                anotaciones.append(item['label']
+                anotaciones.append(item['label'])
                                    
             st.session_state.anotaciones = anotaciones
               
