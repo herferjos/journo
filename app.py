@@ -65,11 +65,17 @@ if 'autenticado' in st.session_state:
               st.session_state.Z = Z
               st.session_state.A = A
               st.session_state.B = B
-
-            with st.spinner("Transcribiendo mientras tu noticia... ⌛"):
+              
+            if st.session_state.X_reserva == st.session_state.X and st.session_state.Y_reserva == st.session_state.Y and st.session_state.Z_reserva == st.session_state.Z and st.session_state.A_reserva == st.session_state.A and st.session_state.B_reserva == st.session_state.B:
+              st.rerun()
+            else:
+              if 'transcription1_reserva' in st.session_state:
+                st.session_state.transcription1 = st.session_state.transcription1_reserva
+              else:
+                st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
+                
               st.warning("Este proceso puede tardar unos minutos.")
-              transcription = transcribe_audio(st.session_state.temp_path)
-              st.session_state.transcription = dialoguer(transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
 
     if 'transcription' in st.session_state and 'noticia_generada' not in st.session_state:
@@ -98,14 +104,14 @@ if 'autenticado' in st.session_state:
               
           with col1:
             if st.button("Volver atrás", type = "primary"):
-              st.session_state.transcription_reserva = st.session_state.transcription
+              st.session_state.transcription1_reserva = st.session_state.transcription1
               st.session_state.X_reserva = st.session_state.X
               st.session_state.Y_reserva = st.session_state.Y
               st.session_state.Z_reserva = st.session_state.Z
               st.session_state.A_reserva = st.session_state.A
               st.session_state.B_reserva = st.session_state.B
               
-              del st.session_state['transcription']  
+              del st.session_state['transcription1']  
               del st.session_state['X']  
               del st.session_state['Y']  
               del st.session_state['Z']  
