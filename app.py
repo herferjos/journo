@@ -68,7 +68,8 @@ if 'autenticado' in st.session_state:
 
             with st.spinner("Transcribiendo mientras tu noticia... ⌛"):
               st.warning("Este proceso puede tardar unos minutos.")
-              st.session_state.transcription = transcribe_audio(st.session_state.temp_path)
+              transcription = transcribe_audio(st.session_state.temp_path)
+              st.session_state.transcription = dialoguer(transcription, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
 
     if 'transcription' in st.session_state and 'noticia_generada' not in st.session_state:
