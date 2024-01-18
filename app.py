@@ -35,6 +35,18 @@ if 'autenticado' not in st.session_state:
             st.error("Usuario o contraseña incorrectos")
 
 
+
+text_highlighter("""
+Hola esto es una prueba para ver si hay saltos de linea
+
+jeje
+
+-
+
+ke
+""")
+
+
 if 'autenticado' in st.session_state:
     if 'temp_path' not in st.session_state:
         st.success("¡Autenticado con éxito!")
