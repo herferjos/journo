@@ -112,7 +112,7 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
             response_format={"type": "json_object"}
         )
     
-    return json.loads(response.choices[0].message.content)['dialogo']
+    return '\n'.join(json.loads(response.choices[0].message.content)['dialogo'])
 
 
 def convertir_a_mp3(archivo):
