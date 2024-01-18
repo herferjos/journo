@@ -75,8 +75,7 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     
     messages = [
         {"role": "system", "content": prompt},
-        {"role": "user", "content": f"Aquí tienes la información necesaria para redactar el artículo. X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {declaraciones}."},
-        {"role": "user", "content": f"Los momentos destacados de las declaraciones fueron: {anotaciones}"},
+        {"role": "user", "content": f"Aquí tienes la información necesaria para redactar el artículo. X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {declaraciones}. Anotaciones de momentos destacados: {anotaciones}"},
         {"role": "user", "content": "Recuerda seguir todas las instrucciones que te he proporcionado, no olvides ninguna, sino tendra terribles consecuencias para mi."}      
     ]
     
