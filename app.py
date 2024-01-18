@@ -67,19 +67,19 @@ if 'autenticado' in st.session_state:
               st.session_state.A = A
               st.session_state.B = B
 
-            if 'X_reserva' in st.session_state:
-              if st.session_state.X_reserva == st.session_state.X and st.session_state.Y_reserva == st.session_state.Y and st.session_state.Z_reserva == st.session_state.Z and st.session_state.A_reserva == st.session_state.A and st.session_state.B_reserva == st.session_state.B:
-                st.rerun()
-              else:
-                if 'transcription1_reserva' in st.session_state:
-                  st.session_state.transcription1 = st.session_state.transcription1_reserva
+              if 'X_reserva' in st.session_state:
+                if st.session_state.X_reserva == st.session_state.X and st.session_state.Y_reserva == st.session_state.Y and st.session_state.Z_reserva == st.session_state.Z and st.session_state.A_reserva == st.session_state.A and st.session_state.B_reserva == st.session_state.B:
+                  st.rerun()
                 else:
-                  st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
-            else:
-              st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
-            
-            st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-            st.rerun()
+                  if 'transcription1_reserva' in st.session_state:
+                    st.session_state.transcription1 = st.session_state.transcription1_reserva
+                  else:
+                    st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
+              else:
+                st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
+              
+              st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              st.rerun()
 
     if 'transcription' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
