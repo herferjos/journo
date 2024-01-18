@@ -52,11 +52,11 @@ if 'autenticado' in st.session_state:
   
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-        X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]")
-        Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]")
-        Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]")
-        A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]")
-        B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]")
+        X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = 'Entrenador Real Madrid')
+        Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = 'Ancelotti')
+        Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", value = 'Partido vs Atletico de Madrid')
+        A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = 'Rueda de Prensa')
+        B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = 'Martes 12')
       
         if st.button("Enviar información", type = "primary"):
             with st.spinner("Enviando información... ⌛"):
