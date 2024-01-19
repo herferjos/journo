@@ -108,6 +108,7 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     response = openai_client.chat.completions.create(
             model="gpt-3.5-turbo-1106",
             messages=messages,
+            seed = 42,
             temperature=0,
             response_format={"type": "json_object"}
         )
