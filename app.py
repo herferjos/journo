@@ -62,7 +62,7 @@ if 'autenticado' in st.session_state:
           st.info("Puedes empezar a grabar un audio directamente desde aquí")
           audio = mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar la grabación",key='recorder')
           
-          if audio is not None and st.button("Siguiente", type = "primary")::
+          if audio is not None and st.button("Siguiente", type = "primary"):
               # Convierte el audio a formato MP3
               mp3_data = convertir_a_mp3(audio['bytes'])
       
