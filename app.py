@@ -34,6 +34,38 @@ if 'autenticado' not in st.session_state:
         else:
             st.error("Usuario o contraseña incorrectos")
 
+if 'autenticado' in st.session_state:
+  with st.expander("Informacion recopilada")
+    if 'temp_path' in st.session_state and not 'transcription2' in st.session_state:
+        st.info("Aquí tienes el audio que hemos procesado")
+        st.audio(st.session_state.wav_audio_data, format='audio/wav')
+        st.write("---")
+      
+    if 'temp_path' in st.session_state and 'transcription2' in st.session_state and not 'noticia_generada' in st.session_state:
+        audio, transcripcion = st.tabs(["Audio", "Transcripción"])
+        with audio:
+          st.info("Aquí tienes el audio que hemos procesado")
+          st.audio(st.session_state.wav_audio_data, format='audio/wav')
+        with transcripcion:
+          st.info("Aquí tienes la transcripción del audio")
+          st.audio(st.session_state.wav_audio_data, format='audio/wav')
+        st.write("---")
+      
+    if 'noticia_generada' in st.session_state:
+        audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
+        with audio:
+          st.info("Aquí tienes el audio que hemos procesado")
+          st.audio(st.session_state.wav_audio_data, format='audio/wav')
+        with transcripcion:
+          st.info("Aquí tienes la transcripción del audio")
+          st.write(st.session_state.transcription2)
+
+        with anotaciones:
+          st.info("Aquí tienes tus anotaciones")
+          st.write(st.session_state.anotaciones)
+       
+        st.write("---")
+
 
 if 'autenticado' in st.session_state:
     if 'temp_path' not in st.session_state:
@@ -75,10 +107,6 @@ if 'autenticado' in st.session_state:
             st.session_state.temp_path = temp_path
             st.rerun()
 
-    if 'temp_path' in st.session_state:
-        st.info("Aquí tienes el audio que hemos procesado")
-        st.audio(st.session_state.wav_audio_data, format='audio/wav')
-        st.write("---")
   
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
