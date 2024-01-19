@@ -43,7 +43,7 @@ if 'autenticado' in st.session_state:
         with col1:
           st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
           archivo = st.file_uploader("Cargar archivo de audio")
-          st.write(type(archivo)
+          st.write(type(archivo))
                    
           if st.button("Siguiente", type = "primary"):
               if archivo is not None:
@@ -62,7 +62,7 @@ if 'autenticado' in st.session_state:
         with col2:
           st.info("Puedes empezar a grabar un audio directamente desde aquí")
           audio = mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar la grabación",key='recorder')
-          st.write(type(audio)
+          st.write(type(audio))
           if audio is not None:
               # Convierte el audio a formato MP3
               mp3_data = convertir_a_mp3(audio['bytes'])
