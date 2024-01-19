@@ -58,7 +58,7 @@ if 'autenticado' in st.session_state:
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = 'Rueda de Prensa')
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = 'Martes 12')
       
-        col1, col2, col3 = st.columns([10, 40, 10])
+        col1, col2, col3 = st.columns([10, 60, 10])
     
         with col3:   
           if st.button("Enviar información", type = "primary"):
@@ -85,7 +85,7 @@ if 'autenticado' in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
 
         st.session_state.anotaciones = text_highlighter(st.session_state.transcription2)
-        col1, col2, col3 = st.columns([10, 10, 10])
+        col1, col2, col3 = st.columns([10, 60, 10])
         with col3:
           if st.button("Generar noticia", type = "primary"):
             with st.spinner("Generando noticia... ⌛"):
