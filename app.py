@@ -7,7 +7,7 @@ from io import BytesIO
 import re
 import html2text
 from streamlit_annotation_tools import text_highlighter
-from streamlit_mic_recorder import mic_recorder
+from st_audiorec import st_audiorec
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
@@ -60,11 +60,13 @@ if 'autenticado' in st.session_state:
 
       with col2:
         st.info("Puedes empezar a grabar un audio directamente desde aquí")
-        audio = mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar la grabación",key='recorder')
+        wav_audio_data = st_audiorec()
+
         
-        if audio is not None and st.button("Siguiente", type = "primary", key = "record"):
+        if wav_audio_data is not None and st.button("Siguiente", type = "primary", key = "record"):
+            st.audio(wav_audio_data, format='audio/wav')
             # Convierte el audio a formato MP3
-            mp3_data = convertir_a_mp3(audio['bytes'])
+            mp3_data = convertir_a_mp3(wav_audio_data)
     
             # Guarda el archivo MP3 temporalmente
             temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
