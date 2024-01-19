@@ -22,7 +22,6 @@ st.markdown(
 )
 st.write("---")
 
-
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
     nombre_usuario = st.text_input("Nombre de usuario")
