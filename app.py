@@ -44,7 +44,7 @@ if 'autenticado' in st.session_state:
           st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
           archivo = st.file_uploader("Cargar archivo de audio")
                    
-          if st.button("Siguiente", type = "primary"):
+          if st.button("Siguiente", type = "primary", key = "upload"):
               if archivo is not None:
                   # Convierte el audio a formato MP3
                   mp3_data = convertir_a_mp3(archivo)
@@ -62,7 +62,7 @@ if 'autenticado' in st.session_state:
           st.info("Puedes empezar a grabar un audio directamente desde aquí")
           audio = mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar la grabación",key='recorder')
           
-          if audio is not None and st.button("Siguiente", type = "primary"):
+          if audio is not None and st.button("Siguiente", type = "primary", key = "record"):
               # Convierte el audio a formato MP3
               mp3_data = convertir_a_mp3(audio['bytes'])
       
@@ -85,7 +85,7 @@ if 'autenticado' in st.session_state:
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = 'Martes 12')
       
  
-        if st.button("Enviar información", type = "primary"):
+        if st.button("Enviar información", type = "primary", key = "Enviar"):
             with st.spinner("Enviando información... ⌛"):
               st.warning("Este proceso puede tardar unos minutos.")
               st.session_state.X = X
