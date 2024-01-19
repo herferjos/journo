@@ -74,7 +74,10 @@ if 'autenticado' in st.session_state:
             st.session_state.temp_path = temp_path
             st.rerun()
 
-  
+    if 'temp_path' in st.session_state:
+        st.info("Aquí tienes el audio que hemos procesado")
+        st.audio(st.session_state.temp_path, format = "audio/mp3")
+        st.write("---")
   
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
