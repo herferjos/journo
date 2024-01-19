@@ -58,22 +58,22 @@ if 'autenticado' in st.session_state:
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = 'Rueda de Prensa')
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = 'Martes 12')
       
-      col1, col2, col3 = st.columns([10, 10, 10])
-
-      with col3:   
-        if st.button("Enviar información", type = "primary"):
-            with st.spinner("Enviando información... ⌛"):
-              st.warning("Este proceso puede tardar unos minutos.")
-              st.session_state.X = X
-              st.session_state.Y = Y
-              st.session_state.Z = Z
-              st.session_state.A = A
-              st.session_state.B = B
-
-              
-              st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
-              st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-              st.rerun()
+        col1, col2, col3 = st.columns([10, 10, 10])
+    
+        with col3:   
+          if st.button("Enviar información", type = "primary"):
+              with st.spinner("Enviando información... ⌛"):
+                st.warning("Este proceso puede tardar unos minutos.")
+                st.session_state.X = X
+                st.session_state.Y = Y
+                st.session_state.Z = Z
+                st.session_state.A = A
+                st.session_state.B = B
+    
+                
+                st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
+                st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.rerun()
 
       with col1:
         if st.button("Volver atrás", type = "primary"):
