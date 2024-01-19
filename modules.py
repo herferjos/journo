@@ -37,12 +37,12 @@ usuarios_permitidos = {
     "" : ""
 }
 
-@st.cache
+
 # Verificar las credenciales del usuario
 def verificar_credenciales(nombre_usuario, contraseña):
     return usuarios_permitidos.get(nombre_usuario) == contraseña
   
-@st.cache
+
 # Funciones auxiliares
 def transcribe_audio(file_path):
     with open(file_path, "rb") as audio_file:
@@ -53,7 +53,7 @@ def transcribe_audio(file_path):
         # Accede al texto de la transcripción directamente desde el objeto de respuesta
         return transcript_response.text
 
-@st.cache 
+
 def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     prompt = """
     Eres un asistente para periodistas que redacta un artículo periodístico informativo utilizando la cantidad máxima de tokens disponibles a partir de declaraciones realizadas por un individuo. 
@@ -88,7 +88,7 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     
     return response_noticia.choices[0].message.content
     
-@st.cache
+
 def dialoguer(transcripcion, X, Y, Z, A, B):
     
     prompt = f"""Transforma la siguiente transcripcion en un dialogo sabiendo que:
@@ -113,7 +113,7 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     
     return '\n'.join(json.loads(response.choices[0].message.content)['dialogo'])
 
-@st.cache
+
 def convertir_a_mp3(archivo):
     # Check if archivo is a bytes object
     if isinstance(archivo, bytes):
