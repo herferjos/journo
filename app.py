@@ -58,35 +58,25 @@ if 'autenticado' in st.session_state:
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = 'Rueda de Prensa')
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = 'Martes 12')
       
-        col1, col2, col3 = st.columns([10, 60, 10])
-    
-        with col3:   
-          if st.button("Enviar información", type = "primary"):
-              with st.spinner("Enviando información... ⌛"):
-                st.warning("Este proceso puede tardar unos minutos.")
-                st.session_state.X = X
-                st.session_state.Y = Y
-                st.session_state.Z = Z
-                st.session_state.A = A
-                st.session_state.B = B
-    
-                
-                st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
-                st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.rerun()
-
-        with col1:
-          if st.button("Volver atrás", type = "primary"):
-            del st.session_state['temp_path']
-            st.rerun()
+ 
+        if st.button("Enviar información", type = "primary"):
+            with st.spinner("Enviando información... ⌛"):
+              st.warning("Este proceso puede tardar unos minutos.")
+              st.session_state.X = X
+              st.session_state.Y = Y
+              st.session_state.Z = Z
+              st.session_state.A = A
+              st.session_state.B = B
+  
+              
+              st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
+              st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              st.rerun()
 
 
     if 'transcription2' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
-
         st.session_state.anotaciones = text_highlighter(st.session_state.transcription2)
-        col1, col2, col3 = st.columns([10, 60, 10])
-        with col3:
           if st.button("Generar noticia", type = "primary"):
             with st.spinner("Generando noticia... ⌛"):
               
@@ -101,10 +91,6 @@ if 'autenticado' in st.session_state:
               
               st.rerun()
               
-          with col1:
-            if st.button("Volver atrás", type = "primary"):
-              del st.session_state['transcription2']
-              st.rerun()
 
     if 'noticia_generada' in st.session_state:
         st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
