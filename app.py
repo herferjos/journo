@@ -58,6 +58,9 @@ if 'autenticado' in st.session_state:
         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = 'Rueda de Prensa')
         B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = 'Martes 12')
       
+      col1, col2, col3 = st.columns([10, 10, 10])
+
+      with col3:   
         if st.button("Enviar información", type = "primary"):
             with st.spinner("Enviando información... ⌛"):
               st.warning("Este proceso puede tardar unos minutos.")
@@ -67,21 +70,18 @@ if 'autenticado' in st.session_state:
               st.session_state.A = A
               st.session_state.B = B
 
-              if 'X_reserva' in st.session_state:
-                if st.session_state.X_reserva == st.session_state.X and st.session_state.Y_reserva == st.session_state.Y and st.session_state.Z_reserva == st.session_state.Z and st.session_state.A_reserva == st.session_state.A and st.session_state.B_reserva == st.session_state.B:
-                  st.rerun()
-                else:
-                  if 'transcription1_reserva' in st.session_state:
-                    st.session_state.transcription1 = st.session_state.transcription1_reserva
-                  else:
-                    st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
-              else:
-                st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
               
+              st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
               st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
 
-    if 'transcription' in st.session_state and 'noticia_generada' not in st.session_state:
+      with col1:
+        if st.button("Volver atrás", type = "primary"):
+          del st.session_state['temp_path']
+          st.rerun()
+
+
+    if 'transcription1' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
 
         st.session_state.anotaciones = text_highlighter(st.session_state.transcription)
@@ -97,29 +97,14 @@ if 'autenticado' in st.session_state:
                   anotaciones.append(item['label'])
                                      
               st.session_state.anotaciones = anotaciones
-  
-              if st.session_state.anotaciones_reserva == st.session_state.anotaciones:
-                st.session_state.noticia_generada = st.session_state.noticia_generada_reserva
-              else:
-                st.session_state.noticia_generada = generar_noticia(st.session_state.transcription, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              st.session_state.noticia_generada = generar_noticia(st.session_state.transcription2, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               
               st.rerun()
               
           with col1:
             if st.button("Volver atrás", type = "primary"):
-              st.session_state.transcription1_reserva = st.session_state.transcription1
-              st.session_state.X_reserva = st.session_state.X
-              st.session_state.Y_reserva = st.session_state.Y
-              st.session_state.Z_reserva = st.session_state.Z
-              st.session_state.A_reserva = st.session_state.A
-              st.session_state.B_reserva = st.session_state.B
-              
-              del st.session_state['transcription1']  
-              del st.session_state['X']  
-              del st.session_state['Y']  
-              del st.session_state['Z']  
-              del st.session_state['A']  
-              del st.session_state['B']  
+              del st.session_state['transcription1']
+              st.rerun()
 
     if 'noticia_generada' in st.session_state:
         st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
@@ -141,9 +126,6 @@ if 'autenticado' in st.session_state:
         st.markdown(f'<div class="bordes-redondeados">{st.session_state.noticia_generada}</div>', unsafe_allow_html=True)
 
         if st.button("Volver atrás", type = "primary"):
-          st.session_state.noticia_generada_reserva = st.session_state.noticia_generada
-          st.session_state.anotaciones_reserva = st.session_state.anotaciones
-          
           del st.session_state['noticia_generada']
           st.rerun()
 
