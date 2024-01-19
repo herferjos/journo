@@ -76,6 +76,7 @@ if 'autenticado' in st.session_state:
         archivo = st.file_uploader("Cargar archivo de audio")
                    
         if st.button("Siguiente", type = "primary", key = "upload"):
+          with st.spinner("Cargando audio... ⌛"):
             if archivo is not None:
                 # Convierte el audio a formato MP3
                 mp3_data = convertir_a_mp3(archivo)
@@ -86,7 +87,7 @@ if 'autenticado' in st.session_state:
                     f.write(mp3_data)
                   
                 st.session_state.temp_path = temp_path
-                st.session_state.wav_audio_data = convertir_a_wav(archivo_entrada)
+                st.session_state.wav_audio_data = convertir_a_wav(st.session_state.temp_path)
                 st.rerun()
 
 
@@ -96,6 +97,7 @@ if 'autenticado' in st.session_state:
 
         
         if st.button("Siguiente", type = "primary", key = "record"):
+          with st.spinner("Cargando audio... ⌛"):
             st.session_state.wav_audio_data = wav_audio_data
             # Convierte el audio a formato MP3
             mp3_data = convertir_a_mp3(wav_audio_data)
