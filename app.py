@@ -63,8 +63,8 @@ if 'autenticado' in st.session_state:
         wav_audio_data = st_audiorec()
 
         
-        if wav_audio_data is not None and st.button("Siguiente", type = "primary", key = "record"):
-            st.audio(wav_audio_data, format='audio/wav')
+        if st.button("Siguiente", type = "primary", key = "record"):
+            st.session_state.wav_audio_data = wav_audio_data
             # Convierte el audio a formato MP3
             mp3_data = convertir_a_mp3(wav_audio_data)
     
@@ -78,9 +78,7 @@ if 'autenticado' in st.session_state:
 
     if 'temp_path' in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
-        audio_file = open(st.session_state.temp_path, ‘rb’)
-        audio_bytes = audio_file.read()
-        st.audio(audio_bytes, format=‘audio/ogg’)
+        st.audio(st.session_state.wav_audio_data, format='audio/wav')
         st.write("---")
   
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
