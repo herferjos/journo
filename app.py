@@ -75,10 +75,10 @@ if 'autenticado' in st.session_state:
                 st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.rerun()
 
-      with col1:
-        if st.button("Volver atrás", type = "primary"):
-          del st.session_state['temp_path']
-          st.rerun()
+        with col1:
+          if st.button("Volver atrás", type = "primary"):
+            del st.session_state['temp_path']
+            st.rerun()
 
 
     if 'transcription2' in st.session_state and 'noticia_generada' not in st.session_state:
