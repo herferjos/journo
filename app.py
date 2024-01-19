@@ -35,7 +35,7 @@ if 'autenticado' not in st.session_state:
             st.error("Usuario o contraseña incorrectos")
 
 if 'autenticado' in st.session_state:
-  with st.expander("Informacion recopilada")
+  with st.expander("Informacion recopilada"):
     if 'temp_path' in st.session_state and not 'transcription2' in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
         st.audio(st.session_state.wav_audio_data, format='audio/wav')
