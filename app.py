@@ -86,6 +86,7 @@ if 'autenticado' in st.session_state:
                     f.write(mp3_data)
                   
                 st.session_state.temp_path = temp_path
+                st.session_state.wav_audio_data = convertir_a_wav(archivo_entrada)
                 st.rerun()
 
 
