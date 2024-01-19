@@ -111,7 +111,3 @@ if 'autenticado' in st.session_state:
         # Mostrar el texto con bordes redondeados
         st.markdown(f'<div class="bordes-redondeados">{st.session_state.noticia_generada}</div>', unsafe_allow_html=True)
 
-        if st.button("Volver atrás", type = "primary"):
-          del st.session_state['noticia_generada']
-          st.rerun()
-
