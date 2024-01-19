@@ -39,40 +39,40 @@ if 'autenticado' not in st.session_state:
 if 'autenticado' in st.session_state:
     if 'temp_path' not in st.session_state:
       st.success("¡Autenticado con éxito!")
-        col1, col2 = st.columns(2)
-        with col1:
-          st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
-          archivo = st.file_uploader("Cargar archivo de audio")
+      col1, col2 = st.columns(2)
+      with col1:
+        st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
+        archivo = st.file_uploader("Cargar archivo de audio")
                    
-          if st.button("Siguiente", type = "primary", key = "upload"):
-              if archivo is not None:
-                  # Convierte el audio a formato MP3
-                  mp3_data = convertir_a_mp3(archivo)
-          
-                  # Guarda el archivo MP3 temporalmente
-                  temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
-                  with open(temp_path, "wb") as f:
-                      f.write(mp3_data)
-                    
-                  st.session_state.temp_path = temp_path
-                  st.rerun()
+        if st.button("Siguiente", type = "primary", key = "upload"):
+            if archivo is not None:
+                # Convierte el audio a formato MP3
+                mp3_data = convertir_a_mp3(archivo)
+        
+                # Guarda el archivo MP3 temporalmente
+                temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
+                with open(temp_path, "wb") as f:
+                    f.write(mp3_data)
+                  
+                st.session_state.temp_path = temp_path
+                st.rerun()
 
 
-        with col2:
-          st.info("Puedes empezar a grabar un audio directamente desde aquí")
-          audio = mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar la grabación",key='recorder')
-          
-          if audio is not None and st.button("Siguiente", type = "primary", key = "record"):
-              # Convierte el audio a formato MP3
-              mp3_data = convertir_a_mp3(audio['bytes'])
-      
-              # Guarda el archivo MP3 temporalmente
-              temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
-              with open(temp_path, "wb") as f:
-                  f.write(mp3_data)
-                
-              st.session_state.temp_path = temp_path
-              st.rerun()
+      with col2:
+        st.info("Puedes empezar a grabar un audio directamente desde aquí")
+        audio = mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar la grabación",key='recorder')
+        
+        if audio is not None and st.button("Siguiente", type = "primary", key = "record"):
+            # Convierte el audio a formato MP3
+            mp3_data = convertir_a_mp3(audio['bytes'])
+    
+            # Guarda el archivo MP3 temporalmente
+            temp_path = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3").name
+            with open(temp_path, "wb") as f:
+                f.write(mp3_data)
+              
+            st.session_state.temp_path = temp_path
+            st.rerun()
 
   
   
