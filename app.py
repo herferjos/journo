@@ -78,7 +78,9 @@ if 'autenticado' in st.session_state:
 
     if 'temp_path' in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
-        st.audio(st.session_state.temp_path, format = "audio/mp3")
+        audio_file = open(st.session_state.temp_path, ‘rb’)
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format=‘audio/ogg’)
         st.write("---")
   
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
