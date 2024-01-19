@@ -8,6 +8,8 @@ import json
 from pydub import AudioSegment
 import concurrent.futures
 import io
+import wave
+
 
 
 # Configuración de la clave API de OpenAI
@@ -131,27 +133,18 @@ def convertir_a_mp3(archivo):
 
     return mp3_data
 
-User
-dame una función para comprobar si el archivo es de tipo wav y sino lo es, convertido sea cual sea el formato de entrada en python
 
-ChatGPT
-Puedes utilizar la biblioteca pydub para realizar la conversión de formatos y la biblioteca wave para verificar si un archivo es de tipo WAV. A continuación, te proporciono una función que hace precisamente eso:
+def convertir_a_wav(archivo_entrada):
+    # Obtener el nombre del archivo y la extensión
+    nombre_base, extension = os.path.splitext(archivo_entrada)
 
-python
-Copy code
-from pydub import AudioSegment
-import wave
+    # Verificar si la extensión es WAV
+    if extension.lower() == '.wav':
+        print(f"El archivo '{archivo_entrada}' ya es de tipo WAV. No se requiere conversión.")
+        return archivo_entrada
 
-def convertir_a_wav(archivo_entrada, archivo_salida):
-    try:
-        # Verificar si el archivo de entrada es de tipo WAV
-        with wave.open(archivo_entrada, 'rb') as wav_file:
-            # Si el archivo ya es de tipo WAV, no es necesario convertirlo
-            if wav_file.getnchannels() > 0:
-                print("El archivo ya es de tipo WAV. No se requiere conversión.")
-                return
-    except wave.Error:
-        pass  # El archivo no es de tipo WAV, continuamos con la conversión
+    # Generar el nombre de salida con extensión WAV
+    archivo_salida = f"{nombre_base}.wav"
 
     try:
         # Cargar el archivo de entrada en el formato original
@@ -160,5 +153,8 @@ def convertir_a_wav(archivo_entrada, archivo_salida):
         # Convertir a formato WAV
         audio.export(archivo_salida, format="wav")
 
+        print(f"Conversión exitosa. El archivo '{archivo_entrada}' se ha convertido a '{archivo_salida}'.")
+        return archivo_salida
     except Exception as e:
         print(f"Error al convertir el archivo: {e}")
+        return None
