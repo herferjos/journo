@@ -37,8 +37,8 @@ if 'autenticado' not in st.session_state:
 
 
 if 'autenticado' in st.session_state:
-    st.success("¡Autenticado con éxito!")
     if 'temp_path' not in st.session_state:
+      st.success("¡Autenticado con éxito!")
         col1, col2 = st.columns(2)
         with col1:
           st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
