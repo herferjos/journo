@@ -48,7 +48,7 @@ if 'autenticado' in st.session_state:
           st.audio(st.session_state.wav_audio_data, format='audio/wav')
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
-          st.audio(st.session_state.wav_audio_data, format='audio/wav')
+          st.write(st.session_state.transcription2)
         st.write("---")
       
     if 'noticia_generada' in st.session_state:
@@ -64,7 +64,7 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes tus anotaciones")
           st.write(st.session_state.anotaciones)
        
-        st.write("---")
+  st.write("---")
 
 
 if 'autenticado' in st.session_state:
