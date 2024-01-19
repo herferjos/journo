@@ -81,10 +81,10 @@ if 'autenticado' in st.session_state:
           st.rerun()
 
 
-    if 'transcription1' in st.session_state and 'noticia_generada' not in st.session_state:
+    if 'transcription2' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("✅ Aquí tienes la transcripción de tu audio. Si quieres puedes seleccionar fragmentos de ella para indicar que partes son más importantes a la hora de generar la noticia.")
 
-        st.session_state.anotaciones = text_highlighter(st.session_state.transcription)
+        st.session_state.anotaciones = text_highlighter(st.session_state.transcription2)
         col1, col2, col3 = st.columns([10, 10, 10])
         with col3:
           if st.button("Generar noticia", type = "primary"):
@@ -103,7 +103,7 @@ if 'autenticado' in st.session_state:
               
           with col1:
             if st.button("Volver atrás", type = "primary"):
-              del st.session_state['transcription1']
+              del st.session_state['transcription2']
               st.rerun()
 
     if 'noticia_generada' in st.session_state:
