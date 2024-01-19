@@ -83,6 +83,7 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     response_noticia = openai_client.chat.completions.create(
         model="gpt-3.5-turbo-1106",
         messages=messages,
+        seed = 42,
         temperature=0
     )
     
