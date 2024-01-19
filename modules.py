@@ -130,3 +130,35 @@ def convertir_a_mp3(archivo):
     mp3_data = audio_segment.export(format="mp3").read()
 
     return mp3_data
+
+User
+dame una función para comprobar si el archivo es de tipo wav y sino lo es, convertido sea cual sea el formato de entrada en python
+
+ChatGPT
+Puedes utilizar la biblioteca pydub para realizar la conversión de formatos y la biblioteca wave para verificar si un archivo es de tipo WAV. A continuación, te proporciono una función que hace precisamente eso:
+
+python
+Copy code
+from pydub import AudioSegment
+import wave
+
+def convertir_a_wav(archivo_entrada, archivo_salida):
+    try:
+        # Verificar si el archivo de entrada es de tipo WAV
+        with wave.open(archivo_entrada, 'rb') as wav_file:
+            # Si el archivo ya es de tipo WAV, no es necesario convertirlo
+            if wav_file.getnchannels() > 0:
+                print("El archivo ya es de tipo WAV. No se requiere conversión.")
+                return
+    except wave.Error:
+        pass  # El archivo no es de tipo WAV, continuamos con la conversión
+
+    try:
+        # Cargar el archivo de entrada en el formato original
+        audio = AudioSegment.from_file(archivo_entrada)
+
+        # Convertir a formato WAV
+        audio.export(archivo_salida, format="wav")
+
+    except Exception as e:
+        print(f"Error al convertir el archivo: {e}")
