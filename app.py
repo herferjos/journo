@@ -5,7 +5,6 @@ import os
 from modules import *
 from io import BytesIO
 import re
-import html2text
 from streamlit_annotation_tools import text_highlighter
 from audio_recorder_streamlit import audio_recorder
 from pydub import AudioSegment
