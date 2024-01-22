@@ -33,14 +33,14 @@ if 'autenticado' in st.session_state:
   with st.expander("Informacion recopilada"):
     if 'mp3_audio_path' in st.session_state and not 'transcription2' in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
-        st.audio(st.session_state.wav_audio_path, format='audio/wav')
+        st.audio(st.session_state.wav_audio_path)
         st.write("---")
       
     if 'mp3_audio_path' in st.session_state and 'transcription2' in st.session_state and not 'noticia_generada' in st.session_state:
         audio, transcripcion = st.tabs(["Audio", "Transcripción"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.wav_audio_path, format='audio/wav')
+          st.audio(st.session_state.wav_audio_path)
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           st.write(st.session_state.transcription2)
@@ -50,7 +50,7 @@ if 'autenticado' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.wav_audio_path, format='audio/wav')
+          st.audio(st.session_state.wav_audio_path)
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           st.write(st.session_state.transcription2)
