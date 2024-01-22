@@ -107,7 +107,7 @@ if 'autenticado' in st.session_state:
             st.session_state.wav_audio_data = audio_bytes
 
             # Convierte el audio a formato MP3
-            mp3_data = convertir_a_mp3(audio_bytes, formato="mp3")
+            mp3_data = convertir_audio(audio_bytes, formato="mp3")
     
             audio_segment = AudioSegment.from_file(io.BytesIO(mp3_data))
             
