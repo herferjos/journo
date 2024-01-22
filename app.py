@@ -15,7 +15,7 @@ c1,c2=st.columns(2)
 with c1:
     st.write("Convert speech to text:")
 with c2:
-    text=speech_to_text(language='en',use_container_width=True,just_once=True,key='STT')
+    text=speech_to_text(language='es',use_container_width=True,just_once=True,key='STT')
 
 if text:       
     state.text_received.append(text)
