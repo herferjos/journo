@@ -33,14 +33,14 @@ if 'autenticado' in st.session_state:
   with st.expander("Informacion recopilada"):
     if 'mp3_audio_path' in st.session_state and not 'transcription2' in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
-        st.write(st.session_state.wav_audio_path)
+        st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         st.write("---")
       
     if 'mp3_audio_path' in st.session_state and 'transcription2' in st.session_state and not 'noticia_generada' in st.session_state:
         audio, transcripcion = st.tabs(["Audio", "Transcripción"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
-          st.write(st.session_state.wav_audio_path)
+          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           st.write(st.session_state.transcription2)
@@ -50,7 +50,7 @@ if 'autenticado' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
-          st.write(st.session_state.wav_audio_path)
+          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           st.write(st.session_state.transcription2)
@@ -69,14 +69,13 @@ if 'autenticado' in st.session_state:
       with col1:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
         archivo = st.file_uploader("Cargar archivo de audio")
-        st.audio(archivo, format="audio/mpeg")
+        
         if st.button("Siguiente", type = "primary", key = "upload"):
           with st.spinner("Cargando audio... ⌛"):
             if archivo is not None:
                 # Convierte el audio a formato MP3
                 mp3_bytes = audio_a_bytes(archivo)
-              
-                st.session_state.wav_audio_path = bytes_a_audio(mp3_bytes, formato_destino="wav")               
+                          
                 st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
               
                 st.rerun()
