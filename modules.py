@@ -118,24 +118,29 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     return '\n'.join(json.loads(response.choices[0].message.content)['dialogo'])
 
 
-def convertir_audio(archivo, formato):
-    # Check if archivo is a bytes object
-    if isinstance(archivo, bytes):
-        # If it's a bytes object, create a BytesIO object for reading
-        archivo = io.BytesIO(archivo)
-
-    # Now archivo should be a file-like object, and you can read from it
-    audio_data = archivo.read()
-
-    # Convert bytes to AudioSegment
-    audio_segment = AudioSegment.from_file(io.BytesIO(audio_data))
-
-    # Export to the specified format (mp3 or wav)
-    if formato.lower() == "mp3":
-        converted_data = audio_segment.export(format="mp3").read()
-    elif formato.lower() == "wav":
-        converted_data = audio_segment.export(format="wav").read()
+def convertir_audio(input_data, formato):
+    if isinstance(input_data, bytes):
+        # Si la entrada ya son bytes, no es necesario realizar ninguna conversión
+        audio_bytes_io = BytesIO(input_data)
+    elif hasattr(input_data, 'read'):
+        # Si la entrada es un archivo (objeto con el método 'read')
+        audio_content = input_data.read()
+        audio_bytes_io = BytesIO(audio_content)
     else:
-        raise ValueError("Formato no válido. Use 'mp3' o 'wav'.")
+        st.warning("Entrada no válida. Debe ser un archivo o bytes.")
+        return None
 
-    return converted_data
+    # Convertir a formato especificado (mp3 o wav)
+    if formato.lower() == 'mp3':
+        audio = AudioSegment.from_file(audio_bytes_io)
+        audio_bytes_io = BytesIO()
+        audio.export(audio_bytes_io, format="mp3")
+    elif formato.lower() == 'wav':
+        audio = AudioSegment.from_file(audio_bytes_io)
+        audio_bytes_io = BytesIO()
+        audio.export(audio_bytes_io, format="wav")
+    else:
+        st.warning("Formato no compatible. Por favor, elige mp3 o wav.")
+        return None
+
+    return audio_bytes_io.getvalue()
