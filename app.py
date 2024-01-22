@@ -1,13 +1,8 @@
 from openai import OpenAI
 import streamlit as st
-import tempfile
-import os
 from modules import *
-from io import BytesIO
-import re
 from streamlit_annotation_tools import text_highlighter
 from audio_recorder_streamlit import audio_recorder
-from pydub import AudioSegment
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
@@ -75,26 +70,15 @@ if 'autenticado' in st.session_state:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
         archivo = st.file_uploader("Cargar archivo de audio")
 
-        st.write(archivo)
-                   
         if st.button("Siguiente", type = "primary", key = "upload"):
           with st.spinner("Cargando audio... ⌛"):
             if archivo is not None:
                 # Convierte el audio a formato MP3
-                mp3_data = convertir_audio(archivo, formato="mp3")
+                mp3_bytes = audio_a_bytes(archivo)
               
-                st.session_state.wav_audio_data = convertir_audio(archivo, formato="wav")
-        
-                audio_segment = AudioSegment.from_file(io.BytesIO(mp3_data))
-                
-                # Crear un archivo temporal
-                with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_file:
-                    temp_filename = temp_file.name
-                
-                    # Exportar el AudioSegment al formato deseado y guardar en el archivo temporal
-                    audio_segment.export(temp_filename, format="mp3")
-                  
-                st.session_state.temp_path = temp_filename
+                st.session_state.wav_audio_path = bytes_a_audio(mp3_bytes, formato_destino="wav")               
+                st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
+              
                 st.rerun()
 
 
@@ -105,22 +89,10 @@ if 'autenticado' in st.session_state:
         
         if st.button("Siguiente", type = "primary", key = "record"):
           with st.spinner("Cargando audio... ⌛"):
-            st.session_state.wav_audio_data = audio_bytes
-
-            # Convierte el audio a formato MP3
-            mp3_data = convertir_audio(audio_bytes, formato="mp3")
-    
-            audio_segment = AudioSegment.from_file(io.BytesIO(mp3_data))
+              st.session_state.wav_audio_path = bytes_a_audio(audio_bytes, formato_destino="wav")               
+              st.session_state.mp3_audio_path = bytes_a_audio(audio_bytes, formato_destino="mp3")
             
-            # Crear un archivo temporal
-            with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_file:
-                temp_filename = temp_file.name
-            
-                # Exportar el AudioSegment al formato deseado y guardar en el archivo temporal
-                audio_segment.export(temp_filename, format="mp3")
-              
-            st.session_state.temp_path = temp_filename
-            st.rerun()
+              st.rerun()
 
   
     if 'temp_path' in st.session_state and 'X' not in st.session_state:
