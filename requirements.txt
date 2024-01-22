@@ -3,4 +3,4 @@ pydub
 imageio
 ffmpeg-python
 streamlit-annotation-tools
-audio-recorder-streamlit
+streamlit-mic-recorder
