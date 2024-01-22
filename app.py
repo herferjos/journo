@@ -87,8 +87,7 @@ if 'autenticado' in st.session_state:
         audio_bytes = audio_recorder()
         
         if st.button("Siguiente", type = "primary", key = "record"):
-          with st.spinner("Cargando audio... ⌛"):
-              st.session_state.wav_audio_path = bytes_a_audio(audio_bytes, formato_destino="wav")               
+          with st.spinner("Cargando audio... ⌛"):            
               st.session_state.mp3_audio_path = bytes_a_audio(audio_bytes, formato_destino="mp3")
             
               st.rerun()
