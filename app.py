@@ -69,7 +69,7 @@ if 'autenticado' in st.session_state:
       with col1:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
         archivo = st.file_uploader("Cargar archivo de audio")
-
+        st.audio(archivo, format="audio/mpeg")
         if st.button("Siguiente", type = "primary", key = "upload"):
           with st.spinner("Cargando audio... ⌛"):
             if archivo is not None:
