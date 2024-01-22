@@ -31,16 +31,16 @@ if 'autenticado' not in st.session_state:
 
 if 'autenticado' in st.session_state:
   with st.expander("Informacion recopilada"):
-    if 'temp_path' in st.session_state and not 'transcription2' in st.session_state:
+    if 'mp3_audio_path' in st.session_state and not 'transcription2' in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
-        st.audio(st.session_state.wav_audio_data, format='audio/wav')
+        st.audio(st.session_state.wav_audio_path, format='audio/wav')
         st.write("---")
       
-    if 'temp_path' in st.session_state and 'transcription2' in st.session_state and not 'noticia_generada' in st.session_state:
+    if 'mp3_audio_path' in st.session_state and 'transcription2' in st.session_state and not 'noticia_generada' in st.session_state:
         audio, transcripcion = st.tabs(["Audio", "Transcripción"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.wav_audio_data, format='audio/wav')
+          st.audio(st.session_state.wav_audio_path, format='audio/wav')
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           st.write(st.session_state.transcription2)
@@ -50,7 +50,7 @@ if 'autenticado' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.wav_audio_data, format='audio/wav')
+          st.audio(st.session_state.wav_audio_path, format='audio/wav')
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           st.write(st.session_state.transcription2)
@@ -63,7 +63,7 @@ if 'autenticado' in st.session_state:
 
 
 if 'autenticado' in st.session_state:
-    if 'temp_path' not in st.session_state:
+    if 'mp3_audio_path' not in st.session_state:
       st.success("¡Autenticado con éxito!")
       col1, col2 = st.columns(2)
       with col1:
@@ -95,7 +95,7 @@ if 'autenticado' in st.session_state:
               st.rerun()
 
   
-    if 'temp_path' in st.session_state and 'X' not in st.session_state:
+    if 'mp3_audio_path' in st.session_state and 'X' not in st.session_state:
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = 'Entrenador Real Madrid')
         Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = 'Ancelotti')
@@ -114,7 +114,7 @@ if 'autenticado' in st.session_state:
               st.session_state.B = B
   
               
-              st.session_state.transcription1 = transcribe_audio(st.session_state.temp_path)
+              st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
               st.session_state.transcription2 = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
 
