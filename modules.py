@@ -3,13 +3,11 @@ import streamlit as st
 import tempfile
 import os
 from io import BytesIO
-import tempfile
 import json
 from pydub import AudioSegment
 import concurrent.futures
 import io
-import wave
-
+import base64
 
 
 # Configuración de la clave API de OpenAI
@@ -118,29 +116,28 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     return '\n'.join(json.loads(response.choices[0].message.content)['dialogo'])
 
 
-def convertir_audio(input_data, formato):
-    if isinstance(input_data, bytes):
-        # Si la entrada ya son bytes, no es necesario realizar ninguna conversión
-        audio_bytes_io = BytesIO(input_data)
-    elif hasattr(input_data, 'read'):
-        # Si la entrada es un archivo (objeto con el método 'read')
-        audio_content = input_data.read()
-        audio_bytes_io = BytesIO(audio_content)
-    else:
-        st.warning("Entrada no válida. Debe ser un archivo o bytes.")
+def audio_a_bytes(archivo_audio):
+    # Obtener los bytes del archivo de audio
+    contenido_bytes = archivo_audio.read()
+    return contenido_bytes
+
+
+def bytes_a_audio(bytes_audio, formato_destino="mp3"):
+    # Crear un objeto AudioSegment a partir de los bytes
+    audio_segment = AudioSegment.from_file(BytesIO(bytes_audio))
+
+    # Convertir el audio al formato deseado
+    formato_destino = formato_destino.lower()
+    if formato_destino not in ["mp3", "wav"]:
+        print("Formato no compatible. Selecciona 'mp3' o 'wav'.")
         return None
 
-    # Convertir a formato especificado (mp3 o wav)
-    if formato.lower() == 'mp3':
-        audio = AudioSegment.from_file(audio_bytes_io)
-        audio_bytes_io = BytesIO()
-        audio.export(audio_bytes_io, format="mp3")
-    elif formato.lower() == 'wav':
-        audio = AudioSegment.from_file(audio_bytes_io)
-        audio_bytes_io = BytesIO()
-        audio.export(audio_bytes_io, format="wav")
-    else:
-        st.warning("Formato no compatible. Por favor, elige mp3 o wav.")
-        return None
+    # Crear un archivo temporal con extensión deseada
+    with tempfile.NamedTemporaryFile(delete=False, suffix=f".{formato_destino}") as temp_file:
+        temp_path = temp_file.name
 
-    return audio_bytes_io.getvalue()
+        # Exportar el audio en el nuevo formato
+        audio_segment.export(temp_path, format=formato_destino)
+
+    return temp_path
+
