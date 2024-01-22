@@ -118,7 +118,7 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     return '\n'.join(json.loads(response.choices[0].message.content)['dialogo'])
 
 
-def convertir_a_mp3(archivo):
+def convertir_audio(archivo, formato):
     # Check if archivo is a bytes object
     if isinstance(archivo, bytes):
         # If it's a bytes object, create a BytesIO object for reading
@@ -127,34 +127,15 @@ def convertir_a_mp3(archivo):
     # Now archivo should be a file-like object, and you can read from it
     audio_data = archivo.read()
 
-    # Rest of your code remains unchanged
+    # Convert bytes to AudioSegment
     audio_segment = AudioSegment.from_file(io.BytesIO(audio_data))
-    mp3_data = audio_segment.export(format="mp3").read()
 
-    return mp3_data
+    # Export to the specified format (mp3 or wav)
+    if formato.lower() == "mp3":
+        converted_data = audio_segment.export(format="mp3").read()
+    elif formato.lower() == "wav":
+        converted_data = audio_segment.export(format="wav").read()
+    else:
+        raise ValueError("Formato no válido. Use 'mp3' o 'wav'.")
 
-
-def convertir_a_wav(archivo_entrada):
-    # Obtener el nombre del archivo y la extensión
-    nombre_base, extension = os.path.splitext(archivo_entrada)
-
-    # Verificar si la extensión es WAV
-    if extension.lower() == '.wav':
-        print(f"El archivo '{archivo_entrada}' ya es de tipo WAV. No se requiere conversión.")
-        return archivo_entrada
-
-    # Generar el nombre de salida con extensión WAV
-    archivo_salida = f"{nombre_base}.wav"
-
-    try:
-        # Cargar el archivo de entrada en el formato original
-        audio = AudioSegment.from_file(archivo_entrada)
-
-        # Convertir a formato WAV
-        audio.export(archivo_salida, format="wav")
-
-        print(f"Conversión exitosa. El archivo '{archivo_entrada}' se ha convertido a '{archivo_salida}'.")
-        return archivo_salida
-    except Exception as e:
-        print(f"Error al convertir el archivo: {e}")
-        return None
+    return converted_data
