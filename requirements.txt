@@ -1,6 +1,6 @@
 openai
 pydub
 imageio
-html2text
+ffmpeg-python
 streamlit-annotation-tools
 audio-recorder-streamlit
