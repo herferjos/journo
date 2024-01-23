@@ -347,10 +347,11 @@ if 'autenticado' in st.session_state:
           lista_anotaciones = list(st.session_state.anotaciones.keys())
  
           for i in range(len(lista_anotaciones)):
-            st.write(f"### {lista_anotaciones[i]}")
-            with st.expander('Ver anotaciones'):
-              for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
-                st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
+            if len(st.session_state.anotaciones[lista_anotaciones[i]]) > 0:
+              st.write(f"### {lista_anotaciones[i]}")
+              with st.expander('Ver anotaciones'):
+                for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
+                  st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
 
         if st.button("Generar noticia", type = "primary"):
           with st.spinner("Generando noticia... ⌛"):
