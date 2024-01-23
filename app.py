@@ -53,11 +53,11 @@ if 'autenticado' in st.session_state:
           coincidencias = re.findall(patron, texto)
           
           for elemento in coincidencias:
-              texto_formateado = f'**{elemento}**'
-              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)    
+              texto_formateado = f'<u><b>{elemento}</u></b>'
+              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
                     
           # Mostrar el texto formateado
-          st.write(texto)
+          st.write(texto, unsafe_allow_html=True)
       
     if 'noticia_generada' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
@@ -78,7 +78,7 @@ if 'autenticado' in st.session_state:
               texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
                     
           # Mostrar el texto formateado
-          st.markdown(texto, unsafe_allow_html=True)
+          st.write(texto, unsafe_allow_html=True)
 
         with anotaciones:
           st.info("Aquí tienes tus anotaciones")
