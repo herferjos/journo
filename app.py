@@ -18,8 +18,6 @@ st.markdown(
 )
 st.write("---")
 
-prueba = text_highlighter('\n\n- '.join(st.session_state.lista_transcription))
-
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
@@ -47,7 +45,9 @@ if 'autenticado' in st.session_state:
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
-          st.write('\n'.join(st.session_state.lista_transcription))
+          lista_transcription = st.session_state.lista_transcription
+          lista_transcription[0] = '- ' + lista_transcription[0]
+          st.write('\n\n- '.join(lista_transcription))
         st.write("---")
       
     if 'noticia_generada' in st.session_state:
@@ -57,7 +57,9 @@ if 'autenticado' in st.session_state:
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
-          st.write('\n'.join(st.session_state.lista_transcription))
+          lista_transcription = st.session_state.lista_transcription
+          lista_transcription[0] = '- ' + lista_transcription[0]
+          st.write('\n\n- '.join(lista_transcription))
 
         with anotaciones:
           st.info("Aquí tienes tus anotaciones")
