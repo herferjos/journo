@@ -187,7 +187,7 @@ if 'autenticado' in st.session_state:
     if 'transcription2' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
 
-        for i in range(len(st.session_state.topics)):
+        for i in range(len(st.session_state.topics)-1):
           locals()[f"st.session_state.on_{st.session_state.topics[i]}"] = st.toggle(st.session_state.topics[i], key = f"{st.session_state.topics[i]}")
           with st.expander('Ver diálogos'):
             for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
