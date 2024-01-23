@@ -39,10 +39,18 @@ if 'autenticado' in st.session_state:
         st.write("---")
       
     if 'transcription2' in st.session_state and not 'new_dialogos' in st.session_state:
-        audio, transcripcion = st.tabs(["Audio", "Transcripción"])
+        audio, contexto, transcripcion = st.tabs(["Audio", "Contexto", "Transcripción"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+        with contexto:
+          st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
+          st.write(f"### :blue[¿Cuál es el cargo de la persona que habla?]: {st.session_state.X}")
+          st.write(f"### :blue[¿Cuál es el nombre de la persona que habla?]: {st.session_state.Y}")
+          st.write(f"### :blue[¿Cuál es el tema más relevante del que ha hablado?]: {st.session_state.Z}")
+          st.write(f"### :blue[¿Dónde ha dicho las declaraciones?]: {st.session_state.A}")
+          st.write(f"### :blue[Cuándo ha dicho las declaraciones?]: {st.session_state.B}")
+          
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
@@ -58,6 +66,7 @@ if 'autenticado' in st.session_state:
                     
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
+        st.write("---")
 
 
     if 'new_dialogos' in st.session_state and not 'anotaciones' in st.session_state:
@@ -98,9 +107,9 @@ if 'autenticado' in st.session_state:
                 texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
                       
             # Mostrar el texto formateado
-            st.write(texto, unsafe_allow_html=True)    
+            st.write(texto, unsafe_allow_html=True)  
        
-  st.write("---")
+        st.write("---")
 
 
 if 'autenticado' in st.session_state:
@@ -258,6 +267,7 @@ if 'autenticado' in st.session_state:
           st.rerun()
 
     if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
+        st.write("# Resumen de la información recopilada")
         audio, transcripcion, topics, annotation = st.tabs(["Audio", "Transcripción", "Temas seleccionados", "Anotaciones"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
