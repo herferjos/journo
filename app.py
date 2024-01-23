@@ -3,7 +3,7 @@ import streamlit as st
 from modules import *
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
-
+import re
 
 st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
 
