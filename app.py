@@ -126,19 +126,19 @@ if 'autenticado' in st.session_state:
 
           for i in range(len(lista_claves)):
             st.write(f"### {lista_claves[i]}")
-              with st.expander('Ver diálogos'):
-                  texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
-                  texto = '- ' + texto
-                  
-                  patron = r'- (.+):'
-                  coincidencias = re.findall(patron, texto)
-                  
-                  for elemento in coincidencias:
-                      texto_formateado = f'<u><b>{elemento}</u></b>'
-                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                            
-                  # Mostrar el texto formateado
-                  st.write(texto, unsafe_allow_html=True)
+            with st.expander('Ver diálogos'):
+                texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
+                texto = '- ' + texto
+                
+                patron = r'- (.+):'
+                coincidencias = re.findall(patron, texto)
+                
+                for elemento in coincidencias:
+                    texto_formateado = f'<u><b>{elemento}</u></b>'
+                    texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                          
+                # Mostrar el texto formateado
+                st.write(texto, unsafe_allow_html=True)
         
         with annotation:
           lista_anotaciones = list(st.session_state.anotaciones.keys())
