@@ -184,7 +184,7 @@ if 'autenticado' in st.session_state:
           
           st.rerun()
           
-    if 'transcription2' in st.session_state and 'noticia_generada' not in st.session_state:
+    if 'topics' in st.session_state and 'new_dialogos' not in st.session_state:
         st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
 
         for i in range(len(st.session_state.topics)):
@@ -202,45 +202,49 @@ if 'autenticado' in st.session_state:
                     texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
                           
                 # Mostrar el texto formateado
-                st.write(texto, unsafe_allow_html=True)
-
-                
-              
-        if st.button("Prueba anotaciones", type = "primary"):
-          with st.spinner("Probando... ⌛"):
-            
+                st.write(texto, unsafe_allow_html=True)         
+        
+        if st.button("Siguiente", type = "primary"):
+          with st.spinner("Procesando la información... ⌛"):
+            st.session_state.new_dialogos = {}
             for i in range(len(st.session_state.topics)):
               if st.session_state[f'on_{st.session_state.topics[i]}']:
-                pass
-              else:
-                del st.session_state.dialogos_topics[st.session_state.topics[i]]
+                st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
 
             st.rerun()
 
       
-        if st.button("Generar noticia", type = "primary"):
-          with st.spinner("Generando noticia... ⌛"):
-            anotaciones = {}
-            
-            for i in range(len(st.session_state.topics)):
-              if locals()[f"st.session_state.on_{st.session_state.topics[i]}"]:
-                anotaciones[f'{st.session_state.topics[i]}'] = []
-                for elemento in locals()[f"st.session_state.anotaciones_{st.session_state.topics[i]}_{j}"]:
-                  for item in elemento:
-                    anotaciones[f'{st.session_state.topics[i]}'].append(item['label'])
-              else:
-                del st.session_state.dialogos_topics[st.session_state.topics[i]]
-                  
-                                   
-            st.session_state.anotaciones = anotaciones
-            st.session_state.noticia_generada = generar_noticia(st.session_state.transcription2, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-            
-            st.rerun()
+    if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
+      st.info("Subraya aquellas frases que quieras mencionar explícitamente en la noticia")
+
+      lista_claves = list(st.session_state.new_dialogos.keys())
+
+      for i in range(len(lista_claves)):
+        st.write(f"## {lista_claves[i]}")
+        with st.expander('Ver diálogos'):
+            for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
+              st.session_state[f'anotaciones_{lista_claves[i]}_{j}'] = text_highlighter(st.session_state.new_dialogos[lista[i]][j])
+
+      if st.button("Siguiente", type = "primary"):
+        with st.spinner("Procesando información... ⌛"):
+          st.session_state.anotaciones = []
+          
+          lista_claves = list(st.session_state.new_dialogos.keys())
+
+          for i in range(len(lista_claves)):
+            for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
+              for elemento in st.session_state[f'anotaciones_{lista_claves[i]}_{j}']:
+                for item in elemento:
+                  st.session_state.anotaciones.append(item['label'])
+                
+                                  
+          # st.session_state.noticia_generada = generar_noticia(st.session_state.transcription2, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+          
+          st.rerun()
               
     if 'anotaciones' in st.session_state:
       st.write(st.session_state.anotaciones)
-      st.write(st.session_state.topics)
-      st.write(st.session_state.dialogos_topics)
+      st.write(st.session_state.new_dialogos)
 
 
       
