@@ -191,7 +191,7 @@ if 'autenticado' in st.session_state:
           locals()[f"st.session_state.on_{st.session_state.topics[i]}"] = st.toggle(st.session_state.topics[i], key = f"{st.session_state.topics[i]}")
           with st.expander('Ver diálogos'):
             for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
-              locals()[f"st.session_state.anotaciones_{st.session_state.topics[i]}_{j}"] = text_highlighter(st.session_state.dialogos_topics[st.session_state.topics[i]][j], key = f"{st.session_state.topics[i]}_{j}")
+              locals()[f"st.session_state.anotaciones_{st.session_state.topics[i]}_{j}"] = text_highlighter(st.session_state.dialogos_topics[st.session_state.topics[i]][j])
               
         if st.button("Prueba anotaciones", type = "primary"):
           with st.spinner("Probando... ⌛"):
