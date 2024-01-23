@@ -46,7 +46,7 @@ if 'autenticado' in st.session_state:
 
         with contexto:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
-          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?] ## jeje")
+          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
           st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
           st.write(st.session_state.Y)
