@@ -37,12 +37,12 @@ usuarios_permitidos = {
     "" : ""
 }
 
-
+st.cache_resource(show_spinner = False)
 # Verificar las credenciales del usuario
 def verificar_credenciales(nombre_usuario, contraseña):
     return usuarios_permitidos.get(nombre_usuario) == contraseña
   
-
+st.cache_resource(show_spinner = False)
 # Funciones auxiliares
 def transcribe_audio(file_path):
     with open(file_path, "rb") as audio_file:
@@ -54,6 +54,7 @@ def transcribe_audio(file_path):
         return transcript_response.text
 
 
+st.cache_resource(show_spinner = False)
 def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     prompt = """
     Eres un asistente para periodistas que redacta un artículo periodístico informativo utilizando la cantidad máxima de tokens disponibles a partir de declaraciones realizadas por un individuo. 
@@ -89,7 +90,7 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     
     return response_noticia.choices[0].message.content
     
-
+st.cache_resource(show_spinner = False)
 def dialoguer(transcripcion, X, Y, Z, A, B):
     
     prompt = f"""Transforma la siguiente transcripcion en un dialogo sabiendo que:
@@ -115,6 +116,8 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     
     return '\n'.join(json.loads(response.choices[0].message.content)['dialogo']), json.loads(response.choices[0].message.content)['dialogo']
 
+
+st.cache_resource(show_spinner = False)
 def topicer(lista_transcription):
     
     texto = '\n\n- '.join(lista_transcription)
@@ -140,13 +143,13 @@ def topicer(lista_transcription):
 
     return dicc['topics'], dicc['diccionario_dialogos']
 
-
+st.cache_resource(show_spinner = False)
 def audio_a_bytes(archivo_audio):
     # Obtener los bytes del archivo de audio
     contenido_bytes = archivo_audio.read()
     return contenido_bytes
 
-
+st.cache_resource(show_spinner = False)
 def bytes_a_audio(bytes_audio, formato_destino="mp3"):
     # Crear un objeto AudioSegment a partir de los bytes
     audio_segment = AudioSegment.from_file(BytesIO(bytes_audio))
