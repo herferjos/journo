@@ -145,9 +145,9 @@ if 'autenticado' in st.session_state:
 
           for i in range(len(lista_anotaciones)):
             st.write(f"### {lista_anotaciones[i]}")
-              with st.expander('Ver anotaciones'):
-                for j in range(len(st.session_state[lista_anotaciones[i]])):
-                  st.write(f"- {st.session_state[lista_anotaciones[i]][j]}")
+            with st.expander('Ver anotaciones'):
+              for j in range(len(st.session_state[lista_anotaciones[i]])):
+                st.write(f"- {st.session_state[lista_anotaciones[i]][j]}")
 
     if 'noticia_generada' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
