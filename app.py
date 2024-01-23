@@ -381,17 +381,29 @@ if 'autenticado' in st.session_state:
 import streamlit as st
 import pkg_resources
 
-def mostrar_versiones_bibliotecas():
+def generar_requirements_txt():
     # Obtener la información de las bibliotecas instaladas
     bibliotecas_instaladas = [dist.project_name for dist in pkg_resources.working_set]
-    
-    # Mostrar las versiones de las bibliotecas
-    for libreria in bibliotecas_instaladas:
-        version = pkg_resources.get_distribution(libreria).version
-        st.write(f"{libreria} == {version}")
+
+    # Crear el contenido para el archivo requirements.txt
+    contenido_requirements = [f"{libreria}=={pkg_resources.get_distribution(libreria).version}" for libreria in bibliotecas_instaladas]
+
+    # Crear el contenido como una cadena de texto
+    contenido_str = "\n".join(contenido_requirements)
+
+    return contenido_str
 
 # Crear una aplicación Streamlit
-st.title("Versiones de Bibliotecas")
+st.title("Generar requirements.txt desde Streamlit")
 
-# Mostrar las versiones de las bibliotecas en la interfaz de usuario
-mostrar_versiones_bibliotecas()
+# Agregar un botón para generar y descargar el archivo requirements.txt
+if st.button("Generar y Descargar requirements.txt"):
+    contenido = generar_requirements_txt()
+    st.download_button(
+        label="Descargar requirements.txt",
+        data=contenido,
+        file_name="requirements.txt",
+        key="requirements_download",
+    )
+    st.success("El archivo requirements.txt ha sido generado y está listo para descargar.")
+
