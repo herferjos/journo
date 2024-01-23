@@ -47,7 +47,7 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           lista_transcription[0] = '- ' + lista_transcription[0]
-          lista_transcription = '\n\n- '.join(lista_transcription)
+          texto = '\n\n- '.join(lista_transcription)
           
           patron = re.compile(r'\n\n- ([^:]+):|-\s*([^:]+):')
           
@@ -56,13 +56,12 @@ if 'autenticado' in st.session_state:
           
           # Procesar las coincidencias
           for match in coincidencias:
-              texto_encontrado = match[0] if match[0] else match[1]
-              
-              # Aplicar formato HTML con negrita y subrayado
-              texto_formateado = f"<u><b>{texto_encontrado}</b></u>"
+                  texto_a_formatear = match.strip()
+                  texto_formateado = f"<u><b>{texto_a_formatear}</b></u>"
+                  texto = texto.replace(match, texto_formateado)
               
               # Mostrar el texto formateado
-              st.markdown(texto_formateado, unsafe_allow_html=True)
+              st.markdown(texto, unsafe_allow_html=True)
             
         st.write("---")
       
