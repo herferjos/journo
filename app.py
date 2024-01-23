@@ -86,19 +86,18 @@ if 'autenticado' in st.session_state:
 
           for i in range(len(lista_claves)):
             st.write(f"### {lista_claves[i]}")
-            with st.expander('Ver diálogos'):
-                texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
-                texto = '- ' + texto
-                
-                patron = r'- (.+):'
-                coincidencias = re.findall(patron, texto)
-                
-                for elemento in coincidencias:
-                    texto_formateado = f'<u><b>{elemento}</u></b>'
-                    texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                          
-                # Mostrar el texto formateado
-                st.write(texto, unsafe_allow_html=True)    
+            texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
+            texto = '- ' + texto
+            
+            patron = r'- (.+):'
+            coincidencias = re.findall(patron, texto)
+            
+            for elemento in coincidencias:
+                texto_formateado = f'<u><b>{elemento}</u></b>'
+                texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                      
+            # Mostrar el texto formateado
+            st.write(texto, unsafe_allow_html=True)    
 
     if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
         audio, transcripcion, topics, annotation = st.tabs(["Audio", "Transcripción", "Temas seleccionados", "Anotaciones"])
@@ -126,28 +125,26 @@ if 'autenticado' in st.session_state:
 
           for i in range(len(lista_claves)):
             st.write(f"### {lista_claves[i]}")
-            with st.expander('Ver diálogos'):
-                texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
-                texto = '- ' + texto
-                
-                patron = r'- (.+):'
-                coincidencias = re.findall(patron, texto)
-                
-                for elemento in coincidencias:
-                    texto_formateado = f'<u><b>{elemento}</u></b>'
-                    texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                          
-                # Mostrar el texto formateado
-                st.write(texto, unsafe_allow_html=True)
+            texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
+            texto = '- ' + texto
+            
+            patron = r'- (.+):'
+            coincidencias = re.findall(patron, texto)
+            
+            for elemento in coincidencias:
+                texto_formateado = f'<u><b>{elemento}</u></b>'
+                texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                      
+            # Mostrar el texto formateado
+            st.write(texto, unsafe_allow_html=True)
         
         with annotation:
           lista_anotaciones = list(st.session_state.anotaciones.keys())
 
           for i in range(len(lista_anotaciones)):
             st.write(f"### {lista_anotaciones[i]}")
-            with st.expander('Ver anotaciones'):
-              for j in range(len(st.session_state[lista_anotaciones[i]])):
-                st.write(f"- {st.session_state[lista_anotaciones[i]][j]}")
+            for j in range(len(st.session_state[lista_anotaciones[i]])):
+              st.write(f"- {st.session_state[lista_anotaciones[i]][j]}")
 
     if 'noticia_generada' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
