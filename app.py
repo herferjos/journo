@@ -47,6 +47,8 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           lista_transcription[0] = '- ' + lista_transcription[0]
+          for i in range(1, len(lista_transcription)):
+            lista_transcription[i] = re.sub(r'\n\n- (.*?):', r'\n\n- **\1**:', lista_transcription[i])
           st.write('\n\n- '.join(lista_transcription))
         st.write("---")
       
