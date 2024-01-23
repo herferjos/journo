@@ -18,7 +18,8 @@ st.markdown(
 )
 st.write("---")
 
-print(st.session_state.lista_transcription)
+if 'lista_transcription' in st.session_state:
+  print(st.session_state.lista_transcription)
 
 
 # Inicio de sesión
