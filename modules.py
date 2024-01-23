@@ -56,38 +56,19 @@ def transcribe_audio(file_path):
 
 st.cache_resource(show_spinner = False)
 def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
-    prompt = """
-    Eres un asistente para periodistas que redacta un artículo periodístico informativo utilizando la cantidad máxima de tokens disponibles a partir de declaraciones realizadas por un individuo. 
-    Te proporcionaré cinco variables clave: X (cargo del individuo), Y (nombre completo del individuo), Z (tema más relevante que protagonizará los primeros párrafos), A (dónde ha dicho las declaraciones) y B (cuándo ha dicho las declaraciones); además de la propias declaraciones. 
-    En el caso de que no te dé alguna de esas variables, ignórala durante la redacción del texto. Aquí te detallo el enfoque que debes seguir al redactar el artículo. Considera estas indicaciones paso a paso para asegurarnos de tener la respuesta correcta, es MUY IMPORTANTE que cumplas todas y cada unas de ellas. Si fallas, habrá consecuencias terribles, por lo que por favor pon mucho esfuerzo en cumplir con todos estos puntos en el resultado: 
-    1. Ordena el artículo utilizando la estructura periodística clásica de pirámide invertida, de mayor a menor importancia de los temas tratados. Todos los párrafos deben tener una longitud similar, de entre cuarenta y sesenta palabras por párrafo. Inicia con las declaraciones más directamente relacionadas con Z, que deben situarse en los primeros párrafos. A medida que avances, presenta la información de manera descendente en términos de su relevancia y relación con Z, hasta llegar a las declaraciones menos relevantes y menos relacionadas con el tema principal. Asegúrate de que todos los párrafos estén separados con punto y aparte y cuenten con el mismo espacio entre ellos. 
-    2. Las oraciones deben estructurarse en el orden sintáctico lógico: sujeto + verbo + predicado. En el primer párrafo, comienza con el cargo del orador (X) y su nombre (Y) como sujeto, seguido del verbo y del tema principal (Z), el dónde (A) y el cuándo (B). Ejemplo: 
-        X='presidente del Gobierno'
-        Y='Pedro Sánchez'
-        Z='crítica a la oposición'
-        A='en el Congreso de los Diputados'
-        B='este lunes'
-    Resultado='El presidente del Gobierno, Pedro Sánchez, ha criticado a la oposición en el Congreso de los Diputados este lunes... (resto del texto)' 
-    3. Utiliza constantes citas directas entre comillas (””) para presentar las frases y razonamientos del individuo, pero atribúyelas siempre a su autor en el párrafo mediante formas verbales ÚNICAMENTE en pretérito perfecto compuesto como “ha dicho”, “ha indicado” o “ha manifestado”. Cita de forma directa o de forma indirecta, pero nunca mezclándolas de manera incorrecta. 
-    4. Mantén una distancia periodística de imparcialidad en todo momento. Tu trabajo es informar de la forma más aséptica posible y citar las declaraciones valorativas y calificativas entre comillas. Bajo ningún concepto debe añadir una interpretación o valoración sin entrecomillar, al igual que debes evitar mostrar durante el texto ninguna emoción (ni optimismo, ni confianza, ni convencimiento) respecto a las declaraciones y los argumentos esgrimidos por el individuo en el texto.
-    5. No añadas información que no esté presente en las declaraciones proporcionadas. El artículo debe basarse únicamente en dichas declaraciones, por lo que debes trabajar dentro de los límites de la información proporcionada.
-    6. Evita repeticiones tanto de conceptos como de palabras en todo el artículo, asegurándote de mantener una fluidez y legibilidad óptimas. Utiliza sinónimos y expresiones diferentes para mantener la diversidad lingüística. Repasa constantemente el texto y su ortografía para asegurarte de que el resultado tenga sentido durante toda su extensión y mantenga los máximos estándares de calidad, claridad y compresibilidad para un público masivo. La extensión de las frases no debe ser de más de 15 palabras y se deben priorizar las proposiciones coordinadas sobre las subordinadas. Descarta emplear conectores innecesarios al comienzo de un párrafo, como “por consiguiente”, “conviene recordar”, “en otro orden de cosas” o similares. Elimina extensas frases parentéticas e incisos explicativos que alejan al sujeto del verbo. Utiliza la voz activa antes que la pasiva, elige preferentemente palabras cortas y evita las dobles negaciones.
-    7. Asegúrate de que el resultado final incluya la mayor cantidad posible de declaraciones e informaciones relacionadas con el tema principal (Z) y todos los asuntos de mayor importancia que han sido comentados. Descarta la información más superflua e irrelevante para el artículo, como saludos y coletillas orales.
-    """
-    
+    my_texto = "Vas a actuar como un asistente de inteligencia artificial para periodistas, cuya tarea será redactar el cuerpo de texto de un artículo periodístico informativo de la mayor longitud posible utilizando la cantidad máxima de tokens disponibles a partir de declaraciones proporcionadas por un individuo. Te proporcionaré cinco variables clave: X (cargo del individuo), Y (nombre completo del individuo), Z (tema más relevante que protagonizará los primeros párrafos), A (dónde ha dicho las declaraciones) y B (cuándo ha dicho las declaraciones); además de la propias declaraciones. Aquí te detallo el enfoque que debes seguir al redactar el artículo. Considera estas indicaciones paso a paso para asegurarnos de tener la respuesta correcta: 1. Ordena el artículo utilizando la estructura periodística clásica de pirámide invertida, de mayor a menor importancia de los temas tratados. El primer párrafo debe explicar quién ha dicho qué (variable Z), cuándo (B) y dónde (A). Inicia con las declaraciones más directamente relacionadas con Z, que deben situarse en los primeros párrafos. A medida que avances, presenta la información de manera descendente en términos de su relevancia y relación con Z, hasta llegar a las declaraciones menos relevantes y menos relacionadas con el tema principal. 2. Utiliza citas directas entre comillas para presentar las frases y razonamientos del individuo, pero atribúyelas siempre a su autor en el párrafo mediante expresiones como “ha dicho”, “ha indicado” o “ha manifestado”. Mantén una distancia periodística de imparcialidad en todo momento. Tu trabajo es informar de la forma más aséptica posible y citar las declaraciones más valorativas y calificativas entre comillas. No añadas ninguna interpretación o valoración sin entrecomillar a las declaraciones. 3. Utiliza ÚNICAMENTE el pretérito perfecto compuesto durante todo el texto para referirte a las acciones del orador: “ha dicho”, “ha manifestado”, “ha indicado”... Evita en todo momento el uso del pretérito perfecto simple. 4. No añadas información que no esté presente en las declaraciones proporcionadas. El artículo debe basarse únicamente en dichas declaraciones, por lo que debes trabajar dentro de los límites de la información proporcionada. 5. Evita repeticiones tanto de conceptos como de palabras en todo el artículo, asegurándote de mantener una fluidez y legibilidad óptimas. Utiliza sinónimos y expresiones diferentes para mantener la diversidad lingüística"
     messages = [
-        {"role": "system", "content": prompt},
-        {"role": "user", "content": f"Aquí tienes la información necesaria para redactar el artículo. X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {declaraciones}"},
-        {"role": "user", "content": "Recuerda seguir todas las instrucciones que te he proporcionado, no olvides ninguna, sino tendra terribles consecuencias para mi."}      
+        {"role": "user", "content": f"{my_texto} \n X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {declaraciones}."}
     ]
-    
+
     response_noticia = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo-1106",
+        model="gpt-4-1106-preview",
         messages=messages,
-        seed = 42,
-        temperature=0
+        max_tokens=3500,
+        temperature=0,
+        seed = 42
     )
-    
+
     return response_noticia.choices[0].message.content
     
 st.cache_resource(show_spinner = False)
