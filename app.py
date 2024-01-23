@@ -56,9 +56,9 @@ if 'autenticado' in st.session_state:
           
           # Procesar las coincidencias
           for match in coincidencias:
-                  texto_a_formatear = match.strip()
-                  texto_formateado = f"<u><b>{texto_a_formatear}</b></u>"
-                  texto = texto.replace(match, texto_formateado)
+              texto_a_formatear = match.strip()
+              texto_formateado = f"<u><b>{texto_a_formatear}</b></u>"
+              texto = texto.replace(match, texto_formateado)
               
               # Mostrar el texto formateado
               st.markdown(texto, unsafe_allow_html=True)
