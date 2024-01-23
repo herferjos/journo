@@ -46,15 +46,15 @@ if 'autenticado' in st.session_state:
 
         with contexto:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
-          st.write("##### :blue[¿Cuál es el cargo de la persona que habla?]")
+          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
-          st.write("##### :blue[¿Cuál es el nombre de la persona que habla?]")
+          st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
           st.write(st.session_state.Y)
-          st.write("##### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+          st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
           st.write(st.session_state.Z)
-          st.write("##### :blue[¿Dónde ha dicho las declaraciones?]")
+          st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
           st.write(st.session_state.A)
-          st.write("##### :blue[Cuándo ha dicho las declaraciones?]")
+          st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
           
         with transcripcion:
@@ -76,10 +76,24 @@ if 'autenticado' in st.session_state:
 
 
     if 'new_dialogos' in st.session_state and not 'anotaciones' in st.session_state:
-        audio, transcripcion, topics = st.tabs(["Audio", "Transcripción", "Temas seleccionados"])
+        audio, contexto, transcripcion, topics = st.tabs(["Audio", "Contexto", "Transcripción", "Temas seleccionados"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+
+        with contexto:
+          st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
+          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+          st.write(st.session_state.X)
+          st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+          st.write(st.session_state.Y)
+          st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+          st.write(st.session_state.Z)
+          st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+          st.write(st.session_state.A)
+          st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+          st.write(st.session_state.B)
+
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
@@ -274,10 +288,24 @@ if 'autenticado' in st.session_state:
 
     if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
         st.write("# Resumen de la información recopilada")
-        audio, transcripcion, topics, annotation = st.tabs(["Audio", "Transcripción", "Temas seleccionados", "Anotaciones"])
+        audio, contexto, transcripcion, topics, annotation = st.tabs(["Audio","Contexto", "Transcripción", "Temas seleccionados", "Anotaciones"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+
+        with contexto:
+          st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
+          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+          st.write(st.session_state.X)
+          st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+          st.write(st.session_state.Y)
+          st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+          st.write(st.session_state.Z)
+          st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+          st.write(st.session_state.A)
+          st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+          st.write(st.session_state.B)
+
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
