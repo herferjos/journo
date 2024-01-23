@@ -358,7 +358,7 @@ if 'autenticado' in st.session_state:
 
             st.session_state.noticia_generada = generar_noticia(st.session_state.new_dialogos, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
             st.rerun()
-            
+
     if 'noticia_generada' in st.session_state:
         st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
 
@@ -378,3 +378,20 @@ if 'autenticado' in st.session_state:
         # Mostrar el texto con bordes redondeados
         st.markdown(f'<div class="bordes-redondeados">{st.session_state.noticia_generada}</div>', unsafe_allow_html=True)
 
+import streamlit as st
+import pkg_resources
+
+def mostrar_versiones_bibliotecas():
+    # Obtener la información de las bibliotecas instaladas
+    bibliotecas_instaladas = [dist.project_name for dist in pkg_resources.working_set]
+    
+    # Mostrar las versiones de las bibliotecas
+    for libreria in bibliotecas_instaladas:
+        version = pkg_resources.get_distribution(libreria).version
+        st.write(f"{libreria}: {version}")
+
+# Crear una aplicación Streamlit
+st.title("Versiones de Bibliotecas")
+
+# Mostrar las versiones de las bibliotecas en la interfaz de usuario
+mostrar_versiones_bibliotecas()
