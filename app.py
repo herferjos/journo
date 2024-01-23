@@ -208,16 +208,10 @@ if 'autenticado' in st.session_state:
               
         if st.button("Prueba anotaciones", type = "primary"):
           with st.spinner("Probando... ⌛"):
-
-            st.session_state.anotaciones = {}
             
             for i in range(len(st.session_state.topics)):
               if st.session_state[f'on_{st.session_state.topics[i]}']:
-                st.session_state.anotaciones[f'{st.session_state.topics[i]}'] = []
-                for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
-                  for elemento in st.session_state[f'anotaciones_{st.session_state.topics[i]}_{j}']:
-                    for item in elemento:
-                      st.session_state.anotaciones[f'{st.session_state.topics[i]}'].append(item['label'])
+                pass
               else:
                 del st.session_state.dialogos_topics[st.session_state.topics[i]]
 
