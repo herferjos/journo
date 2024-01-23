@@ -52,7 +52,7 @@ if 'autenticado' in st.session_state:
           patron = re.compile(r'\n\n- ([^:]+):|-\s*([^:]+):')
           
           # Buscar coincidencias en el string
-          coincidencias = patron.findall(lista_transcription)
+          coincidencias = patron.findall(texto)
           
           # Procesar las coincidencias
           for match in coincidencias:
