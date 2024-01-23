@@ -140,7 +140,7 @@ if 'autenticado' in st.session_state:
         
         with annotation:
           lista_anotaciones = list(st.session_state.anotaciones.keys())
-
+          st.write(st.session_state.anotaciones)
           for i in range(len(lista_anotaciones)):
             st.write(f"### {lista_anotaciones[i]}")
             for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
