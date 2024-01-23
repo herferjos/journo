@@ -198,7 +198,7 @@ if 'autenticado' in st.session_state:
           with st.spinner("Probando... ⌛"):
             st.session_state.anotaciones = {}
             
-            for i in range(len(st.session_state.topics)):
+            for i in range(len(st.session_state.topics)-1):
               if locals()[f"st.session_state.on_{st.session_state.topics[i]}"]:
                 st.session_state.anotaciones[f'{st.session_state.topics[i]}'] = []
                 for elemento in locals()[f"st.session_state.anotaciones_{st.session_state.topics[i]}_{j}"]:
