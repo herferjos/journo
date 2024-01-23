@@ -115,6 +115,31 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
     
     return '\n'.join(json.loads(response.choices[0].message.content)['dialogo']), json.loads(response.choices[0].message.content)['dialogo']
 
+def topicer(lista_transcription):
+    
+    texto = '\n\n- '.join(lista_transcription)
+    texto = '- ' + texto
+    
+    my_texto = 'Extrae de las siguiente declaraciones los topics/asuntos mencionados, junto a los parrafos e intervenciones que correspnden a dicho asunto. Respondeme de manera organizada y estructurada en un JSON con la siguiente estructura: {"topics": [<lista de topics mencionados>], "diccionario_dialogos":{"<topic1>" = [<lista de parrafos del topic1>], ...}}'
+    
+    messages = [
+      {"role": "system", "content": my_texto},
+      {"role": "system", "content": "Recuerda que NO debes repetir topics, agrupalos en conjuntos y que debes extraer también todos los diálogos asociados a cada topic en forma de lista, tanto las preguntas como las respuestas."},
+      {"role": "user", "content": f"Dialogos:{texto}"},
+    ]
+    
+    response = openai_client.chat.completions.create(
+            model="gpt-3.5-turbo-1106",
+            messages=messages,
+            temperature=0,
+            response_format={"type": "json_object"}
+        )
+    
+    
+    dicc = json.loads(response.choices[0].message.content)
+
+    return dicc['topics'], dicc['diccionario_dialogos']
+
 
 def audio_a_bytes(archivo_audio):
     # Obtener los bytes del archivo de audio
