@@ -65,8 +65,6 @@ if 'autenticado' in st.session_state:
           
           # Mostrar el texto formateado
           st.markdown(texto, unsafe_allow_html=True)
-            
-        st.write("---")
       
     if 'noticia_generada' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
@@ -77,7 +75,24 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           lista_transcription[0] = '- ' + lista_transcription[0]
-          st.write('\n\n- '.join(lista_transcription))
+          texto = '\n\n- '.join(lista_transcription)
+          
+          patron = re.compile(r'\n\n- ([^:]+):|-\s*([^:]+):')
+          
+          # Buscar coincidencias en el string
+          coincidencias = patron.findall(texto)
+          
+          # Procesar las coincidencias
+          for match in coincidencias:
+              # Check which group matched
+              texto_a_formatear = match[0] if match[0] else match[1]
+              texto_formateado = f"<u><b>{texto_a_formatear.strip()}</b></u>"
+              
+              # Replace the matched text with the formatted text
+              texto = texto.replace(match[0] or match[1], texto_formateado)
+          
+          # Mostrar el texto formateado
+          st.markdown(texto, unsafe_allow_html=True)
 
         with anotaciones:
           st.info("Aquí tienes tus anotaciones")
