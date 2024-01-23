@@ -47,14 +47,14 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           texto = '\n\n- '.join(lista_transcription)
-          texto = '\n\n- ' + texto
+          texto = '- ' + texto
           
-          patron = r'\n\n- (.+):'
+          patron = r'- (.+):'
           coincidencias = re.findall(patron, texto)
           
           for elemento in coincidencias:
               texto_formateado = f'<u><b>{elemento}<u><b>'
-              texto = re.sub(f'\n\n- {elemento}:', f'\n\n- {texto_formateado}:', texto)        
+              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)    
                     
           # Mostrar el texto formateado
           st.markdown(texto, unsafe_allow_html=True)
@@ -68,14 +68,14 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           texto = '\n\n- '.join(lista_transcription)
-          texto = '\n\n- ' + texto
+          texto = '- ' + texto
           
-          patron = r'\n\n- (.+):'
+          patron = r'- (.+):'
           coincidencias = re.findall(patron, texto)
           
           for elemento in coincidencias:
               texto_formateado = f'<u><b>{elemento}<u><b>'
-              texto = re.sub(f'\n\n- {elemento}:', f'\n\n- {texto_formateado}:', texto)        
+              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
                     
           # Mostrar el texto formateado
           st.markdown(texto, unsafe_allow_html=True)
