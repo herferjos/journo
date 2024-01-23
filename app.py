@@ -378,32 +378,4 @@ if 'autenticado' in st.session_state:
         # Mostrar el texto con bordes redondeados
         st.markdown(f'<div class="bordes-redondeados">{st.session_state.noticia_generada}</div>', unsafe_allow_html=True)
 
-import streamlit as st
-import pkg_resources
-
-def generar_requirements_txt():
-    # Obtener la información de las bibliotecas instaladas
-    bibliotecas_instaladas = [dist.project_name for dist in pkg_resources.working_set]
-
-    # Crear el contenido para el archivo requirements.txt
-    contenido_requirements = [f"{libreria}=={pkg_resources.get_distribution(libreria).version}" for libreria in bibliotecas_instaladas]
-
-    # Crear el contenido como una cadena de texto
-    contenido_str = "\n".join(contenido_requirements)
-
-    return contenido_str
-
-# Crear una aplicación Streamlit
-st.title("Generar requirements.txt desde Streamlit")
-
-# Agregar un botón para generar y descargar el archivo requirements.txt
-if st.button("Generar y Descargar requirements.txt"):
-    contenido = generar_requirements_txt()
-    st.download_button(
-        label="Descargar requirements.txt",
-        data=contenido,
-        file_name="requirements.txt",
-        key="requirements_download",
-    )
-    st.success("El archivo requirements.txt ha sido generado y está listo para descargar.")
 
