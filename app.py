@@ -49,7 +49,7 @@ if 'autenticado' in st.session_state:
           lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
           
-          patron = re.compile(r'\n\n- ([^:]+):')
+          patron = re.compile(r'\n\n- (.+):')
           
           # Buscar coincidencias en el string
           coincidencias = patron.findall(texto)
@@ -77,7 +77,7 @@ if 'autenticado' in st.session_state:
           lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
           
-          patron = re.compile(r'\n\n- ([^:]+):')
+          patron = re.compile(r'\n\n- (.+):')
           
           # Buscar coincidencias en el string
           coincidencias = patron.findall(texto)
