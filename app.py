@@ -18,7 +18,7 @@ st.markdown(
 )
 st.write("---")
 
-st.write("""\nEsto es una prueba para ver si conseguimos escribir con espacios:\n\nEspacio 1\n\nEspacio 2\n""")
+st.write("""\nEsto es una prueba para ver si conseguimos escribir con espacios:\n\nEspacio 1\n\Test 2\n""")
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
