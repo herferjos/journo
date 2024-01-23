@@ -48,6 +48,7 @@ if 'autenticado' in st.session_state:
           lista_transcription = st.session_state.lista_transcription
           lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
+          st.write(texto)
           
           patron = r'\n\n- (.+):'
           coincidencias = re.findall(patron, texto)
