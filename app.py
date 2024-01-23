@@ -135,7 +135,7 @@ if 'autenticado' in st.session_state:
 if 'autenticado' in st.session_state:
     if 'mp3_audio_path' not in st.session_state:
       st.success("¡Autenticado con éxito!")
-      col1, col2 = st.columns(2)
+      col1, col2 = st.tabs(["Grabar audio", "Subir audio"])
       with col1:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
         archivo = st.file_uploader("Cargar archivo de audio")
