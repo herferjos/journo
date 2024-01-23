@@ -388,7 +388,7 @@ def mostrar_versiones_bibliotecas():
     # Mostrar las versiones de las bibliotecas
     for libreria in bibliotecas_instaladas:
         version = pkg_resources.get_distribution(libreria).version
-        st.write(f"{libreria}: {version}")
+        st.write(f"{libreria} == {version}")
 
 # Crear una aplicación Streamlit
 st.title("Versiones de Bibliotecas")
