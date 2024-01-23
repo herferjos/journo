@@ -47,9 +47,23 @@ if 'autenticado' in st.session_state:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           lista_transcription[0] = '- ' + lista_transcription[0]
-          for i in range(1, len(lista_transcription)):
-            lista_transcription[i] = re.sub(r'(-|\n\n-) (.*?):', r'\1 **\2**:', lista_transcription[i])
-          st.write('\n\n- '.join(lista_transcription))
+          lista_transcription = '\n\n- '.join(lista_transcription)
+          
+          patron = re.compile(r'\n\n- ([^:]+):|-\s*([^:]+):')
+          
+          # Buscar coincidencias en el string
+          coincidencias = patron.findall(lista_transcription)
+          
+          # Procesar las coincidencias
+          for match in coincidencias:
+              texto_encontrado = match[0] if match[0] else match[1]
+              
+              # Aplicar formato HTML con negrita y subrayado
+              texto_formateado = f"<u><b>{texto_encontrado}</b></u>"
+              
+              # Mostrar el texto formateado
+              st.markdown(texto_formateado, unsafe_allow_html=True)
+            
         st.write("---")
       
     if 'noticia_generada' in st.session_state:
