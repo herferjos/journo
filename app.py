@@ -53,7 +53,7 @@ if 'autenticado' in st.session_state:
           coincidencias = re.findall(patron, texto)
           
           for elemento in coincidencias:
-              texto_formateado = f'<u><b>{elemento}<u><b>'
+              texto_formateado = f'**{elemento}**'
               texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)    
                     
           # Mostrar el texto formateado
