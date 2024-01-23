@@ -191,8 +191,20 @@ if 'autenticado' in st.session_state:
             st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}")
 
             with st.expander('Ver diálogos'):
-                for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
-                    st.session_state[f'anotaciones_{st.session_state.topics[i]}_{j}'] = text_highlighter(st.session_state.dialogos_topics[st.session_state.topics[i]][j])
+                texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
+                texto = '- ' + texto
+                
+                patron = r'- (.+):'
+                coincidencias = re.findall(patron, texto)
+                
+                for elemento in coincidencias:
+                    texto_formateado = f'<u><b>{elemento}</u></b>'
+                    texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                          
+                # Mostrar el texto formateado
+                st.write(texto, unsafe_allow_html=True)
+
+                
               
         if st.button("Prueba anotaciones", type = "primary"):
           with st.spinner("Probando... ⌛"):
