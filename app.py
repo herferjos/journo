@@ -33,12 +33,12 @@ if 'autenticado' not in st.session_state:
 
 if 'autenticado' in st.session_state:
   with st.expander("Informacion recopilada"):
-    if 'mp3_audio_path' in st.session_state and not 'transcription2' in st.session_state:
+    if 'mp3_audio_path' in st.session_state and 'transcription2' not in st.session_state:
         st.info("Aquí tienes el audio que hemos procesado")
         st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         st.write("---")
       
-    if 'mp3_audio_path' in st.session_state and 'transcription2' in st.session_state and not 'noticia_generada' in st.session_state:
+    if 'transcription2' in st.session_state and not 'new_dialogos' in st.session_state:
         audio, transcripcion = st.tabs(["Audio", "Transcripción"])
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
@@ -58,7 +58,97 @@ if 'autenticado' in st.session_state:
                     
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
-      
+
+
+    if 'new_dialogos' in st.session_state and not 'anotaciones' in st.session_state:
+        audio, transcripcion, topics = st.tabs(["Audio", "Transcripción", "Temas seleccionados"])
+        with audio:
+          st.info("Aquí tienes el audio que hemos procesado")
+          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+        with transcripcion:
+          st.info("Aquí tienes la transcripción del audio")
+          lista_transcription = st.session_state.lista_transcription
+          texto = '\n\n- '.join(lista_transcription)
+          texto = '- ' + texto
+          
+          patron = r'- (.+):'
+          coincidencias = re.findall(patron, texto)
+          
+          for elemento in coincidencias:
+              texto_formateado = f'<u><b>{elemento}</u></b>'
+              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                    
+          # Mostrar el texto formateado
+          st.write(texto, unsafe_allow_html=True)
+
+        with topics:
+          lista_claves = list(st.session_state.new_dialogos.keys())
+
+          for i in range(len(lista_claves)):
+            st.write(f"### {lista_claves[i]}")
+              with st.expander('Ver diálogos'):
+                  texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
+                  texto = '- ' + texto
+                  
+                  patron = r'- (.+):'
+                  coincidencias = re.findall(patron, texto)
+                  
+                  for elemento in coincidencias:
+                      texto_formateado = f'<u><b>{elemento}</u></b>'
+                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                            
+                  # Mostrar el texto formateado
+                  st.write(texto, unsafe_allow_html=True)    
+
+    if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
+        audio, transcripcion, topics, annotation = st.tabs(["Audio", "Transcripción", "Temas seleccionados", "Anotaciones"])
+        with audio:
+          st.info("Aquí tienes el audio que hemos procesado")
+          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+        with transcripcion:
+          st.info("Aquí tienes la transcripción del audio")
+          lista_transcription = st.session_state.lista_transcription
+          texto = '\n\n- '.join(lista_transcription)
+          texto = '- ' + texto
+          
+          patron = r'- (.+):'
+          coincidencias = re.findall(patron, texto)
+          
+          for elemento in coincidencias:
+              texto_formateado = f'<u><b>{elemento}</u></b>'
+              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                    
+          # Mostrar el texto formateado
+          st.write(texto, unsafe_allow_html=True)
+
+        with topics:
+          lista_claves = list(st.session_state.new_dialogos.keys())
+
+          for i in range(len(lista_claves)):
+            st.write(f"### {lista_claves[i]}")
+              with st.expander('Ver diálogos'):
+                  texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
+                  texto = '- ' + texto
+                  
+                  patron = r'- (.+):'
+                  coincidencias = re.findall(patron, texto)
+                  
+                  for elemento in coincidencias:
+                      texto_formateado = f'<u><b>{elemento}</u></b>'
+                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                            
+                  # Mostrar el texto formateado
+                  st.write(texto, unsafe_allow_html=True)
+        
+        with annotation:
+          lista_anotaciones = list(st.session_state.anotaciones.keys())
+
+          for i in range(len(lista_anotaciones)):
+            st.write(f"### {lista_anotaciones[i]}")
+              with st.expander('Ver anotaciones'):
+                for j in range(len(st.session_state[lista_anotaciones[i]])):
+                  st.write(f"- {st.session_state[lista_anotaciones[i]][j]}")
+
     if 'noticia_generada' in st.session_state:
         audio, transcripcion, anotacions = st.tabs(["Audio", "Transcripción", "Anotaciones"])
         with audio:
@@ -227,25 +317,21 @@ if 'autenticado' in st.session_state:
 
       if st.button("Siguiente", type = "primary"):
         with st.spinner("Procesando información... ⌛"):
-          st.session_state.anotaciones = []
+          st.session_state.anotaciones = {}
           
           lista_claves = list(st.session_state.new_dialogos.keys())
 
           for i in range(len(lista_claves)):
             for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
+              st.session_state.anotaciones[lista_claves[i]] = []
               for elemento in st.session_state[f'anotaciones_{lista_claves[i]}_{j}']:
                 for item in elemento:
-                  st.session_state.anotaciones.append(item['label'])
+                  st.session_state.anotaciones[lista_claves[i]].append(item['label'])
                 
                                   
           # st.session_state.noticia_generada = generar_noticia(st.session_state.transcription2, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
           
           st.rerun()
-              
-    if 'anotaciones' in st.session_state:
-      st.write(st.session_state.anotaciones)
-      st.write(st.session_state.new_dialogos)
-
 
       
     if 'noticia_generada' in st.session_state:
