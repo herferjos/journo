@@ -46,9 +46,8 @@ if 'autenticado' in st.session_state:
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
-          lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
-          st.write(texto)
+          texto = '\n\n- ' + texto
           
           patron = r'\n\n- (.+):'
           coincidencias = re.findall(patron, texto)
@@ -68,8 +67,8 @@ if 'autenticado' in st.session_state:
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
-          lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
+          texto = '\n\n- ' + texto
           
           patron = r'\n\n- (.+):'
           coincidencias = re.findall(patron, texto)
