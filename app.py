@@ -46,7 +46,7 @@ if 'autenticado' in st.session_state:
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
-          lista_transcription[0] = '- ' + lista_transcription[0]
+          # lista_transcription[0] = '- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
           
           patron = re.compile(r'\n\n- ([^:]+):|-\s*([^:]+):')
