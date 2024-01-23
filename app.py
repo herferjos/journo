@@ -18,7 +18,7 @@ st.markdown(
 )
 st.write("---")
 
-st.write('- \n\n'.join(st.session_state.lista_transcription))
+st.write('\n\n- '.join(st.session_state.lista_transcription))
 
 
 # Inicio de sesión
