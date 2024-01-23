@@ -140,7 +140,7 @@ if 'autenticado' in st.session_state:
         
         with annotation:
           lista_anotaciones = list(st.session_state.anotaciones.keys())
-          st.write(st.session_state.anotaciones)
+ 
           for i in range(len(lista_anotaciones)):
             st.write(f"### {lista_anotaciones[i]}")
             for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
@@ -319,8 +319,8 @@ if 'autenticado' in st.session_state:
           lista_claves = list(st.session_state.new_dialogos.keys())
 
           for i in range(len(lista_claves)):
+            st.session_state.anotaciones[lista_claves[i]] = []
             for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
-              st.session_state.anotaciones[lista_claves[i]] = []
               for elemento in st.session_state[f'anotaciones_{lista_claves[i]}_{j}']:
                 for item in elemento:
                   st.session_state.anotaciones[lista_claves[i]].append(item['label'])
