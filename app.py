@@ -187,23 +187,25 @@ if 'autenticado' in st.session_state:
     if 'transcription2' in st.session_state and 'noticia_generada' not in st.session_state:
         st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
 
-        for i in range(len(st.session_state.topics)-1):
-          locals()[f"st.session_state.on_{st.session_state.topics[i]}"] = st.toggle(st.session_state.topics[i], key = f"{st.session_state.topics[i]}")
-          with st.expander('Ver diálogos'):
-            for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
-              st.write(f"{st.session_state.topics[i]}_{j}")
-              locals()[f"st.session_state.anotaciones_{st.session_state.topics[i]}_{j}"] = text_highlighter(st.session_state.dialogos_topics[st.session_state.topics[i]][j])
+        for i in range(len(st.session_state.topics)):
+            st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}")
+
+            with st.expander('Ver diálogos'):
+                for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
+                    st.session_state[f'anotaciones_{st.session_state.topics[i]}_{j}'] = text_highlighter(st.session_state.dialogos_topics[st.session_state.topics[i]][j])
               
         if st.button("Prueba anotaciones", type = "primary"):
           with st.spinner("Probando... ⌛"):
+
             st.session_state.anotaciones = {}
             
-            for i in range(len(st.session_state.topics)-1):
-              if locals()[f"st.session_state.on_{st.session_state.topics[i]}"]:
+            for i in range(len(st.session_state.topics)):
+              if st.session_state[f'on_{st.session_state.topics[i]}']:
                 st.session_state.anotaciones[f'{st.session_state.topics[i]}'] = []
-                for elemento in locals()[f"st.session_state.anotaciones_{st.session_state.topics[i]}_{j}"]:
-                  for item in elemento:
-                    st.session_state.anotaciones[f'{st.session_state.topics[i]}'].append(item['label'])
+                for j in range(len(st.session_state.dialogos_topics[st.session_state.topics[i]])):
+                  for elemento in st.session_state[f'anotaciones_{st.session_state.topics[i]}_{j}']:
+                    for item in elemento:
+                      st.session_state.anotaciones[f'{st.session_state.topics[i]}'].append(item['label'])
               else:
                 del st.session_state.dialogos_topics[st.session_state.topics[i]]
 
