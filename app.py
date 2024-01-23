@@ -223,7 +223,7 @@ if 'autenticado' in st.session_state:
         st.write(f"## {lista_claves[i]}")
         with st.expander('Ver diálogos'):
             for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
-              st.session_state[f'anotaciones_{lista_claves[i]}_{j}'] = text_highlighter(st.session_state.new_dialogos[lista[i]][j])
+              st.session_state[f'anotaciones_{lista_claves[i]}_{j}'] = text_highlighter(st.session_state.new_dialogos[lista_claves[i]][j])
 
       if st.button("Siguiente", type = "primary"):
         with st.spinner("Procesando información... ⌛"):
