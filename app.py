@@ -46,11 +46,16 @@ if 'autenticado' in st.session_state:
 
         with contexto:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
-          st.write(f"##### :blue[¿Cuál es el cargo de la persona que habla?] {st.session_state.X}")
-          st.write(f"##### :blue[¿Cuál es el nombre de la persona que habla?] {st.session_state.Y}")
-          st.write(f"##### :blue[¿Cuál es el tema más relevante del que ha hablado?] {st.session_state.Z}")
-          st.write(f"##### :blue[¿Dónde ha dicho las declaraciones?] {st.session_state.A}")
-          st.write(f"##### :blue[Cuándo ha dicho las declaraciones?] {st.session_state.B}")
+          st.write("##### :blue[¿Cuál es el cargo de la persona que habla?]")
+          st.write(st.session_state.X)
+          st.write("##### :blue[¿Cuál es el nombre de la persona que habla?]")
+          st.write(st.session_state.Y)
+          st.write("##### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+          st.write(st.session_state.Z)
+          st.write("##### :blue[¿Dónde ha dicho las declaraciones?]")
+          st.write(st.session_state.A)
+          st.write("##### :blue[Cuándo ha dicho las declaraciones?]")
+          st.write(st.session_state.B)
           
         with transcripcion:
           st.info("Aquí tienes la transcripción del audio")
