@@ -49,20 +49,13 @@ if 'autenticado' in st.session_state:
           lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
           
-          patron = re.compile(r'\n\n- (.+):')
+          patron = r'\n\n- (.+):'
+          coincidencias = re.findall(patron, texto)
           
-          # Buscar coincidencias en el string
-          coincidencias = patron.findall(texto)
-          
-          # Procesar las coincidencias
-          for match in coincidencias:
-              # Check which group matched
-              texto_a_formatear = match[0] if match[0] else match[1]
-              texto_formateado = f"<u><b>{texto_a_formatear.strip()}</b></u>"
-              
-              # Replace the matched text with the formatted text
-              texto = texto.replace(match[0] or match[1], texto_formateado)
-          
+          for elemento in coincidencias:
+              texto_formateado = f'<u><b>{elemento}<u><b>'
+              texto = re.sub(f'\n\n- {elemento}:', f'\n\n- {texto_formateado}:', texto)        
+                    
           # Mostrar el texto formateado
           st.markdown(texto, unsafe_allow_html=True)
       
@@ -77,20 +70,13 @@ if 'autenticado' in st.session_state:
           lista_transcription[0] = '\n\n- ' + lista_transcription[0]
           texto = '\n\n- '.join(lista_transcription)
           
-          patron = re.compile(r'\n\n- (.+):')
+          patron = r'\n\n- (.+):'
+          coincidencias = re.findall(patron, texto)
           
-          # Buscar coincidencias en el string
-          coincidencias = patron.findall(texto)
-          
-          # Procesar las coincidencias
-          for match in coincidencias:
-              # Check which group matched
-              texto_a_formatear = match[0] if match[0] else match[1]
-              texto_formateado = f"<u><b>{texto_a_formatear.strip()}</b></u>"
-              
-              # Replace the matched text with the formatted text
-              texto = texto.replace(match[0] or match[1], texto_formateado)
-          
+          for elemento in coincidencias:
+              texto_formateado = f'<u><b>{elemento}<u><b>'
+              texto = re.sub(f'\n\n- {elemento}:', f'\n\n- {texto_formateado}:', texto)        
+                    
           # Mostrar el texto formateado
           st.markdown(texto, unsafe_allow_html=True)
 
