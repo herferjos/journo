@@ -18,6 +18,14 @@ st.markdown(
 )
 st.write("---")
 
+st.write("""
+Esto es una prueba para ver si conseguimos escribir con espacios:
+
+Espacio 1
+
+Espacio 2
+""")
+
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
     nombre_usuario = st.text_input("Nombre de usuario")
