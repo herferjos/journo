@@ -32,17 +32,6 @@ if 'autenticado' not in st.session_state:
         else:
             st.error("Usuario o contraseña incorrectos")
 
-st.session_state.chosen_id = stx.tab_bar(data=[
-    stx.TabBarItemData(id=1, title="Audio", description = ''),
-    stx.TabBarItemData(id=2, title="Contexto", description = '')
-], default=2)
-
-st.write(st.session_state.chosen_id)
-if st.session_state.chosen_id == "1":
-  st.write("Uno")
-if st.session_state.chosen_id == "2":
-  st.write("Dos")
-
 if 'autenticado' in st.session_state:
     if 'mp3_audio_path' not in st.session_state:
       st.success("¡Autenticado con éxito!")
@@ -87,11 +76,11 @@ if 'autenticado' in st.session_state:
           stx.TabBarItemData(id=2, title="Contexto", description = '')
       ], default=2)
               
-      if chosen_id == 1:
+      if chosen_id == "1":
         st.info("Aquí tienes el audio que hemos procesado")
         st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
       
-      if chosen_id == 2:
+      if chosen_id == "2":
       
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
@@ -126,11 +115,11 @@ if 'autenticado' in st.session_state:
             stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
         ], default=4)
               
-        if chosen_id == 1:
+        if chosen_id == "1":
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == 2:
+        if chosen_id == "2":
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -143,7 +132,7 @@ if 'autenticado' in st.session_state:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
           
-        if chosen_id == 3:
+        if chosen_id == "3":
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           texto = '\n\n- '.join(lista_transcription)
@@ -159,7 +148,7 @@ if 'autenticado' in st.session_state:
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
       
-        if chosen_id == 4:
+        if chosen_id == "4":
           st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
   
           for i in range(len(st.session_state.topics)):
@@ -198,11 +187,11 @@ if 'autenticado' in st.session_state:
             stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
         ], default=5)
               
-        if chosen_id == 1:
+        if chosen_id == "1":
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == 2:
+        if chosen_id == "2":
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -215,7 +204,7 @@ if 'autenticado' in st.session_state:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
 
-        if chosen_id == 3:
+        if chosen_id == "3":
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           texto = '\n\n- '.join(lista_transcription)
@@ -231,7 +220,7 @@ if 'autenticado' in st.session_state:
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
 
-        if chosen_id == 4:
+        if chosen_id == "4":
           st.info("Estos son los asuntos más importantes de las declaraciones")
           lista_claves = list(st.session_state.new_dialogos.keys())
 
@@ -251,7 +240,7 @@ if 'autenticado' in st.session_state:
               # Mostrar el texto formateado
               st.write(texto, unsafe_allow_html=True)
         
-        if chosen_id == 5:
+        if chosen_id == "5":
           st.info("Subraya aquellas frases que quieras mencionar explícitamente en la noticia")
     
           lista_claves = list(st.session_state.new_dialogos.keys())
@@ -284,11 +273,11 @@ if 'autenticado' in st.session_state:
             stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
         ], default=5)
               
-        if chosen_id == 1:
+        if chosen_id == "1":
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == 2:
+        if chosen_id == "2":
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -301,7 +290,7 @@ if 'autenticado' in st.session_state:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
 
-        if chosen_id == 3:
+        if chosen_id == "3":
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           texto = '\n\n- '.join(lista_transcription)
@@ -317,7 +306,7 @@ if 'autenticado' in st.session_state:
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
 
-        if chosen_id == 4:
+        if chosen_id == "4":
           st.info("Estos son los asuntos más importantes de las declaraciones")
           lista_claves = list(st.session_state.new_dialogos.keys())
 
@@ -337,7 +326,7 @@ if 'autenticado' in st.session_state:
               # Mostrar el texto formateado
               st.write(texto, unsafe_allow_html=True)
         
-        if chosen_id == 5:
+        if chosen_id == "5":
           st.info("Aquí tienes las declaraciones que marcastes")
           lista_anotaciones = list(st.session_state.anotaciones.keys())
  
@@ -364,11 +353,11 @@ if 'autenticado' in st.session_state:
             stx.TabBarItemData(id=6, title="Noticia", description = ''),       
         ], default=6)
               
-        if chosen_id == 1:
+        if chosen_id == "1":
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == 2:
+        if chosen_id == "2":
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -381,7 +370,7 @@ if 'autenticado' in st.session_state:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
 
-        if chosen_id == 3:
+        if chosen_id == "3":
           st.info("Aquí tienes la transcripción del audio")
           lista_transcription = st.session_state.lista_transcription
           texto = '\n\n- '.join(lista_transcription)
@@ -397,7 +386,7 @@ if 'autenticado' in st.session_state:
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
 
-        if chosen_id == 4:
+        if chosen_id == "4":
           st.info("Estos son los asuntos más importantes de las declaraciones")
           lista_claves = list(st.session_state.new_dialogos.keys())
 
@@ -417,7 +406,7 @@ if 'autenticado' in st.session_state:
               # Mostrar el texto formateado
               st.write(texto, unsafe_allow_html=True)
         
-        if chosen_id == 5:
+        if chosen_id == "5":
           st.info("Aquí tienes las declaraciones que marcastes")
           lista_anotaciones = list(st.session_state.anotaciones.keys())
  
@@ -428,7 +417,7 @@ if 'autenticado' in st.session_state:
                 for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
                   st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
 
-        if chosen_id == 6:
+        if chosen_id == "6":
           st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
   
           estilo_bordes_redondeados = """
