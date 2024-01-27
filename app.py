@@ -96,7 +96,7 @@ if 'autenticado' in st.session_state:
           A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
           
-        col1, col2 = st.columns([0.5,1])
+        col1, col2 = st.columns([0.07,1])
         
         with col2:
           if st.button("Siguiente", type = "primary", key = "Enviar"):
