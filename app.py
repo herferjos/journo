@@ -182,7 +182,7 @@ if 'autenticado' in st.session_state:
                   # Mostrar el texto formateado
                   st.write(texto, unsafe_allow_html=True)         
           
-          col1, col2 = st.columns([0.7,1])
+          col1, col2 = st.columns([0.07,1])
           
           with col2:
             if st.button("Siguiente", type = "primary"):
@@ -269,7 +269,7 @@ if 'autenticado' in st.session_state:
           for i in range(len(lista_claves)):  
             st.session_state[f'anotaciones_{lista_claves[i]}'] = text_highlighter(" ".join(st.session_state.new_dialogos[lista_claves[i]]))
             
-          col1, col2 = st.columns([0.7,1])
+          col1, col2 = st.columns([0.07,1])
           
           with col2:
             if st.button("Siguiente", type = "primary"):
@@ -364,7 +364,7 @@ if 'autenticado' in st.session_state:
               with st.expander('Ver anotaciones'):
                 for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
                   st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
-        col1, col2 = st.columns([0.7,1])
+        col1, col2 = st.columns([0.07,1])
         
         with col2:
           if st.button("Generar noticia", type = "primary"):
