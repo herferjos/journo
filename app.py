@@ -108,7 +108,7 @@ if 'autenticado' in st.session_state:
               st.session_state.B = B
   
               
-              st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+              st.session_state.transcription1 = transcribe_audio_2(st.session_state.mp3_audio_path)
               st.session_state.transcription2, st.session_state.lista_transcription = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.session_state.topics, st.session_state.dialogos_topics = topicer(st.session_state.lista_transcription)
               st.rerun()
