@@ -38,9 +38,9 @@ st.session_state.chosen_id = stx.tab_bar(data=[
 ], default=2)
 
 st.write(st.session_state.chosen_id)
-if st.session_state.chosen_id == 1:
+if st.session_state.chosen_id == "1":
   st.write("Uno")
-if st.session_state.chosen_id == 2:
+if st.session_state.chosen_id == "2":
   st.write("Dos")
 
 if 'autenticado' in st.session_state:
