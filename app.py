@@ -34,7 +34,7 @@ if 'autenticado' not in st.session_state:
 if 'autenticado' in st.session_state:
 
     if 'inicio' not in st.session_state:
-      if st.button("Empezar", type = "primary", key = "Charge"):
+      if st.button("Empezar", type = "primary", key = "start"):
         st.session_state.inicio = True
         st.rerun()
       if st.button("Cargar información predeterminada", type = "primary", key = "Charge"):
