@@ -115,7 +115,7 @@ if 'autenticado' in st.session_state:
                 st.rerun()
               
         with col1:
-          elif st.button("Atrás", type = "primary", key = "atras"):
+          if st.button("Atrás", type = "primary", key = "atras"):
             del st.session_state['mp3_audio_path']
             st.rerun()
               
