@@ -21,6 +21,9 @@ st.write("---")
 
 if 'transcription1' in st.session_state:
   st.write(st.session_state.transcription1)
+  st.write("Hola")
+else:
+  st.write("NO")
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
