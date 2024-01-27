@@ -65,3 +65,4 @@ validators==0.22.0
 watchdog==3.0.0
 wheel==0.42.0
 zipp==3.17.0
+extra-streamlit-components==0.1.60
