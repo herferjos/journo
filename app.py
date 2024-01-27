@@ -95,10 +95,8 @@ if 'autenticado' in st.session_state:
           Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", placeholder = 'Partido vs Atletico de Madrid')
           A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-
-        izq = st.number_input(label="izq")
-        der = st.number_input(label="der")
-        col1, col2 = st.columns([izq,der])
+          
+        col1, col2 = st.columns([0.7,1])
         
         with col2:
           if st.button("Siguiente", type = "primary", key = "Enviar"):
@@ -184,17 +182,21 @@ if 'autenticado' in st.session_state:
                   # Mostrar el texto formateado
                   st.write(texto, unsafe_allow_html=True)         
           
-          if st.button("Siguiente", type = "primary"):
-            with st.spinner("Procesando la información... ⌛"):
-              st.session_state.new_dialogos = {}
-              for i in range(len(st.session_state.topics)):
-                if st.session_state[f'on_{st.session_state.topics[i]}']:
-                  st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
-  
+          col1, col2 = st.columns([0.7,1])
+          
+          with col2:
+            if st.button("Siguiente", type = "primary"):
+              with st.spinner("Procesando la información... ⌛"):
+                st.session_state.new_dialogos = {}
+                for i in range(len(st.session_state.topics)):
+                  if st.session_state[f'on_{st.session_state.topics[i]}']:
+                    st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
+    
+                st.rerun()
+          with col1:
+            if st.button("Atrás", type = "primary", key = "atras"):
+              del st.session_state['topics']
               st.rerun()
-          elif st.button("Atrás", type = "primary", key = "atras"):
-            del st.session_state['topics']
-            st.rerun()
       
     if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
       
@@ -266,24 +268,27 @@ if 'autenticado' in st.session_state:
     
           for i in range(len(lista_claves)):  
             st.session_state[f'anotaciones_{lista_claves[i]}'] = text_highlighter(" ".join(st.session_state.new_dialogos[lista_claves[i]]))
-    
-          if st.button("Siguiente", type = "primary"):
-            with st.spinner("Procesando información... ⌛"):
-              st.session_state.anotaciones = {}
-              
-              lista_claves = list(st.session_state.new_dialogos.keys())
-    
-              for i in range(len(lista_claves)):
-                st.session_state.anotaciones[lista_claves[i]] = []
-                for elemento in st.session_state[f'anotaciones_{lista_claves[i]}']:
-                  for item in elemento:
-                    st.session_state.anotaciones[lista_claves[i]].append(item['label'])
-                    
+            
+          col1, col2 = st.columns([0.7,1])
+          
+          with col2:
+            if st.button("Siguiente", type = "primary"):
+              with st.spinner("Procesando información... ⌛"):
+                st.session_state.anotaciones = {}
+                
+                lista_claves = list(st.session_state.new_dialogos.keys())
+      
+                for i in range(len(lista_claves)):
+                  st.session_state.anotaciones[lista_claves[i]] = []
+                  for elemento in st.session_state[f'anotaciones_{lista_claves[i]}']:
+                    for item in elemento:
+                      st.session_state.anotaciones[lista_claves[i]].append(item['label'])
+                      
+                st.rerun()
+          with col1: 
+            if st.button("Atrás", type = "primary", key = "atras"):
+              del st.session_state['new_dialogos']
               st.rerun()
-              
-          elif st.button("Atrás", type = "primary", key = "atras"):
-            del st.session_state['new_dialogos']
-            st.rerun()
 
     if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
         st.write("# Resumen de la información recopilada")
@@ -359,16 +364,18 @@ if 'autenticado' in st.session_state:
               with st.expander('Ver anotaciones'):
                 for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
                   st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
-
-        if st.button("Generar noticia", type = "primary"):
-          with st.spinner("Generando noticia... ⌛"):
-
-            st.session_state.noticia_generada = generar_noticia(st.session_state.new_dialogos, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+        col1, col2 = st.columns([0.7,1])
+        
+        with col2:
+          if st.button("Generar noticia", type = "primary"):
+            with st.spinner("Generando noticia... ⌛"):
+  
+              st.session_state.noticia_generada = generar_noticia(st.session_state.new_dialogos, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              st.rerun()
+        with col1:    
+          if st.button("Atrás", type = "primary", key = "atras"):
+            del st.session_state['anotaciones']
             st.rerun()
-            
-        elif st.button("Atrás", type = "primary", key = "atras"):
-          del st.session_state['anotaciones']
-          st.rerun()
 
     if 'noticia_generada' in st.session_state:
         chosen_id = stx.tab_bar(data=[
