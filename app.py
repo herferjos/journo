@@ -95,11 +95,13 @@ if 'autenticado' in st.session_state:
           Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", placeholder = 'Partido vs Atletico de Madrid')
           A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-          
-        col1, col2 = st.columns([0.1,1])
+
+        izq = st.number_input(label="izq")
+        der = st.number_input(label="der")
+        col1, col2 = st.columns([izq,der])
         
         with col2:
-          if st.button("Enviar información", type = "primary", key = "Enviar"):
+          if st.button("Siguiente", type = "primary", key = "Enviar"):
               with st.spinner("Enviando información... ⌛"):
                 st.warning("Este proceso puede tardar unos minutos.")
                 st.session_state.X = X
