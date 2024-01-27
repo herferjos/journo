@@ -45,7 +45,7 @@ def verificar_credenciales(nombre_usuario, contraseña):
 
 st.cache_resource(show_spinner = False)
 def load_model():
-    model_size = "small"
+    model_size = "base"
     st.session_state.model = WhisperModel(model_size, device="cpu", compute_type="int8")
 
     return st.session_state.model
