@@ -167,6 +167,23 @@ if 'autenticado' in st.session_state:
                     
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
+          
+    script = """
+    <script>
+        // Espera a que la página se cargue completamente
+        window.addEventListener('load', function() {
+            // Encuentra el botón de la pestaña "Temas seleccionados" por su contenido
+            const topicsTabButton = document.querySelector('button[data-testid="stMarkdownContainer"] p:contains("Temas seleccionados")');
+            if (topicsTabButton !== null) {
+                // Simula un clic en el botón de la pestaña "Temas seleccionados"
+                topicsTabButton.closest('button[data-baseweb="tab"]').click();
+            }
+        });
+    </script>
+    """
+    
+    # Integra el script JavaScript en la aplicación Streamlit
+    st.write(script, unsafe_allow_html=True)
 
       
     if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
