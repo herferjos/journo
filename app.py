@@ -70,7 +70,7 @@ if 'autenticado' in st.session_state:
                 st.rerun()
 
   
-    if 'mp3_audio_path' in st.session_state and 'X' not in st.session_state:
+    if 'mp3_audio_path' in st.session_state and 'topics' not in st.session_state:
       chosen_id = stx.tab_bar(data=[
           stx.TabBarItemData(id=1, title="Audio", description = ''),
           stx.TabBarItemData(id=2, title="Contexto", description = '')
@@ -83,12 +83,20 @@ if 'autenticado' in st.session_state:
       if chosen_id == "2":
       
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-        X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
-        Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
-        Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", placeholder = 'Partido vs Atletico de Madrid')
-        A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
-        B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-      
+        if 'X' in st.session_state:
+          X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
+          Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
+          Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", value = st.session_state.Z)
+          A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
+          B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
+        
+        else:
+          X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
+          Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
+          Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", placeholder = 'Partido vs Atletico de Madrid')
+          A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
+          B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
+        
  
         if st.button("Enviar información", type = "primary", key = "Enviar"):
             with st.spinner("Enviando información... ⌛"):
@@ -104,6 +112,10 @@ if 'autenticado' in st.session_state:
               st.session_state.transcription2, st.session_state.lista_transcription = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.session_state.topics, st.session_state.dialogos_topics = topicer(st.session_state.lista_transcription)
               st.rerun()
+              
+        elif st.button("Atrás", type = "primary", key = "atras"):
+          del st.session_state['mp3_audio_path']
+          st.rerun()
               
           
     if 'topics' in st.session_state and 'new_dialogos' not in st.session_state:
@@ -176,6 +188,9 @@ if 'autenticado' in st.session_state:
                   st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
   
               st.rerun()
+          elif st.button("Atrás", type = "primary", key = "atras"):
+            del st.session_state['topics']
+            st.rerun()
       
     if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
       
@@ -261,6 +276,10 @@ if 'autenticado' in st.session_state:
                     st.session_state.anotaciones[lista_claves[i]].append(item['label'])
                     
               st.rerun()
+              
+          elif st.button("Atrás", type = "primary", key = "atras"):
+            del st.session_state['new_dialogos']
+            st.rerun()
 
     if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
         st.write("# Resumen de la información recopilada")
@@ -342,6 +361,10 @@ if 'autenticado' in st.session_state:
 
             st.session_state.noticia_generada = generar_noticia(st.session_state.new_dialogos, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
             st.rerun()
+            
+        elif st.button("Atrás", type = "primary", key = "atras"):
+          del st.session_state['anotaciones']
+          st.rerun()
 
     if 'noticia_generada' in st.session_state:
         chosen_id = stx.tab_bar(data=[
