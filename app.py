@@ -229,11 +229,8 @@ if 'autenticado' in st.session_state:
     
           lista_claves = list(st.session_state.new_dialogos.keys())
     
-          for i in range(len(lista_claves)):
-            st.write(f"## {lista_claves[i]}")
-            with st.expander('Ver diálogos'):
-                for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
-                  st.session_state[f'anotaciones_{lista_claves[i]}_{j}'] = text_highlighter(st.session_state.new_dialogos[lista_claves[i]][j])
+          for i in range(len(lista_claves)):  
+            st.session_state[f'anotaciones_{lista_claves[i]}'] = text_highlighter(" ".join(st.session_state.new_dialogos[lista_claves[i]]))
     
           if st.button("Siguiente", type = "primary"):
             with st.spinner("Procesando información... ⌛"):
@@ -243,12 +240,10 @@ if 'autenticado' in st.session_state:
     
               for i in range(len(lista_claves)):
                 st.session_state.anotaciones[lista_claves[i]] = []
-                for j in range(len(st.session_state.new_dialogos[lista_claves[i]])):
-                  for elemento in st.session_state[f'anotaciones_{lista_claves[i]}_{j}']:
-                    for item in elemento:
-                      st.session_state.anotaciones[lista_claves[i]].append(item['label'])
+                for elemento in st.session_state[f'anotaciones_{lista_claves[i]}']:
+                  for item in elemento:
+                    st.session_state.anotaciones[lista_claves[i]].append(item['label'])
                     
-    
               st.rerun()
 
     if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
