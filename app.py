@@ -19,9 +19,6 @@ st.markdown(
 )
 st.write("---")
 
-if 'transcription1' in st.session_state:
-  st.session_state.transcription1
-
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
     nombre_usuario = st.text_input("Nombre de usuario")
@@ -77,6 +74,8 @@ if 'autenticado' in st.session_state:
           stx.TabBarItemData(id=1, title="Audio", description = ''),
           stx.TabBarItemData(id=2, title="Contexto", description = '')
       ], default=2)
+
+      col1, col2 = st.columns([1,1])
               
       if chosen_id == "1":
         st.info("Aquí tienes el audio que hemos procesado")
@@ -99,25 +98,26 @@ if 'autenticado' in st.session_state:
           A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
         
- 
-        if st.button("Enviar información", type = "primary", key = "Enviar"):
-            with st.spinner("Enviando información... ⌛"):
-              st.warning("Este proceso puede tardar unos minutos.")
-              st.session_state.X = X
-              st.session_state.Y = Y
-              st.session_state.Z = Z
-              st.session_state.A = A
-              st.session_state.B = B
-  
+        with col2:
+          if st.button("Enviar información", type = "primary", key = "Enviar"):
+              with st.spinner("Enviando información... ⌛"):
+                st.warning("Este proceso puede tardar unos minutos.")
+                st.session_state.X = X
+                st.session_state.Y = Y
+                st.session_state.Z = Z
+                st.session_state.A = A
+                st.session_state.B = B
+    
+                
+                st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+                st.session_state.transcription2, st.session_state.lista_transcription = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.topics, st.session_state.dialogos_topics = topicer(st.session_state.lista_transcription)
+                st.rerun()
               
-              st.session_state.transcription1 = transcribe_audio_2(st.session_state.mp3_audio_path)
-              st.session_state.transcription2, st.session_state.lista_transcription = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-              st.session_state.topics, st.session_state.dialogos_topics = topicer(st.session_state.lista_transcription)
-              st.rerun()
-              
-        elif st.button("Atrás", type = "primary", key = "atras"):
-          del st.session_state['mp3_audio_path']
-          st.rerun()
+        with col1:
+          elif st.button("Atrás", type = "primary", key = "atras"):
+            del st.session_state['mp3_audio_path']
+            st.rerun()
               
           
     if 'topics' in st.session_state and 'new_dialogos' not in st.session_state:
