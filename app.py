@@ -32,8 +32,9 @@ if 'autenticado' not in st.session_state:
             st.error("Usuario o contraseña incorrectos")
 
 if 'autenticado' in st.session_state:
-
     if 'inicio' not in st.session_state:
+      st.write("Portada")
+      st.write("Escribir aqui la bienvenida, explicar un poco el funcionamiento, introducir el video tutorial y dar la opcion de precargar un ejemplo")
       if st.button("Empezar", type = "primary", key = "start"):
         st.session_state.inicio = True
         st.rerun()
