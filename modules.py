@@ -8,6 +8,7 @@ from pydub import AudioSegment
 import concurrent.futures
 import io
 import base64
+from faster_whisper import WhisperModel
 
 
 # Configuración de la clave API de OpenAI
@@ -41,6 +42,27 @@ st.cache_resource(show_spinner = False)
 # Verificar las credenciales del usuario
 def verificar_credenciales(nombre_usuario, contraseña):
     return usuarios_permitidos.get(nombre_usuario) == contraseña
+
+st.cache_resource(show_spinner = False)
+def load_model():
+    model_size = "tiny"
+    st.session_state.model = WhisperModel(model_size, device="cpu", compute_type="int8")
+
+    return st.session_state.model
+    
+ st.cache_resource(show_spinner = False)   
+def transcribe_audio_2(file_path):
+    
+    st.session_state.model = load_model()
+    
+    segments, info = st.session_state.model.transcribe(file_path, beam_size=5, 
+        language="es", condition_on_previous_text=False)
+    
+    texto = ''
+    for segment in segments:
+      texto += segment.text
+        
+    return texto
   
 st.cache_resource(show_spinner = False)
 # Funciones auxiliares
