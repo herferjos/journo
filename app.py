@@ -71,7 +71,7 @@ if 'autenticado' in st.session_state:
 
   
     if 'mp3_audio_path' in st.session_state and 'X' not in st.session_state:
-        audio, contexto = st.tabs(["Audio", "Contexto"])
+      audio, contexto = st.tabs(["Audio", "Contexto"])
       with audio:
         st.info("Aquí tienes el audio que hemos procesado")
         st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
