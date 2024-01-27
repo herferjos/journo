@@ -31,7 +31,16 @@ if 'autenticado' not in st.session_state:
             st.rerun()
         else:
             st.error("Usuario o contraseña incorrectos")
-          
+
+st.session_state.chosen_id = stx.tab_bar(data=[
+    stx.TabBarItemData(id=1, title="Audio", description = ''),
+    stx.TabBarItemData(id=2, title="Contexto", description = '')
+], default=2)
+        
+if st.session_state.chosen_id == 1:
+  st.write("Uno")
+if st.session_state.chosen_id == 2:
+  st.write("Dos")
 
 if 'autenticado' in st.session_state:
     if 'mp3_audio_path' not in st.session_state:
@@ -72,7 +81,6 @@ if 'autenticado' in st.session_state:
 
   
     if 'mp3_audio_path' in st.session_state and 'X' not in st.session_state:
-      audio, contexto = st.tabs(["Audio", "Contexto"])
       chosen_id = stx.tab_bar(data=[
           stx.TabBarItemData(id=1, title="Audio", description = ''),
           stx.TabBarItemData(id=2, title="Contexto", description = '')
