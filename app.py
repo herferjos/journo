@@ -106,6 +106,35 @@ if 'autenticado' in st.session_state:
       
         audio, contexto, transcripcion, topics = st.tabs(["Audio", "Contexto", "Transcripción", "Temas seleccionados"])
       
+        with topics:
+          st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
+  
+          for i in range(len(st.session_state.topics)):
+              st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
+  
+              with st.expander('Ver diálogos'):
+                  texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
+                  texto = '- ' + texto
+                  
+                  patron = r'- (.+):'
+                  coincidencias = re.findall(patron, texto)
+                  
+                  for elemento in coincidencias:
+                      texto_formateado = f'<u><b>{elemento}</u></b>'
+                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                            
+                  # Mostrar el texto formateado
+                  st.write(texto, unsafe_allow_html=True)         
+          
+          if st.button("Siguiente", type = "primary"):
+            with st.spinner("Procesando la información... ⌛"):
+              st.session_state.new_dialogos = {}
+              for i in range(len(st.session_state.topics)):
+                if st.session_state[f'on_{st.session_state.topics[i]}']:
+                  st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
+  
+              st.rerun()
+              
         with audio:
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
@@ -138,35 +167,6 @@ if 'autenticado' in st.session_state:
                     
           # Mostrar el texto formateado
           st.write(texto, unsafe_allow_html=True)
-
-        with topics:
-          st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
-  
-          for i in range(len(st.session_state.topics)):
-              st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
-  
-              with st.expander('Ver diálogos'):
-                  texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
-                  texto = '- ' + texto
-                  
-                  patron = r'- (.+):'
-                  coincidencias = re.findall(patron, texto)
-                  
-                  for elemento in coincidencias:
-                      texto_formateado = f'<u><b>{elemento}</u></b>'
-                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                            
-                  # Mostrar el texto formateado
-                  st.write(texto, unsafe_allow_html=True)         
-          
-          if st.button("Siguiente", type = "primary"):
-            with st.spinner("Procesando la información... ⌛"):
-              st.session_state.new_dialogos = {}
-              for i in range(len(st.session_state.topics)):
-                if st.session_state[f'on_{st.session_state.topics[i]}']:
-                  st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
-  
-              st.rerun()
 
       
     if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
