@@ -143,7 +143,7 @@ if 'autenticado' in st.session_state:
           st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
   
           for i in range(len(st.session_state.topics)):
-              st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}")
+              st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
   
               with st.expander('Ver diálogos'):
                   texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
