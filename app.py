@@ -32,14 +32,19 @@ if 'autenticado' not in st.session_state:
             st.error("Usuario o contraseña incorrectos")
 
 if 'autenticado' in st.session_state:
-    if 'mp3_audio_path' not in st.session_state:
-      st.success("¡Autenticado con éxito!")
-      
+
+    if 'inicio' not in st.session_state:
+      if st.button("Empezar", type = "primary", key = "Charge"):
+        st.session_state.inicio = True
+        st.rerun()
       if st.button("Cargar información predeterminada", type = "primary", key = "Charge"):
         with open('demo.txt', "r",encoding="utf-8") as archivo:
           content = archivo.read()
         exec(content)
+        st.session_state.inicio = True
         st.rerun()
+    if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
+      st.success("¡Autenticado con éxito!")
         
       col1, col2 = st.tabs(["Grabar audio", "Subir audio"])
       with col1:
