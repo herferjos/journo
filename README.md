@@ -1,4 +1,3 @@
-# whisper-gpt-app
-App Whisper+GPT
+# Journo WebApp
 
-https://journo-ai.streamlit.app
+https://journo.streamlit.app
