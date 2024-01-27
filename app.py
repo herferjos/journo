@@ -19,6 +19,7 @@ st.markdown(
 )
 st.write("---")
 
+st.write(st.session_state.transcription1)
 
 # Inicio de sesión
 if 'autenticado' not in st.session_state:
