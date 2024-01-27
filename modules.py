@@ -50,7 +50,7 @@ def load_model():
 
     return st.session_state.model
     
- st.cache_resource(show_spinner = False)   
+st.cache_resource(show_spinner = False)   
 def transcribe_audio_2(file_path):
     
     st.session_state.model = load_model()
