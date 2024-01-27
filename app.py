@@ -74,8 +74,8 @@ if 'autenticado' in st.session_state:
     if 'mp3_audio_path' in st.session_state and 'X' not in st.session_state:
       audio, contexto = st.tabs(["Audio", "Contexto"])
       chosen_id = stx.tab_bar(data=[
-          stx.TabBarItemData(id=1, title="Audio"),
-          stx.TabBarItemData(id=2, title="Contexto")
+          stx.TabBarItemData(id=1, title="Audio", description = ''),
+          stx.TabBarItemData(id=2, title="Contexto", description = '')
       ], default=2)
               
       if chosen_id == 1:
@@ -111,10 +111,10 @@ if 'autenticado' in st.session_state:
     if 'topics' in st.session_state and 'new_dialogos' not in st.session_state:
       
         chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio"),
-            stx.TabBarItemData(id=2, title="Contexto"),
-            stx.TabBarItemData(id=3, title="Transcripción"),
-            stx.TabBarItemData(id=4, title="Temas seleccionados"),
+            stx.TabBarItemData(id=1, title="Audio", description = ''),
+            stx.TabBarItemData(id=2, title="Contexto", description = ''),
+            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
+            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
         ], default=4)
               
         if chosen_id == 1:
@@ -182,11 +182,11 @@ if 'autenticado' in st.session_state:
     if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
       
         chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio"),
-            stx.TabBarItemData(id=2, title="Contexto"),
-            stx.TabBarItemData(id=3, title="Transcripción"),
-            stx.TabBarItemData(id=4, title="Temas seleccionados"),
-            stx.TabBarItemData(id=5, title="Anotaciones"),
+            stx.TabBarItemData(id=1, title="Audio", description = ''),
+            stx.TabBarItemData(id=2, title="Contexto", description = ''),
+            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
+            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
+            stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
         ], default=5)
               
         if chosen_id == 1:
@@ -268,11 +268,11 @@ if 'autenticado' in st.session_state:
         st.write("# Resumen de la información recopilada")
       
         chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio"),
-            stx.TabBarItemData(id=2, title="Contexto"),
-            stx.TabBarItemData(id=3, title="Transcripción"),
-            stx.TabBarItemData(id=4, title="Temas seleccionados"),
-            stx.TabBarItemData(id=5, title="Anotaciones"),
+            stx.TabBarItemData(id=1, title="Audio", description = ''),
+            stx.TabBarItemData(id=2, title="Contexto", description = ''),
+            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
+            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
+            stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
         ], default=5)
               
         if chosen_id == 1:
@@ -347,12 +347,12 @@ if 'autenticado' in st.session_state:
 
     if 'noticia_generada' in st.session_state:
         chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio"),
-            stx.TabBarItemData(id=2, title="Contexto"),
-            stx.TabBarItemData(id=3, title="Transcripción"),
-            stx.TabBarItemData(id=4, title="Temas seleccionados"),
-            stx.TabBarItemData(id=5, title="Anotaciones"),
-            stx.TabBarItemData(id=6, title="Noticia"),       
+            stx.TabBarItemData(id=1, title="Audio", description = ''),
+            stx.TabBarItemData(id=2, title="Contexto", description = ''),
+            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
+            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
+            stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
+            stx.TabBarItemData(id=6, title="Noticia", description = ''),       
         ], default=6)
               
         if chosen_id == 1:
