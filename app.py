@@ -74,8 +74,6 @@ if 'autenticado' in st.session_state:
           stx.TabBarItemData(id=1, title="Audio", description = ''),
           stx.TabBarItemData(id=2, title="Contexto", description = '')
       ], default=2)
-
-      col1, col2 = st.columns([1,1])
               
       if chosen_id == "1":
         st.info("Aquí tienes el audio que hemos procesado")
@@ -97,6 +95,8 @@ if 'autenticado' in st.session_state:
           Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", placeholder = 'Partido vs Atletico de Madrid')
           A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
+          
+        col1, col2 = st.columns([0.1,1])
         
         with col2:
           if st.button("Enviar información", type = "primary", key = "Enviar"):
