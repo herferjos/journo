@@ -20,11 +20,6 @@ st.markdown(
 )
 st.write("---")
 
-
-st.write(st.query_params.get_all(''))
-
-
-
 x, y, z = st.columns(3)
 
 with y:
