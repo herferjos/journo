@@ -67,3 +67,5 @@ wheel==0.42.0
 zipp==3.17.0
 extra-streamlit-components==0.1.60
 faster-whisper==0.10.0
+httpx-oauth==0.13.1
+stripe==8.0.0
