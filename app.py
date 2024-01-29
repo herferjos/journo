@@ -19,19 +19,23 @@ st.markdown(
 )
 st.write("---")
 
-# Inicio de sesión
-if 'autenticado' not in st.session_state:
-    nombre_usuario = st.text_input("Nombre de usuario")
-    contraseña = st.text_input("Contraseña", type="password")
 
-    if st.button("Iniciar sesión", type = "primary"):
-        if verificar_credenciales(nombre_usuario, contraseña):
-            st.session_state['autenticado'] = True
-            st.rerun()
-        else:
-            st.error("Usuario o contraseña incorrectos")
+x, y, z = st.columns(3)
 
-if 'autenticado' in st.session_state:
+with y:
+  if 'email' in st.session_state:
+      if st.session_state.user_subscribed == True:
+        st.success("¡Ya puedes empezar a usar la plataforma! 🥳")
+      else:
+        st.warning("Debes suscribirte al plan mensual para hacer uso de la app")
+  else:
+    st.info("Debes iniciar sesión con tu cuenta de google")
+      
+  add_auth(required=True, login_sidebar = False)
+
+
+
+if 'email' in st.session_state:
     if 'inicio' not in st.session_state:
       st.write("Portada")
       st.write("Escribir aqui la bienvenida, explicar un poco el funcionamiento, introducir el video tutorial y dar la opcion de precargar un ejemplo")
@@ -44,8 +48,8 @@ if 'autenticado' in st.session_state:
         exec(content)
         st.session_state.inicio = True
         st.rerun()
+        
     if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
-      st.success("¡Autenticado con éxito!")
         
       col1, col2 = st.tabs(["Grabar audio", "Subir audio"])
       with col1:
