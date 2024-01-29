@@ -53,7 +53,7 @@ async def get_access_token(
 def get_access_token_from_query_params(
     client: GoogleOAuth2, redirect_url: str
 ) -> OAuth2Token:
-    code = st.query_params.get_all('code')[0]
+    code = st.query_params.get_all('code')
     token = asyncio.run(
         get_access_token(client=client, redirect_url=redirect_url, code=code)
     )
