@@ -51,15 +51,17 @@ async def get_access_token(
 
 
 def get_access_token_from_query_params(
-    client: GoogleOAuth2, redirect_url: str
-) -> OAuth2Token:
-    code = st.query_params.get_all('code')
-    token = asyncio.run(
-        get_access_token(client=client, redirect_url=redirect_url, code=code)
-    )
-    # Clear query params
-    st.query_params.clear()
-    return token
+     client: GoogleOAuth2, redirect_url: str
+ ) -> OAuth2Token:
+     query_params = st.experimental_get_query_params()
+     print(query_params)
+     code = query_params["code"][0]
+     token = asyncio.run(
+         get_access_token(client=client, redirect_url=redirect_url, code=code)
+     )
+     # Clear query params
+     st.experimental_set_query_params()
+     return token
 
 
 def show_login_button(
