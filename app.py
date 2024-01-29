@@ -21,7 +21,7 @@ st.markdown(
 st.write("---")
 
 
-st.write(st.query_params.get_all('code'))
+st.write(st.query_params.get_all())
 
 
 
