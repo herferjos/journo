@@ -21,6 +21,9 @@ st.markdown(
 st.write("---")
 
 
+st.write(st.experimental_get_query_params())
+
+
 x, y, z = st.columns(3)
 
 with y:
