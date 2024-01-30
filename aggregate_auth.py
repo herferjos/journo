@@ -34,6 +34,7 @@ def require_auth(
     user_email = get_logged_in_user_email()
 
     if not user_email:
+        st.info("Debes iniciar sesión con tu cuenta de google")
         show_login_button(
             text=login_button_text, color=login_button_color, sidebar=login_sidebar
         )
@@ -44,6 +45,7 @@ def require_auth(
         raise ValueError("payment_provider must be 'stripe'")
 
     if not is_subscriber:
+        st.warning("Debes suscribirte al plan mensual para hacer uso de la app")
         redirect_button(
             text="¡Suscríbete!",
             customer_email=user_email,
