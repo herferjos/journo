@@ -9,7 +9,15 @@ from aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-st.markdown(img_to_html('logo.png') + "<p style='text-align: center; color: grey;'><h4>Tu asistente periodístico de inteligencia artificial</h4></p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('logo.png') + "</p>", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div style='text-align: center;'>
+        <h4>Tu asistente periodístico de inteligencia artificial</h4>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 st.write("---")
 
