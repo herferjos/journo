@@ -50,9 +50,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             """,
             unsafe_allow_html=True
         )
-        num1 = st.number_input('num1', min_value=0.1)
-        num2 = st.number_input('num1', min_value=0.1)
-        num3 = st.number_input('num1', min_value=0.1)
+        num1 = st.number_input('num1', min_value=0.1, key = 'num1')
+        num2 = st.number_input('num1', min_value=0.1, key = 'num2')
+        num3 = st.number_input('num1', min_value=0.1, key = 'num3')
         
         a,b,c = st.columns([num1,num2,num3])
         with b:
