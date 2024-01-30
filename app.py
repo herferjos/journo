@@ -36,7 +36,7 @@ with y:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
-        st.write(f"## ¡Bienvenido {st.session_state.email}!")
+        st.success(f"## ¡Bienvenido {st.session_state.email}!")
         st.markdown(
             """
             <h4>Journo es una <strong>Inteligencia Artificial</strong> que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:</h4>
