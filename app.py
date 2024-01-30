@@ -65,7 +65,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
-        st.markdown("*Ejemplo*")
+        st.markdown("#### *Ejemplo*")
         for i in range(len(st.session_state.topics)):
             st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
 
