@@ -9,24 +9,7 @@ from aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-import base64
-from pathlib import Path
-
-def img_to_bytes(img_path):
-    img_bytes = Path(img_path).read_bytes()
-    encoded = base64.b64encode(img_bytes).decode()
-    return encoded
-def img_to_html(img_path):
-    img_html = "<img src='data:image/png;base64,{}' class='img-fluid'>".format(
-      img_to_bytes(img_path)
-    )
-    return img_html
-
-st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('logo.png') + "</p>", unsafe_allow_html=True)
-
-with st.columns(3)[1]:
-     st.image("logo.png")
-     st.write("### Tu asistente periodístico de inteligencia artificial")
+st.markdown(img_to_html('logo.png') + "<p style='text-align: center; color: grey;'><h4>Tu asistente periodístico de inteligencia artificial</h4></p>", unsafe_allow_html=True)
 
 st.write("---")
 
