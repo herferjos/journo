@@ -50,7 +50,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
-        with st.expander("##### *Ejemplo*"):
+        with st.expander("##### <u><b>Ejemplo</u></b>"):
             st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
             st.write(st.session_state.X)
             st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
