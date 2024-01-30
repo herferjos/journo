@@ -56,17 +56,17 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         with open('demo.txt', "r",encoding="utf-8") as archivo:
             content = archivo.read()
       
-         exec(content)
+        exec(content)
       
-          phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
+        phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
       
-          if phase == 0:
+        if phase == 0:
             st.write("### 1) Cargar o subir audio")
             st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
             with st.expander("*Ver ejemplo*"):
                 st.audio('audio.mp3', format="audio/mpeg")
-            
-          if phase == 1:
+        
+        if phase == 1:
             st.write("### 2) Describir el contexto de las declaraciones")
             st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
             with st.expander("*Ver ejemplo*"):
@@ -80,14 +80,14 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.write(st.session_state.A)
                 st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
                 st.write(st.session_state.B)
-            
-          if phase == 2:
+        
+        if phase == 2:
             st.write("### 3) Selección/descarte de temas mencionados")
             st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
             with st.expander("*Ver ejemplo*"):
               for i in range(len(st.session_state.topics)):
                   st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
-        
+            
                   with st.expander('Ver diálogos'):
                       texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
                       texto = '- ' + texto
@@ -101,7 +101,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                                 
                       # Mostrar el texto formateado
                       st.write(texto, unsafe_allow_html=True) 
-    
+
               
       if st.button("Probar flujo", type = "primary", key = "start"):
         st.session_state.inicio = True
