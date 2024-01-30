@@ -22,14 +22,9 @@ st.write("---")
 
 x, y, z = st.columns(3)
 
-with y:
+with y:   
   add_auth(required=True, login_sidebar = False)
   
-  if 'email' in st.session_state:
-      if st.session_state.user_subscribed == False:
-        st.warning("Debes suscribirte al plan mensual para hacer uso de la app")
-  else:
-    st.info("Debes iniciar sesión con tu cuenta de google")
       
  
 
