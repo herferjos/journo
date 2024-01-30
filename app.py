@@ -30,7 +30,7 @@ x, y, z = st.columns(3)
 with y:   
   add_auth(required=True, login_sidebar = False)
 
-  st.button('prueba')
+  x = st.button('prueba')
   
       
  
