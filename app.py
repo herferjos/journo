@@ -34,13 +34,73 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
       st.write("Portada")
       st.write("Escribir aqui la bienvenida, explicar un poco el funcionamiento, introducir el video tutorial y dar la opcion de precargar un ejemplo")
-      if st.button("Empezar", type = "primary", key = "start"):
+      st.write("## ¿Cómo funciona Journo?")
+      
+      with open('demo.txt', "r",encoding="utf-8") as archivo:
+        content = archivo.read()
+      exec(content)
+      
+      phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
+      
+      if phase == '0':
+        st.write("### 1) Cargar o subir audio")
+        st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
+        st.write("<i>Ejemplo</i>")
+        
+      if phase == '1':
+        st.write("### 2) Describir el contexto de las declaraciones")
+        st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
+        st.write("<i>Ejemplo</i>")
+        st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+        st.write(st.session_state.X)
+        st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+        st.write(st.session_state.Y)
+        st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+        st.write(st.session_state.Z)
+        st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+        st.write(st.session_state.A)
+        st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+        st.write(st.session_state.B)
+        
+      if phase == '2':
+        st.write("### 3) Selección/descarte de temas mencionados")
+        st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
+        st.write("<i>Ejemplo</i>")
+        for i in range(len(st.session_state.topics)):
+            st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
+
+            with st.expander('Ver diálogos'):
+                texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
+                texto = '- ' + texto
+                
+                patron = r'- (.+):'
+                coincidencias = re.findall(patron, texto)
+                
+                for elemento in coincidencias:
+                    texto_formateado = f'<u><b>{elemento}</u></b>'
+                    texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                          
+                # Mostrar el texto formateado
+                st.write(texto, unsafe_allow_html=True)     
+
+      
+      if st.button("Probar flujo", type = "primary", key = "start"):
         st.session_state.inicio = True
+        
+        del st.session_state.mp3_audio_path
+        del st.session_state.X
+        del st.session_state.Y
+        del st.session_state.Z
+        del st.session_state.A
+        del st.session_state.B
+        del st.session_state.transcription2 
+        del st.session_state.lista_transcription 
+        del st.session_state.topics
+        del st.session_state.dialogos_topics
+        
         st.rerun()
+        
       if st.button("Cargar información predeterminada", type = "primary", key = "Charge"):
-        with open('demo.txt', "r",encoding="utf-8") as archivo:
-          content = archivo.read()
-        exec(content)
         st.session_state.inicio = True
         st.rerun()
         
