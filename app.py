@@ -50,7 +50,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
-        with st.expander("##### <u><b>Ejemplo</u></b>"):
+        with st.expander("*Ver ejemplo*"):
             st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
             st.write(st.session_state.X)
             st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
@@ -65,7 +65,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
-        with st.expander("##### <u><b>Ejemplo</u></b>"):
+        with st.expander("*Ver ejemplo*"):
           for i in range(len(st.session_state.topics)):
               st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
   
