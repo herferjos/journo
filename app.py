@@ -10,7 +10,7 @@ from aggregate_auth import add_auth
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
-    "<p style='text-align: center; color: grey;'>" + img_to_html(image_path, 300, 300) + "</p>",
+    "<p style='text-align: center; color: grey;'>" + img_to_html('logo.png', 300, 300) + "</p>",
     unsafe_allow_html=True
 )
 st.markdown(
