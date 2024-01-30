@@ -51,6 +51,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             unsafe_allow_html=True
         )
         
+        st.write("")
+        
         a,b,c = st.columns([1,0.7,5])
         with b:
             if st.button("Probar Journo", type = "primary", key = "start"):
@@ -71,7 +73,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         with c:   
             st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
 
-        st.write("")
         st.write("---")
             
         st.write("## ¿Cómo funciona Journo?")
