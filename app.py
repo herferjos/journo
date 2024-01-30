@@ -36,67 +36,72 @@ with y:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
-      st.write(f"## ¡Bienvenido {st.session_state.email}!")
-      st.markdown(
-      """
-      Journo es una Inteligencia Artificial que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:
-      - Automatizar la transcripción de audios
-      - Guíar a la Inteligencia Artificial a redactar la noticia a tu gusto
-      - Modificar las noticias y darle el toque final
-      - Recibirás toda la información en un correo electrónico
-      """
-      )
+        st.write(f"## ¡Bienvenido {st.session_state.email}!")
+        st.markdown(
+            """
+            <h4>Journo es una <strong>Inteligencia Artificial</strong> que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:</h4>
+            <ul>
+                <li><strong>Automatizar</strong> la transcripción de audios</li>
+                <li><strong>Guíar</strong> a la Inteligencia Artificial a redactar la noticia a tu gusto</li>
+                <li><strong>Modificar</strong> las noticias y darle el toque final</li>
+                <li><strong>Recibirás</strong> toda la información en un correo electrónico</li>
+            </ul>
+            """,
+            unsafe_allow_html=True
+        )
+    
         
-      st.write("## ¿Cómo funciona Journo?")
-      
-      with open('demo.txt', "r",encoding="utf-8") as archivo:
-        content = archivo.read()
-      exec(content)
-      
-      phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
-      
-      if phase == 0:
-        st.write("### 1) Cargar o subir audio")
-        st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
-        with st.expander("*Ver ejemplo*"):
-            st.audio('audio.mp3', format="audio/mpeg")
+        st.write("## ¿Cómo funciona Journo?")
         
-      if phase == 1:
-        st.write("### 2) Describir el contexto de las declaraciones")
-        st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
-        with st.expander("*Ver ejemplo*"):
-            st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
-            st.write(st.session_state.X)
-            st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
-            st.write(st.session_state.Y)
-            st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
-            st.write(st.session_state.Z)
-            st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
-            st.write(st.session_state.A)
-            st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
-            st.write(st.session_state.B)
+        with open('demo.txt', "r",encoding="utf-8") as archivo:
+            content = archivo.read()
+      
+         exec(content)
+      
+          phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
+      
+          if phase == 0:
+            st.write("### 1) Cargar o subir audio")
+            st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
+            with st.expander("*Ver ejemplo*"):
+                st.audio('audio.mp3', format="audio/mpeg")
+            
+          if phase == 1:
+            st.write("### 2) Describir el contexto de las declaraciones")
+            st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
+            with st.expander("*Ver ejemplo*"):
+                st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+                st.write(st.session_state.X)
+                st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+                st.write(st.session_state.Y)
+                st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+                st.write(st.session_state.Z)
+                st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+                st.write(st.session_state.A)
+                st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+                st.write(st.session_state.B)
+            
+          if phase == 2:
+            st.write("### 3) Selección/descarte de temas mencionados")
+            st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
+            with st.expander("*Ver ejemplo*"):
+              for i in range(len(st.session_state.topics)):
+                  st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
         
-      if phase == 2:
-        st.write("### 3) Selección/descarte de temas mencionados")
-        st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
-        with st.expander("*Ver ejemplo*"):
-          for i in range(len(st.session_state.topics)):
-              st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
-  
-              with st.expander('Ver diálogos'):
-                  texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
-                  texto = '- ' + texto
-                  
-                  patron = r'- (.+):'
-                  coincidencias = re.findall(patron, texto)
-                  
-                  for elemento in coincidencias:
-                      texto_formateado = f'<u><b>{elemento}</u></b>'
-                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                            
-                  # Mostrar el texto formateado
-                  st.write(texto, unsafe_allow_html=True) 
-   
+                  with st.expander('Ver diálogos'):
+                      texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
+                      texto = '- ' + texto
+                      
+                      patron = r'- (.+):'
+                      coincidencias = re.findall(patron, texto)
+                      
+                      for elemento in coincidencias:
+                          texto_formateado = f'<u><b>{elemento}</u></b>'
+                          texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                                
+                      # Mostrar el texto formateado
+                      st.write(texto, unsafe_allow_html=True) 
+    
               
       if st.button("Probar flujo", type = "primary", key = "start"):
         st.session_state.inicio = True
@@ -134,8 +139,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
               
                 st.rerun()
-
-
+    
+    
       with col2:
         st.info("Puedes empezar a grabar un audio directamente desde aquí")
         
