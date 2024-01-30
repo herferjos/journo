@@ -45,27 +45,27 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 0:
         st.write("### 1) Cargar o subir audio")
         st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
-        st.write("<i>Ejemplo</i>")
+        # with st.expander("##### *Ejemplo*"):
         
       if phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
-        st.write("<i>Ejemplo</i>")
-        st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
-        st.write(st.session_state.X)
-        st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
-        st.write(st.session_state.Y)
-        st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
-        st.write(st.session_state.Z)
-        st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
-        st.write(st.session_state.A)
-        st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
-        st.write(st.session_state.B)
+         with st.expander("##### *Ejemplo*"):
+            st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+            st.write(st.session_state.X)
+            st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+            st.write(st.session_state.Y)
+            st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+            st.write(st.session_state.Z)
+            st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+            st.write(st.session_state.A)
+            st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+            st.write(st.session_state.B)
         
       if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
-        with st.expander("#### *Ejemplo*"):
+        with st.expander("##### *Ejemplo*"):
           for i in range(len(st.session_state.topics)):
               st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
   
