@@ -22,7 +22,7 @@ def img_to_html(img_path):
     )
     return img_html
 
-st.markdown(<p style='text-align: center; color: grey;'>"+img_to_html('logo.png')+"</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('logo.png') + "</p>", unsafe_allow_html=True)
 
 with st.columns(3)[1]:
      st.image("logo.png")
