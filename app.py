@@ -42,12 +42,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       
       phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
       
-      if phase == '0':
+      if phase == 0:
         st.write("### 1) Cargar o subir audio")
         st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
         st.write("<i>Ejemplo</i>")
         
-      if phase == '1':
+      if phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
         st.write("<i>Ejemplo</i>")
@@ -62,7 +62,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
         st.write(st.session_state.B)
         
-      if phase == '2':
+      if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
         st.write("<i>Ejemplo</i>")
@@ -134,7 +134,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.rerun()
 
   
-    if 'mp3_audio_path' in st.session_state and 'topics' not in st.session_state:
+    if 'mp3_audio_path' in st.session_state and 'topics' not in st.session_state and 'inicio' in st.session_state:
       chosen_id = stx.tab_bar(data=[
           stx.TabBarItemData(id=1, title="Audio", description = ''),
           stx.TabBarItemData(id=2, title="Contexto", description = '')
@@ -185,7 +185,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.rerun()
               
           
-    if 'topics' in st.session_state and 'new_dialogos' not in st.session_state:
+    if 'topics' in st.session_state and 'new_dialogos' not in st.session_state and 'inicio' in st.session_state:
       
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
@@ -263,7 +263,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               del st.session_state['topics']
               st.rerun()
       
-    if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state:
+    if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state and 'inicio' in st.session_state:
       
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
@@ -355,7 +355,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               del st.session_state['new_dialogos']
               st.rerun()
 
-    if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state:
+    if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
         st.write("# Resumen de la información recopilada")
       
         chosen_id = stx.tab_bar(data=[
@@ -442,7 +442,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             del st.session_state['anotaciones']
             st.rerun()
 
-    if 'noticia_generada' in st.session_state:
+    if 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
