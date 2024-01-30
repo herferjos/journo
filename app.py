@@ -70,6 +70,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.rerun()
         with c:   
             st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
+
+        st.write("")
+        st.write("---")
             
         st.write("## ¿Cómo funciona Journo?")
         
