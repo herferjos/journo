@@ -22,7 +22,7 @@ st.write("---")
 
 st.markdown("""
   <style>
-  div.stButton {text-align:center}
+  div.stLinkButton {text-align:center}
   </style>""", unsafe_allow_html=True)
 
 x, y, z = st.columns(3)
