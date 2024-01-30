@@ -25,8 +25,9 @@ st.markdown("""
   div.stLinkButton {text-align:center}
   </style>""", unsafe_allow_html=True)
 
-
-add_auth(required=True, login_sidebar = False)
+x,y,z = st.columns(3)
+with y:
+  add_auth(required=True, login_sidebar = False)
 
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
