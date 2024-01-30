@@ -37,6 +37,7 @@ with y:
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
         st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
+        st.write("## ¿Qué es Journo?")
         st.markdown(
             """
             <h4>Journo es una <strong>Inteligencia Artificial</strong> que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:</h4>
@@ -49,8 +50,23 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             """,
             unsafe_allow_html=True
         )
-    
         
+        if st.button("Probar Journo", type = "primary", key = "start"):
+            st.session_state.inicio = True
+            
+            del st.session_state.mp3_audio_path
+            del st.session_state.X
+            del st.session_state.Y
+            del st.session_state.Z
+            del st.session_state.A
+            del st.session_state.B
+            del st.session_state.transcription2 
+            del st.session_state.lista_transcription 
+            del st.session_state.topics
+            del st.session_state.dialogos_topics
+            
+            st.rerun()
+            
         st.write("## ¿Cómo funciona Journo?")
         
         with open('demo.txt', "r",encoding="utf-8") as archivo:
@@ -102,26 +118,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                       # Mostrar el texto formateado
                       st.write(texto, unsafe_allow_html=True) 
 
-              
-        if st.button("Probar flujo", type = "primary", key = "start"):
-            st.session_state.inicio = True
-            
-            del st.session_state.mp3_audio_path
-            del st.session_state.X
-            del st.session_state.Y
-            del st.session_state.Z
-            del st.session_state.A
-            del st.session_state.B
-            del st.session_state.transcription2 
-            del st.session_state.lista_transcription 
-            del st.session_state.topics
-            del st.session_state.dialogos_topics
-            
-            st.rerun()
-        
-        if st.button("Cargar información predeterminada", type = "primary", key = "Charge"):
-            st.session_state.inicio = True
-            st.rerun()
             
     if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
         
