@@ -10,20 +10,8 @@ from aggregate_auth import add_auth
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 with st.columns(3)[1]:
-     st.header("hello world")
-     st.image("http://placekitten.com/200/200")
-
-# Centrar la imagen con Markdown
-st.markdown("""
-    <div style='text-align: center;'>
-        <img src="logo.png">
-    </div>
-""", unsafe_allow_html=True)
-
-# Centrar el texto con Markdown
-st.markdown("""
-    ### Tu asistente periodístico de inteligencia artificial
-""", unsafe_allow_html=True)
+     st.image("logo.png")
+     st.write("### Tu asistente periodístico de inteligencia artificial")
 
 st.write("---")
 
