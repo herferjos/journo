@@ -36,7 +36,7 @@ with y:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
-      st.write(f"### Bienvenido {st.session_state.email")
+      st.write(f"### Bienvenido {st.session_state.email}")
       st.write("""Journo es una Inteligencia Artificial que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:
       - Automatizar la transcripción de audios
       - Guíar a la Inteligencia Artificial a redactar la noticia a tu gusto
