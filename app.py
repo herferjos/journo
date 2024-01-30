@@ -9,7 +9,9 @@ from aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-import streamlit as st
+with st.columns(3)[1]:
+     st.header("hello world")
+     st.image("http://placekitten.com/200/200")
 
 # Centrar la imagen con Markdown
 st.markdown("""
