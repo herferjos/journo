@@ -50,22 +50,26 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             """,
             unsafe_allow_html=True
         )
-        
-        if st.button("Probar Journo", type = "primary", key = "start"):
-            st.session_state.inicio = True
-            
-            del st.session_state.mp3_audio_path
-            del st.session_state.X
-            del st.session_state.Y
-            del st.session_state.Z
-            del st.session_state.A
-            del st.session_state.B
-            del st.session_state.transcription2 
-            del st.session_state.lista_transcription 
-            del st.session_state.topics
-            del st.session_state.dialogos_topics
-            
-            st.rerun()
+
+        a,b,c = st.columns(3)
+        with b:
+            if st.button("Probar Journo", type = "primary", key = "start"):
+                st.session_state.inicio = True
+                
+                del st.session_state.mp3_audio_path
+                del st.session_state.X
+                del st.session_state.Y
+                del st.session_state.Z
+                del st.session_state.A
+                del st.session_state.B
+                del st.session_state.transcription2 
+                del st.session_state.lista_transcription 
+                del st.session_state.topics
+                del st.session_state.dialogos_topics
+                
+                st.rerun()
+                
+            st.link_button("Ver video tutorial", "https://streamlit.io/gallery")
             
         st.write("## ¿Cómo funciona Journo?")
         
