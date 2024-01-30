@@ -65,23 +65,24 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
-        st.markdown("#### *Ejemplo*")
-        for i in range(len(st.session_state.topics)):
-            st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
+        with st.expander("#### *Ejemplo*")
+          lista_claves = list(st.session_state.new_dialogos.keys())
 
-            with st.expander('Ver diálogos'):
-                texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
-                texto = '- ' + texto
-                
-                patron = r'- (.+):'
-                coincidencias = re.findall(patron, texto)
-                
-                for elemento in coincidencias:
-                    texto_formateado = f'<u><b>{elemento}</u></b>'
-                    texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                          
-                # Mostrar el texto formateado
-                st.write(texto, unsafe_allow_html=True)     
+          for i in range(len(lista_claves)):
+            st.write(f"### {lista_claves[i]}")
+            with st.expander('Ver diálogo'):
+              texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
+              texto = '- ' + texto
+              
+              patron = r'- (.+):'
+              coincidencias = re.findall(patron, texto)
+              
+              for elemento in coincidencias:
+                  texto_formateado = f'<u><b>{elemento}</u></b>'
+                  texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
+                        
+              # Mostrar el texto formateado
+              st.write(texto, unsafe_allow_html=True)
 
       
       if st.button("Probar flujo", type = "primary", key = "start"):
