@@ -65,7 +65,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
-        with st.expander("#### *Ejemplo*")
+        with st.expander("#### *Ejemplo*"):
           lista_claves = list(st.session_state.new_dialogos.keys())
 
           for i in range(len(lista_claves)):
