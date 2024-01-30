@@ -51,7 +51,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             unsafe_allow_html=True
         )
 
-        a,b,c = st.columns(3)
+        a,b,c = st.columns([0.7,1,1])
         with b:
             if st.button("Probar Journo", type = "primary", key = "start"):
                 st.session_state.inicio = True
