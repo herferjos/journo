@@ -103,26 +103,26 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                       st.write(texto, unsafe_allow_html=True) 
 
               
-      if st.button("Probar flujo", type = "primary", key = "start"):
-        st.session_state.inicio = True
+        if st.button("Probar flujo", type = "primary", key = "start"):
+            st.session_state.inicio = True
+            
+            del st.session_state.mp3_audio_path
+            del st.session_state.X
+            del st.session_state.Y
+            del st.session_state.Z
+            del st.session_state.A
+            del st.session_state.B
+            del st.session_state.transcription2 
+            del st.session_state.lista_transcription 
+            del st.session_state.topics
+            del st.session_state.dialogos_topics
+            
+            st.rerun()
         
-        del st.session_state.mp3_audio_path
-        del st.session_state.X
-        del st.session_state.Y
-        del st.session_state.Z
-        del st.session_state.A
-        del st.session_state.B
-        del st.session_state.transcription2 
-        del st.session_state.lista_transcription 
-        del st.session_state.topics
-        del st.session_state.dialogos_topics
-        
-        st.rerun()
-        
-      if st.button("Cargar información predeterminada", type = "primary", key = "Charge"):
-        st.session_state.inicio = True
-        st.rerun()
-        
+        if st.button("Cargar información predeterminada", type = "primary", key = "Charge"):
+            st.session_state.inicio = True
+            st.rerun()
+            
     if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
         
       col1, col2 = st.tabs(["Grabar audio", "Subir audio"])
