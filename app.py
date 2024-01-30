@@ -46,13 +46,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       
       st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
       
-      if phase == 0:
+      if st.session_state.phase == 0:
         st.write("### 1) Cargar o subir audio")
         st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
         with st.expander("*Ver ejemplo*"):
             st.audio('audio.mp3', format="audio/mpeg")
         
-      if phase == 1:
+      if st.session_state.phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
         with st.expander("*Ver ejemplo*"):
@@ -67,7 +67,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
             st.write(st.session_state.B)
         
-      if phase == 2:
+      if st.session_state.phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
         with st.expander("*Ver ejemplo*"):
