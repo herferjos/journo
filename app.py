@@ -93,9 +93,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       with col2:
           if st.button("Siguiente", type = "primary", key = "Enviar"):
               st.session_state.phase = st.session_state.phase + 1
+              st.rerun()
       with col1:
           if st.button("Atrás", type = "primary", key = "atras"):
               st.session_state.phase = st.session_state.phase - 1
+              st.rerun()
    
               
       if st.button("Probar flujo", type = "primary", key = "start"):
