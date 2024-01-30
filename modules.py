@@ -44,9 +44,16 @@ def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
     encoded = base64.b64encode(img_bytes).decode()
     return encoded
-def img_to_html(img_path):
-    img_html = "<img src='data:image/png;base64,{}' class='img-fluid'>".format(
-      img_to_bytes(img_path)
+
+def img_to_html(img_path, width=None, height=None):
+    style = ""
+    if width:
+        style += f"width:{width}px;"
+    if height:
+        style += f"height:{height}px;"
+    img_html = "<img src='data:image/png;base64,{}' style='{}' class='img-fluid'>".format(
+        img_to_bytes(img_path),
+        style
     )
     return img_html
 
