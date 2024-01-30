@@ -9,50 +9,13 @@ from aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-import os
+st.markdown("""
+  <style>
+  div.stImage {text-align:center}
+  </style>""", unsafe_allow_html=True)
 
-def buscar_archivo(nombre_archivo, ruta_inicial=os.path.abspath(os.sep)):
-    """
-    Función para buscar un archivo recursivamente en un directorio dado.
-    """
-    try:
-        # Iterar sobre los elementos del directorio
-        for elemento in os.listdir(ruta_inicial):
-            ruta_elemento = os.path.join(ruta_inicial, elemento)
-
-            # Verificar si es un directorio
-            if os.path.isdir(ruta_elemento):
-                # Recursivamente buscar en el directorio
-                resultado = buscar_archivo(nombre_archivo, ruta_elemento)
-                if resultado:
-                    return resultado
-
-            # Verificar si el elemento es el archivo que buscamos
-            elif elemento == nombre_archivo:
-                return ruta_elemento
-    except PermissionError:
-        # Ignorar directorios a los que no se tiene permiso de acceso
-        pass
-
-    # Si no se encuentra el archivo en ningún lugar
-    return None
-
-# Buscar el archivo logo.png en el sistema de archivos
-ruta_logo = buscar_archivo('logo.png')
-
-st.write(ruta_logo)
-
-
-st.markdown(
-    """
-    <div style='text-align: center;'>
-        <img src='logo.png' style='width: 200px; height: 200px;'>
-        <h4>Tu asistente periodístico de inteligencia artificial</h4>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
+st.image('logo.png')
+st.write("### Tu asistente periodístico de inteligencia artificial")
 st.write("---")
 
 st.markdown("""
