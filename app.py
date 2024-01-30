@@ -24,9 +24,7 @@ x, y, z = st.columns(3)
 
 with y:
   if 'email' in st.session_state:
-      if st.session_state.user_subscribed == True:
-        st.success("¡Ya puedes empezar a usar la plataforma! 🥳")
-      else:
+      if st.session_state.user_subscribed == False:
         st.warning("Debes suscribirte al plan mensual para hacer uso de la app")
   else:
     st.info("Debes iniciar sesión con tu cuenta de google")
@@ -35,7 +33,7 @@ with y:
 
 
 
-if 'email' in st.session_state:
+if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
       st.write("Portada")
       st.write("Escribir aqui la bienvenida, explicar un poco el funcionamiento, introducir el video tutorial y dar la opcion de precargar un ejemplo")
