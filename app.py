@@ -36,23 +36,28 @@ with y:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'inicio' not in st.session_state:
-      st.write("Portada")
-      st.write("Escribir aqui la bienvenida, explicar un poco el funcionamiento, introducir el video tutorial y dar la opcion de precargar un ejemplo")
+      st.write(f"### Bienvenido {st.session_state.email")
+      st.write("""Journo es una Inteligencia Artificial que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:
+      - Automatizar la transcripción de audios
+      - Guíar a la Inteligencia Artificial a redactar la noticia a tu gusto
+      - Modificar las noticias y darle el toque final
+      - Recibirás toda la información en un correo electrónico""")
+        
       st.write("## ¿Cómo funciona Journo?")
       
       with open('demo.txt', "r",encoding="utf-8") as archivo:
         content = archivo.read()
       exec(content)
       
-      st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
+      phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
       
-      if st.session_state.phase == 0:
+      if phase == 0:
         st.write("### 1) Cargar o subir audio")
         st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
         with st.expander("*Ver ejemplo*"):
             st.audio('audio.mp3', format="audio/mpeg")
         
-      if st.session_state.phase == 1:
+      if phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
         with st.expander("*Ver ejemplo*"):
@@ -67,7 +72,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
             st.write(st.session_state.B)
         
-      if st.session_state.phase == 2:
+      if phase == 2:
         st.write("### 3) Selección/descarte de temas mencionados")
         st.info("A continuación deberemos deseleccionar aquellos asuntos que no queremos incluir en la noticia final y fueron mencionados en las declaraciones.")
         with st.expander("*Ver ejemplo*"):
@@ -87,17 +92,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                             
                   # Mostrar el texto formateado
                   st.write(texto, unsafe_allow_html=True) 
-
-      col1, col2 = st.columns([0.07,1])
-    
-      with col2:
-          if st.button("Siguiente", type = "primary", key = "Enviar"):
-              st.session_state.phase = st.session_state.phase + 1
-              st.rerun()
-      with col1:
-          if st.button("Atrás", type = "primary", key = "atras"):
-              st.session_state.phase = st.session_state.phase - 1
-              st.rerun()
    
               
       if st.button("Probar flujo", type = "primary", key = "start"):
