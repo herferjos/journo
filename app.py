@@ -44,12 +44,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         content = archivo.read()
       exec(content)
       
-      phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
+      st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Selección temática", "Destacar momentos", "Noticia"])
       
       if phase == 0:
         st.write("### 1) Cargar o subir audio")
         st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
-        # with st.expander("##### *Ejemplo*"):
+        with st.expander("*Ver ejemplo*"):
+            st.audio('audio.mp3', format="audio/mpeg")
         
       if phase == 1:
         st.write("### 2) Describir el contexto de las declaraciones")
@@ -87,7 +88,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                   # Mostrar el texto formateado
                   st.write(texto, unsafe_allow_html=True) 
 
-      
+      col1, col2 = st.columns([0.07,1])
+    
+      with col2:
+          if st.button("Siguiente", type = "primary", key = "Enviar"):
+              st.session_state.phase = st.session_state.phase + 1
+      with col1:
+          if st.button("Atrás", type = "primary", key = "atras"):
+              st.session_state.phase = st.session_state.phase - 1
+   
+              
       if st.button("Probar flujo", type = "primary", key = "start"):
         st.session_state.inicio = True
         
