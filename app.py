@@ -28,7 +28,6 @@ st.markdown("""
 x, y, z = st.columns(3)
 
 with y:
-  x = st.button('prueba')
   add_auth(required=True, login_sidebar = False)
 
 
