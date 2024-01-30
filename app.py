@@ -7,17 +7,18 @@ import re
 import extra_streamlit_components as stx
 from aggregate_auth import add_auth
 
-st.set_page_config(page_title="Journo.AI", page_icon="🗞️", layout="wide")
+st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
-  """
-  <div style='text-align: center;'>
-      <h1>🗞️ Journo 🗞️</h1>
-      <h4>Tu asistente periodístico de inteligencia artificial</h4>
-  </div>
-  """,
+    """
+    <div style='text-align: center;'>
+        <img src='logo.png' style='width: 200px; height: 200px;'>
+        <h4>Tu asistente periodístico de inteligencia artificial</h4>
+    </div>
+    """,
     unsafe_allow_html=True
 )
+
 st.write("---")
 
 st.markdown("""
