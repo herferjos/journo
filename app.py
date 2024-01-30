@@ -9,6 +9,8 @@ from aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
+st.image("logo.png")
+
 st.markdown(
     """
     <div style='text-align: center;'>
