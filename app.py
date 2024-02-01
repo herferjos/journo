@@ -132,7 +132,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             
     if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
         
-      col1, col2 = st.tabs(["Grabar audio", "Subir audio"])
+      col1, col2 = st.tabs(["Subir audio", "Grabar audio"])
       with col1:
         st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
         archivo = st.file_uploader("Cargar archivo de audio")
@@ -190,7 +190,14 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         col1, col2 = st.columns([0.07,1])
         
         with col2:
-          if st.button("Siguiente", type = "primary", key = "Enviar"):
+          boton_adelante = st.button("Siguiente", type = "primary", key = "Enviar"):
+              
+        with col1:
+          if st.button("Atrás", type = "primary", key = "atras"):
+            del st.session_state['mp3_audio_path']
+            st.rerun()
+              
+        if boton_adelante:
               with st.spinner("Enviando información... ⌛"):
                 st.warning("Este proceso puede tardar unos minutos.")
                 st.session_state.X = X
@@ -204,12 +211,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.transcription2, st.session_state.lista_transcription = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.session_state.topics, st.session_state.dialogos_topics = topicer(st.session_state.lista_transcription)
                 st.rerun()
-              
-        with col1:
-          if st.button("Atrás", type = "primary", key = "atras"):
-            del st.session_state['mp3_audio_path']
-            st.rerun()
-              
           
     if 'topics' in st.session_state and 'new_dialogos' not in st.session_state and 'inicio' in st.session_state:
       
