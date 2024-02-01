@@ -548,7 +548,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada)
 
-            with st.expander('Chatea con una IA y ayúdate):
+            with st.expander('Chatea con una IA y ayúdate'):
                 if len(st.session_state.messages) == 1:
                     st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
                 
