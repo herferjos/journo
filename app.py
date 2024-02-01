@@ -24,6 +24,9 @@ st.markdown(
 
 st.write("---")
 
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
+    
 st.markdown("""
   <style>
   div.stLinkButton {text-align:center}
@@ -540,22 +543,44 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                   st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
 
         if chosen_id == "6":
-          st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
-  
-          estilo_bordes_redondeados = """
-              <style>
-                  .bordes-redondeados {
-                      border-radius: 10px;
-                      padding: 10px;
-                      border: 2px solid #ccc; /* Puedes ajustar el color del borde según tus preferencias */
-                  }
-              </style>
-          """
-  
-          # Aplicar el estilo CSS
-          st.markdown(estilo_bordes_redondeados, unsafe_allow_html=True)
-  
-          # Mostrar el texto con bordes redondeados
-          st.markdown(f'<div class="bordes-redondeados">{st.session_state.noticia_generada}</div>', unsafe_allow_html=True)
+            st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
+            st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti. Dale click a chatear")
+            
+            st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada)
+
+            with st.expander('Chatea con una IA y ayúdate):
+                if len(st.session_state.messages) == 1:
+                    st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
+                
+                for message in st.session_state.messages:
+                    if message["role"] == "system":
+                        pass
+                    else:
+                        with st.chat_message(message["role"]):
+                            st.markdown(message["content"])
+                
+                if prompt := st.chat_input("Pregunta lo que quieras"):
+                    st.session_state.messages.append({"role": "user", "content": prompt})
+                    with st.chat_message("user"):
+                        st.markdown(prompt)
+                        
+                    with st.chat_message("assistant"):
+                                
+                        response = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo-1106",
+                        messages=st.session_state.messages,
+                        temperature = 0,
+                        stream = True
+                        )
+                        
+                        message_placeholder = st.empty()
+                        full_response = ""
+                        
+                        for chunk in response:
+                            full_response += chunk.choices[0].delta.get("content", "")
+                            message_placeholder.markdown(full_response + "▌")
+                                  
+                        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
 
 
