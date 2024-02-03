@@ -546,16 +546,15 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if chosen_id == "7":
             st.write('## 📍Guardar información')
             st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
-            nombre_archivo = generar_y_descargar_txt()
-            with open(archivo, "r") as f:
-                contenido = f.read()
+            contenido = generar_txt()
             st.write(contenido)
+            bytes_data = contenido.encode()
             st.download_button(
-                label="Descargar archivo de variables de sesión",
-                data=open(nombre_archivo, "rb"),
+                label="Descargar contenido de variables de sesión",
+                data=bytes_data,
                 file_name="variables_session_state.txt",
                 mime="text/plain"
-            )  
+            )
             options = st.multiselect(
                 'Selecciona lo que necesitas que te enviemos',
                 ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'],
