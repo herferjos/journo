@@ -59,13 +59,9 @@ def reset_variables():
     
     st.rerun()
 
-def cargar_noticia(df):
-    st.session_state.transcription2 = df.iloc[0, 0]
-    st.session_state.X = df.iloc[0, 1]
-    st.session_state.Y = df.iloc[0, 2]
-    st.session_state.Z = df.iloc[0, 3]
-    st.session_state.A = df.iloc[0, 4]
-    st.session_state.B = df.iloc[0, 5]
+def cargar_noticia(content):
+    exec(content)
+    st.rerun()
     
     
         
