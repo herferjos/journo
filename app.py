@@ -21,7 +21,7 @@ df = df.dropna(axis=0, how='all')
 # Eliminar columnas con todas las celdas vacías
 df = df.dropna(axis=1, how='all')
 
-st.dataframe(df)
+st.dataframe(df, show_index = False)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
