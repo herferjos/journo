@@ -113,18 +113,10 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     return response_noticia.choices[0].message.content
     
 st.cache_resource(show_spinner = False)
-def dialoguer(transcripcion, X, Y, Z, A, B):
-    
-    prompt = f"""Transforma la siguiente transcripcion en un dialogo sabiendo que:
-     - Cargo: {X}
-     - Nombre: {Y}
-     - Tema relevante: {Z}
-     - Dónde: {A}
-     - Cúando: {B}"""
+def parrafer(transcripcion):
     
     messages = [
-      {"role": "system", "content": prompt},
-      {"role": "system", "content": "Recuerda que debes extraer tanto las preguntas como respuestas en su debido orden con su personaje correspondiete. Debes responder con un JSON de la siguiente forma: {'personajes': [<lista de nombre de las personas que intervienen en orden>], 'dialogo':[<lista de dialogos de cada personaje ordenado>]}"},
+      {"role": "system", "content": "Eres un asistente de periodistas. Ayúdame a separar en párrafos las siguientes declaraciones para que sea un texto legible. No elimines nada de información, solo dedicate a estructurar en párrafos la transcripción:"}
       {"role": "user", "content": transcripcion},
     ]
 
@@ -132,38 +124,11 @@ def dialoguer(transcripcion, X, Y, Z, A, B):
             model="gpt-3.5-turbo-1106",
             messages=messages,
             seed = 42,
-            temperature=0,
-            response_format={"type": "json_object"}
+            temperature=0
         )
     
-    return '\n'.join(json.loads(response.choices[0].message.content)['dialogo']), json.loads(response.choices[0].message.content)['dialogo']
+    return response.choices[0].message.content
 
-
-st.cache_resource(show_spinner = False)
-def topicer(lista_transcription):
-    
-    texto = '\n\n- '.join(lista_transcription)
-    texto = '- ' + texto
-    
-    my_texto = 'Extrae de las siguiente declaraciones los topics/asuntos mencionados, junto a los parrafos e intervenciones que correspnden a dicho asunto. Respondeme de manera organizada y estructurada en un JSON con la siguiente estructura: {"topics": [<lista de topics mencionados>], "diccionario_dialogos":{"<topic1>" = [<lista de parrafos del topic1>], ...}}'
-    
-    messages = [
-      {"role": "system", "content": my_texto},
-      {"role": "system", "content": "Recuerda que NO debes repetir topics, agrupalos en conjuntos y que debes extraer también todos los diálogos asociados a cada topic en forma de lista, tanto las preguntas como las respuestas."},
-      {"role": "user", "content": f"Dialogos:{texto}"},
-    ]
-    
-    response = openai_client.chat.completions.create(
-            model="gpt-3.5-turbo-1106",
-            messages=messages,
-            temperature=0,
-            response_format={"type": "json_object"}
-        )
-    
-    
-    dicc = json.loads(response.choices[0].message.content)
-
-    return dicc['topics'], dicc['diccionario_dialogos']
 
 st.cache_resource(show_spinner = False)
 def audio_a_bytes(archivo_audio):
