@@ -209,7 +209,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
                 
                 st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
-                st.session_state.transcription2, st.session_state.lista_transcription = parrafer(st.session_state.transcription1)
+                st.session_state.transcription2 = parrafer(st.session_state.transcription1)
                 st.rerun()
           
     if 'transcription2' in st.session_state and 'transcripcion_final' not in st.session_state and 'inicio' in st.session_state:
