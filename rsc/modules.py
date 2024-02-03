@@ -97,7 +97,7 @@ def dataframetipo(df):
           elemento.pop('_selectedRowNodeInfo')
       df = pd.DataFrame(selected_row_dict)
         
-      return df, grid_table
+      return df, selected_row[0]['nodeId']
 
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
