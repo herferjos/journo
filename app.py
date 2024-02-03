@@ -85,7 +85,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
             seleccion = dataframetipo(st.session_state.database)
             st.dataframe(seleccion)
-            a,b = st.columns([0.1, 1])
+            a,b = st.columns([0.2, 1])
             if len(seleccion) > 0:
                 with st.expander('Explorar noticia'):
                     pass
