@@ -14,7 +14,7 @@ hide_st_style = """
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {visibility: hidden;}
-a[href='https://streamlit.io/cloud'] {display: none !important;}
+.viewerBadge_container__r5tak styles_viewerBadge__CvC9N {visibility: hidden;}
 </style>
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
