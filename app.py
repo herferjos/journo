@@ -370,12 +370,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
         if chosen_id == "5":
-            st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
+            st.write("""## ✅ ¡Listo!""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti. Dale click a chatear")
             
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
 
-            with st.expander('Chatea con una IA y ayúdate'):
+            st.write('## 🤖 Chatea con una IA y ayúdate'):
                 if len(st.session_state.messages) == 1:
                     st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
                 
