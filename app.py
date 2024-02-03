@@ -343,7 +343,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
             
           for i in range(len(st.session_state.lista)):
-              f'on_{i}'  = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+              on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
               st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
 
         col1, col2 = st.columns([0.07,1])
