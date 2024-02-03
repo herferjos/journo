@@ -12,20 +12,6 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-# Crear un DataFrame de prueba
-data = {
-    'A': [1, 2, 3],
-    'B': [4, 5, 6],
-    'C': [7, 8, 9]
-}
-
-df = pd.DataFrame(data)
-
-selec, id = dataframetipo(df)
-
-st.write(selec)
-st.write(id)
-
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
@@ -95,16 +81,56 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 reset_variables()
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-            seleccion = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+            seleccion, id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
             
             a,b = st.columns([0.2, 1])
             if len(seleccion) > 0:
+                cargar_noticia(st.session_state.database.iloc[id, -1])
                 with st.expander('Explorar noticia'):
-                    pass
+                  chosen_id = stx.tab_bar(data=[
+                        stx.TabBarItemData(id=1, title="Contexto", description = ''),
+                        stx.TabBarItemData(id=2, title="Transcripción", description = ''),
+                        stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
+                        stx.TabBarItemData(id=4, title="Noticia generada", description = '')   
+                    ], default=4)
+            
+                    if chosen_id == "1":
+                      st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
+                      st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+                      st.write(st.session_state.X)
+                      st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+                      st.write(st.session_state.Y)
+                      st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+                      st.write(st.session_state.Z)
+                      st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+                      st.write(st.session_state.A)
+                      st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+                      st.write(st.session_state.B)
+            
+                    if chosen_id == "2":
+                      st.info("Aquí tienes la transcripción del audio completa")
+                      st.write(st.session_state.transcription2, unsafe_allow_html=True)
+            
+                    if chosen_id == "3":
+                      st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+                        
+                      for i in range(len(st.session_state.lista)):
+                          on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+                          frases = []
+                          for item in st.session_state[f'anotaciones_{i}']:
+                              for x in item:
+                                frases.append(x['label'])
+                          st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
+            
+                    if chosen_id == "4":
+                        st.info('Esta es la noticia generada por Journo')
+                        st.write(st.session_state.noticia_generada)
+        
 
                 with b:  
                     if st.button("Cargar noticia", type = "primary", key = "record"):
-                        cargar_noticia(st.session_state.database.iloc[0, -1])
+                        st.session_state.inicio = True
+                        st.rerun()
             with a:
                 if st.button("Probar Journo", type = "primary", key = "start"):
                     reset_variables()
@@ -171,7 +197,69 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
 
 
-
+    if 'inicio' in st.session_state:
+        with st.expander('## 📊 Tus noticias'):
+            if st.session_state.database.isna().all().all():
+                st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+                
+                if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                    reset_variables()
+            else:
+                st.info('Aquí tienes las noticias que has generado con el asistente Journo')
+                seleccion, id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+                
+                a,b = st.columns([0.2, 1])
+                if len(seleccion) > 0:
+                    cargar_noticia(st.session_state.database.iloc[id, -1])
+                    with st.expander('Explorar noticia'):
+                      chosen_id = stx.tab_bar(data=[
+                            stx.TabBarItemData(id=1, title="Contexto", description = ''),
+                            stx.TabBarItemData(id=2, title="Transcripción", description = ''),
+                            stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
+                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')   
+                        ], default=4)
+                
+                        if chosen_id == "1":
+                          st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
+                          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+                          st.write(st.session_state.X)
+                          st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+                          st.write(st.session_state.Y)
+                          st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+                          st.write(st.session_state.Z)
+                          st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+                          st.write(st.session_state.A)
+                          st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+                          st.write(st.session_state.B)
+                
+                        if chosen_id == "2":
+                          st.info("Aquí tienes la transcripción del audio completa")
+                          st.write(st.session_state.transcription2, unsafe_allow_html=True)
+                
+                        if chosen_id == "3":
+                          st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+                            
+                          for i in range(len(st.session_state.lista)):
+                              on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+                              frases = []
+                              for item in st.session_state[f'anotaciones_{i}']:
+                                  for x in item:
+                                    frases.append(x['label'])
+                              st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
+                
+                        if chosen_id == "4":
+                            st.info('Esta es la noticia generada por Journo')
+                            st.write(st.session_state.noticia_generada)
+            
+    
+                    with b:  
+                        if st.button("Cargar noticia", type = "primary", key = "record"):
+                            st.session_state.inicio = True
+                            st.rerun()
+                with a:
+                    if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                        reset_variables()
+        st.write('---')
     
             
     if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
@@ -313,7 +401,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                   
           with col1:
             if st.button("Atrás", type = "primary", key = "atras"):
-              del st.session_state['topics']
+              del st.session_state['transcription2']
               st.rerun()
       
 
@@ -369,10 +457,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               st.rerun()
         with col1:    
           if st.button("Atrás", type = "primary", key = "atras"):
-            del st.session_state['anotaciones']
+            del st.session_state['anotaciones_finales']
             st.rerun()
 
-    if 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
+    if 'noticia_generada' in st.session_state and 'inicio' in st.session_state: 
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
@@ -460,6 +548,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if chosen_id == "7":
             st.write('## 📍Guardar información')
             st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
+            nombre_archivo = generar_y_descargar_txt()
+            with open(archivo, "r") as f:
+                contenido = f.read()
+            st.write(contenido)
+            st.download_button(
+                label="Descargar archivo de variables de sesión",
+                data=open(nombre_archivo, "rb"),
+                file_name="variables_session_state.txt",
+                mime="text/plain"
+            )  
             options = st.multiselect(
                 'Selecciona lo que necesitas que te enviemos',
                 ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'],
