@@ -6,7 +6,6 @@ from streamlit_mic_recorder import mic_recorder
 import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
-from streamlit_gsheets import GSheetsConnection
 import pandas as pd
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
@@ -44,8 +43,7 @@ with y:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'database' not in st.session_state:
-      @st.cache_resource(persist="disk")
-      conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+      st.session_state.sheet = load_sheet()
       try:
         st.session_state.database = conn.read(worksheet=st.session_state.email)
       except:
