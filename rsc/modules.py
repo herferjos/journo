@@ -107,7 +107,7 @@ def cargar_noticia(content):
 def generar_txt():
     contenido = ""
     for variable, valor in st.session_state.items():
-        if variable.starswith('anotaciones') or variable.starswith('on_') or variable.starswith('messages') or variable.starswith('lista'):
+        if variable.startswith('anotaciones') or variable.startswith('on_') or variable.startswith('messages') or variable.startswith('lista'):
             contenido += f"st.session_state.{variable} = {valor}\n"
 
     contenido += f"st.session_state.X = '{st.session_state.X}'\n"
