@@ -415,7 +415,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.info("Aquí tienes la transcripción del audio completa")
           st.write(st.session_state.transcription2, unsafe_allow_html=True)
 
-        if phase == ·:
+        if phase == 3:
           st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
             
           for i in range(len(st.session_state.lista)):
