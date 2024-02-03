@@ -382,7 +382,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if chosen_id == "6":
             st.write('## 🤖 Chatea con una IA y ayúdate')
             st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Además, podrás importar fácilmente la noticia de la sección "Noticia generada" haciendo click en el siguiente botón:')
-             if st.button("Copiar noticia ", type = "primary"):
+            if st.button("Copiar noticia ", type = "primary"):
                 st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
             
             for message in st.session_state.messages:
