@@ -116,8 +116,8 @@ st.cache_resource(show_spinner = False)
 def parrafer(transcripcion):
     
     messages = [
-      {"role": "system", "content": "Eres un asistente de periodistas. Ayúdame a separar en párrafos las siguientes declaraciones para que sea un texto legible. No elimines nada de información, solo dedicate a estructurar en párrafos la transcripción:"}
-      {"role": "user", "content": transcripcion},
+      {"role": "system", "content": "Eres un asistente de periodistas. Ayúdame a separar en párrafos las siguientes declaraciones para que sea un texto legible. No elimines nada de información, solo dedicate a estructurar en párrafos la transcripción:"},
+      {"role": "user", "content": transcripcion}
     ]
 
     response = openai_client.chat.completions.create(
