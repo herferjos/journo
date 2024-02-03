@@ -190,7 +190,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         col1, col2 = st.columns([0.07,1])
         
         with col2:
-          boton_adelante = st.button("Siguiente", type = "primary", key = "Enviar"):
+          boton_adelante = st.button("Siguiente", type = "primary", key = "Enviar")
               
         with col1:
           if st.button("Atrás", type = "primary", key = "atras"):
