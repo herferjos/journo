@@ -9,6 +9,15 @@ from rsc.aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
