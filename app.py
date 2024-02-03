@@ -543,7 +543,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         message_placeholder.markdown(full_response + "▌")
                               
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
-            st.stop()
+            else:
+                st.stop()
                     
         if chosen_id == "7":
             st.write('## 📍Guardar información')
