@@ -559,6 +559,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Tema': st.session_state.Z, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Transcripción filtrada': st.session_state.transcripcion_final, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Sesion': contenido}, ignore_index=True)
                     
                     st.session_state.guardado = True
+                    st.rerun()
             if st.session_state.guardado:
                 st.success(f"🎉 ¡Noticia guardada con éxito!")
 
