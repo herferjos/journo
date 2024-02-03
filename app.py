@@ -1,16 +1,16 @@
 from openai import OpenAI
 import streamlit as st
-from modules import *
+from rsc.modules import *
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import re
 import extra_streamlit_components as stx
-from aggregate_auth import add_auth
+from rsc.aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
-    "<p style='text-align: center; color: grey;'>" + img_to_html('logo.png', 200, 200) + "</p>",
+    "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
 )
 st.markdown(
@@ -91,7 +91,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.write("### 1) Cargar o subir audio")
             st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
             with st.expander("*Ver ejemplo*"):
-                st.audio('audio.mp3', format="audio/mpeg")
+                st.audio('files/audio.mp3', format="audio/mpeg")
         
         if phase == 1:
             st.write("### 2) Describir el contexto de las declaraciones")
