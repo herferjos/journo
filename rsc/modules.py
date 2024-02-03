@@ -19,79 +19,20 @@ from streamlit_gsheets import GSheetsConnection
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
-# Credenciales de acceso permitidas
-usuarios_permitidos = {
-    "dpelagu": "Dpelagu.journoAI",
-    "jorgepedrosa": "Jorgepedrosa.journoAI",
-    "luciavillalba": "Luciavillalba.journoAI",
-    "mariasanchez" : "Mariasanchez.journoAI",
-    "albarosado" : "Albarosado.journoAI",
-    "juanromera" : "Juanromera.journoAI",
-    "anamontañez" : "Anamontañez.journoAI",
-    "carlosguerrero" : "Carlosguerrero.journoAI",
-    "daninuñez" : "Daninuñez.journoAI",
-    "marmanrique" : "Marmanrique.journoAI",
-    "joseluisherfer" : "Joseluisherfer.journoAI",
-    "borjagutierrez" : "Borjagutierrez.journoAI",
-    "javipachon" : "Javipachon.journoAI",
-    "samuruiz" : "Samuruiz.journoAI",
-    "martapachon" : "Martapachon.journoAI",
-    "josemrodriguez" : "Josemrodriguez.journoAI",
-    "analopez" : "Analopez.journoAI",
-    "valeriaveiga" : "Valeriaveiga.journoAI",
-    "alvarorafaelvl" : "Alvarorafaelvl.journoAI",
-    "" : ""
-}
 
 def reset_variables():
     st.session_state.inicio = True
-    
-    try:
-        del st.session_state.mp3_audio_path
-    except:
-        pass
-    
-    try:
-        del st.session_state.X
-    except:
-        pass
-    
-    try:
-        del st.session_state.Y
-    except:
-        pass
-    
-    try:
-        del st.session_state.Z
-    except:
-        pass
-    
-    try:
-        del st.session_state.A
-    except:
-        pass
-    
-    try:
-        del st.session_state.B
-    except:
-        pass
-    
-    try:
-        del st.session_state.transcription2
-    except:
-        pass
-    
-    try:
-        del st.session_state.transcripcion_final
-    except:
-        pass
-    
-    try:
-        del st.session_state.noticia_generada
-    except:
-        pass
-    
+    del st.session_state.mp3_audio_path
+    del st.session_state.X
+    del st.session_state.Y
+    del st.session_state.Z
+    del st.session_state.A
+    del st.session_state.B
+    del st.session_state.transcription2
+    del st.session_state.transcripcion_final
+    del st.session_state.noticia_generada
     st.rerun()
+
 
 
 def cargar_noticia(content):
@@ -157,11 +98,6 @@ def img_to_html(img_path, width=None, height=None):
         style
     )
     return img_html
-
-st.cache_resource(show_spinner = False)
-# Verificar las credenciales del usuario
-def verificar_credenciales(nombre_usuario, contraseña):
-    return usuarios_permitidos.get(nombre_usuario) == contraseña
 
 st.cache_resource(show_spinner = False)
 def load_model():
