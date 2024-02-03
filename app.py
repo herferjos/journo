@@ -83,7 +83,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             if st.button("Probar Journo", type = "primary", key = "start"):
                 reset_variables()
         else:
-            st.info('Aquí tienes las noticias que has generado con el asistente Journo')
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             dataframetipo(df_copia)
@@ -95,13 +95,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     
             if 'noticia_generada' in st.session_state:
                 with st.expander('Explorar noticia'):
-                    chosen_id = stx.tab_bar(data=[
-                            stx.TabBarItemData(id=1, title="Contexto", description = ''),
-                            stx.TabBarItemData(id=2, title="Transcripción", description = ''),
-                            stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
-                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=1)
+                    phase = stx.stepper_bar(steps=["Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
             
-                    if chosen_id == "1":
+                    if phase == 0:
                       st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
                       st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
                       st.write(st.session_state.X)
@@ -114,11 +110,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                       st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
                       st.write(st.session_state.B)
             
-                    if chosen_id == "2":
+                    if phase == 1:
                       st.info("Aquí tienes la transcripción del audio completa")
                       st.write(st.session_state.transcription2, unsafe_allow_html=True)
             
-                    if chosen_id == "3":
+                    if phase == 2:
                       st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
                         
                       for i in range(len(st.session_state.lista)):
@@ -129,7 +125,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                                 frases.append(x['label'])
                           st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
             
-                    if chosen_id == "4":
+                    if phase == 3:
                         st.info('Esta es la noticia generada por Journo')
                         st.write(st.session_state.noticia_generada)
         
@@ -206,7 +202,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             if st.button("Crear nueva noticia", type = "primary", key = "start"):
                 reset_variables()
         else:
-            st.info('Aquí tienes las noticias que has generado con el asistente Journo')
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             dataframetipo(df_copia)
@@ -218,13 +214,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     
             if 'noticia_generada' in st.session_state:
                 with st.expander('Explorar noticia'):
-                    chosen_id = stx.tab_bar(data=[
-                            stx.TabBarItemData(id=1, title="Contexto", description = ''),
-                            stx.TabBarItemData(id=2, title="Transcripción", description = ''),
-                            stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
-                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=1)
+                    phase = stx.stepper_bar(steps=["Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
             
-                    if chosen_id == "1":
+                    if phase == 0:
                       st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
                       st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
                       st.write(st.session_state.X)
@@ -237,11 +229,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                       st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
                       st.write(st.session_state.B)
             
-                    if chosen_id == "2":
+                    if phase == 1:
                       st.info("Aquí tienes la transcripción del audio completa")
                       st.write(st.session_state.transcription2, unsafe_allow_html=True)
             
-                    if chosen_id == "3":
+                    if phase == 2:
                       st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
                         
                       for i in range(len(st.session_state.lista)):
@@ -252,7 +244,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                                 frases.append(x['label'])
                           st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
             
-                    if chosen_id == "4":
+                    if phase == 3:
                         st.info('Esta es la noticia generada por Journo')
                         st.write(st.session_state.noticia_generada)
         
@@ -295,16 +287,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
   
     if 'mp3_audio_path' in st.session_state and 'transcription2' not in st.session_state and 'inicio' in st.session_state:
-      chosen_id = stx.tab_bar(data=[
-          stx.TabBarItemData(id=1, title="Audio", description = ''),
-          stx.TabBarItemData(id=2, title="Contexto", description = '')
-      ], default=2)
+      phase = stx.stepper_bar(steps=["Audio", "Contexto"])
               
-      if chosen_id == "1":
+      if phase == 0:
         st.info("Aquí tienes el audio que hemos procesado")
         st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
       
-      if chosen_id == "2":
+      if phase == 1:
       
         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
         if 'X' in st.session_state:
@@ -346,19 +335,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.rerun()
           
     if 'transcription2' in st.session_state and 'transcripcion_final' not in st.session_state and 'inicio' in st.session_state:
-      
-        chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio", description = ''),
-            stx.TabBarItemData(id=2, title="Contexto", description = ''),
-            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
-        ], default=4)
+        phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte"])
               
-        if chosen_id == "1":
+        if phase == 0 :
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == "2":
+        if phase == 1:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -371,11 +354,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
           
-        if chosen_id == "3":
+        if phase == 2:
           st.info("Aquí tienes la transcripción del audio completa")
           st.write(st.session_state.transcription2, unsafe_allow_html=True)
       
-        if chosen_id == "4":
+        if phase == 3:
           st.info("Ahora puedes eliminar fragmentos de la transcripción desmarcando el párrafo y subrayar en aquellos que desees incluir, indicando así que partes son más importantes a la hora de generar la noticia.")
           st.session_state.lista = st.session_state.transcription2.split('\n\n')
             
@@ -409,19 +392,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     if 'transcripcion_final' in st.session_state and not 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
         st.write("# Resumen de la información recopilada")
-      
-        chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio", description = ''),
-            stx.TabBarItemData(id=2, title="Contexto", description = ''),
-            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
-        ], default=4)
+        phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte"])
               
-        if chosen_id == "1":
+        if phase == 0:
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == "2":
+        if phase == 1:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -434,11 +411,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
 
-        if chosen_id == "3":
+        if phase == 2:
           st.info("Aquí tienes la transcripción del audio completa")
           st.write(st.session_state.transcription2, unsafe_allow_html=True)
 
-        if chosen_id == "4":
+        if phase == ·:
           st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
             
           for i in range(len(st.session_state.lista)):
@@ -463,21 +440,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.rerun()
 
     if 'noticia_generada' in st.session_state and 'inicio' in st.session_state: 
-        chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio", description = ''),
-            stx.TabBarItemData(id=2, title="Contexto", description = ''),
-            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
-            stx.TabBarItemData(id=5, title="Noticia generada", description = ''),
-            stx.TabBarItemData(id=6, title="Chatear con IA", description = ''),   
-            stx.TabBarItemData(id=7, title="Enviar información", description = ''),   
-        ], default=5)
+        phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada", "Chatear con IA", "Enviar información"])
               
-        if chosen_id == "1":
+        if phase == 0:
           st.info("Aquí tienes el audio que hemos procesado")
           st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == "2":
+        if phase == 1:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
           st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
           st.write(st.session_state.X)
@@ -490,11 +459,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
           st.write(st.session_state.B)
 
-        if chosen_id == "3":
+        if phase == 2:
           st.info("Aquí tienes la transcripción del audio completa")
           st.write(st.session_state.transcription2, unsafe_allow_html=True)
 
-        if chosen_id == "4":
+        if phase == 3:
           st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
             
           for i in range(len(st.session_state.lista)):
@@ -505,13 +474,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     frases.append(x['label'])
               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
-        if chosen_id == "5":
+        if phase == 4:
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
             
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
         
-        if chosen_id == "6":
+        if phase == 5:
             st.write('## 🤖 Chatea con una IA y ayúdate')
             st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Además, podrás importar fácilmente la noticia de la sección "Noticia generada" haciendo click en el siguiente botón:')
             if st.button("Copiar noticia ", type = "primary"):
@@ -549,7 +518,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             else:
                 st.stop()
                     
-        if chosen_id == "7":
+        if phase == 6:
             st.write('## 📍Guardar información')
             st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
             contenido = generar_txt()
