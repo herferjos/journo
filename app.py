@@ -6,10 +6,47 @@ from streamlit_mic_recorder import mic_recorder
 import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
+from annotated_text import annotated_text
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-st.write(hide_st_style)
+import streamlit as st
+from annotated_text import annotated_text
+
+# Supongamos que tienes un texto y una lista de frases a destacar
+texto = "This is some annotated text for those of you who like this sort of thing. Another annotated text for those who enjoy this kind of stuff."
+frases_destacadas = ["annotated text", "this sort of thing"]  # Estas son las frases que quieres destacar
+
+# Función para encontrar todas las ocurrencias de una frase en el texto
+def encontrar_ocurrencias(texto, frase):
+    ocurrencias = []
+    inicio = 0
+    while inicio < len(texto):
+        inicio = texto.find(frase, inicio)
+        if inicio == -1:
+            break
+        ocurrencias.append((inicio, inicio + len(frase)))
+        inicio += len(frase)
+    return ocurrencias
+
+# Lista para almacenar las partes del texto y sus respectivas categorías
+partes_texto = []
+
+# Buscar y resaltar todas las frases en el texto
+inicio = 0
+for frase in frases_destacadas:
+    ocurrencias = encontrar_ocurrencias(texto, frase)
+    for ocurrencia in ocurrencias:
+        partes_texto.append((texto[inicio:ocurrencia[0]], None))
+        partes_texto.append((frase, "frase"))
+        inicio = ocurrencia[1]
+
+# Agregar la parte final del texto
+partes_texto.append((texto[inicio:], None))
+
+# Formatear el texto con las frases destacadas
+annotated_text(*sum(partes_texto, ()))
+
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
@@ -162,7 +199,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.rerun()
 
   
-    if 'mp3_audio_path' in st.session_state and 'topics' not in st.session_state and 'inicio' in st.session_state:
+    if 'mp3_audio_path' in st.session_state and 'transcription2' not in st.session_state and 'inicio' in st.session_state:
       chosen_id = stx.tab_bar(data=[
           stx.TabBarItemData(id=1, title="Audio", description = ''),
           stx.TabBarItemData(id=2, title="Contexto", description = '')
@@ -210,17 +247,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
                 
                 st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
-                st.session_state.transcription2, st.session_state.lista_transcription = dialoguer(st.session_state.transcription1, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.session_state.topics, st.session_state.dialogos_topics = topicer(st.session_state.lista_transcription)
+                st.session_state.transcription2, st.session_state.lista_transcription = parrafer(st.session_state.transcription1)
                 st.rerun()
           
-    if 'topics' in st.session_state and 'new_dialogos' not in st.session_state and 'inicio' in st.session_state:
+    if 'transcription2' in st.session_state and 'transcripcion_final' not in st.session_state and 'inicio' in st.session_state:
       
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
             stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
+            stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
         ], default=4)
               
         if chosen_id == "1":
@@ -241,159 +277,46 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.write(st.session_state.B)
           
         if chosen_id == "3":
-          st.info("Aquí tienes la transcripción del audio")
-          lista_transcription = st.session_state.lista_transcription
-          texto = '\n\n- '.join(lista_transcription)
-          texto = '- ' + texto
-          
-          patron = r'- (.+):'
-          coincidencias = re.findall(patron, texto)
-          
-          for elemento in coincidencias:
-              texto_formateado = f'<u><b>{elemento}</u></b>'
-              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                    
-          # Mostrar el texto formateado
-          st.write(texto, unsafe_allow_html=True)
+          st.info("Aquí tienes la transcripción del audio completa")
+          st.write(st.session_state.transcription2, unsafe_allow_html=True)
       
         if chosen_id == "4":
-          st.info("Ahora puedes seleccionar fragmentos de la transcripción para indicar que partes son más importantes a la hora de generar la noticia.")
-  
-          for i in range(len(st.session_state.topics)):
-              st.session_state[f'on_{st.session_state.topics[i]}'] = st.toggle(st.session_state.topics[i], key=f"{st.session_state.topics[i]}", value = True)
-  
-              with st.expander('Ver diálogos'):
-                  texto = '\n\n- '.join(st.session_state.dialogos_topics[st.session_state.topics[i]])
-                  texto = '- ' + texto
-                  
-                  patron = r'- (.+):'
-                  coincidencias = re.findall(patron, texto)
-                  
-                  for elemento in coincidencias:
-                      texto_formateado = f'<u><b>{elemento}</u></b>'
-                      texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                            
-                  # Mostrar el texto formateado
-                  st.write(texto, unsafe_allow_html=True)         
+          st.info("Ahora puedes eliminar fragmentos de la transcripción desmarcando el párrafo y subrayar en aquellos que desees incluir, indicando así que partes son más importantes a la hora de generar la noticia.")
+          st.session_state.lista = st.session_state.transcription2.split('\n\n')
+            
+          for i in range(len(st.session_state.lista):
+              st.session_state[f'on_{i}'] = st.toggle('', key=i, value = True)
+              st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
+           
           
           col1, col2 = st.columns([0.07,1])
           
           with col2:
             if st.button("Siguiente", type = "primary"):
               with st.spinner("Procesando la información... ⌛"):
-                st.session_state.new_dialogos = {}
-                for i in range(len(st.session_state.topics)):
-                  if st.session_state[f'on_{st.session_state.topics[i]}']:
-                    st.session_state.new_dialogos[st.session_state.topics[i]] = st.session_state.dialogos_topics[st.session_state.topics[i]]
-    
+                st.session_state.anotaciones_finales = []
+                st.session_state.transcripcion_final = ''
+                for i in range(len(st.session_state.lista)):
+                  if st.session_state[f'on_{i}']:
+                    st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
+                    st.session_state.anotaciones_finales.append( st.session_state[f'anotaciones_{i}'])
                 st.rerun()
+                  
           with col1:
             if st.button("Atrás", type = "primary", key = "atras"):
               del st.session_state['topics']
               st.rerun()
       
-    if 'new_dialogos' in st.session_state and 'anotaciones' not in st.session_state and 'inicio' in st.session_state:
-      
-        chosen_id = stx.tab_bar(data=[
-            stx.TabBarItemData(id=1, title="Audio", description = ''),
-            stx.TabBarItemData(id=2, title="Contexto", description = ''),
-            stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
-            stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
-        ], default=5)
-              
-        if chosen_id == "1":
-          st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if chosen_id == "2":
-          st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
-          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
-          st.write(st.session_state.X)
-          st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
-          st.write(st.session_state.Y)
-          st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
-          st.write(st.session_state.Z)
-          st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
-          st.write(st.session_state.A)
-          st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
-          st.write(st.session_state.B)
-
-        if chosen_id == "3":
-          st.info("Aquí tienes la transcripción del audio")
-          lista_transcription = st.session_state.lista_transcription
-          texto = '\n\n- '.join(lista_transcription)
-          texto = '- ' + texto
-          
-          patron = r'- (.+):'
-          coincidencias = re.findall(patron, texto)
-          
-          for elemento in coincidencias:
-              texto_formateado = f'<u><b>{elemento}</u></b>'
-              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                    
-          # Mostrar el texto formateado
-          st.write(texto, unsafe_allow_html=True)
-
-        if chosen_id == "4":
-          st.info("Estos son los asuntos más importantes de las declaraciones")
-          lista_claves = list(st.session_state.new_dialogos.keys())
-
-          for i in range(len(lista_claves)):
-            st.write(f"### {lista_claves[i]}")
-            with st.expander('Ver diálogo'):
-              texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
-              texto = '- ' + texto
-              
-              patron = r'- (.+):'
-              coincidencias = re.findall(patron, texto)
-              
-              for elemento in coincidencias:
-                  texto_formateado = f'<u><b>{elemento}</u></b>'
-                  texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                        
-              # Mostrar el texto formateado
-              st.write(texto, unsafe_allow_html=True)
-        
-        if chosen_id == "5":
-          st.info("Subraya aquellas frases que quieras mencionar explícitamente en la noticia")
-    
-          lista_claves = list(st.session_state.new_dialogos.keys())
-    
-          for i in range(len(lista_claves)):  
-            st.session_state[f'anotaciones_{lista_claves[i]}'] = text_highlighter(" ".join(st.session_state.new_dialogos[lista_claves[i]]))
-            
-          col1, col2 = st.columns([0.07,1])
-          
-          with col2:
-            if st.button("Siguiente", type = "primary"):
-              with st.spinner("Procesando información... ⌛"):
-                st.session_state.anotaciones = {}
-                
-                lista_claves = list(st.session_state.new_dialogos.keys())
-      
-                for i in range(len(lista_claves)):
-                  st.session_state.anotaciones[lista_claves[i]] = []
-                  for elemento in st.session_state[f'anotaciones_{lista_claves[i]}']:
-                    for item in elemento:
-                      st.session_state.anotaciones[lista_claves[i]].append(item['label'])
-                      
-                st.rerun()
-          with col1: 
-            if st.button("Atrás", type = "primary", key = "atras"):
-              del st.session_state['new_dialogos']
-              st.rerun()
-
-    if 'anotaciones' in st.session_state and not 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
+    if 'transcripcion_final' in st.session_state and not 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
         st.write("# Resumen de la información recopilada")
       
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
             stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
-            stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
-        ], default=5)
+            stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
+        ], default=4)
               
         if chosen_id == "1":
           st.info("Aquí tienes el audio que hemos procesado")
@@ -413,51 +336,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.write(st.session_state.B)
 
         if chosen_id == "3":
-          st.info("Aquí tienes la transcripción del audio")
-          lista_transcription = st.session_state.lista_transcription
-          texto = '\n\n- '.join(lista_transcription)
-          texto = '- ' + texto
-          
-          patron = r'- (.+):'
-          coincidencias = re.findall(patron, texto)
-          
-          for elemento in coincidencias:
-              texto_formateado = f'<u><b>{elemento}</u></b>'
-              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                    
-          # Mostrar el texto formateado
-          st.write(texto, unsafe_allow_html=True)
+          st.info("Aquí tienes la transcripción del audio completa")
+          st.write(st.session_state.transcription2, unsafe_allow_html=True)
 
         if chosen_id == "4":
-          st.info("Estos son los asuntos más importantes de las declaraciones")
-          lista_claves = list(st.session_state.new_dialogos.keys())
+          st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+            
+          for i in range(len(st.session_state.lista):
+              f'on_{i}'  = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+              st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
 
-          for i in range(len(lista_claves)):
-            st.write(f"### {lista_claves[i]}")
-            with st.expander('Ver diálogo'):
-              texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
-              texto = '- ' + texto
-              
-              patron = r'- (.+):'
-              coincidencias = re.findall(patron, texto)
-              
-              for elemento in coincidencias:
-                  texto_formateado = f'<u><b>{elemento}</u></b>'
-                  texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                        
-              # Mostrar el texto formateado
-              st.write(texto, unsafe_allow_html=True)
-        
-        if chosen_id == "5":
-          st.info("Aquí tienes las declaraciones que marcastes")
-          lista_anotaciones = list(st.session_state.anotaciones.keys())
- 
-          for i in range(len(lista_anotaciones)):
-            if len(st.session_state.anotaciones[lista_anotaciones[i]]) > 0:
-              st.write(f"### {lista_anotaciones[i]}")
-              with st.expander('Ver anotaciones'):
-                for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
-                  st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
         col1, col2 = st.columns([0.07,1])
         
         with col2:
