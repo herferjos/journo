@@ -116,7 +116,7 @@ st.cache_resource(show_spinner = False)
 def parrafer(transcripcion):
     
     messages = [
-      {"role": "system", "content": "Eres un asistente de periodistas. Ayúdame a separar en párrafos las siguientes declaraciones para que sea un texto legible. No elimines nada de información, solo dedicate a estructurar en párrafos la transcripción:"},
+      {"role": "system", "content": "Eres un asistente de periodistas. Ayúdame a separar en párrafos las siguientes declaraciones para que sea un texto legible. No elimines nada de información, solo dedicate a estructurar en párrafos la transcripción. Responde únicamente con la transcripcion separada en parrafos usando '\n\n', nada más:"},
       {"role": "user", "content": transcripcion}
     ]
 
