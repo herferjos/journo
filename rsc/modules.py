@@ -43,7 +43,7 @@ usuarios_permitidos = {
     "" : ""
 }
 
-@st.cache_resource(persist="disk", show_spinner = False)
+@st.cache_resource(show_spinner = False)
 def load_sheet():
     return st.experimental_connection("gsheets", type=GSheetsConnection)
 
