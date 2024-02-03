@@ -7,8 +7,6 @@ import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
 from streamlit_gsheets import GSheetsConnection
-from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
-from st_aggrid.grid_options_builder import GridOptionsBuilder
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
@@ -20,7 +18,7 @@ df = conn.read(worksheet="Hoja 1")
 
 seleccion = dataframetipo(df)
 
-st.write(f'Seleccion: {seleccion}')
+st.dataframe(seleccion)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
