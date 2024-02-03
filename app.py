@@ -87,12 +87,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             if len(seleccion) > 0:
                 cargar_noticia(st.session_state.database.iloc[id, -1])
                 with st.expander('Explorar noticia'):
-                  chosen_id = stx.tab_bar(data=[
-                        stx.TabBarItemData(id=1, title="Contexto", description = ''),
-                        stx.TabBarItemData(id=2, title="Transcripción", description = ''),
-                        stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
-                        stx.TabBarItemData(id=4, title="Noticia generada", description = '')   
-                    ], default=4)
+                    chosen_id = stx.tab_bar(data=[
+                            stx.TabBarItemData(id=1, title="Contexto", description = ''),
+                            stx.TabBarItemData(id=2, title="Transcripción", description = ''),
+                            stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
+                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=4)
             
                     if chosen_id == "1":
                       st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
