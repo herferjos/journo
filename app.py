@@ -85,10 +85,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
             seleccion, id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
-            
+            cargar_noticia(st.session_state.database.iloc[int(id), -1])
             a,b = st.columns([0.2, 1])
             if len(seleccion) > 0:
-                cargar_noticia(st.session_state.database.iloc[int(id), -1])
                 with st.expander('Explorar noticia'):
                     chosen_id = stx.tab_bar(data=[
                             stx.TabBarItemData(id=1, title="Contexto", description = ''),
