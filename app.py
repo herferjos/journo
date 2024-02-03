@@ -455,7 +455,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada", "Chatear con IA", "Enviar información"])
               
         if phase == 0:
-           st.info("Aquí tienes el audio que hemos procesado")
+            st.info("Aquí tienes el audio que hemos procesado")
             try:
                 st.audio('files/audio.mp3', format="audio/mpeg")
             except:
