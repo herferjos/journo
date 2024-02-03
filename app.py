@@ -23,7 +23,7 @@ df = pd.DataFrame(data)
 
 selec, grid = dataframetipo(df)
 
-st.dataframe(grid)
+st.write(grid["selected_rows"])
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
