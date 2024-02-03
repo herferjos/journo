@@ -73,37 +73,29 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
         st.write("---")
         st.write('## 📊 Tus noticias')
+
         
-        a,b = st.columns([0.1, 1])
         
         if st.session_state.database.isna().all().all():
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+            
+            if st.button("Probar Journo", type = "primary", key = "start"):
+                reset_variables()
         else:
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo')
             seleccion = dataframetipo(st.session_state.database)
             st.dataframe(seleccion)
+            a,b = st.columns([0.1, 1])
             if len(seleccion) > 0:
                 with st.expander('Explorar noticia'):
                     pass
 
                 with b:  
-                    if st.button("Cargar información", type = "primary", key = "record"):
+                    if st.button("Cargar noticia", type = "primary", key = "record"):
                         st.dataframe(seleccion)
-        with a:
-            if st.button("Probar Journo", type = "primary", key = "start"):
-                st.session_state.inicio = True
-                
-                del st.session_state.mp3_audio_path
-                del st.session_state.X
-                del st.session_state.Y
-                del st.session_state.Z
-                del st.session_state.A
-                del st.session_state.B
-                del st.session_state.transcription2 
-                del st.session_state.lista_transcription 
-                del st.session_state.topics
-                del st.session_state.dialogos_topics
-                
-                st.rerun()
+            with a:
+                if st.button("Probar Journo", type = "primary", key = "start"):
+                    reset_variables()
 
         st.write("---")
             
