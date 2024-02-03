@@ -89,13 +89,17 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             dataframetipo(df_copia)
             
             a,b = st.columns([0.2, 1])
+            with a:
+                if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                    reset_variables()
+                    
             if 'noticia_generada' in st.session_state:
                 with st.expander('Explorar noticia'):
                     chosen_id = stx.tab_bar(data=[
                             stx.TabBarItemData(id=1, title="Contexto", description = ''),
                             stx.TabBarItemData(id=2, title="Transcripción", description = ''),
                             stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
-                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=4)
+                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=1)
             
                     if chosen_id == "1":
                       st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
@@ -134,9 +138,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     if st.button("Cargar noticia", type = "primary", key = "record"):
                         st.session_state.inicio = True
                         st.rerun()
-                with a:
-                    if st.button("Probar Journo", type = "primary", key = "start"):
-                        reset_variables()
 
         st.write("---")
             
@@ -212,13 +213,17 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 dataframetipo(df_copia)
                 
                 a,b = st.columns([0.2, 1])
+                with a:
+                    if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                        reset_variables()
+                        
                 if 'noticia_generada' in st.session_state:
                     with st.expander('Explorar noticia'):
                         chosen_id = stx.tab_bar(data=[
                                 stx.TabBarItemData(id=1, title="Contexto", description = ''),
                                 stx.TabBarItemData(id=2, title="Transcripción", description = ''),
                                 stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
-                                stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=4)
+                                stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=1)
                 
                         if chosen_id == "1":
                           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
@@ -257,9 +262,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         if st.button("Cargar noticia", type = "primary", key = "record"):
                             st.session_state.inicio = True
                             st.rerun()
-                with a:
-                    if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                        reset_variables()
         st.write('---')
     
             
