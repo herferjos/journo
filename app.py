@@ -331,12 +331,14 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.rerun()
 
     if 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
+        if
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
             stx.TabBarItemData(id=3, title="Transcripción", description = ''),
             stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
-            stx.TabBarItemData(id=5, title="Noticia generada", description = ''),   
+            stx.TabBarItemData(id=5, title="Noticia generada", description = ''),
+            stx.TabBarItemData(id=6, title="Chatear con IA", description = ''),   
         ], default=5)
               
         if chosen_id == "1":
@@ -376,7 +378,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti. Dale click a chatear")
             
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
-
+        
+        if chosen_id == "6":
             st.write('## 🤖 Chatea con una IA y ayúdate')
             if len(st.session_state.messages) == 1:
                 st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
