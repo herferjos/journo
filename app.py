@@ -194,7 +194,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
 
     if 'inicio' in st.session_state:
-        with st.expander('## 📊 Tus noticias'):
+        st.write('## 📊 Tus noticias')
+        with st.expander('Ver noticias guardadas'):
             if st.session_state.database.isna().all().all():
                 st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
                 
@@ -450,10 +451,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             with st.spinner("Generando noticia... ⌛"):
               st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
-            with col1:    
-              if st.button("Atrás", type = "primary", key = "atras"):
-                del st.session_state['anotaciones_finales']
-                st.rerun()
+        with col1:    
+          if st.button("Atrás", type = "primary", key = "atras"):
+            del st.session_state['anotaciones_finales']
+            st.rerun()
 
     if 'noticia_generada' in st.session_state and 'inicio' in st.session_state: 
         chosen_id = stx.tab_bar(data=[
