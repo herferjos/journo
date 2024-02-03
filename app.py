@@ -88,8 +88,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             
             a,b = st.columns([0.2, 1])
             if len(seleccion) > 0:
-                st.write(type(id))
-                cargar_noticia(st.session_state.database.iloc[id, -1])
+                cargar_noticia(st.session_state.database.iloc[int(id), -1])
                 with st.expander('Explorar noticia'):
                     chosen_id = stx.tab_bar(data=[
                             stx.TabBarItemData(id=1, title="Contexto", description = ''),
@@ -211,7 +210,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 
                 a,b = st.columns([0.2, 1])
                 if len(seleccion) > 0:
-                    cargar_noticia(st.session_state.database.iloc[id, -1])
+                    cargar_noticia(st.session_state.database.iloc[int(id), -1])
                     with st.expander('Explorar noticia'):
                         chosen_id = stx.tab_bar(data=[
                                 stx.TabBarItemData(id=1, title="Contexto", description = ''),
