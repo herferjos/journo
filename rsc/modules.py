@@ -107,7 +107,7 @@ def cargar_noticia(content):
 def generar_txt():
     contenido = ""
     for variable, valor in st.session_state.items():
-        contenido += f"{variable}: {valor}\n"
+        contenido += f"st.session_state.{variable}: {valor}\n"
     return contenido
         
 
