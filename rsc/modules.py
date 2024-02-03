@@ -14,7 +14,7 @@ from pathlib import Path
 
 
 # Configuración de la clave API de OpenAI
-openai_client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+openai_client = OpenAI(api_key=st.secrets.api_keys.openai)
 
 # Credenciales de acceso permitidas
 usuarios_permitidos = {
