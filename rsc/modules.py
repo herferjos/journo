@@ -43,6 +43,33 @@ usuarios_permitidos = {
     "" : ""
 }
 
+def reset_variables():
+    st.session_state.inicio = True
+    
+    del st.session_state.mp3_audio_path
+    del st.session_state.X
+    del st.session_state.Y
+    del st.session_state.Z
+    del st.session_state.A
+    del st.session_state.B
+    del st.session_state.transcription2 
+    del st.session_state.lista_transcription 
+    del st.session_state.topics
+    del st.session_state.dialogos_topics
+    
+    st.rerun()
+
+def cargar_noticia(df):
+    st.session_state.transcription2 = df.iloc[0, 0]
+    st.session_state.X = df.iloc[0, 1]
+    st.session_state.Y = df.iloc[0, 2]
+    st.session_state.Z = df.iloc[0, 3]
+    st.session_state.A = df.iloc[0, 4]
+    st.session_state.B = df.iloc[0, 5]
+    
+    
+        
+
 @st.cache_resource(show_spinner = False)
 def load_sheet():
     return st.experimental_connection("gsheets", type=GSheetsConnection)
@@ -70,7 +97,7 @@ def dataframetipo(df):
           elemento.pop('_selectedRowNodeInfo')
       df = pd.DataFrame(selected_row_dict)
         
-      return df
+      return df, grid_table
 
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
