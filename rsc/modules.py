@@ -64,14 +64,11 @@ def cargar_noticia(content):
     st.rerun()
     
 
-def generar_y_descargar_txt():
-    # Crear archivo temporal
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".txt") as temp_file:
-        # Escribir variables de estado en el archivo
-        temp_file.write(b"Variables de estado de sesión:\n")
-        for variable, valor in st.session_state.items():
-            temp_file.write(f"{variable}: {valor}\n".encode())
-    return temp_file.name
+def generar_txt():
+    contenido = ""
+    for variable, valor in st.session_state.items():
+        contenido += f"{variable}: {valor}\n"
+    return contenido
         
 
 @st.cache_resource(show_spinner = False)
