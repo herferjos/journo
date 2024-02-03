@@ -6,38 +6,12 @@ from streamlit_mic_recorder import mic_recorder
 import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
-from annotated_text import annotated_text
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 # Supongamos que tienes un texto y una lista de frases a destacar
 texto = "This is some annotated text for those of you who like this sort of thing. Another annotated text for those who enjoy this kind of stuff."
 frases_destacadas = ["annotated text", "this sort of thing"]  # Estas son las frases que quieres destacar
-
-# Función para generar el HTML resaltando las frases
-def generar_html_con_destacados(texto, frases_destacadas):
-    html = ""
-    inicio = 0
-    for frase in frases_destacadas:
-        ocurrencias = encontrar_ocurrencias(texto, frase)
-        for ocurrencia in ocurrencias:
-            html += texto[inicio:ocurrencia[0]]  # Agregar texto antes de la frase
-            html += f"<span style='background-color: yellow'>{texto[ocurrencia[0]:ocurrencia[1]]}</span>"  # Resaltar la frase
-            inicio = ocurrencia[1]
-    html += texto[inicio:]  # Agregar el texto restante
-    return html
-
-# Función para encontrar todas las ocurrencias de una frase en el texto
-def encontrar_ocurrencias(texto, frase):
-    ocurrencias = []
-    inicio = 0
-    while inicio < len(texto):
-        inicio = texto.find(frase, inicio)
-        if inicio == -1:
-            break
-        ocurrencias.append((inicio, inicio + len(frase)))
-        inicio += len(frase)
-    return ocurrencias
 
 # Generar el HTML con las frases destacadas
 html_destacado = generar_html_con_destacados(texto, frases_destacadas)
