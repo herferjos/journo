@@ -10,12 +10,12 @@ from streamlit_gsheets import GSheetsConnection
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
+st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
+
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 df = conn.read(worksheet="Hoja 1")
 
 st.dataframe(df)
-
-st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
