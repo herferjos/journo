@@ -15,6 +15,12 @@ st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 df = conn.read(worksheet="Hoja 1")
 
+# Eliminar filas con todas las celdas vacías
+df = df.dropna(axis=0, how='all')
+
+# Eliminar columnas con todas las celdas vacías
+df = df.dropna(axis=1, how='all')
+
 st.dataframe(df)
 
 st.markdown(
