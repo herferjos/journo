@@ -448,15 +448,15 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         col1, col2 = st.columns([0.07,1])
         
         with col2:
-          if st.button("Generar noticia", type = "primary"):
+            boton_generar = st.button("Generar noticia", type = "primary")
+        if boton_generar:
             with st.spinner("Generando noticia... ⌛"):
-  
               st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
-        with col1:    
-          if st.button("Atrás", type = "primary", key = "atras"):
-            del st.session_state['anotaciones_finales']
-            st.rerun()
+            with col1:    
+              if st.button("Atrás", type = "primary", key = "atras"):
+                del st.session_state['anotaciones_finales']
+                st.rerun()
 
     if 'noticia_generada' in st.session_state and 'inicio' in st.session_state: 
         chosen_id = stx.tab_bar(data=[
@@ -542,6 +542,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         message_placeholder.markdown(full_response + "▌")
                               
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
+            st.stop()
                     
         if chosen_id == "7":
             st.write('## 📍Guardar información')
