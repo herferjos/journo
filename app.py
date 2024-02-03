@@ -21,7 +21,7 @@ data = {
 
 df = pd.DataFrame(data)
 
-selec, grid dataframetipo(df)
+selec, grid = dataframetipo(df)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
