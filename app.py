@@ -12,6 +12,17 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
+# Crear un DataFrame de prueba
+data = {
+    'A': [1, 2, 3],
+    'B': [4, 5, 6],
+    'C': [7, 8, 9]
+}
+
+df = pd.DataFrame(data)
+
+selec, grid dataframetipo(df)
+
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
@@ -47,7 +58,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       try:
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
       except:
-        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Tema': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Transcripción filtrada': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5}, index=range(5))
+        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Tema': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Transcripción filtrada': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Sesion': [None]*5}, index=range(5))
         st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
   
@@ -73,8 +84,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
         st.write("---")
         st.write('## 📊 Tus noticias')
-
-        
         
         if st.session_state.database.isna().all().all():
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
@@ -83,8 +92,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 reset_variables()
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-            seleccion = dataframetipo(st.session_state.database)
-            st.dataframe(seleccion)
+            seleccion = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+            
             a,b = st.columns([0.2, 1])
             if len(seleccion) > 0:
                 with st.expander('Explorar noticia'):
@@ -92,7 +101,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
                 with b:  
                     if st.button("Cargar noticia", type = "primary", key = "record"):
-                        st.dataframe(seleccion)
+                        cargar_noticia(st.session_state.database.iloc[0, -1])
             with a:
                 if st.button("Probar Journo", type = "primary", key = "start"):
                     reset_variables()
@@ -150,6 +159,17 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                       # Mostrar el texto formateado
                       st.write(texto, unsafe_allow_html=True) 
 
+
+
+
+
+
+
+
+
+
+
+    
             
     if 'mp3_audio_path' not in st.session_state and 'inicio' in st.session_state:
         
