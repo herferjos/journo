@@ -84,7 +84,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 reset_variables()
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-            dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+            df_copia = st.session_state.database.copy()
+            df_copia = df_copia.iloc[:, :-1]
+            dataframetipo(df_copia)
             
             a,b = st.columns([0.2, 1])
             if 'noticia_generada' in st.session_state:
@@ -205,7 +207,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     reset_variables()
             else:
                 st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-                dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+                df_copia = st.session_state.database.copy()
+                df_copia = df_copia.iloc[:, :-1]
+                dataframetipo(df_copia)
                 
                 a,b = st.columns([0.2, 1])
                 if 'noticia_generada' in st.session_state:
