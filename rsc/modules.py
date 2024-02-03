@@ -136,9 +136,10 @@ def dataframetipo(df):
     grid_table = AgGrid(df, gridOptions=gridoptions, update_mode=GridUpdateMode.SELECTION_CHANGED, fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
     try:
         selected_row = grid_table["selected_rows"]     
-        return selected_row[0]['_selectedRowNodeInfo']['nodeId']
+        id = selected_row[0]['_selectedRowNodeInfo']['nodeId']
+        cargar_noticia(st.session_state.database.iloc[int(id), -1])
     except:
-        return None
+        pass
 
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
