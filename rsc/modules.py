@@ -46,18 +46,58 @@ usuarios_permitidos = {
 def reset_variables():
     st.session_state.inicio = True
     
-    del st.session_state.mp3_audio_path
-    del st.session_state.X
-    del st.session_state.Y
-    del st.session_state.Z
-    del st.session_state.A
-    del st.session_state.B
-    del st.session_state.transcription2 
-    del st.session_state.lista_transcription 
-    del st.session_state.topics
-    del st.session_state.dialogos_topics
+    try:
+        del st.session_state.mp3_audio_path
+    except:
+        pass
+    
+    try:
+        del st.session_state.X
+    except:
+        pass
+    
+    try:
+        del st.session_state.Y
+    except:
+        pass
+    
+    try:
+        del st.session_state.Z
+    except:
+        pass
+    
+    try:
+        del st.session_state.A
+    except:
+        pass
+    
+    try:
+        del st.session_state.B
+    except:
+        pass
+    
+    try:
+        del st.session_state.transcription2
+    except:
+        pass
+    
+    try:
+        del st.session_state.lista_transcription
+    except:
+        pass
+    
+    try:
+        del st.session_state.topics
+    except:
+        pass
+    
+    try:
+        del st.session_state.dialogos_topics
+    except:
+        pass
     
     st.rerun()
+
 
 def cargar_noticia(content):
     exec(content)
