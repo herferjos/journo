@@ -7,18 +7,11 @@ import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
 from streamlit_gsheets import GSheetsConnection
+import pandas as pd
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
-
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
-          
-df = conn.read(worksheet="Hoja 1")
-
-seleccion = dataframetipo(df)
-
-st.dataframe(seleccion)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
@@ -34,6 +27,7 @@ st.markdown(
 )
 
 st.write("---")
+          
 
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
@@ -49,6 +43,20 @@ with y:
 
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
+    if 'database' not in st.session_state:
+      @st.cache_resource(persis="disk")
+      conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+      try:
+        st.session_state.database = conn.read(worksheet=st.session_state.email)
+      except:
+        nuevo_df = pd.DataFrame({'Transcripción': None, 'Cargo': None, 'Nombre': None, 'Tema': None, 'Donde': None, 'Cuando': None, 'Transcripcion filtrada': None, 'Anotaciones': None, 'Noticia': None})
+        conn.create(worksheet=st.session_state.email,data=nuevo_df)
+        st.session_state.database = conn.read(worksheet=st.session_state.email)
+    
+    seleccion = dataframetipo(st.session_state.database)
+
+    st.dataframe(seleccion)
+  
     if 'inicio' not in st.session_state:
         st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
         st.write("## ¿Qué es Journo?")
