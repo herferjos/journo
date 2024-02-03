@@ -68,9 +68,27 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         )
         
         st.write("")
+         
+        st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
+
+        st.write("---")
+        st.write('## 📊 Tus noticias')
         
-        a,b,c = st.columns([1,0.7,5])
-        with b:
+        a,b = st.columns([0.1, 1])
+        
+        if st.session_state.database.isna().all().all():
+            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+        else:
+            seleccion = dataframetipo(st.session_state.database)
+            st.dataframe(seleccion)
+            if len(seleccion) > 0:
+                with st.expander('Explorar noticia'):
+                    pass
+
+                with b:  
+                    if st.button("Cargar información", type = "primary", key = "record"):
+                        st.dataframe(seleccion)
+        with a:
             if st.button("Probar Journo", type = "primary", key = "start"):
                 st.session_state.inicio = True
                 
@@ -86,23 +104,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 del st.session_state.dialogos_topics
                 
                 st.rerun()
-        with c:   
-            st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
-
-        st.write("---")
-        st.write('## 📊 Tus noticias')
-
-        if st.session_state.database.isna().all().all():
-            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
-        else:
-            seleccion = dataframetipo(st.session_state.database)
-            st.dataframe(seleccion)
-            if len(seleccion) > 0:
-                with st.expander('Explorar noticia'):
-                    pass
-                    
-                if st.button("Cargar información", type = "primary", key = "record"):
-                    st.dataframe(seleccion)
 
         st.write("---")
             
