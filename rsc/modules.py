@@ -108,7 +108,7 @@ def generar_txt():
     contenido = ""
     for variable, valor in st.session_state.items():
         if variable.starswith('anotaciones') or variable.starswith('on_') or variable.starswith('messages') or variable.starswith('lista'):
-        contenido += f"st.session_state.{variable} = {valor}\n"
+            contenido += f"st.session_state.{variable} = {valor}\n"
 
     contenido += f"st.session_state.X = '{st.session_state.X}'\n"
     contenido += f"st.session_state.Y = '{st.session_state.Y}'\n"
