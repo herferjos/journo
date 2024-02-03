@@ -118,7 +118,6 @@ def generar_txt():
     return contenido
         
 
-@st.cache_resource(show_spinner = False)
 def load_sheet():
     return st.experimental_connection("gsheets", type=GSheetsConnection)
 
