@@ -150,7 +150,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.write("### 1) Cargar o subir audio")
             st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
             with st.expander("*Ver ejemplo*"):
-                st.audio('files/audio.mp3', format="audio/mpeg")
+                try:
+                    st.audio('files/audio.mp3', format="audio/mpeg")
+                except:
+                    st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
         
         if phase == 1:
             st.write("### 2) Describir el contexto de las declaraciones")
@@ -291,7 +294,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               
       if phase == 0:
         st.info("Aquí tienes el audio que hemos procesado")
-        st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+        try:
+            st.audio('files/audio.mp3', format="audio/mpeg")
+        except:
+            st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
       
       if phase == 1:
       
@@ -338,8 +344,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte"])
               
         if phase == 0 :
-          st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+            st.info("Aquí tienes el audio que hemos procesado")
+            try:
+                st.audio('files/audio.mp3', format="audio/mpeg")
+            except:
+                st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
 
         if phase == 1:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
@@ -395,8 +404,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte"])
               
         if phase == 0:
-          st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+            st.info("Aquí tienes el audio que hemos procesado")
+            try:
+                st.audio('files/audio.mp3', format="audio/mpeg")
+            except:
+                st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
 
         if phase == 1:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
@@ -443,8 +455,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada", "Chatear con IA", "Enviar información"])
               
         if phase == 0:
-          st.info("Aquí tienes el audio que hemos procesado")
-          st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+           st.info("Aquí tienes el audio que hemos procesado")
+            try:
+                st.audio('files/audio.mp3', format="audio/mpeg")
+            except:
+                st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
 
         if phase == 1:
           st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
