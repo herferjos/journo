@@ -548,7 +548,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.write('## 📍Guardar información')
             st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
             contenido = generar_txt()
-            st.write(contenido)
             bytes_data = contenido.encode()
             st.download_button(
                 label="Descargar contenido de variables de sesión",
