@@ -6,8 +6,14 @@ from streamlit_mic_recorder import mic_recorder
 import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
+from streamlit_gsheets import GSheetsConnection
 
 openai_client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+df = conn.read(worksheet="Hoja 1")
+
+st.dataframe(df)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
