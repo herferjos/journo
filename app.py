@@ -87,7 +87,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
             
             a,b = st.columns([0.2, 1])
-            if id is not None:
+            if 'noticia_generada' in st.session_state:
                 with st.expander('Explorar noticia'):
                     chosen_id = stx.tab_bar(data=[
                             stx.TabBarItemData(id=1, title="Contexto", description = ''),
@@ -205,11 +205,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     reset_variables()
             else:
                 st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-                id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+                dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
                 
                 a,b = st.columns([0.2, 1])
-                if id is not None:
-                    cargar_noticia(st.session_state.database.iloc[int(id), -1])
+                if 'noticia_generada' in st.session_state:
                     with st.expander('Explorar noticia'):
                         chosen_id = stx.tab_bar(data=[
                                 stx.TabBarItemData(id=1, title="Contexto", description = ''),
