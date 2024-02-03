@@ -82,17 +82,12 @@ def reset_variables():
         pass
     
     try:
-        del st.session_state.lista_transcription
+        del st.session_state.transcripcion_final
     except:
         pass
     
     try:
-        del st.session_state.topics
-    except:
-        pass
-    
-    try:
-        del st.session_state.dialogos_topics
+        del st.session_state.noticia_generada
     except:
         pass
     
