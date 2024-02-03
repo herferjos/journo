@@ -7,6 +7,8 @@ import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
 
+openai_client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
@@ -393,7 +395,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     
                 with st.chat_message("assistant"):
                             
-                    response = openai.ChatCompletion.create(
+                    response = openai_client.chat.completions.create(
                     model="gpt-3.5-turbo-1106",
                     messages=st.session_state.messages,
                     temperature = 0,
