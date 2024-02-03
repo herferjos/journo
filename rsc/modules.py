@@ -11,6 +11,7 @@ import base64
 from faster_whisper import WhisperModel
 import base64
 from pathlib import Path
+import pandas as pd
 
 
 # Configuración de la clave API de OpenAI
@@ -39,6 +40,31 @@ usuarios_permitidos = {
     "alvarorafaelvl" : "Alvarorafaelvl.journoAI",
     "" : ""
 }
+
+def dataframetipo(df):
+    # Eliminar filas con todas las celdas vacías
+    df = df.dropna(axis=0, how='all')
+    
+    # Eliminar columnas con todas las celdas vacías
+    df = df.dropna(axis=1, how='all')
+    gd = GridOptionsBuilder.from_dataframe(df)
+    gd.configure_selection(selection_mode='single', use_checkbox=True)
+    gd.configure_auto_height(autoHeight=True)
+    gd.configure_grid_options()
+    gd.configure_default_column(groupable=True, filterable=True, sorteable=True, resizable=True)
+    gridoptions = gd.build()
+    grid_table = AgGrid(df, gridOptions=gridoptions, update_mode=GridUpdateMode.SELECTION_CHANGED, fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
+    
+    selected_row = grid_table["selected_rows"]
+    selected_row_json = json.dumps(selected_row)
+    selected_row_dict = json.loads(selected_row_json)
+    
+    if len(selected_row_dict) > 0:
+      for elemento in selected_row_dict:
+          elemento.pop('_selectedRowNodeInfo')
+      df = pd.DataFrame(selected_row_dict)
+        
+      return df
 
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
