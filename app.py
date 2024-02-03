@@ -23,6 +23,7 @@ df = pd.DataFrame(data)
 
 selec, grid = dataframetipo(df)
 
+st.write(selec)
 st.write(grid["selected_rows"])
 
 st.markdown(
