@@ -156,3 +156,27 @@ def bytes_a_audio(bytes_audio, formato_destino="mp3"):
 
     return temp_path
 
+# Función para generar el HTML resaltando las frases
+def generar_html_con_destacados(texto, frases_destacadas):
+    html = ""
+    inicio = 0
+    for frase in frases_destacadas:
+        ocurrencias = encontrar_ocurrencias(texto, frase)
+        for ocurrencia in ocurrencias:
+            html += texto[inicio:ocurrencia[0]]  # Agregar texto antes de la frase
+            html += f"<span style='background-color: yellow'>{texto[ocurrencia[0]:ocurrencia[1]]}</span>"  # Resaltar la frase
+            inicio = ocurrencia[1]
+    html += texto[inicio:]  # Agregar el texto restante
+    return html
+
+# Función para encontrar todas las ocurrencias de una frase en el texto
+def encontrar_ocurrencias(texto, frase):
+    ocurrencias = []
+    inicio = 0
+    while inicio < len(texto):
+        inicio = texto.find(frase, inicio)
+        if inicio == -1:
+            break
+        ocurrencias.append((inicio, inicio + len(frase)))
+        inicio += len(frase)
+    return ocurrencias
