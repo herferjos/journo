@@ -200,68 +200,67 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     if 'inicio' in st.session_state:
         st.write('## 📊 Tus noticias')
-        with st.expander('Ver noticias guardadas'):
-            if st.session_state.database.isna().all().all():
-                st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
-                
+        if st.session_state.database.isna().all().all():
+            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+            
+            if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                reset_variables()
+        else:
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo')
+            df_copia = st.session_state.database.copy()
+            df_copia = df_copia.iloc[:, :-1]
+            dataframetipo(df_copia)
+            
+            a,b = st.columns([0.2, 1])
+            with a:
                 if st.button("Crear nueva noticia", type = "primary", key = "start"):
                     reset_variables()
-            else:
-                st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-                df_copia = st.session_state.database.copy()
-                df_copia = df_copia.iloc[:, :-1]
-                dataframetipo(df_copia)
-                
-                a,b = st.columns([0.2, 1])
-                with a:
-                    if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                        reset_variables()
-                        
-                if 'noticia_generada' in st.session_state:
-                    with st.expander('Explorar noticia'):
-                        chosen_id = stx.tab_bar(data=[
-                                stx.TabBarItemData(id=1, title="Contexto", description = ''),
-                                stx.TabBarItemData(id=2, title="Transcripción", description = ''),
-                                stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
-                                stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=1)
-                
-                        if chosen_id == "1":
-                          st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
-                          st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
-                          st.write(st.session_state.X)
-                          st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
-                          st.write(st.session_state.Y)
-                          st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
-                          st.write(st.session_state.Z)
-                          st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
-                          st.write(st.session_state.A)
-                          st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
-                          st.write(st.session_state.B)
-                
-                        if chosen_id == "2":
-                          st.info("Aquí tienes la transcripción del audio completa")
-                          st.write(st.session_state.transcription2, unsafe_allow_html=True)
-                
-                        if chosen_id == "3":
-                          st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
-                            
-                          for i in range(len(st.session_state.lista)):
-                              on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
-                              frases = []
-                              for item in st.session_state[f'anotaciones_{i}']:
-                                  for x in item:
-                                    frases.append(x['label'])
-                              st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
-                
-                        if chosen_id == "4":
-                            st.info('Esta es la noticia generada por Journo')
-                            st.write(st.session_state.noticia_generada)
+                    
+            if 'noticia_generada' in st.session_state:
+                with st.expander('Explorar noticia'):
+                    chosen_id = stx.tab_bar(data=[
+                            stx.TabBarItemData(id=1, title="Contexto", description = ''),
+                            stx.TabBarItemData(id=2, title="Transcripción", description = ''),
+                            stx.TabBarItemData(id=3, title="Selección/descarte", description = ''),
+                            stx.TabBarItemData(id=4, title="Noticia generada", description = '')], default=1)
             
-    
-                    with b:  
-                        if st.button("Cargar noticia", type = "primary", key = "record"):
-                            st.session_state.inicio = True
-                            st.rerun()
+                    if chosen_id == "1":
+                      st.info("Aquí tienes el contexto que nos has proporcionado sobre las declaraciones")
+                      st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
+                      st.write(st.session_state.X)
+                      st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
+                      st.write(st.session_state.Y)
+                      st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
+                      st.write(st.session_state.Z)
+                      st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
+                      st.write(st.session_state.A)
+                      st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
+                      st.write(st.session_state.B)
+            
+                    if chosen_id == "2":
+                      st.info("Aquí tienes la transcripción del audio completa")
+                      st.write(st.session_state.transcription2, unsafe_allow_html=True)
+            
+                    if chosen_id == "3":
+                      st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+                        
+                      for i in range(len(st.session_state.lista)):
+                          on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+                          frases = []
+                          for item in st.session_state[f'anotaciones_{i}']:
+                              for x in item:
+                                frases.append(x['label'])
+                          st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
+            
+                    if chosen_id == "4":
+                        st.info('Esta es la noticia generada por Journo')
+                        st.write(st.session_state.noticia_generada)
+        
+
+                with b:  
+                    if st.button("Cargar noticia", type = "primary", key = "record"):
+                        st.session_state.inicio = True
+                        st.rerun()
         st.write('---')
     
             
