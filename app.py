@@ -331,7 +331,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.rerun()
 
     if 'noticia_generada' in st.session_state and 'inicio' in st.session_state:
-        if
         chosen_id = stx.tab_bar(data=[
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
@@ -339,6 +338,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
             stx.TabBarItemData(id=5, title="Noticia generada", description = ''),
             stx.TabBarItemData(id=6, title="Chatear con IA", description = ''),   
+            stx.TabBarItemData(id=7, title="Enviar información", description = ''),   
         ], default=5)
               
         if chosen_id == "1":
@@ -374,14 +374,15 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
         if chosen_id == "5":
-            st.write("""## ✅ ¡Listo!""")
+            st.write("""## ✅ ¡Ya está lista tu noticia!""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti. Dale click a chatear")
             
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
         
         if chosen_id == "6":
             st.write('## 🤖 Chatea con una IA y ayúdate')
-            if len(st.session_state.messages) == 1:
+            st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Además, podrás importar fácilmente la noticia de la sección "Noticia generada" haciendo click en el siguiente botón:')
+             if st.button("Copiar noticia ", type = "primary"):
                 st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
             
             for message in st.session_state.messages:
@@ -413,6 +414,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         message_placeholder.markdown(full_response + "▌")
                               
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
-
-
+                    
+        if chosen_id == "7":
+            st.write('## 📍Guardar información')
+            st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
+            options = st.multiselect(
+                'Selecciona lo que necesitas que te enviemos',
+                ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'],
+                ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'])
 
