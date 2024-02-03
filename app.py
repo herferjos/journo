@@ -8,7 +8,7 @@ import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
 from streamlit_gsheets import GSheetsConnection
 
-openai_client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
 df = conn.read(worksheet="Hoja 1")
