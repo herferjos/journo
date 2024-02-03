@@ -10,12 +10,15 @@ from rsc.aggregate_auth import add_auth
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 hide_st_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
-            </style>
-            """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+.viewerBadge_container__r5tak {
+    display: none !important;
+}
+</style>
+"""
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 st.markdown(
