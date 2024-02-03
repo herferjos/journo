@@ -9,9 +9,6 @@ from rsc.aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-prueba = text_highlighter("jeje esto es una prueba. muy larga")
-
-st.write(prueba)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
@@ -265,7 +262,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                   if st.session_state[f'on_{i}']:
                     for item in st.session_state[f'anotaciones_{i}']:
                         for x in item:
-                            st.session_state.anotaciones_finales.append(x['label']
+                            st.session_state.anotaciones_finales.append(x['label'])
                             
                     st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
                             
