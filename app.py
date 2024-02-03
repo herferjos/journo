@@ -47,13 +47,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       try:
         st.session_state.database = conn.read(worksheet=st.session_state.email)
       except:
-        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Tema': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Transcripcion filtrada': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5}, index=range(5))
+        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Tema': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Transcripción filtrada': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5}, index=range(5))
         st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
-    st.dataframe(st.session_state.database)
-    seleccion = dataframetipo(st.session_state.database)
-
-    st.dataframe(seleccion)
   
     if 'inicio' not in st.session_state:
         st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
@@ -92,6 +88,21 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.rerun()
         with c:   
             st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
+
+        st.write("---")
+        st.write('## 📊 Tus noticias')
+
+        if st.session_state.database.isna().all().all():
+            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+        else:
+            seleccion = dataframetipo(st.session_state.database)
+            st.dataframe(seleccion)
+            if len(seleccion) > 0:
+                with st.expander('Explorar noticia'):
+                    pass
+                    
+                if st.button("Cargar información", type = "primary", key = "record"):
+                    st.dataframe(seleccion)
 
         st.write("---")
             
