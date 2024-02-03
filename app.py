@@ -548,7 +548,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
             if st.button("Guarda información", type = "primary"):
                 if st.session_state.database.isna().all().all():
-                    st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Tema': [st.session_state.Z], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Transcripción filtrada': [st.session_state.transcripcion_final], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Sesion': [contenido]))
+                    st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Tema': [st.session_state.Z], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Transcripción filtrada': [st.session_state.transcripcion_final], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Sesion': [contenido]}))
                 else:
                     st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Tema': st.session_state.Z, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Transcripción filtrada': st.session_state.transcripcion_final, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Sesion': contenido}, ignore_index=True)
                     
