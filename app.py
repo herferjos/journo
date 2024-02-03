@@ -9,17 +9,9 @@ from rsc.aggregate_auth import add_auth
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-# Supongamos que tienes un texto y una lista de frases a destacar
-texto = "This is some annotated text for those of you who like this sort of thing. Another annotated text for those who enjoy this kind of stuff."
-frases_destacadas = ["annotated text", "this sort of thing"]  # Estas son las frases que quieres destacar
+prueba = text_highlighter("jeje esto es una prueba. muy larga")
 
-# Generar el HTML con las frases destacadas
-html_destacado = generar_html_con_destacados(texto, frases_destacadas)
-
-# Mostrar el HTML en Streamlit
-st.write(html_destacado, unsafe_allow_html=True)
-
-
+st.write(prueba)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
@@ -317,7 +309,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             
           for i in range(len(st.session_state.lista)):
               on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
-              st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
+              st.write(generar_html_con_destacados(st.session_state.lista[i], st.session_state[f'anotaciones_{i}']), unsafe_allow_html=True)
 
         col1, col2 = st.columns([0.07,1])
         
