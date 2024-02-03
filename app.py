@@ -263,8 +263,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.transcripcion_final = ''
                 for i in range(len(st.session_state.lista)):
                   if st.session_state[f'on_{i}']:
+                    for item in st.session_state[f'anotaciones_{i}']:
+                        for x in item:
+                            st.session_state.anotaciones_finales.append(x['label']
+                            
                     st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
-                    st.session_state.anotaciones_finales.append( st.session_state[f'anotaciones_{i}'])
+                            
                 st.rerun()
                   
           with col1:
@@ -309,7 +313,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             
           for i in range(len(st.session_state.lista)):
               on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
-              st.write(generar_html_con_destacados(st.session_state.lista[i], st.session_state[f'anotaciones_{i}']), unsafe_allow_html=True)
+              frases = []
+              for item in st.session_state[f'anotaciones_{i}']:
+                  for x in item:
+                    frases.append(x['label'])
+              st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
         col1, col2 = st.columns([0.07,1])
         
@@ -317,7 +325,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           if st.button("Generar noticia", type = "primary"):
             with st.spinner("Generando noticia... ⌛"):
   
-              st.session_state.noticia_generada = generar_noticia(st.session_state.new_dialogos, st.session_state.anotaciones, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+              st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
               st.rerun()
         with col1:    
           if st.button("Atrás", type = "primary", key = "atras"):
@@ -329,10 +337,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             stx.TabBarItemData(id=1, title="Audio", description = ''),
             stx.TabBarItemData(id=2, title="Contexto", description = ''),
             stx.TabBarItemData(id=3, title="Transcripción", description = ''),
-            stx.TabBarItemData(id=4, title="Temas seleccionados", description = ''),
-            stx.TabBarItemData(id=5, title="Anotaciones", description = ''),
-            stx.TabBarItemData(id=6, title="Noticia", description = ''),       
-        ], default=6)
+            stx.TabBarItemData(id=4, title="Selección/descarte", description = ''),
+            stx.TabBarItemData(id=5, title="Noticia generada", description = ''),   
+        ], default=5)
               
         if chosen_id == "1":
           st.info("Aquí tienes el audio que hemos procesado")
@@ -352,53 +359,21 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.write(st.session_state.B)
 
         if chosen_id == "3":
-          st.info("Aquí tienes la transcripción del audio")
-          lista_transcription = st.session_state.lista_transcription
-          texto = '\n\n- '.join(lista_transcription)
-          texto = '- ' + texto
-          
-          patron = r'- (.+):'
-          coincidencias = re.findall(patron, texto)
-          
-          for elemento in coincidencias:
-              texto_formateado = f'<u><b>{elemento}</u></b>'
-              texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                    
-          # Mostrar el texto formateado
-          st.write(texto, unsafe_allow_html=True)
+          st.info("Aquí tienes la transcripción del audio completa")
+          st.write(st.session_state.transcription2, unsafe_allow_html=True)
 
         if chosen_id == "4":
-          st.info("Estos son los asuntos más importantes de las declaraciones")
-          lista_claves = list(st.session_state.new_dialogos.keys())
+          st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+            
+          for i in range(len(st.session_state.lista)):
+              on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+              frases = []
+              for item in st.session_state[f'anotaciones_{i}']:
+                  for x in item:
+                    frases.append(x['label'])
+              st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
-          for i in range(len(lista_claves)):
-            st.write(f"### {lista_claves[i]}")
-            with st.expander('Ver diálogo'):
-              texto = '\n\n- '.join(st.session_state.new_dialogos[lista_claves[i]])
-              texto = '- ' + texto
-              
-              patron = r'- (.+):'
-              coincidencias = re.findall(patron, texto)
-              
-              for elemento in coincidencias:
-                  texto_formateado = f'<u><b>{elemento}</u></b>'
-                  texto = re.sub(f'- {elemento}:', f'- {texto_formateado}:', texto)      
-                        
-              # Mostrar el texto formateado
-              st.write(texto, unsafe_allow_html=True)
-        
         if chosen_id == "5":
-          st.info("Aquí tienes las declaraciones que marcastes")
-          lista_anotaciones = list(st.session_state.anotaciones.keys())
- 
-          for i in range(len(lista_anotaciones)):
-            if len(st.session_state.anotaciones[lista_anotaciones[i]]) > 0:
-              st.write(f"### {lista_anotaciones[i]}")
-              with st.expander('Ver anotaciones'):
-                for j in range(len(st.session_state.anotaciones[lista_anotaciones[i]])):
-                  st.write(f"- {st.session_state.anotaciones[lista_anotaciones[i]][j]}")
-
-        if chosen_id == "6":
             st.write("""## ✔️¡Listo! Aquí tienes tu noticia:""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti. Dale click a chatear")
             
