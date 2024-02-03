@@ -295,7 +295,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
       if phase == 0:
         st.info("Aquí tienes el audio que hemos procesado")
         try:
-            st.audio('files/audio.mp3', format="audio/mpeg")
+            st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
         except:
             st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
       
@@ -346,7 +346,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if phase == 0 :
             st.info("Aquí tienes el audio que hemos procesado")
             try:
-                st.audio('files/audio.mp3', format="audio/mpeg")
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
             except:
                 st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
 
@@ -406,7 +406,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if phase == 0:
             st.info("Aquí tienes el audio que hemos procesado")
             try:
-                st.audio('files/audio.mp3', format="audio/mpeg")
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
             except:
                 st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
 
@@ -457,7 +457,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if phase == 0:
             st.info("Aquí tienes el audio que hemos procesado")
             try:
-                st.audio('files/audio.mp3', format="audio/mpeg")
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
             except:
                 st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
 
