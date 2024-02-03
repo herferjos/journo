@@ -10,12 +10,22 @@ from annotated_text import annotated_text
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
-import streamlit as st
-from annotated_text import annotated_text
-
 # Supongamos que tienes un texto y una lista de frases a destacar
 texto = "This is some annotated text for those of you who like this sort of thing. Another annotated text for those who enjoy this kind of stuff."
 frases_destacadas = ["annotated text", "this sort of thing"]  # Estas son las frases que quieres destacar
+
+# Función para generar el HTML resaltando las frases
+def generar_html_con_destacados(texto, frases_destacadas):
+    html = ""
+    inicio = 0
+    for frase in frases_destacadas:
+        ocurrencias = encontrar_ocurrencias(texto, frase)
+        for ocurrencia in ocurrencias:
+            html += texto[inicio:ocurrencia[0]]  # Agregar texto antes de la frase
+            html += f"<span style='background-color: yellow'>{texto[ocurrencia[0]:ocurrencia[1]]}</span>"  # Resaltar la frase
+            inicio = ocurrencia[1]
+    html += texto[inicio:]  # Agregar el texto restante
+    return html
 
 # Función para encontrar todas las ocurrencias de una frase en el texto
 def encontrar_ocurrencias(texto, frase):
@@ -29,23 +39,12 @@ def encontrar_ocurrencias(texto, frase):
         inicio += len(frase)
     return ocurrencias
 
-# Lista para almacenar las partes del texto y sus respectivas categorías
-partes_texto = []
+# Generar el HTML con las frases destacadas
+html_destacado = generar_html_con_destacados(texto, frases_destacadas)
 
-# Buscar y resaltar todas las frases en el texto
-inicio = 0
-for frase in frases_destacadas:
-    ocurrencias = encontrar_ocurrencias(texto, frase)
-    for ocurrencia in ocurrencias:
-        partes_texto.append((texto[inicio:ocurrencia[0]], None))
-        partes_texto.append((frase, "frase"))
-        inicio = ocurrencia[1]
+# Mostrar el HTML en Streamlit
+st.write(html_destacado, unsafe_allow_html=True)
 
-# Agregar la parte final del texto
-partes_texto.append((texto[inicio:], None))
-
-# Formatear el texto con las frases destacadas
-annotated_text(*sum(partes_texto, ()))
 
 
 st.markdown(
