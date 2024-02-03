@@ -504,7 +504,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
         if chosen_id == "5":
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
-            st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti. Dale click a chatear")
+            st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
             
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
         
