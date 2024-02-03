@@ -545,15 +545,25 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.write('## 📍Guardar información')
             st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
             contenido = generar_txt()
-            bytes_data = contenido.encode()
-            st.download_button(
-                label="Descargar contenido de variables de sesión",
-                data=bytes_data,
-                file_name="variables_session_state.txt",
-                mime="text/plain"
-            )
-            options = st.multiselect(
-                'Selecciona lo que necesitas que te enviemos',
-                ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'],
-                ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'])
+
+            if st.button("Guarda información", type = "primary"):
+                if st.session_state.database.isna().all().all():
+                    st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Tema': [st.session_state.Z], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Transcripción filtrada': [st.session_state.transcripcion_final], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Sesion': [contenido]))
+                else:
+                    st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Tema': st.session_state.Z, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Transcripción filtrada': st.session_state.transcripcion_final, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Sesion': contenido}, ignore_index=True)
+                    
+
+                    
+# bytes_data = contenido.encode()
+# st.download_button(
+#     label="Descargar contenido de variables de sesión",
+#     data=bytes_data,
+#     file_name="variables_session_state.txt",
+#     mime="text/plain"
+# )
+# options = st.multiselect(
+#     'Selecciona lo que necesitas que te enviemos',
+#     ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'],
+#     ['Transcripcion', 'Contexto', 'Selección/descarte', 'Noticia'])
+
 
