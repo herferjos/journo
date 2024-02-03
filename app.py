@@ -21,10 +21,10 @@ data = {
 
 df = pd.DataFrame(data)
 
-selec, grid = dataframetipo(df)
+selec, id = dataframetipo(df)
 
 st.write(selec)
-st.write(grid["selected_rows"])
+st.write(id)
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
