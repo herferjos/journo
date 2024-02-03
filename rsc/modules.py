@@ -110,14 +110,14 @@ def generar_txt():
         if variable.startswith('anotaciones') or variable.startswith('on_') or variable.startswith('messages') or variable.startswith('lista'):
             contenido += f"st.session_state.{variable} = {valor}\n"
 
-    contenido += f"st.session_state.X = '{st.session_state.X}'\n"
-    contenido += f"st.session_state.Y = '{st.session_state.Y}'\n"
-    contenido += f"st.session_state.Z = '{st.session_state.Z}'\n"
-    contenido += f"st.session_state.A = '{st.session_state.A}'\n"
-    contenido += f"st.session_state.B = '{st.session_state.B}'\n"
-    contenido += f"st.session_state.transcription2 = '{st.session_state.transcription2}'\n"
-    contenido += f"st.session_state.noticia_generada = '{st.session_state.noticia_generada}'\n"
-    contenido += f"st.session_state.transcripcion_final = '{st.session_state.transcripcion_final}'\n"
+    contenido += f"st.session_state.X = '''{st.session_state.X}'''\n"
+    contenido += f"st.session_state.Y = '''{st.session_state.Y}'''\n"
+    contenido += f"st.session_state.Z = '''{st.session_state.Z}'''\n"
+    contenido += f"st.session_state.A = '''{st.session_state.A}'''\n"
+    contenido += f"st.session_state.B = '''{st.session_state.B}'''\n"
+    contenido += f"st.session_state.transcription2 = '''{st.session_state.transcription2}'''\n"
+    contenido += f"st.session_state.noticia_generada = '''{st.session_state.noticia_generada}'''\n"
+    contenido += f"st.session_state.transcripcion_final = '''{st.session_state.transcripcion_final}'''\n"
     
     
     return contenido
