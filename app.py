@@ -376,38 +376,38 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.session_state.noticia_generada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
 
             st.write('## 🤖 Chatea con una IA y ayúdate')
-                if len(st.session_state.messages) == 1:
-                    st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
-                
-                for message in st.session_state.messages:
-                    if message["role"] == "system":
-                        pass
-                    else:
-                        with st.chat_message(message["role"]):
-                            st.markdown(message["content"])
-                
-                if prompt := st.chat_input("Pregunta lo que quieras"):
-                    st.session_state.messages.append({"role": "user", "content": prompt})
-                    with st.chat_message("user"):
-                        st.markdown(prompt)
-                        
-                    with st.chat_message("assistant"):
-                                
-                        response = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo-1106",
-                        messages=st.session_state.messages,
-                        temperature = 0,
-                        stream = True
-                        )
-                        
-                        message_placeholder = st.empty()
-                        full_response = ""
-                        
-                        for chunk in response:
-                            full_response += chunk.choices[0].delta.get("content", "")
-                            message_placeholder.markdown(full_response + "▌")
-                                  
-                        st.session_state.messages.append({"role": "assistant", "content": full_response})
+            if len(st.session_state.messages) == 1:
+                st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
+            
+            for message in st.session_state.messages:
+                if message["role"] == "system":
+                    pass
+                else:
+                    with st.chat_message(message["role"]):
+                        st.markdown(message["content"])
+            
+            if prompt := st.chat_input("Pregunta lo que quieras"):
+                st.session_state.messages.append({"role": "user", "content": prompt})
+                with st.chat_message("user"):
+                    st.markdown(prompt)
+                    
+                with st.chat_message("assistant"):
+                            
+                    response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo-1106",
+                    messages=st.session_state.messages,
+                    temperature = 0,
+                    stream = True
+                    )
+                    
+                    message_placeholder = st.empty()
+                    full_response = ""
+                    
+                    for chunk in response:
+                        full_response += chunk.choices[0].delta.get("content", "")
+                        message_placeholder.markdown(full_response + "▌")
+                              
+                    st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 
 
