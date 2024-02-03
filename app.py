@@ -7,21 +7,45 @@ import re
 import extra_streamlit_components as stx
 from rsc.aggregate_auth import add_auth
 from streamlit_gsheets import GSheetsConnection
+from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
+from st_aggrid.grid_options_builder import GridOptionsBuilder
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+
+def dataframetipo(df):
+    # Eliminar filas con todas las celdas vacías
+    df = df.dropna(axis=0, how='all')
+    
+    # Eliminar columnas con todas las celdas vacías
+    df = df.dropna(axis=1, how='all')
+    gd = GridOptionsBuilder.from_dataframe(df)
+    gd.configure_selection(selection_mode='single', use_checkbox=True)
+    gd.configure_auto_height(autoHeight=True)
+    gd.configure_grid_options()
+    gd.configure_default_column(groupable=True, filterable=True, sorteable=True, resizable=True)
+    gridoptions = gd.build()
+    grid_table = AgGrid(df, gridOptions=gridoptions, update_mode=GridUpdateMode.SELECTION_CHANGED, fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
+    
+    selected_row = grid_table["selected_rows"]
+    selected_row_json = json.dumps(selected_row)
+    selected_row_dict = json.loads(selected_row_json)
+    
+    if len(selected_row_dict) > 0:
+      for elemento in selected_row_dict:
+          elemento.pop('_selectedRowNodeInfo')
+      df = pd.DataFrame(selected_row_dict)
+        
+      return df
+          
 df = conn.read(worksheet="Hoja 1")
 
-# Eliminar filas con todas las celdas vacías
-df = df.dropna(axis=0, how='all')
+seleccion = dataframetipo(df)
 
-# Eliminar columnas con todas las celdas vacías
-df = df.dropna(axis=1, how='all')
-
-st.dataframe(df, hide_index = True)
+st.write(f'Seleccion: {seleccion}')
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
