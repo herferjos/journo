@@ -84,12 +84,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 reset_variables()
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-            id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+            dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
             
             a,b = st.columns([0.2, 1])
             if id is not None:
                 with st.expander('Explorar noticia'):
-                    cargar_noticia(st.session_state.database.iloc[int(id), -1])
                     chosen_id = stx.tab_bar(data=[
                             stx.TabBarItemData(id=1, title="Contexto", description = ''),
                             stx.TabBarItemData(id=2, title="Transcripción", description = ''),
@@ -133,9 +132,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     if st.button("Cargar noticia", type = "primary", key = "record"):
                         st.session_state.inicio = True
                         st.rerun()
-            with a:
-                if st.button("Probar Journo", type = "primary", key = "start"):
-                    reset_variables()
+                with a:
+                    if st.button("Probar Journo", type = "primary", key = "start"):
+                        reset_variables()
 
         st.write("---")
             
