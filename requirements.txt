@@ -70,3 +70,4 @@ faster-whisper==0.10.0
 httpx-oauth==0.13.1
 stripe==8.0.0
 PyJWT==2.8.0
+st-annotated-text==4.0.1
