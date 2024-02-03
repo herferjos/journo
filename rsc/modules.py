@@ -14,7 +14,7 @@ from pathlib import Path
 import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
-
+from streamlit_gsheets import GSheetsConnection
 
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
@@ -42,6 +42,10 @@ usuarios_permitidos = {
     "alvarorafaelvl" : "Alvarorafaelvl.journoAI",
     "" : ""
 }
+
+@st.cache_resource(persist="disk", show_spinner = False)
+def load_sheet():
+    return st.experimental_connection("gsheets", type=GSheetsConnection)
 
 def dataframetipo(df):
     # Eliminar filas con todas las celdas vacías
