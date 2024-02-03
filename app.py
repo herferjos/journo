@@ -80,7 +80,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             
         st.write("## ¿Cómo funciona Journo?")
         
-        with open('demo.txt', "r",encoding="utf-8") as archivo:
+        with open('files/demo.txt', "r",encoding="utf-8") as archivo:
             content = archivo.read()
       
         exec(content)
