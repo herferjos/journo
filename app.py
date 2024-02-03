@@ -9,7 +9,6 @@ from rsc.aggregate_auth import add_auth
 from nicegui import ui
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
-
 text = 'Hello world!'
 
 async def handle_mouse_up():
@@ -20,6 +19,7 @@ async def handle_mouse_up():
     html.content = f'{text[:start]}<span style="background-color: yellow">{text[start:end]}</span>{text[end:]}'
 
 html = ui.html(text).on('mouseup', handle_mouse_up)
+
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
