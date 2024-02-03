@@ -84,10 +84,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 reset_variables()
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-            seleccion, id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+            id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
             
             a,b = st.columns([0.2, 1])
-            if len(seleccion) > 0:
+            if id is not None:
                 with st.expander('Explorar noticia'):
                     cargar_noticia(st.session_state.database.iloc[int(id), -1])
                     chosen_id = stx.tab_bar(data=[
@@ -206,10 +206,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     reset_variables()
             else:
                 st.info('Aquí tienes las noticias que has generado con el asistente Journo')
-                seleccion, id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
+                id = dataframetipo(st.session_state.database.drop(st.session_state.database.columns[-1], axis=1))
                 
                 a,b = st.columns([0.2, 1])
-                if len(seleccion) > 0:
+                if id is not None:
                     cargar_noticia(st.session_state.database.iloc[int(id), -1])
                     with st.expander('Explorar noticia'):
                         chosen_id = stx.tab_bar(data=[
