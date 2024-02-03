@@ -44,7 +44,7 @@ with y:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if 'database' not in st.session_state:
-      @st.cache_resource(persis="disk")
+      @st.cache_resource(persist="disk")
       conn = st.experimental_connection("gsheets", type=GSheetsConnection)
       try:
         st.session_state.database = conn.read(worksheet=st.session_state.email)
