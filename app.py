@@ -284,7 +284,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.info("Ahora puedes eliminar fragmentos de la transcripción desmarcando el párrafo y subrayar en aquellos que desees incluir, indicando así que partes son más importantes a la hora de generar la noticia.")
           st.session_state.lista = st.session_state.transcription2.split('\n\n')
             
-          for i in range(len(st.session_state.lista):
+          for i in range(len(st.session_state.lista)):
               st.session_state[f'on_{i}'] = st.toggle('', key=i, value = True)
               st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
            
@@ -342,7 +342,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if chosen_id == "4":
           st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
             
-          for i in range(len(st.session_state.lista):
+          for i in range(len(st.session_state.lista)):
               f'on_{i}'  = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
               st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
 
