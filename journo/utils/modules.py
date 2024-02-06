@@ -82,6 +82,16 @@ def reset_variables():
     st.rerun()
 
 
+def guardar_info():
+    contenido = generar_txt()
+    with st.spinner("Guardando información... ⌛"):
+        if st.session_state.database.isna().all().all():
+            st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Tema': [st.session_state.Z], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Transcripción filtrada': [st.session_state.transcripcion_final], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Sesion': [contenido]}))
+        else:
+            st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Tema': st.session_state.Z, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Transcripción filtrada': st.session_state.transcripcion_final, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Sesion': contenido}, ignore_index=True)
+            st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
+    return
+    
 
 def cargar_noticia(content):
     exec(content)
