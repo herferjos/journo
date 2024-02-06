@@ -50,6 +50,7 @@ with st.sidebar:
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
     if st.session_state.selected == 1:
+        st.write('1')
       show_incio()
 
     if st.session_state.selected == 2:
