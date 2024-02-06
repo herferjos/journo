@@ -123,10 +123,13 @@ def show_journo():
               for i in range(len(st.session_state.lista)):
                   on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
                   frases = []
-                  for item in st.session_state[f'anotaciones_{i}']:
-                      for x in item:
-                        frases.append(x['label'])
-                  st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
+                  if st.session_state[f'anotaciones_{i}'] == None:
+                      pass
+                  else:         
+                      for item in st.session_state[f'anotaciones_{i}']:
+                          for x in item:
+                            frases.append(x['label'])
+                      st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
             else:
                 st.warning('Aún no has generado ninguna anotación sobre la transcripción')
 
