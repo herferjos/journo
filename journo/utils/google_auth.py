@@ -9,8 +9,10 @@ from httpx_oauth.oauth2 import OAuth2Token
 testing_mode = st.secrets.get("testing_mode", False)
 
 
-client_id = st.secrets["client_id"]
-client_secret = st.secrets["client_secret"]
+# client_id = st.secrets["client_id"]
+client_id = "770013165577-6sb76e51olqod5lcqjilfjss06d617ae.apps.googleusercontent.com"
+client_secret = "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"
+# client_secret = st.secrets["client_secret"]
 redirect_url = (
     st.secrets["redirect_url_test"] if testing_mode else st.secrets["redirect_url"]
 )
