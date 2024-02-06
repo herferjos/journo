@@ -11,10 +11,14 @@ def show_journo():
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada", "Chatear con IA", "Enviar información"])
 
-    a, b, c = st.columns([0.2, 0.3, 0.5])
+    a, b, c = st.columns([0.5, 0.3, 0.5])
+    
     with b:
         if st.button("Crear nueva noticia", type = "primary", key = "start"):
             reset_variables()
+            st.rerun()
+            
+    st.write('')
 
     if st.session_state.phase == 0:
         with st.expander('🔊 Audio cargado'):
