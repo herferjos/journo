@@ -364,22 +364,27 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
           st.session_state[f'on_{i}'] = st.toggle('', key=f'{i}_{i}', value = True)
           st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
     
-        
-        if st.button("Guardar", type = "primary"):
-          with st.spinner("Procesando la información... ⌛"):
-            st.session_state.anotaciones_finales = []
-            st.session_state.transcripcion_final = ''
-            for i in range(len(st.session_state.lista)):
-              if st.session_state[f'on_{i}']:
-                for item in st.session_state[f'anotaciones_{i}']:
-                    for x in item:
-                        st.session_state.anotaciones_finales.append(x['label'])
-                        
-                st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
-                        
-          with st.spinner("Generando noticia... ⌛"):
-            st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-            st.rerun()
+        a,b = st.columns([0.2, 1])
+        with a:
+            if st.button("Guardar", type = "primary"):
+              with st.spinner("Procesando la información... ⌛"):
+                st.session_state.anotaciones_finales = []
+                st.session_state.transcripcion_final = ''
+                for i in range(len(st.session_state.lista)):
+                  if st.session_state[f'on_{i}']:
+                    for item in st.session_state[f'anotaciones_{i}']:
+                        for x in item:
+                            st.session_state.anotaciones_finales.append(x['label'])
+                            
+                    st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
+    
+                    st.rerun()
+
+        with b:
+            if st.button("Generar noticia", type = "primary"):
+              with st.spinner("Generando noticia... ⌛"):
+                st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.rerun()
 
 
     if st.session_state.phase == 4:
