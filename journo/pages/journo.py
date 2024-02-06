@@ -22,6 +22,8 @@ def show_journo():
             
     st.write('')
 
+    st.write("---")
+
     if st.session_state.phase == 0:
         with st.expander('🔊 Audio cargado'):
             if 'mp3_audio_path' in st.session_state:
