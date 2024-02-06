@@ -39,7 +39,7 @@ def show_journo():
             st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
             archivo = st.file_uploader("Cargar archivo de audio")
         
-        if st.button("Siguiente", type = "primary", key = "upload"):
+        if st.button("Guardar audio", type = "primary", key = "upload"):
           with st.spinner("Cargando audio... ⌛"):
             if archivo is not None:
                 # Convierte el audio a formato MP3
@@ -164,12 +164,12 @@ def show_journo():
 
 
             if 'noticia_generada' in st.session_state:
-                if len(st.session_state.transcripcion_final) > 0:
+                if 'transcripcion_final' in st.session_state0:
                     st.success(f"Anotaciones guardadas y noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
                 else:
                     st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
             else:
-                if len(st.session_state.transcripcion_final) > 0:
+                if 'transcripcion_final' in st.session_state:
                     st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
             
         else:
