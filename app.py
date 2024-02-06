@@ -24,23 +24,25 @@ st.markdown(
 
 st.write("---")
 
-import st_aggrid
-
-import subprocess
 import streamlit as st
+import subprocess
 
-def get_st_aggrid_version():
-    try:
-        result = subprocess.check_output(["pip", "show", "st_aggrid"]).decode("utf-8")
-        lines = result.strip().split("\n")
-        for line in lines:
-            if line.startswith("Version:"):
-                return line.split(":")[1].strip()
-    except Exception as e:
-        st.error(f"No se pudo obtener la versión de st_aggrid: {e}")
-        return None
-        
-st.write(get_st_aggrid_version)
+def display_installed_libraries():
+    # Ejecutar el comando pip freeze para obtener las librerías instaladas y sus versiones
+    result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True)
+    installed_libraries = result.stdout.split('\n')
+
+    st.write("### Librerías Instaladas y sus Versiones Correspondientes")
+    for lib in installed_libraries:
+        st.write(lib)
+
+# App de Streamlit
+st.title("Librerías Instaladas y Versiones Correspondientes")
+st.write("Esta aplicación muestra las librerías instaladas y sus versiones correspondientes.")
+
+if st.button("Mostrar Librerías Instaladas"):
+    display_installed_libraries()
+
 
 
 if "messages" not in st.session_state:
