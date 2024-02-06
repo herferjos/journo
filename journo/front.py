@@ -4,7 +4,7 @@ import pandas as pd
 import extra_streamlit_components as stx
 
 def say_hello():
-  st.write(f'Hello {st.session_state.email})
+  st.write(f'Hello {st.session_state.email}')
   return
 
 def load_database():
