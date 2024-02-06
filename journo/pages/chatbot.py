@@ -6,7 +6,7 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 def show_bot():
     st.write('## 🤖 Chatea con una IA y ayúdate')
-    st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Además, podrás importar fácilmente la noticia de la sección "Noticia generada" haciendo click en el siguiente botón:')
+    st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Importa fácilmente la noticia generada haciendo click en el siguiente botón:')
     if st.button("Copiar noticia ", type = "primary"):
         st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
         st.rerun()
