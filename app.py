@@ -1,7 +1,7 @@
 from openai import OpenAI
 import streamlit as st
 from journo.modules import *
-from journo.front import load_database, show_databse
+from journo.front import *
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import re
