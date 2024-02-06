@@ -23,18 +23,60 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 def reset_variables():
     to_delete = [key for key in st.session_state.keys() if key.startswith('on') or key.startswith('anotaciones')]
     for key in to_delete:
-        del st.session_state[key]
+        try:
+            del st.session_state[key]
+        except KeyError:
+            pass
         
-    del st.session_state.mp3_audio_path
-    del st.session_state.X
-    del st.session_state.Y
-    del st.session_state.Z
-    del st.session_state.A
-    del st.session_state.B
-    del st.session_state.transcription2
-    del st.session_state.transcripcion_final
-    del st.session_state.noticia_generada
-    del st.session_state.anotaciones_finales
+    try:
+        del st.session_state.mp3_audio_path
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.X
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.Y
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.Z
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.A
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.B
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.transcription2
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.transcripcion_final
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.noticia_generada
+    except AttributeError:
+        pass
+    
+    try:
+        del st.session_state.anotaciones_finales
+    except AttributeError:
+        pass
 
     st.rerun()
 
