@@ -41,7 +41,7 @@ with y:
 
 st.write(st.session_state.email)
 st.write(st.session_state.user_subscribed)
-
+st.write(st.session_state.selected)
 
 with st.sidebar:
     st.session_state.selected = option_menu("Menu", ["Inicio", "Base de datos", "Journo"], 
@@ -50,7 +50,7 @@ with st.sidebar:
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
     if st.session_state.selected == 1:
-        st.write('1')
+        
         show_incio()
 
     if st.session_state.selected == 2:
