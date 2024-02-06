@@ -69,7 +69,7 @@ def show_database():
     
     
             with b:  
-                if st.button("Cargar noticia", type = "primary", key = "record"):
+                if st.button("Editar noticia", type = "primary", key = "record"):
                     st.session_state.inicio = True
-                    st.rerun()
+                    st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
     return
