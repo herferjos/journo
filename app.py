@@ -39,9 +39,6 @@ x,y,z = st.columns(3)
 with y:
   add_auth(required=True, login_sidebar = False)
 
-st.write(st.session_state.email)
-st.write(st.session_state.user_subscribed)
-st.write(st.session_state.selected)
 
 with st.sidebar:
     st.session_state.selected = option_menu("Menu", ["Inicio", "Base de datos", "Journo"], 
@@ -49,15 +46,14 @@ with st.sidebar:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
-    if st.session_state.selected == 1:
-        
+    if st.session_state.selected == 'Inicio':
         show_incio()
 
-    if st.session_state.selected == 2:
-      show_database()
+    if st.session_state.selected == 'Base de datos':
+        show_database()
         
-    if st.session_state.selected == 3:
-      show_journo()
+    if st.session_state.selected == 'Journo':
+        show_journo()
 
 
 
