@@ -19,7 +19,6 @@ def show_bot():
                 st.markdown(message["content"])
     
     
-    
     if prompt := st.chat_input("Pregunta lo que quieras")
         
         st.session_state.messages.append({"role": "user", "content": prompt})
