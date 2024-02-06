@@ -25,11 +25,7 @@ def show_database():
         df_copia = st.session_state.database.copy()
         df_copia = df_copia.iloc[:, :-1]
         dataframetipo(df_copia)
-        
-        a,b = st.columns([0.3, 1])
-        with a:
-            if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                reset_variables()
+
                 
         if 'noticia_generada' in st.session_state:
             with st.expander('Explorar noticia'):
@@ -67,9 +63,7 @@ def show_database():
                     st.info('Esta es la noticia generada por Journo')
                     st.write(st.session_state.noticia_generada)
     
-    
-            with b:  
-                if st.button("Editar noticia", type = "primary", key = "record"):
-                    st.session_state.inicio = True
-                    st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
+            if st.button("Editar noticia", type = "primary", key = "record"):
+                st.session_state.inicio = True
+                st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
     return
