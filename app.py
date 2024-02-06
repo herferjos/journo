@@ -2,7 +2,7 @@ import streamlit as st
 from journo.pages.inicio import show_inicio
 from journo.pages.database import show_database
 from journo.pages.journo import show_journo
-#from journo.utils.aggregate_auth import add_auth
+from journo.utils.aggregate_auth import add_auth
 from journo.utils.modules import img_to_html
 from streamlit_option_menu import option_menu
 
@@ -22,10 +22,6 @@ st.markdown(
 )
 
 st.write("---")
-
-from st_paywall import add_auth
-
-add_auth(required=True, login_sidebar = False)
 
 
 if "messages" not in st.session_state:
