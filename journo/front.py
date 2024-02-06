@@ -16,7 +16,7 @@ def load_database():
       nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Tema': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Transcripción filtrada': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Sesion': [None]*5}, index=range(5))
       st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
       st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
-
+  return
 
 def show_databse():
   st.write('## 📊 Tus noticias')
@@ -77,3 +77,4 @@ def show_databse():
               if st.button("Cargar noticia", type = "primary", key = "record"):
                   st.session_state.inicio = True
                   st.rerun()
+  return
