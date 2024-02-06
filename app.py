@@ -1,11 +1,11 @@
 from openai import OpenAI
 import streamlit as st
-from rsc.modules import *
+from journo.modules import *
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import re
 import extra_streamlit_components as stx
-from rsc.aggregate_auth import add_auth
+from journo.aggregate_auth import add_auth
 import pandas as pd
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
