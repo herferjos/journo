@@ -3,7 +3,7 @@ from journo.utils.modules import *
 import pandas as pd
 import extra_streamlit_components as stx
 
-def show_database()
+def show_database():
     if 'database' not in st.session_state:
       st.session_state.sheet = load_sheet()
       try:
