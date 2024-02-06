@@ -24,6 +24,11 @@ st.markdown(
 
 st.write("---")
 
+import st_aggrid
+
+
+st.write(st_aggrid.__version__)
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
