@@ -154,6 +154,7 @@ def show_journo():
             edited_noticia = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
             if st.button("Guardar noticia", type = "primary"):
                 st.session_state.noticia_generada = edited_noticia
+                guardar_info()
                 st.rerun()
         else:
             st.warning('Aún no has generado ninguna noticia. Vuelve al paso anterior y genera la noticia.')
@@ -198,21 +199,4 @@ def show_journo():
                           
                 st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-    if st.session_state.phase == 6:
-        st.write('## 📍Guardar información')
-        st.info('Guardaremos la información y te haremos llegar la información que desees a tu correo electrónico.')
-        contenido = generar_txt()
-
-        if st.button("Guarda información", type = "primary"):
-            with st.spinner("Guardando información... ⌛"):
-                if st.session_state.database.isna().all().all():
-                    st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Tema': [st.session_state.Z], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Transcripción filtrada': [st.session_state.transcripcion_final], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Sesion': [contenido]}))
-                else:
-                    st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Tema': st.session_state.Z, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Transcripción filtrada': st.session_state.transcripcion_final, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Sesion': contenido}, ignore_index=True)
-                    st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
-                    
-                st.session_state.guardado = True
-                st.rerun()
-        if st.session_state.guardado:
-            st.success(f"🎉 ¡Noticia guardada con éxito!")
     return
