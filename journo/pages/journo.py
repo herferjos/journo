@@ -140,8 +140,30 @@ def show_journo():
               st.session_state[f'on_{i}'] = st.toggle('', key=f'{i}_{i}', value = True)
               st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
         
-            a,b = st.columns([0.2, 1])
-            with a:
+            if 'transcripcion_final' in st.session_state:
+                a,b = st.columns([0.2, 1])
+                with a:
+                    if st.button("Guardar", type = "primary"):
+                      with st.spinner("Procesando la información... ⌛"):
+                        st.session_state.anotaciones_finales = []
+                        st.session_state.transcripcion_final = ''
+                        for i in range(len(st.session_state.lista)):
+                          if st.session_state[f'on_{i}']:
+                            for item in st.session_state[f'anotaciones_{i}']:
+                                for x in item:
+                                    st.session_state.anotaciones_finales.append(x['label'])
+                                    
+                            st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
+            
+                            st.rerun()
+        
+                with b:
+                    if st.button("Generar noticia", type = "primary"):
+                      with st.spinner("Generando noticia... ⌛"):
+                        st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                        st.rerun()
+            else:
+                
                 if st.button("Guardar", type = "primary"):
                   with st.spinner("Procesando la información... ⌛"):
                     st.session_state.anotaciones_finales = []
@@ -155,16 +177,9 @@ def show_journo():
                         st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
         
                         st.rerun()
-    
-            with b:
-                if st.button("Generar noticia", type = "primary"):
-                  with st.spinner("Generando noticia... ⌛"):
-                    st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                    st.rerun()
-
 
             if 'noticia_generada' in st.session_state:
-                if 'transcripcion_final' in st.session_state0:
+                if 'transcripcion_final' in st.session_state:
                     st.success(f"Anotaciones guardadas y noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
                 else:
                     st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
