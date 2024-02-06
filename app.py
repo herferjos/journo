@@ -265,8 +265,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if st.session_state.phase == 0:
         with st.expander('🔊 Audio cargado'):
             if 'mp3_audio_path' in st.session_state:
-                st.info("Aquí tienes el audio que hemos procesado previamente")
                 try:
+                    st.info("Aquí tienes el audio que hemos procesado previamente")
                     st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
                 except:
                     st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
