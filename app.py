@@ -2,7 +2,6 @@ import streamlit as st
 from journo.pages.inicio import show_inicio
 from journo.pages.database import show_database
 from journo.pages.journo import show_journo
-from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
 from journo.utils.modules import img_to_html
 from streamlit_option_menu import option_menu
@@ -61,7 +60,43 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         show_journo()
 
     if st.session_state.selected == 'Chatbot':
-        show_bot()
+        st.write('## 🤖 Chatea con una IA y ayúdate')
+        st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Además, podrás importar fácilmente la noticia de la sección "Noticia generada" haciendo click en el siguiente botón:')
+        if st.button("Copiar noticia ", type = "primary"):
+            st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
+            st.rerun()
+        
+        for message in st.session_state.messages:
+            if message["role"] == "system":
+                pass
+            else:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
+        
+        
+        if prompt := st.chat_input("Pregunta lo que quieras")
+            
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            with st.chat_message("user"):
+                st.markdown(prompt)
+                
+            with st.chat_message("assistant"):
+                        
+                response = openai_client.chat.completions.create(
+                model="gpt-3.5-turbo-1106",
+                messages=st.session_state.messages,
+                temperature = 0,
+                stream = True
+                )
+                
+                message_placeholder = st.empty()
+                full_response = ""
+                
+                for chunk in response:
+                    full_response += chunk.choices[0].delta.get("content", "")
+                    message_placeholder.markdown(full_response + "▌")
+                          
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
 
 
         
