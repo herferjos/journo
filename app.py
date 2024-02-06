@@ -1,17 +1,12 @@
-from openai import OpenAI
 import streamlit as st
-from journo.utils.modules import *
-from streamlit_annotation_tools import text_highlighter
-from streamlit_mic_recorder import mic_recorder
-import re
-import extra_streamlit_components as stx
+from journo.pages.inicio import show_inicio
+from journo.pages.database import show_database
+from journo.pages.journo import show_journo
 from journo.aggregate_auth import add_auth
-import pandas as pd
 from streamlit_option_menu import option_menu
 
-openai_client = OpenAI(api_key=st.secrets.openai_api)
 
-st.set_page_config(page_title="Inicio - Journo", page_icon="🏠", layout="wide")
+st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
@@ -56,7 +51,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if st.session_state.selected == 1:
       show_incio()
 
-
+    if st.session_state.selected == 2:
+      show_database()
+        
+    if st.session_state.selected == 1:
+      show_journo()
 
 
 
