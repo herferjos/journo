@@ -158,10 +158,11 @@ def show_journo():
                             st.rerun()
         
                 with b:
-                    if st.button("Generar noticia", type = "primary"):
-                      with st.spinner("Generando noticia... ⌛"):
-                        st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                        st.rerun()
+                    boton_generar = st.button("Generar noticia", type = "primary")
+                if boton_generar:
+                  with st.spinner("Generando noticia... ⌛"):
+                    st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                    st.rerun()
             else:
                 
                 if st.button("Guardar", type = "primary"):
