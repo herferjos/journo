@@ -27,7 +27,7 @@ def show_database():
         dataframetipo(df_copia)
 
                 
-        if 'noticia_generada' in st.session_state:
+        if 'noticia_generada' in st.session_state and st.session_state.noticia_cargada == True:
             phase = stx.stepper_bar(steps=["Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
     
             if phase == 0:
