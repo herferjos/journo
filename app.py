@@ -2,7 +2,7 @@ import streamlit as st
 from journo.pages.inicio import show_inicio
 from journo.pages.database import show_database
 from journo.pages.journo import show_journo
-from journo.aggregate_auth import add_auth
+from journo.utils.aggregate_auth import add_auth
 from streamlit_option_menu import option_menu
 
 
