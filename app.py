@@ -29,6 +29,10 @@ if "messages" not in st.session_state:
 
 if 'guardado' not in st.session_state:
     st.session_state.guardado = False
+    
+if 'noticia_cargada' not in st.session_state:
+    st.session_state.noticia_cargada = False
+
 
 st.markdown("""
   <style>
