@@ -99,9 +99,16 @@ def show_journo():
     if st.session_state.phase == 2:
         if 'transcription2' in st.session_state:
             st.info("Aquí tienes la transcripción del audio completa")
-            st.write(st.session_state.transcription2, unsafe_allow_html=True)
+
+            
+            edited_transcription = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcription2, height = int(len(st.session_state.transcription2)/5))
+
+            if st.button("Guardar transcripción", type = "primary"):
+                st.session_state.transcription2 = edited_transcription
+                st.rerun()
         else:
             st.warning('Aún no has generado ninguna transcripción')
+            
     
     if st.session_state.phase == 3:
         with st.expander('✍🏼Ver anotaciones'):
