@@ -1,5 +1,5 @@
 import streamlit as st
-from journo.modules import *
+from journo.utils.modules import *
 import pandas as pd
 import extra_streamlit_components as stx
 
