@@ -166,7 +166,7 @@ def show_journo():
 
         if 'noticia_generada' in st.session_state:
             if len(st.session_state.transcripcion_final) > 0:
-                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
+                st.success(f"Anotaciones guardadas y noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
             else:
                 st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
         else:
