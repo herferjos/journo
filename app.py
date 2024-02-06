@@ -37,6 +37,7 @@ if 'guardado' not in st.session_state:
 if 'noticia_cargada' not in st.session_state:
     st.session_state.noticia_cargada = False
 
+load_database()
 
 st.markdown("""
   <style>
