@@ -24,26 +24,6 @@ st.markdown(
 
 st.write("---")
 
-import streamlit as st
-import subprocess
-
-def display_installed_libraries():
-    # Ejecutar el comando pip freeze para obtener las librerías instaladas y sus versiones
-    result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True)
-    installed_libraries = result.stdout.split('\n')
-
-    st.write("### Librerías Instaladas y sus Versiones Correspondientes")
-    for lib in installed_libraries:
-        st.write(lib)
-
-# App de Streamlit
-st.title("Librerías Instaladas y Versiones Correspondientes")
-st.write("Esta aplicación muestra las librerías instaladas y sus versiones correspondientes.")
-
-if st.button("Mostrar Librerías Instaladas"):
-    display_installed_libraries()
-
-
 
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
