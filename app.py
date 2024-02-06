@@ -42,7 +42,7 @@ with y:
 
 with st.sidebar:
     st.session_state.selected = option_menu("Menu", ["Inicio", "Base de datos", "Journo"], 
-        icons=['house', 'clipboard-data', 'pencil-fill'], menu_icon="cast", default_index=1)
+        icons=['house', 'clipboard-data', 'pencil-fill'], menu_icon="cast", default_index=0)
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
