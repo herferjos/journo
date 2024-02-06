@@ -26,7 +26,7 @@ def show_database():
         df_copia = df_copia.iloc[:, :-1]
         dataframetipo(df_copia)
         
-        a,b = st.columns([0.5, 1])
+        a,b = st.columns([0.3, 1])
         with a:
             if st.button("Crear nueva noticia", type = "primary", key = "start"):
                 reset_variables()
