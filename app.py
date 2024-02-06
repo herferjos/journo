@@ -1,7 +1,7 @@
 from openai import OpenAI
 import streamlit as st
 from journo.modules import *
-from journo.front import show_database, load_database
+from journo.front import *
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import re
@@ -27,7 +27,8 @@ st.markdown(
 )
 
 st.write("---")
-          
+
+say_hello()
 
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
