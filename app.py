@@ -26,8 +26,21 @@ st.write("---")
 
 import st_aggrid
 
+import subprocess
+import streamlit as st
 
-st.write(st_aggrid.__version__)
+def get_st_aggrid_version():
+    try:
+        result = subprocess.check_output(["pip", "show", "st_aggrid"]).decode("utf-8")
+        lines = result.strip().split("\n")
+        for line in lines:
+            if line.startswith("Version:"):
+                return line.split(":")[1].strip()
+    except Exception as e:
+        st.error(f"No se pudo obtener la versión de st_aggrid: {e}")
+        return None
+        
+st.write(get_st_aggrid_version)
 
 
 if "messages" not in st.session_state:
