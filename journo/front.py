@@ -3,6 +3,10 @@ from journo.modules import *
 import pandas as pd
 import extra_streamlit_components as stx
 
+def say_hello():
+  st.write(f'Hello {st.session_state.email})
+  return
+
 def load_database():
   if 'database' not in st.session_state:
     st.session_state.sheet = load_sheet()
