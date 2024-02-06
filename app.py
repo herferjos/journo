@@ -4,6 +4,7 @@ from journo.pages.database import show_database
 from journo.pages.journo import show_journo
 from journo.utils.aggregate_auth import add_auth
 from streamlit_option_menu import option_menu
+from journo.utils.modules import img_to_html
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
