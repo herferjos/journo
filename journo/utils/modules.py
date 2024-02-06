@@ -78,12 +78,14 @@ def reset_variables():
     except AttributeError:
         pass
 
+    st.session_state.noticia_cargada = False
     st.rerun()
 
 
 
 def cargar_noticia(content):
     exec(content)
+    st.session_state.noticia_cargada = True
     st.rerun()
     
 
