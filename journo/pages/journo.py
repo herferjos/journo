@@ -144,16 +144,20 @@ def show_journo():
                     st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.rerun()
         else:
-            st.warning('Aún no has generado ninguna transcripción')
+            st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
 
     if st.session_state.phase == 4:
-        st.write("""## ✅ ¡Ya está lista tu noticia!""")
-        st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
-        
-        edited_noticia = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
-        if st.button("Guardar noticia", type = "primary"):
-            st.session_state.noticia_generada = edited_noticia
-            st.rerun()
+        if 'noticia_generada' in st.session_state:
+            st.write("""## ✅ ¡Ya está lista tu noticia!""")
+            st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
+            
+            edited_noticia = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
+            if st.button("Guardar noticia", type = "primary"):
+                st.session_state.noticia_generada = edited_noticia
+                st.rerun()
+        else:
+            st.warning('Aún no has generado ninguna noticia. Vuelve al paso anterior y genera la noticia.')
+            
             
     if st.session_state.phase == 5:
         st.write('## 🤖 Chatea con una IA y ayúdate')
