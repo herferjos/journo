@@ -404,7 +404,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 with st.chat_message(message["role"]):
                     st.markdown(message["content"])
         
-        prompt = st.chat_input("Pregunta lo que quieras"):
+        prompt = st.chat_input("Pregunta lo que quieras")
 
         if st.button("Enviar ", type = "primary"):
             
