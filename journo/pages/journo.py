@@ -46,7 +46,8 @@ def show_journo():
                 mp3_bytes = audio_a_bytes(archivo)
                           
                 st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
-                
+                st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+                st.session_state.transcription2 = parrafer(st.session_state.transcription1)          
                 st.rerun()
         
         with col2:
@@ -57,6 +58,8 @@ def show_journo():
               if st.button("Siguiente", type = "primary", key = "record"):
                 with st.spinner("Cargando audio... ⌛"):            
                     st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
+                    st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+                    st.session_state.transcription2 = parrafer(st.session_state.transcription1)
                   
                     st.rerun()
                     
@@ -90,9 +93,6 @@ def show_journo():
                 st.session_state.A = A
                 st.session_state.B = B
     
-                
-                st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
-                st.session_state.transcription2 = parrafer(st.session_state.transcription1)
                 st.rerun()
                   
         if 'X' in st.session_state:
@@ -113,7 +113,6 @@ def show_journo():
 
         else:
             st.warning('Aún no has generado ninguna transcripción')
-            
     
     if st.session_state.phase == 3:
         with st.expander('✍🏼Ver anotaciones'):
