@@ -7,10 +7,6 @@ import extra_streamlit_components as stx
 import pandas as pd
 
 def show_journo():
-    show_database()
-                    
-    st.write('---')
-
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada", "Chatear con IA", "Enviar información"])
 
