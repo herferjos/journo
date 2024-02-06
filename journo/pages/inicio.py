@@ -2,7 +2,7 @@ import streamlit as st
 from journo import *
 import extra_streamlit_components as stx
 
-def show_inicio()
+def show_inicio():
     if 'inicio' not in st.session_state:
         st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
         st.write("## ¿Qué es Journo?")
