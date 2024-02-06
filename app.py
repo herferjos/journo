@@ -28,9 +28,10 @@ st.write("---")
 to_delete = [key for key in st.session_state.keys() if key.startswith('anotaciones')]
 
 for i in to_delete:
-    variable = f'st.session_state.{i}'
-    st.write(f'st.session_state.{i} = {variable}')
-    
+    variable_name = f'st.session_state.{i}'
+    variable_value = eval(variable_name)
+    st.write(f'{variable_name} = {variable_value}')
+
 
 
 if "messages" not in st.session_state:
