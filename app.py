@@ -47,7 +47,7 @@ with st.sidebar:
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
     if st.session_state.selected == 'Inicio':
-        show_incio()
+        show_inicio()
 
     if st.session_state.selected == 'Base de datos':
         show_database()
