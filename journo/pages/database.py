@@ -26,6 +26,15 @@ def show_database():
         df_copia = df_copia.iloc[:, :-1]
         dataframetipo(df_copia)
 
+        
+        st.download_button(
+            label='Descargar CSV',
+            data=df_copia.to_csv(index=False),
+            file_name='noticias_journo.csv',
+            mime='text/csv',
+            type = 'primary'
+        )
+
                 
         if 'noticia_generada' in st.session_state and st.session_state.noticia_cargada == True:
             phase = stx.stepper_bar(steps=["Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
@@ -62,7 +71,6 @@ def show_database():
                 st.info('Esta es la noticia generada por Journo')
                 st.write(st.session_state.noticia_generada)
 
-        if st.button("Editar noticia", type = "primary", key = "record"):
-            st.session_state.inicio = True
             st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
+            
     return
