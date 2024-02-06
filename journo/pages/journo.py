@@ -1,11 +1,8 @@
-from openai import OpenAI
 import streamlit as st
 from journo.utils.modules import *
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
-import re
 import extra_streamlit_components as stx
-from journo.aggregate_auth import add_auth
 import pandas as pd
 
 def show_journo():
