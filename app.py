@@ -361,7 +361,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         st.session_state.lista = st.session_state.transcription2.split('\n\n')
         
         for i in range(len(st.session_state.lista)):
-          st.session_state[f'on_{i}'] = st.toggle('', key=i, value = True)
+          st.session_state[f'on_{i}'] = st.toggle('', key=f'{i}_{i}', value = True)
           st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
     
         
