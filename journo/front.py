@@ -14,7 +14,7 @@ def load_database():
       st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
   return
 
-def show_databse():
+def show_database():
   st.write('## 📊 Tus noticias')
   if st.session_state.database.isna().all().all():
       st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
