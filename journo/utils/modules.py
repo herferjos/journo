@@ -247,7 +247,7 @@ def parrafer(texto):
     if parrafo_actual:
         parrafos.append(' '.join(parrafo_actual))
 
-    return parrafos
+    return '\n\n'.join(parrafos)
 
 
 st.cache_resource(show_spinner = False)
