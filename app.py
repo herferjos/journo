@@ -10,7 +10,7 @@ from streamlit_option_menu import option_menu
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
 st.markdown(
-    "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 150, 150) + "</p>",
+    "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
 )
 st.markdown(
