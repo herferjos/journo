@@ -185,7 +185,7 @@ def show_journo():
                     st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
             else:
                 if 'transcripcion_final' in st.session_state:
-                    st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
+                    st.success(f"Anotaciones guardadas correctamente. Dale click a 'Generar noticia'")
             
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
