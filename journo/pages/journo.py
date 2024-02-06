@@ -19,8 +19,6 @@ def show_journo():
         if st.button("Crear nueva noticia", type = "primary", key = "start"):
             reset_variables()
             st.rerun()
-            
-    st.write('')
 
     st.write("---")
 
@@ -48,9 +46,8 @@ def show_journo():
                 mp3_bytes = audio_a_bytes(archivo)
                           
                 st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
-              
+                
                 st.rerun()
-        
         
         with col2:
             st.info("Puedes empezar a grabar un audio directamente desde aquí")
@@ -62,6 +59,9 @@ def show_journo():
                     st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
                   
                     st.rerun()
+                    
+        if 'mp3_audio_path' in st.session_state:
+            st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
 
     if st.session_state.phase == 1:
       
@@ -94,18 +94,23 @@ def show_journo():
                 st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
                 st.session_state.transcription2 = parrafer(st.session_state.transcription1)
                 st.rerun()
+                  
+        if 'X' in st.session_state:
+            st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
 
 
     if st.session_state.phase == 2:
         if 'transcription2' in st.session_state:
             st.info("Aquí tienes la transcripción del audio completa")
-
             
             edited_transcription = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcription2, height = int(len(st.session_state.transcription2)/5))
-
-            if st.button("Guardar transcripción", type = "primary"):
+            
+            st.success(f"Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
+            
+            if st.button("Guardar transcripción editada", type = "primary"):
                 st.session_state.transcription2 = edited_transcription
                 st.rerun()
+
         else:
             st.warning('Aún no has generado ninguna transcripción')
             
@@ -154,6 +159,10 @@ def show_journo():
                   with st.spinner("Generando noticia... ⌛"):
                     st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.rerun()
+                      
+        if 'noticia_generada' in st.session_state:
+            st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
+            
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
 
