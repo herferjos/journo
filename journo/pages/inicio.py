@@ -21,7 +21,14 @@ def show_inicio():
         
         st.write("")
          
-        st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
+
+        a,b = st.columns([0.2, 1])
+        with a:
+            st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
+        with b:
+            if st.button("Probar Journo", type = "primary", key = "start"):
+                st.session_state.selected == 'Journo'
+                st.rerun()
         
         st.write("---")
             
