@@ -3,9 +3,8 @@ from journo.pages.inicio import show_inicio
 from journo.pages.database import show_database
 from journo.pages.journo import show_journo
 from journo.utils.aggregate_auth import add_auth
-from streamlit_option_menu import option_menu
 from journo.utils.modules import img_to_html
-
+from streamlit_option_menu import option_menu
 
 st.set_page_config(page_title="Journo", page_icon="🗞️", layout="wide")
 
@@ -43,7 +42,7 @@ with y:
 
 with st.sidebar:
     st.session_state.selected = option_menu("Menu", ["Inicio", "Base de datos", "Journo"], 
-        icons=['house', 'gear'], menu_icon="cast", default_index=1)
+        icons=['house', 'clipboard-data', 'pnecil-fill'], menu_icon="cast", default_index=1)
     selected
 
 
@@ -55,7 +54,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if st.session_state.selected == 2:
       show_database()
         
-    if st.session_state.selected == 1:
+    if st.session_state.selected == 3:
       show_journo()
 
 
