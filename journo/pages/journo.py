@@ -162,9 +162,16 @@ def show_journo():
                   with st.spinner("Generando noticia... ⌛"):
                     st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.rerun()
-                      
+
+
         if 'noticia_generada' in st.session_state:
-            st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
+            if len(st.session_state.transcripcion_final) > 0:
+                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
+            else:
+                st.success(f"Noticia generada correctamente. Ve a la pestaña de 'Noticia' para continuar")
+        else:
+            if len(st.session_state.transcripcion_final) > 0:
+                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
             
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
