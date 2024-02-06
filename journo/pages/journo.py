@@ -114,36 +114,37 @@ def show_journo():
             else:
                 st.warning('Aún no has generado ninguna anotación sobre la transcripción')
 
+        if 'transcription2' in st.session_state:
+            st.info("Aquí puedes eliminar fragmentos de la transcripción desmarcando el párrafo y subrayar en aquellos que desees incluir, indicando así que partes son más importantes a la hora de generar la noticia.")
+            st.session_state.lista = st.session_state.transcription2.split('\n\n')
+            
+            for i in range(len(st.session_state.lista)):
+              st.session_state[f'on_{i}'] = st.toggle('', key=f'{i}_{i}', value = True)
+              st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
         
-        st.info("Aquí puedes eliminar fragmentos de la transcripción desmarcando el párrafo y subrayar en aquellos que desees incluir, indicando así que partes son más importantes a la hora de generar la noticia.")
-        st.session_state.lista = st.session_state.transcription2.split('\n\n')
+            a,b = st.columns([0.2, 1])
+            with a:
+                if st.button("Guardar", type = "primary"):
+                  with st.spinner("Procesando la información... ⌛"):
+                    st.session_state.anotaciones_finales = []
+                    st.session_state.transcripcion_final = ''
+                    for i in range(len(st.session_state.lista)):
+                      if st.session_state[f'on_{i}']:
+                        for item in st.session_state[f'anotaciones_{i}']:
+                            for x in item:
+                                st.session_state.anotaciones_finales.append(x['label'])
+                                
+                        st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
         
-        for i in range(len(st.session_state.lista)):
-          st.session_state[f'on_{i}'] = st.toggle('', key=f'{i}_{i}', value = True)
-          st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
+                        st.rerun()
     
-        a,b = st.columns([0.2, 1])
-        with a:
-            if st.button("Guardar", type = "primary"):
-              with st.spinner("Procesando la información... ⌛"):
-                st.session_state.anotaciones_finales = []
-                st.session_state.transcripcion_final = ''
-                for i in range(len(st.session_state.lista)):
-                  if st.session_state[f'on_{i}']:
-                    for item in st.session_state[f'anotaciones_{i}']:
-                        for x in item:
-                            st.session_state.anotaciones_finales.append(x['label'])
-                            
-                    st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
-    
+            with b:
+                if st.button("Generar noticia", type = "primary"):
+                  with st.spinner("Generando noticia... ⌛"):
+                    st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.rerun()
-
-        with b:
-            if st.button("Generar noticia", type = "primary"):
-              with st.spinner("Generando noticia... ⌛"):
-                st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_final, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.rerun()
-
+        else:
+            st.warning('Aún no has generado ninguna transcripción')
 
     if st.session_state.phase == 4:
         st.write("""## ✅ ¡Ya está lista tu noticia!""")
