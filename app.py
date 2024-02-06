@@ -34,7 +34,6 @@ if 'guardado' not in st.session_state:
 if 'noticia_cargada' not in st.session_state:
     st.session_state.noticia_cargada = False
 
-load_database()
 
 st.markdown("""
   <style>
@@ -45,6 +44,7 @@ x,y,z = st.columns(3)
 with y:
   add_auth(required=True, login_sidebar = False)
 
+load_database()
 
 with st.sidebar:
     st.session_state.selected = option_menu("Menu", ["Inicio", "Base de datos", "Journo", "Chatbot"], 
