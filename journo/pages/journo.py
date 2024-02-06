@@ -42,13 +42,13 @@ def show_journo():
         with col2:
             st.info("Puedes empezar a grabar un audio directamente desde aquí")
         
-        audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
-        if audio is not None:
-          if st.button("Siguiente", type = "primary", key = "record"):
-            with st.spinner("Cargando audio... ⌛"):            
-                st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
-              
-                st.rerun()
+            audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
+            if audio is not None:
+              if st.button("Siguiente", type = "primary", key = "record"):
+                with st.spinner("Cargando audio... ⌛"):            
+                    st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
+                  
+                    st.rerun()
 
     if st.session_state.phase == 1:
       
