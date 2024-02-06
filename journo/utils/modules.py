@@ -19,7 +19,7 @@ from streamlit_gsheets import GSheetsConnection
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
-def load_database()
+def load_database():
     if 'database' not in st.session_state:
       st.session_state.sheet = load_sheet()
       try:
