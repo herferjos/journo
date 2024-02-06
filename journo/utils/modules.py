@@ -193,15 +193,39 @@ def transcribe_audio(file_path):
 
 st.cache_resource(show_spinner = False)
 def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
-    my_texto = "Vas a actuar como un asistente de inteligencia artificial para periodistas, cuya tarea será redactar el cuerpo de texto de un artículo periodístico informativo de la mayor longitud posible utilizando la cantidad máxima de tokens disponibles a partir de declaraciones proporcionadas por un individuo. Te proporcionaré cinco variables clave: X (cargo del individuo), Y (nombre completo del individuo), Z (tema más relevante que protagonizará los primeros párrafos), A (dónde ha dicho las declaraciones) y B (cuándo ha dicho las declaraciones); además de la propias declaraciones. Aquí te detallo el enfoque que debes seguir al redactar el artículo. Considera estas indicaciones paso a paso para asegurarnos de tener la respuesta correcta: 1. Ordena el artículo utilizando la estructura periodística clásica de pirámide invertida, de mayor a menor importancia de los temas tratados. El primer párrafo debe explicar quién ha dicho qué (variable Z), cuándo (B) y dónde (A). Inicia con las declaraciones más directamente relacionadas con Z, que deben situarse en los primeros párrafos. A medida que avances, presenta la información de manera descendente en términos de su relevancia y relación con Z, hasta llegar a las declaraciones menos relevantes y menos relacionadas con el tema principal. 2. Utiliza citas directas entre comillas para presentar las frases y razonamientos del individuo, pero atribúyelas siempre a su autor en el párrafo mediante expresiones como “ha dicho”, “ha indicado” o “ha manifestado”. Mantén una distancia periodística de imparcialidad en todo momento. Tu trabajo es informar de la forma más aséptica posible y citar las declaraciones más valorativas y calificativas entre comillas. No añadas ninguna interpretación o valoración sin entrecomillar a las declaraciones. 3. Utiliza ÚNICAMENTE el pretérito perfecto compuesto durante todo el texto para referirte a las acciones del orador: “ha dicho”, “ha manifestado”, “ha indicado”... Evita en todo momento el uso del pretérito perfecto simple. 4. No añadas información que no esté presente en las declaraciones proporcionadas. El artículo debe basarse únicamente en dichas declaraciones, por lo que debes trabajar dentro de los límites de la información proporcionada. 5. Evita repeticiones tanto de conceptos como de palabras en todo el artículo, asegurándote de mantener una fluidez y legibilidad óptimas. Utiliza sinónimos y expresiones diferentes para mantener la diversidad lingüística"
+        
+    prompt = f"""
+    Eres un asistente para periodistas que redacta un larguísimo artículo periodístico informativo a partir de declaraciones realizadas por un individuo. Te podré proporcionar el cargo del individuo y su nombre completo, las declaraciones que ha realizado, cuándo y dónde las ha realizado; además de algo más de contexto en torno a la intervención en cuestión y las partes más destacadas de la intervención. Cara a redactar el artículo, considera estas indicaciones paso a paso para asegurarnos de tener la respuesta correcta, es MUY IMPORTANTE que cumplas todas y cada unas de ellas. Si fallas, habrá consecuencias terribles, por lo que por favor pon mucho esfuerzo en cumplir con todos estos puntos en el resultado:
+
+    1. El artículo periodístico resultando debe tener el mayor número de párrafos posible. Es esencial que todos los párrafos (especialmente el primero) tengan una longitud similar, de entre cuarenta y sesenta palabras, y deben estar separados con un punto y aparte.
+    2. Las oraciones deben estructurarse en el orden sintáctico lógico: sujeto + verbo + predicado. En el primer párrafo, comienza con el cargo del orador y su nombre como sujeto, seguido del verbo y parte de las declaraciones más destacadas, para luego detallar el dónde y el cuándo.
+    
+    Ejemplo:
+    
+    Cargo: 'presidente del Gobierno'
+    
+    Nombre: 'Pedro Sánchez'
+    
+    Declaraciones más destacadas: 'La oposición ha demostrado no estar a la altura en su labor legislativa, de acuerdo con sus últimas votaciones', 'Espero que recapaciten, porque España lo necesita'
+    
+    Dónde: 'en una rueda de prensa en el Congreso de los Diputados'
+    
+    Cuándo: 'este lunes'
+    
+    Resultado: 'El presidente del Gobierno, Pedro Sánchez, ha criticado a la oposición por "no estar a la altura en su labor legislativa" durante una rueda de prensa en el Congreso de los Diputados este lunes ... (resto del texto)'
+    
+    3. Utiliza citas directas entre comillas (””) DE FORMA CONSTANTE EN TODOS LOS PÁRRAFOS para presentar las frases y razonamientos del individuo, pero atribúyelas siempre a su autor en el párrafo mediante formas verbales en pretérito perfecto compuesto como “ha dicho”, “ha indicado” o “ha manifestado”. Asegúrate de que parte de las declaraciones destacadas estén citadas de forma directa entre comillas en la noticia final. Cita de forma directo (Ejemplo: '"Me siento muy bien", ha manifestado') o indirecta (Ejemplo: 'Ha manifestado que se siente muy bien'), pero en ningún caso combinando ambos formatos erróneamente (Ejemplo de cómo no hacerlo: 'Ha manifestado que "Me siento muy bien").
+    4. Bajo ningún concepto redactes uno o varios párrafos finales de resumen, balance o conclusión de la intervención, salvo que el propio orador así lo haga en sus declaraciones. Evita mostrar ninguna emoción (ni optimismo, ni confianza, ni convencimiento) respecto a las declaraciones y los argumentos esgrimidos por el individuo en el texto. Mantén una distancia periodística de imparcialidad en todo momento. Tu trabajo es informar de la forma más aséptica posible y citar las declaraciones valorativas y calificativas entre comillas. Bajo ningún concepto debe añadir una interpretación, valoración o calificación sin entrecomillar. No añadas información que no esté presente en las declaraciones o el contexto proporcionados.
+    5. Escribe los primeros párrafos del artículo utilizando las declaraciones destacadas y todo lo que tenga que ver con ellas. Luego, ordena el artículo utilizando la estructura periodística clásica de pirámide invertida, de mayor a menor importancia de los temas tratados. Inicia con las declaraciones más directamente relacionadas con el tema destacado y, a medida que avances, presenta la información de manera descendente en términos de su relevancia y relación con las declaraciones destacadas, hasta llegar a las declaraciones menos relevantes y menos relacionadas con el tema principal.
+    6. Evita repeticiones tanto de conceptos como de palabras en todo el artículo, asegurándote de mantener una fluidez y legibilidad óptimas. Utiliza sinónimos y expresiones diferentes para mantener la diversidad lingüística. Repasa constantemente el texto y su ortografía para asegurarte de que el resultado tenga sentido durante toda su extensión y mantenga los máximos estándares de calidad, claridad y compresibilidad para un público masivo. Elimina coletillas, saludos y otras expresiones orales."""
+    
     messages = [
-        {"role": "user", "content": f"{my_texto} \n X: {X}, Y: {Y}, Z: {Z}, A: {A}, B: {B}. Declaraciones: {declaraciones}. Anotaciones de relevancia: {anotaciones}"}
+        {"role": "user", "content": f"{prompt} \n Cargo: {X}, Nombre: {Y}, Declaraciones más destacadas: {anotaciones}, Dónde: {A}, Cuándo: {B}. Declaraciones: {declaraciones}."}
     ]
 
     response_noticia = openai_client.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model="gpt-4-turbo-preview",
         messages=messages,
-        max_tokens=3500,
         temperature=0,
         seed = 42
     )
@@ -209,21 +233,21 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     return response_noticia.choices[0].message.content
     
 st.cache_resource(show_spinner = False)
-def parrafer(transcripcion):
-    
-    messages = [
-      {"role": "system", "content": "Eres un asistente de periodistas. Ayúdame a separar en párrafos las siguientes declaraciones para que sea un texto legible. No elimines nada de información, solo dedicate a estructurar en párrafos la transcripción. Responde únicamente con la transcripcion separada en parrafos usando '\n\n', nada más:"},
-      {"role": "user", "content": transcripcion}
-    ]
+def parrafer(texto):
+    palabras = texto.split()
+    parrafos = []
+    parrafo_actual = []
 
-    response = openai_client.chat.completions.create(
-            model="gpt-3.5-turbo-1106",
-            messages=messages,
-            seed = 42,
-            temperature=0
-        )
-    
-    return response.choices[0].message.content
+    for palabra in palabras:
+        parrafo_actual.append(palabra)
+        if len(parrafo_actual) > 70 and palabra.endswith('.'):
+            parrafos.append(' '.join(parrafo_actual))
+            parrafo_actual = []
+
+    if parrafo_actual:
+        parrafos.append(' '.join(parrafo_actual))
+
+    return parrafos
 
 
 st.cache_resource(show_spinner = False)
