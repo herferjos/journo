@@ -342,7 +342,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.warning('Aún no has generado ninguna transcripción')
     
     if st.session_state.phase == 3:
-        with st.expander(✍🏼'Ver anotaciones'):
+        with st.expander('✍🏼Ver anotaciones'):
             if 'on_0' in st.session_state:
               st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
                 
