@@ -39,6 +39,9 @@ x,y,z = st.columns(3)
 with y:
   add_auth(required=True, login_sidebar = False)
 
+st.write(st.session_state.email)
+st.write(st.session_state.user_subscribed)
+
 
 with st.sidebar:
     st.session_state.selected = option_menu("Menu", ["Inicio", "Base de datos", "Journo"], 
