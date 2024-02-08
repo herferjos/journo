@@ -42,6 +42,14 @@ x,y,z = st.columns(3)
 with y:
   add_auth(required=True, login_sidebar = False)
 
+def nav_to(url):
+    nav_script = """
+        <meta http-equiv="refresh" content="0; url='%s'">
+    """ % (url)
+    st.write(nav_script, unsafe_allow_html=True)
+
+nav_to('https://www.youtube.com')
+
 load_database()
 
 with st.sidebar:
