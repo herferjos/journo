@@ -13,8 +13,8 @@ def show_journo():
         st.info('Se ha cargado la noticia de tu base de datos. Si quieres crear una nueva noticia, haz click en el siguiente botón de "Crear nueva noticia"')
 
     if st.session_state.phase == 0:
+        if 'mp3_audio_path' in st.session_state:
         with st.expander('🔊 Audio cargado'):
-            if 'mp3_audio_path' in st.session_state:
                 try:
                     st.info("Aquí tienes el audio que hemos procesado previamente")
                     st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
