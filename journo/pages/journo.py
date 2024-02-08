@@ -103,22 +103,21 @@ def show_journo():
             st.warning('Aún no has generado ninguna transcripción')
     
     if st.session_state.phase == 3:
-        with st.expander('✍🏼Ver anotaciones'):
-            if 'on_0' in st.session_state:
-              st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
-                
-              for i in range(len(st.session_state.lista)):
-                  on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
-                  frases = []
-                  if st.session_state[f'anotaciones_{i}'] == None:
-                      pass
-                  else:         
-                      for item in st.session_state[f'anotaciones_{i}']:
-                          for x in item:
-                            frases.append(x['label'])
-                      st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
-            else:
-                st.warning('Aún no has generado ninguna anotación sobre la transcripción')
+        if 'on_0' in st.session_state:
+            with st.expander('✍🏼Ver anotaciones'):
+                  st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+                    
+                  for i in range(len(st.session_state.lista)):
+                      on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
+                      frases = []
+                      if st.session_state[f'anotaciones_{i}'] == None:
+                          pass
+                      else:         
+                          for item in st.session_state[f'anotaciones_{i}']:
+                              for x in item:
+                                frases.append(x['label'])
+                          st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
+
 
         if 'transcription2' in st.session_state:
             st.info("Aquí puedes eliminar fragmentos de la transcripción desmarcando el párrafo y subrayar en aquellos que desees incluir, indicando así que partes son más importantes a la hora de generar la noticia.")
