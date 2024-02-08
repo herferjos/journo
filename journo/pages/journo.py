@@ -20,8 +20,6 @@ def show_journo():
                     st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
                 except:
                     st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
-            else:
-                st.warning('Aún no has cargado ningún audio')
                 
       
         col1, col2 = st.tabs(["Subir audio", "Grabar audio"])
