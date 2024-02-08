@@ -55,9 +55,9 @@ def show_database():
               for i in range(len(st.session_state.lista)):
                   on = st.toggle('', key=i, value = st.session_state[f'on_{i}'])
                   frases = []
-             if st.session_state[f'anotaciones_{i}'] == None:
+              if st.session_state[f'anotaciones_{i}'] == None:
                   pass
-              else:   
+               else:   
                   for item in st.session_state[f'anotaciones_{i}']:
                       for x in item:
                         frases.append(x['label'])
