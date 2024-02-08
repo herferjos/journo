@@ -87,11 +87,6 @@ def show_journo():
                         st.rerun()
 
 
-    if st.session_state.phase == 1:
-        
-
-
-
     if st.session_state.phase == 2:
         if 'transcription2' in st.session_state:
             st.info("Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
