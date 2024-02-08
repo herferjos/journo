@@ -27,7 +27,7 @@ def show_journo():
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
 
-                    if 'X' in st.session_state:
+                  if 'X' in st.session_state:
                         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
                         Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
                         A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
@@ -35,7 +35,7 @@ def show_journo():
                         Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
             
                     
-                    else:
+                  else:
                         st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
                         X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
                         Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
@@ -65,7 +65,7 @@ def show_journo():
                               
                     if 'X' in st.session_state:
                         st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
-    
+
         with col2:
             if 'mp3_audio_path' in st.session_state:
                 pass
