@@ -196,13 +196,10 @@ def show_journo():
         else:
             st.warning('Aún no has generado ninguna noticia. Vuelve al paso anterior y genera la noticia.')
             
-    a, b, c = st.columns([0.5, 0.3, 0.5])
-    
-    with b:
-        if st.sidebar.button("Crear nueva noticia", type = "primary", key = "start"):
-            st.sidebar.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-            if st.sidebar.button("¡Sí, adelante!", type = "primary", key = "start"): 
-                reset_variables()
-                st.rerun()
+    if st.sidebar.button("Crear nueva noticia", type = "primary", key = "start"):
+        st.sidebar.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
+        if st.sidebar.button("¡Sí, adelante!", type = "primary", key = "start"): 
+            reset_variables()
+            st.rerun()
 
     return
