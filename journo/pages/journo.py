@@ -28,7 +28,7 @@ def show_journo():
                 st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
                 
         if st.button("Guardar audio", type = "primary", key = "upload"):
-          with st.spinner("Cargando audio... ⌛"):
+          with st.spinner("Cargando audio y transcribiendo... ⌛"):
             if archivo is not None:
                 # Convierte el audio a formato MP3
                 mp3_bytes = audio_a_bytes(archivo)
@@ -51,7 +51,7 @@ def show_journo():
                         
                     st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
                 if st.button("Guardar audio", type = "primary", key = "record"):
-                    with st.spinner("Cargando audio... ⌛"):            
+                    with st.spinner("Cargando audio y transcribiendo... ⌛"):            
                         st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
                         st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
                         st.session_state.transcription2 = parrafer(st.session_state.transcription1)
