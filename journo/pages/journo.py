@@ -18,7 +18,11 @@ def show_journo():
         with col1:
             st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
             archivo = st.file_uploader("Cargar archivo de audio")
-        
+            if 'mp3_audio_path' in st.session_state:
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+                    
+                st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
+                
         if st.button("Guardar audio", type = "primary", key = "upload"):
           with st.spinner("Cargando audio... ⌛"):
             if archivo is not None:
@@ -35,18 +39,18 @@ def show_journo():
         
             audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
             if audio is not None:
-              if st.button("Siguiente", type = "primary", key = "record"):
-                with st.spinner("Cargando audio... ⌛"):            
-                    st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
-                    st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
-                    st.session_state.transcription2 = parrafer(st.session_state.transcription1)
-                  
-                    st.rerun()
-                    
-        if 'mp3_audio_path' in st.session_state:
-            st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-                
-            st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
+                if 'mp3_audio_path' in st.session_state:
+                    st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+                        
+                    st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
+                if st.button("Guardar audio", type = "primary", key = "record"):
+                    with st.spinner("Cargando audio... ⌛"):            
+                        st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
+                        st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+                        st.session_state.transcription2 = parrafer(st.session_state.transcription1)
+                      
+                        st.rerun()
+
 
     if st.session_state.phase == 1:
       
