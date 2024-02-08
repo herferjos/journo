@@ -39,7 +39,10 @@ def show_journo():
                 st.rerun()
         
         with col2:
-            st.info("Puedes empezar a grabar un audio directamente desde aquí")
+            if 'mp3_audio_path' in st.session_state:
+                pass
+            else:
+                st.info("Puedes empezar a grabar un audio directamente desde aquí")
         
             audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
             if audio is not None:
@@ -57,8 +60,7 @@ def show_journo():
 
 
     if st.session_state.phase == 1:
-      
-        st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
+        
         if 'X' in st.session_state:
           X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
           Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
@@ -67,6 +69,7 @@ def show_journo():
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
         
         else:
+          st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
           X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
           Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
           Z = st.text_input(":blue[¿Cuál es el tema más relevante del que ha hablado?]", placeholder = 'Partido vs Atletico de Madrid')
@@ -91,11 +94,9 @@ def show_journo():
 
     if st.session_state.phase == 2:
         if 'transcription2' in st.session_state:
-            st.info("Aquí tienes la transcripción del audio completa")
+            st.info("Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
             
             edited_transcription = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcription2, height = int(len(st.session_state.transcription2)/5))
-            
-            st.success(f"Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
             
             if st.button("Guardar transcripción editada", type = "primary"):
                 st.session_state.transcription2 = edited_transcription
