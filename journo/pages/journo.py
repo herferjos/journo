@@ -14,7 +14,7 @@ def show_journo():
 
     if st.session_state.phase == 0:
         if 'mp3_audio_path' in st.session_state:
-        with st.expander('🔊 Audio cargado'):
+            with st.expander('🔊 Audio cargado'):
                 try:
                     st.info("Aquí tienes el audio que hemos procesado previamente")
                     st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
