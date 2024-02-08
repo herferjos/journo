@@ -45,18 +45,18 @@ with y:
 load_database()
 
 with st.sidebar:
-    st.session_state.selected = option_menu("", ["Crea tu noticia", "¿Qué es Journo?", "Tus noticias",  "Chatbot"], 
-        icons=['pencil-fill', 'house', 'clipboard-data', 'robot'], menu_icon="", default_index=2)
+    st.session_state.selected = option_menu("", ["Crea tu noticia", "Tus noticias",  "Chatbot", "¿Qué es Journo?"], 
+        icons=['pencil-fill', 'house', 'robot', 'clipboard-data'], menu_icon="", default_index=0)
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
-    if st.session_state.selected == 'Inicio':
+    if st.session_state.selected == '¿Qué es Journo?':
         show_inicio()
 
-    if st.session_state.selected == 'Base de datos':
+    if st.session_state.selected == 'Tus noticias':
         show_database()
         
-    if st.session_state.selected == 'Journo':
+    if st.session_state.selected == 'Crea tu noticia':
         show_journo()
 
     if st.session_state.selected == 'Chatbot':
