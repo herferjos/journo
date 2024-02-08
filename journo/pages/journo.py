@@ -54,8 +54,11 @@ def show_journo():
  
                         st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
                         st.session_state.transcription2 = parrafer(st.session_state.transcription1)
+
+                        st.stop()
                       
                         if st.button("Guardar información", type = "primary", key = "Enviar"):
+                              
                               with st.spinner("Enviando información... ⌛"):
                                 st.session_state.X = X
                                 st.session_state.Y = Y
