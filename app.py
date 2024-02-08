@@ -13,6 +13,7 @@ st.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
 )
+
 st.markdown(
     """
     <div style='text-align: center;'>
