@@ -198,7 +198,7 @@ def show_journo():
             
     if st.sidebar.button("Crear nueva noticia", type = "primary", key = "start"):
         st.sidebar.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-        if st.sidebar.button("¡Sí, adelante!", type = "primary", key = "start"): 
+        if st.sidebar.button("¡Sí, adelante!", type = "primary", key = "yes"): 
             reset_variables()
             st.rerun()
 
