@@ -14,7 +14,7 @@ def show_journo():
 
     if st.session_state.phase == 0:
                       
-        col1, col2 = st.tabs(["Subir audio", "Grabar audio"])
+        col1, col2 = st.tabs(["📼 Subir", "🎙️ Grabar"])
         with col1:
             if 'mp3_audio_path' not in st.session_state:
                 st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
