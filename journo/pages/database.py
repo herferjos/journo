@@ -57,7 +57,7 @@ def show_database():
                   frases = []
               if st.session_state[f'anotaciones_{i}'] == None:
                   pass
-               else:   
+              else:   
                   for item in st.session_state[f'anotaciones_{i}']:
                       for x in item:
                         frases.append(x['label'])
