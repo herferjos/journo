@@ -16,7 +16,8 @@ def show_journo():
                       
         col1, col2 = st.tabs(["Subir audio", "Grabar audio"])
         with col1:
-            st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
+            if 'mp3_audio_path' in st.session_state:
+                st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
             archivo = st.file_uploader("Cargar archivo de audio")
             if 'mp3_audio_path' in st.session_state:
                 st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
