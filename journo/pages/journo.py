@@ -62,20 +62,20 @@ def show_journo():
     if st.session_state.phase == 1:
         
         if 'X' in st.session_state:
-          X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
-          Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
-          A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
-          B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
-          Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
+            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
+            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
+            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
+            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
+            Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
 
         
         else:
-          st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-          X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
-          Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
-          A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
-          B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-          Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
+            st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
+            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
+            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
+            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
+            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
+            Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
           
               
         if st.button("Guardar", type = "primary", key = "Enviar"):
