@@ -67,6 +67,32 @@ def show_journo():
                               
             if 'X' in st.session_state:
                 st.success(f"Audio y contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
+                if 'X' in st.session_state:
+                    X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
+                    Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
+                    A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
+                    B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
+                    Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
+        
+                
+                else:
+                    st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
+                    X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
+                    Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
+                    A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
+                    B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
+                    Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
+                    
+                if st.button("Guardar información", type = "primary", key = "Enviar"):
+                      with st.spinner("Enviando información... ⌛"):
+                        st.session_state.X = X
+                        st.session_state.Y = Y
+                        st.session_state.Z = Z
+                        st.session_state.A = A
+                        st.session_state.B = B
+            
+                        st.rerun()
+                          
 
         with col2:
             if 'mp3_audio_path' in st.session_state:
