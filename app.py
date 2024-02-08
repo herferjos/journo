@@ -45,8 +45,8 @@ with y:
 load_database()
 
 with st.sidebar:
-    st.session_state.selected = option_menu("", ["¿Qué es Journo?", "Base de datos", "Journo", "Chatbot"], 
-        icons=['house', 'clipboard-data', 'pencil-fill', 'robot'], menu_icon="", default_index=2)
+    st.session_state.selected = option_menu("", ["Crea tu noticia", "¿Qué es Journo?", "Tus noticias",  "Chatbot"], 
+        icons=['pencil-fill', 'house', 'clipboard-data', 'robot'], menu_icon="", default_index=2)
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
