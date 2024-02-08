@@ -193,12 +193,14 @@ def show_journo():
 
     if st.session_state.phase == 4:
         if 'noticia_generada' in st.session_state:
+            if 'noticia_editada' not in st.session_state:
+                st.session_state.noticia_editada = st.session_state.noticia_generada
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
             
-            edited_noticia = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_generada, height = int(len(st.session_state.noticia_generada)/5))
+            edited_noticia = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_generada)/5))
             if st.button("Guardar noticia", type = "primary"):
-                st.session_state.noticia_generada = edited_noticia
+                st.session_state.noticia_editada = edited_noticia
                 guardar_info()
                 st.rerun()
         else:
