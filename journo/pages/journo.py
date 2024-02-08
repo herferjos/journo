@@ -103,7 +103,7 @@ def show_journo():
             st.warning('Aún no has generado ninguna transcripción')
     
     if st.session_state.phase == 3:
-        if 'on_0' in st.session_state:
+        if 'on_0' in st.session_state and st.session_state.noticia_cargada == True:
             with st.expander('✍🏼Ver anotaciones'):
                   st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
                     
