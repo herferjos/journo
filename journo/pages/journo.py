@@ -13,15 +13,7 @@ def show_journo():
         st.info('Se ha cargado la noticia de tu base de datos. Si quieres crear una nueva noticia, haz click en el siguiente botón de "Crear nueva noticia"')
 
     if st.session_state.phase == 0:
-        if 'mp3_audio_path' in st.session_state:
-            with st.expander('🔊 Audio cargado'):
-                try:
-                    st.info("Aquí tienes el audio que hemos procesado previamente")
-                    st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-                except:
-                    st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
-                
-      
+                      
         col1, col2 = st.tabs(["Subir audio", "Grabar audio"])
         with col1:
             st.info("Sube aquí tu archivo de audio con las declaraciones que deseas convertir en una noticia.")
@@ -52,6 +44,10 @@ def show_journo():
                     st.rerun()
                     
         if 'mp3_audio_path' in st.session_state:
+            try:
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+            except:
+                st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
             st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
 
     if st.session_state.phase == 1:
