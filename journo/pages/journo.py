@@ -44,10 +44,8 @@ def show_journo():
                     st.rerun()
                     
         if 'mp3_audio_path' in st.session_state:
-            try:
-                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-            except:
-                st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
+            st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+                
             st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
 
     if st.session_state.phase == 1:
