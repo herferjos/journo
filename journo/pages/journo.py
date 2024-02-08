@@ -24,79 +24,17 @@ def show_journo():
                 st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
                 st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
                 
-            if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:  
+            if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
-                    with st.spinner("Cargando audio... ⌛"):
-                        mp3_bytes = audio_a_bytes( st.session_state.archivo)
-                                  
-                        st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
-                        
-                    st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-                    
-                    with st.spinner("Transcribiendo audio... ⌛"):
+                  with st.spinner("Cargando audio y transcribiendo... ⌛"):
+                    # Convierte el audio a formato MP3
+                    mp3_bytes = audio_a_bytes( st.session_state.archivo)
+                              
+                    st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
+                    st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+                    st.session_state.transcription2 = parrafer(st.session_state.transcription1)          
+                    st.rerun()
     
-                        if 'X' in st.session_state:
-                            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
-                            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
-                            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
-                            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
-                            Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
-                
-                        
-                        else:
-                            st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-                            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
-                            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
-                            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
-                            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-                            Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
-
- 
-                        st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
-                        st.session_state.transcription2 = parrafer(st.session_state.transcription1)
-
-                        st.stop()
-                      
-                        if st.button("Guardar información", type = "primary", key = "Enviar"):
-                              
-                              with st.spinner("Enviando información... ⌛"):
-                                st.session_state.X = X
-                                st.session_state.Y = Y
-                                st.session_state.Z = Z
-                                st.session_state.A = A
-                                st.session_state.B = B
-                    
-                                st.rerun()
-                              
-            if 'X' in st.session_state:
-                st.success(f"Audio y contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
-                if 'X' in st.session_state:
-                    X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
-                    Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
-                    A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
-                    B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
-                    Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
-        
-                
-                else:
-                    st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-                    X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
-                    Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
-                    A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
-                    B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-                    Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
-                    
-                if st.button("Guardar información", type = "primary", key = "Enviar"):
-                      with st.spinner("Enviando información... ⌛"):
-                        st.session_state.X = X
-                        st.session_state.Y = Y
-                        st.session_state.Z = Z
-                        st.session_state.A = A
-                        st.session_state.B = B
-            
-                        st.rerun()
-                          
-
         with col2:
             if 'mp3_audio_path' in st.session_state:
                 pass
@@ -116,6 +54,40 @@ def show_journo():
                         st.session_state.transcription2 = parrafer(st.session_state.transcription1)
                       
                         st.rerun()
+
+
+    if st.session_state.phase == 1:
+        
+        if 'X' in st.session_state:
+            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
+            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
+            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
+            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
+            Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
+
+        
+        else:
+            st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
+            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
+            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
+            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
+            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
+            Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
+          
+              
+        if st.button("Guardar", type = "primary", key = "Enviar"):
+              with st.spinner("Enviando información... ⌛"):
+                st.warning("Este proceso puede tardar unos minutos.")
+                st.session_state.X = X
+                st.session_state.Y = Y
+                st.session_state.Z = Z
+                st.session_state.A = A
+                st.session_state.B = B
+    
+                st.rerun()
+                  
+        if 'X' in st.session_state:
+            st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
 
 
     if st.session_state.phase == 2:
