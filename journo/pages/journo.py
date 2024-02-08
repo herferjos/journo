@@ -199,7 +199,7 @@ def show_journo():
     a, b, c = st.columns([0.5, 0.3, 0.5])
     
     with b:
-        if st.button("Crear nueva noticia", type = "primary", key = "start"):
+        if st.sidebar.button("Crear nueva noticia", type = "primary", key = "start"):
             reset_variables()
             st.rerun()
 
