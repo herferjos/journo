@@ -66,7 +66,7 @@ def show_journo():
           Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
           A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
           B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
-          Z = st.text_input(":blue[Añade más contexto]", value = st.session_state.Z)
+          Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
 
         
         else:
