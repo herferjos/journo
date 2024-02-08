@@ -231,7 +231,7 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
     6. Evita repeticiones tanto de conceptos como de palabras en todo el artículo, asegurándote de mantener una fluidez y legibilidad óptimas. Utiliza sinónimos y expresiones diferentes para mantener la diversidad lingüística. Repasa constantemente el texto y su ortografía para asegurarte de que el resultado tenga sentido durante toda su extensión y mantenga los máximos estándares de calidad, claridad y compresibilidad para un público masivo. Elimina coletillas, saludos y otras expresiones orales."""
     
     messages = [
-        {"role": "user", "content": f"{prompt} \n Cargo: {X}, Nombre: {Y}, Declaraciones más destacadas: {anotaciones}, Dónde: {A}, Cuándo: {B}. Declaraciones: {declaraciones}."}
+        {"role": "user", "content": f"{prompt} \n Cargo: {X}, Nombre: {Y}, Declaraciones más destacadas: {anotaciones}, Dónde: {A}, Cuándo: {B}, 'Contexto': {Z}. Declaraciones: {declaraciones}."}
     ]
 
     response_noticia = openai_client.chat.completions.create(
