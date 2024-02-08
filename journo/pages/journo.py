@@ -28,7 +28,7 @@ def show_journo():
                 if st.button("Guardar audio", type = "primary", key = "upload"):
                   with st.spinner("Cargando audio y transcribiendo... ⌛"):
                     # Convierte el audio a formato MP3
-                    mp3_bytes = audio_a_bytes(archivo)
+                    mp3_bytes = audio_a_bytes( st.session_state.archivo)
                               
                     st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")
                     st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
