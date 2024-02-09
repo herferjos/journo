@@ -17,15 +17,6 @@ def show_database():
         df_copia = df_copia.iloc[:, :-1]
         dataframetipo(df_copia)
 
-        
-        st.download_button(
-            label='Descargar noticias',
-            data=df_copia.to_csv(index=False),
-            file_name='noticias_journo.csv',
-            mime='text/csv',
-            type = 'primary'
-        )
-                
         if 'noticia_generada' in st.session_state and st.session_state.noticia_cargada == True:
             
             st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
