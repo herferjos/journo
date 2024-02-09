@@ -1,6 +1,7 @@
 import streamlit as st
 from journo.utils.google_auth import get_logged_in_user_email, show_login_button
 from journo.utils.stripe_auth import is_active_subscriber, redirect_button
+from journo.pages.inicio import show_inicio
 
 payment_provider = st.secrets.get("payment_provider", "stripe")
 
@@ -18,6 +19,7 @@ def add_auth(
             login_sidebar=login_sidebar,
             login_button_color=login_button_color,
         )
+        show_inicio()
     else:
         optional_auth(
             login_button_text=login_button_text,
