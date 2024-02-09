@@ -39,9 +39,8 @@ st.markdown("""
   div.stLinkButton {text-align:center}
   </style>""", unsafe_allow_html=True)
 
-x,y,z = st.columns(3)
-with y:
-  add_auth(required=True, login_sidebar = False)
+
+add_auth(required=True, login_sidebar = False)
 
 load_database()
 
