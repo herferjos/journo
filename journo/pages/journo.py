@@ -18,7 +18,7 @@ def show_journo():
                 fin_subrayado = min(len(texto), ocurrencia[1] + 20)  # Obtener el índice final del texto subrayado
                 html += "..." + texto[inicio_subrayado:ocurrencia[0]] + "<span style='background-color: yellow'>" + texto[ocurrencia[0]:ocurrencia[1]] + "</span>" + texto[ocurrencia[1]:fin_subrayado] + "..."
                 inicio = fin_subrayado
-        html += "..." + texto[inicio:] + "..."  # Agregar el texto restante y puntos suspensivos al final
+        html += "..." + texto[inicio:]  # Agregar el texto restante después de la última ocurrencia subrayada
         return html
 
     
