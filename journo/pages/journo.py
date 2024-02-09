@@ -29,7 +29,7 @@ def show_journo():
     frases_destacadas = ["texto", "frases", "destacadas"]
     
     html_destacado = generar_html_con_destacados(texto_ejemplo, frases_destacadas)
-    st.write(html_destacado)
+    st.write(html_destacado,  unsafe_allow_html=True)
 
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
