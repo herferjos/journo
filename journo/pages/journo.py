@@ -7,7 +7,7 @@ import extra_streamlit_components as stx
 import pandas as pd
 
 def show_journo():
-    
+        
     def generar_html_con_destacados(texto, frases_destacadas):
         html = ""
         inicio = 0
