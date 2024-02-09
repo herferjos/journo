@@ -294,10 +294,11 @@ def generar_html_con_destacados(texto, frases_destacadas):
     for frase in frases_destacadas:
         ocurrencias = encontrar_ocurrencias(texto, frase)
         for ocurrencia in ocurrencias:
-            html += texto[inicio:ocurrencia[0]]  # Agregar texto antes de la frase
-            html += f"<span style='background-color: yellow'>{texto[ocurrencia[0]:ocurrencia[1]]}</span>"  # Resaltar la frase
-            inicio = ocurrencia[1]
-    html += texto[inicio:]  # Agregar el texto restante
+            inicio_subrayado = max(0, ocurrencia[0] - 20)  # Obtener el índice de inicio del texto subrayado
+            fin_subrayado = min(len(texto), ocurrencia[1] + 20)  # Obtener el índice final del texto subrayado
+            html += "..." + texto[inicio_subrayado:ocurrencia[0]] + "<span style='background-color: yellow'>" + texto[ocurrencia[0]:ocurrencia[1]] + "</span>" + texto[ocurrencia[1]:fin_subrayado] + "..."
+            inicio = fin_subrayado
+
     return html
 
 # Función para encontrar todas las ocurrencias de una frase en el texto
