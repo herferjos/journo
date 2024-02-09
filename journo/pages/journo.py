@@ -16,13 +16,9 @@ def show_journo():
             for ocurrencia in ocurrencias:
                 inicio_subrayado = max(0, ocurrencia[0] - 20)  # Obtener el índice de inicio del texto subrayado
                 fin_subrayado = min(len(texto), ocurrencia[1] + 20)  # Obtener el índice final del texto subrayado
-                html += texto[inicio:inicio_subrayado]  # Agregar texto antes del fragmento subrayado
-                html += f"<span style='background-color: yellow'>{texto[inicio_subrayado:ocurrencia[0]]}</span>"  # Resaltar texto antes de la frase
-                html += f"{texto[ocurrencia[0]:ocurrencia[1]]}"  # Texto subrayado
-                html += f"<span style='background-color: yellow'>{texto[ocurrencia[1]:fin_subrayado]}</span>"  # Resaltar texto después de la frase
-                html += "<br>"  # Agregar un salto de línea para el siguiente párrafo
+                html += "..." + texto[inicio_subrayado:ocurrencia[0]] + "<span style='background-color: yellow'>" + texto[ocurrencia[0]:ocurrencia[1]] + "</span>" + texto[ocurrencia[1]:fin_subrayado] + "..."
                 inicio = fin_subrayado
-        html += texto[inicio:]  # Agregar el texto restante
+        html += "..." + texto[inicio:]  # Agregar el texto restante
         return html
 
     
