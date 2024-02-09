@@ -7,6 +7,30 @@ import extra_streamlit_components as stx
 import pandas as pd
 
 def show_journo():
+
+    def generar_html_con_destacados(texto, frases_destacadas):
+        html = ""
+        inicio = 0
+        for frase in frases_destacadas:
+            ocurrencias = encontrar_ocurrencias(texto, frase)
+            for ocurrencia in ocurrencias:
+                inicio_subrayado = max(0, ocurrencia[0] - 20)  # Obtener el índice de inicio del texto subrayado
+                fin_subrayado = min(len(texto), ocurrencia[1] + 20)  # Obtener el índice final del texto subrayado
+                html += texto[inicio:inicio_subrayado]  # Agregar texto antes del fragmento subrayado
+                html += f"<span style='background-color: yellow'>{texto[inicio_subrayado:ocurrencia[0]]}</span>"  # Resaltar texto antes de la frase
+                html += f"{texto[ocurrencia[0]:ocurrencia[1]]}"  # Texto subrayado
+                html += f"<span style='background-color: yellow'>{texto[ocurrencia[1]:fin_subrayado]}</span>"  # Resaltar texto después de la frase
+                inicio = fin_subrayado
+        html += texto[inicio:]  # Agregar el texto restante
+        return html
+
+    
+    texto_ejemplo = "Este es un texto de ejemplo que contiene varias frases que pueden ser destacadas. Este texto será utilizado para probar la función generar_html_con_destacados."
+    frases_destacadas = ["texto", "frases", "destacadas"]
+    
+    html_destacado = generar_html_con_destacados(texto_ejemplo, frases_destacadas)
+    st.write(html_destacado)
+
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
     if st.session_state.noticia_cargada == True:
@@ -106,7 +130,7 @@ def show_journo():
     if st.session_state.phase == 3:
         if 'anotaciones_0' in st.session_state:
             with st.expander('✍🏼Ver anotaciones'):
-                  st.info("Aquí tienes los párrafos descartados (aparecen desmarcados) y los momentos de mayor relevancia en las declaraciones.")
+                  st.info("Aquí los momentos de mayor relevancia en las declaraciones.")
                     
                   for i in range(len(st.session_state.lista)):
                       frases = []
