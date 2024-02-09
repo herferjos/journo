@@ -148,7 +148,7 @@ def dataframetipo(df):
     try:
         selected_row = grid_table["selected_rows"]     
         id = selected_row[0]['_selectedRowNodeInfo']['nodeId']
-        cargar_noticia(st.session_state.database.iloc[int(id), -1])
+        return st.session_state.database.iloc[int(id), -1]
     except:
         pass
 
