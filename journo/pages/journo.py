@@ -8,7 +8,7 @@ import pandas as pd
 
 def show_journo():
     
-    st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
+    st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacar", "Noticia"])
     if st.session_state.noticia_cargada == True:
         st.info('Se ha cargado la noticia de tu base de datos. Si quieres crear una nueva noticia, haz click en el siguiente botón de "Crear nueva noticia"')
 
