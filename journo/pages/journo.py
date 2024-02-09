@@ -7,27 +7,6 @@ import extra_streamlit_components as stx
 import pandas as pd
 
 def show_journo():
-        
-    def generar_html_con_destacados(texto, frases_destacadas):
-        html = ""
-        inicio = 0
-        for frase in frases_destacadas:
-            ocurrencias = encontrar_ocurrencias(texto, frase)
-            for ocurrencia in ocurrencias:
-                inicio_subrayado = max(0, ocurrencia[0] - 20)  # Obtener el índice de inicio del texto subrayado
-                fin_subrayado = min(len(texto), ocurrencia[1] + 20)  # Obtener el índice final del texto subrayado
-                html += "..." + texto[inicio_subrayado:ocurrencia[0]] + "<span style='background-color: yellow'>" + texto[ocurrencia[0]:ocurrencia[1]] + "</span>" + texto[ocurrencia[1]:fin_subrayado] + "..."
-                inicio = fin_subrayado
-
-        return html
-
-    
-    texto_ejemplo = "Este es un texto de ejemplo que contiene varias frases que pueden ser destacadas. Este texto será utilizado para probar la función generar_html_con_destacados."
-    frases_destacadas = ["texto", "frases", "destacadas"]
-    
-    html_destacado = generar_html_con_destacados(texto_ejemplo, frases_destacadas)
-    st.write(html_destacado,  unsafe_allow_html=True)
-
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia generada"])
     if st.session_state.noticia_cargada == True:
