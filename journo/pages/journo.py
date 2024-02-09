@@ -7,7 +7,7 @@ import extra_streamlit_components as stx
 import pandas as pd
 
 def show_journo():
-
+    
     def generar_html_con_destacados(texto, frases_destacadas):
         html = ""
         inicio = 0
@@ -20,6 +20,7 @@ def show_journo():
                 html += f"<span style='background-color: yellow'>{texto[inicio_subrayado:ocurrencia[0]]}</span>"  # Resaltar texto antes de la frase
                 html += f"{texto[ocurrencia[0]:ocurrencia[1]]}"  # Texto subrayado
                 html += f"<span style='background-color: yellow'>{texto[ocurrencia[1]:fin_subrayado]}</span>"  # Resaltar texto después de la frase
+                html += "<br>"  # Agregar un salto de línea para el siguiente párrafo
                 inicio = fin_subrayado
         html += texto[inicio:]  # Agregar el texto restante
         return html
