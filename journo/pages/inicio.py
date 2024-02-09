@@ -3,7 +3,8 @@ from journo.utils.modules import generar_html_con_destacados
 import extra_streamlit_components as stx
 
 def show_inicio():
-    st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
+    if 'email' in st.session_state:
+        st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
     st.write("## ¿Qué es Journo?")
     st.markdown(
         """
