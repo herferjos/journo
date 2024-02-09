@@ -43,8 +43,6 @@ x,y,z = st.columns(3)
 with y:
   add_auth(required=True, login_sidebar = False)
 
-st.write('xd')
-
 load_database()
 
 with st.sidebar:
