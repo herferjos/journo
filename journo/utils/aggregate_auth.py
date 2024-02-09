@@ -19,7 +19,6 @@ def add_auth(
             login_sidebar=login_sidebar,
             login_button_color=login_button_color,
         )
-        show_inicio()
     else:
         optional_auth(
             login_button_text=login_button_text,
@@ -39,6 +38,7 @@ def require_auth(
         show_login_button(
             text=login_button_text, color=login_button_color, sidebar=login_sidebar
         )
+        show_inicio()
         st.stop()
     if payment_provider == "stripe":
         is_subscriber = user_email and is_active_subscriber(user_email)
@@ -51,6 +51,7 @@ def require_auth(
             customer_email=user_email,
             payment_provider=payment_provider,
         )
+        show_inicio()
         st.session_state.user_subscribed = False
         st.stop()
     elif is_subscriber:
