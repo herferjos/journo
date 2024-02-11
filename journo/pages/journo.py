@@ -1,6 +1,5 @@
 import streamlit as st
 from journo.utils.modules import *
-from journo.pages.database import show_database
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
