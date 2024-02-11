@@ -26,7 +26,7 @@ def load_database(force=False):
     st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
   except:
     st.write('second')
-    nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
+    nuevo_df = pd.DataFrame({'Transcripción': [_]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
     st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
     st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
     st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
