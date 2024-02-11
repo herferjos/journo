@@ -4,6 +4,16 @@ from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
+import asyncio
+
+async def cargar_y_transcribir_audio(audio):
+    # Convierte el audio a formato MP3
+    st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
+    st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+    st.session_state.transcription2 = parrafer(st.session_state.transcription1)
+    st.session_state.transcripcion_editada = st.session_state.transcription2
+
+    st.rerun()    
 
 def show_journo():
     with st.expander('**Ver tus noticias**'):
@@ -31,17 +41,6 @@ def show_journo():
     if st.session_state.noticia_cargada == True:
         st.info('Se ha cargado la noticia de tu base de datos. Si quieres crear una nueva noticia, haz click en el siguiente botón de "Crear nueva noticia"')
 
-
-    import asyncio
-    
-    async def cargar_y_transcribir_audio(audio):
-        # Convierte el audio a formato MP3
-        st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
-        st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
-        st.session_state.transcription2 = parrafer(st.session_state.transcription1)
-        st.session_state.transcripcion_editada = st.session_state.transcription2
-
-        st.rerun()    
 
     if st.session_state.phase == 0:
                       
