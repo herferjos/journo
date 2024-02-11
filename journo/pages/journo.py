@@ -97,7 +97,7 @@ def show_journo():
           
         if 'X' in st.session_state:
             st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
-            st.write(f'Aqui tienes el X: {st.session_state.X}')
+            st.write(f'Aqui tienes el B: {st.session_state.B}')
 
 
     if st.session_state.phase == 2:
