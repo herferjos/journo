@@ -78,17 +78,14 @@ def show_journo():
 
 
     if st.session_state.phase == 1:
-        
+        st.info(f"Una vez acabes de rellenar los campos, ve a la pestaña de 'Transcripción' para continuar")
         st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = st.session_state.X)
         st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti', value = st.session_state.Y)
         st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa', value = st.session_state.A)
         st.session_state.B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12', value = st.session_state.B)
         st.session_state.Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
 
-    
-          
-        if 'X' in st.session_state:
-            st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
+            
 
     if st.session_state.phase == 2:
         if 'transcription2' in st.session_state:
