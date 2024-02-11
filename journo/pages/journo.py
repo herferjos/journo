@@ -61,7 +61,7 @@ def show_journo():
                     #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(audio['bytes'])"])
                         cargar_y_transcribir_audio(audio['bytes'])
                         
-         if 'mp3_audio_path' in st.session_state:
+        if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
 
