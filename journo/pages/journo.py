@@ -32,9 +32,9 @@ def show_journo():
         st.info('Se ha cargado la noticia de tu base de datos. Si quieres crear una nueva noticia, haz click en el siguiente botón de "Crear nueva noticia"')
 
 
-    import threading
+    import asyncio
     
-    def cargar_y_transcribir_audio(audio):
+    async def cargar_y_transcribir_audio(audio):
         # Convierte el audio a formato MP3
         st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
         st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
@@ -58,7 +58,7 @@ def show_journo():
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
                     mp3_bytes = audio_a_bytes( st.session_state.archivo)
-                    threading.Thread(target=cargar_y_transcribir_audio, args=(mp3_bytes,)).start()
+                    await cargar_y_transcribir_audio(audio['bytes'])
     
         with col2:
             if 'mp3_audio_path' not in st.session_state:
@@ -71,7 +71,7 @@ def show_journo():
                         
                     st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
                 if st.button("Guardar audio", type = "primary", key = "record"):
-                    threading.Thread(target=cargar_y_transcribir_audio, args=(audio['bytes'],)).start()
+                    await cargar_y_transcribir_audio(st.session_state.archivo)
 
         if 'mp3_audio_path' in st.session_state:
             st.success("Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
