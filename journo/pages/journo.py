@@ -134,9 +134,7 @@ def show_journo():
                     for item in st.session_state[f'anotaciones_{i}']:
                         for x in item:
                             st.session_state.anotaciones_finales.append(x['label'])
-                            
-                    st.session_state.transcripcion_final += st.session_state.lista[i] + '\n\n'
-                    
+                                                
                 st.rerun()
 
 
