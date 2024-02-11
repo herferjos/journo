@@ -40,6 +40,8 @@ def show_journo():
         st.session_state.transcription1 = transcribe_audio(mp3_audio_path)
         st.session_state.transcription2 = parrafer(transcription1)
         st.session_state.transcripcion_editada = st.session_state.transcription2
+
+        st.write('Transcripcion acabada')
     
 
     if st.session_state.phase == 0:
