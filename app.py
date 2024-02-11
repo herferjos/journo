@@ -55,7 +55,7 @@ try:
     
     add_auth(required=True, login_sidebar = False)
     
-    load_database()
+    load_database(force=True)
     
     with st.sidebar:
         st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
