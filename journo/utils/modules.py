@@ -25,13 +25,13 @@ def load_database(force=False):
       try:
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
       except:
-        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Tema': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Transcripción filtrada': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
+        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
         st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
     return
 
 def reset_variables():
-    to_delete = [key for key in st.session_state.keys() if key.startswith('on') or key.startswith('anotaciones')]
+    to_delete = [key for key in st.session_state.keys() if key.startswith('anotaciones')]
     for key in to_delete:
         try:
             del st.session_state[key]
@@ -42,7 +42,24 @@ def reset_variables():
         del st.session_state.mp3_audio_path
     except AttributeError:
         pass
-    
+
+    try:
+        del st.session_state.archivo
+    except AttributeError:
+        pass
+    try:
+        del st.session_state.transcription1
+    except AttributeError:
+        pass
+    try:
+        del st.session_state.transcription2
+    except AttributeError:
+        pass
+    try:
+        del st.session_state.transcripcion_editada
+    except AttributeError:
+        pass
+
     try:
         del st.session_state.X
     except AttributeError:
@@ -69,11 +86,6 @@ def reset_variables():
         pass
     
     try:
-        del st.session_state.transcription2
-    except AttributeError:
-        pass
-    
-    try:
         del st.session_state.transcripcion_final
     except AttributeError:
         pass
@@ -84,9 +96,23 @@ def reset_variables():
         pass
     
     try:
+        del st.session_state.lista
+    except AttributeError:
+        pass
+
+    try:
         del st.session_state.anotaciones_finales
     except AttributeError:
         pass
+    try:
+        del st.session_state.noticia_editada
+    except AttributeError:
+        pass
+    try:
+        del st.session_state.noticia_generada
+    except AttributeError:
+        pass
+
 
     st.session_state.noticia_cargada = False
     st.rerun()
@@ -96,6 +122,8 @@ def guardar_info():
     contenido = generar_txt()
     with st.spinner("Guardando información... ⌛"):
         if st.session_state.database.isna().all().all():
+        nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
+
             st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Tema': [st.session_state.Z], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Transcripción filtrada': [st.session_state.transcripcion_final], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Sesion': [contenido]}))
         else:
             st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Tema': st.session_state.Z, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Transcripción filtrada': st.session_state.transcripcion_final, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
