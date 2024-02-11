@@ -79,7 +79,7 @@ def show_journo():
                     threading.Thread(target=cargar_y_transcribir_audio, args=(audio['bytes'],)).start()
 
         if 'mp3_audio_path' in st.session_state:
-            st.success("Audio cargado y transcripción realizada correctamente.")
+            st.success("Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
 
 
     if st.session_state.phase == 1:
