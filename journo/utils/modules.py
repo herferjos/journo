@@ -22,6 +22,7 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 def load_database(force=False):
   st.session_state.sheet = load_sheet()
   try:
+    st.write('one')
     st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
   except:
     st.write('second')
