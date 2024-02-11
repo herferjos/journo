@@ -6,7 +6,27 @@ import extra_streamlit_components as stx
 import pandas as pd
 
 def show_journo():
+
+    with st.spinner('**Ver tus noticias**'):
     
+        st.write('## 📊 Tus noticias')
+        if st.session_state.database.isna().all().all():
+            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+            
+            if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                reset_variables()
+        else:
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
+            df_copia = st.session_state.database.copy()
+            df_copia = df_copia.iloc[:, :-1]
+            df_cargado = dataframetipo(df_copia)
+            if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                cargar_noticia(df_cargado)
+    
+            if st.session_state.noticia_cargada == True:
+                
+                st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
+
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacar", "Noticia"])
     if st.session_state.noticia_cargada == True:
         st.info('Se ha cargado la noticia de tu base de datos. Si quieres crear una nueva noticia, haz click en el siguiente botón de "Crear nueva noticia"')
