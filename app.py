@@ -74,8 +74,24 @@ try:
     </style>
     """
     
+    # Define el script JavaScript para capturar la selección del usuario
+    javascript = """
+    <script type="text/javascript">
+    document.addEventListener("mouseup", function() {
+        var selection = window.getSelection().toString();
+        if (selection !== "") {
+            // Envía la selección al backend de Streamlit
+            Shiny.setInputValue('selected_text', selection);
+        }
+    });
+    </script>
+    """
+    
     # Agrega el estilo CSS al Streamlit
     st.markdown(css, unsafe_allow_html=True)
+    
+    # Agrega el script JavaScript al Streamlit
+    st.markdown(javascript, unsafe_allow_html=True)
     
     # Título de la aplicación
     st.title("Subrayar Texto")
@@ -89,12 +105,12 @@ try:
     
     # Botón para guardar el texto subrayado
     if st.button("Guardar Texto Subrayado"):
-        # Guarda el texto subrayado en una variable
-        texto_subrayado = text_input
-        st.success("Texto subrayado guardado exitosamente!")
-        st.write("Texto subrayado:", texto_subrayado)
-
-
+        selected_text = st.session_state.selected_text
+        if selected_text:
+            st.success("Texto subrayado guardado exitosamente!")
+            st.write("Texto subrayado:", selected_text)
+        else:
+            st.warning("Por favor, selecciona un texto subrayado antes de guardar.")
 
 
 
