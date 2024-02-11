@@ -37,8 +37,8 @@ def show_journo():
     def cargar_y_transcribir_audio(audio):
         # Convierte el audio a formato MP3
         st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
-        st.session_state.transcription1 = transcribe_audio(mp3_audio_path)
-        st.session_state.transcription2 = parrafer(transcription1)
+        st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+        st.session_state.transcription2 = parrafer(st.session_state.transcription1)
         st.session_state.transcripcion_editada = st.session_state.transcription2
 
         st.rerun()    
