@@ -95,9 +95,9 @@ def show_journo():
             st.session_state.B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
             st.session_state.Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
           
-                  
         if 'X' in st.session_state:
             st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
+            st.write(f'Aqui tienes el X: {st.session_state.X}')
 
 
     if st.session_state.phase == 2:
