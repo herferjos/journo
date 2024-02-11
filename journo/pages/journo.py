@@ -47,8 +47,10 @@ def show_journo():
                 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
-                    mp3_bytes = audio_a_bytes(st.session_state.archivo)
-                    subprocess.Popen(["python", "-c", "from journo.utils.modules import cargar_y_transcribir_audio; cargar_y_transcribir_audio(mp3_bytes)"])
+                    with st.spinner("Transcribiendo audio... ⌛"):
+                        mp3_bytes = audio_a_bytes(st.session_state.archivo)
+                        #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(mp3_bytes)"])
+                        cargar_y_transcribir_audio(mp3_bytes)
                     
     
         with col2:
@@ -62,7 +64,9 @@ def show_journo():
                         
                     st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
                 if st.button("Guardar audio", type = "primary", key = "record"):
-                    subprocess.Popen(["python", "-c", "from journo.utils.modules import cargar_y_transcribir_audio; cargar_y_transcribir_audio(audio['bytes'])"])
+                    with st.spinner("Transcribiendo audio... ⌛"):
+                    #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(audio['bytes'])"])
+                        cargar_y_transcribir_audio(audio['bytes'])
 
         if 'mp3_audio_path' in st.session_state:
             st.success("Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
