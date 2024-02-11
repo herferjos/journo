@@ -8,7 +8,6 @@ import pandas as pd
 def show_journo():
 
     with st.spinner('**Ver tus noticias**'):
-    
         st.write('## 📊 Tus noticias')
         if st.session_state.database.isna().all().all():
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
