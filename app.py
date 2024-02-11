@@ -52,6 +52,10 @@ st.markdown("""
   </style>""", unsafe_allow_html=True)
 
 
+
+
+
+
 import streamlit as st
 
 # Define el estilo CSS para el subrayado
@@ -81,7 +85,7 @@ document.addEventListener("mouseup", function() {
     var selection = window.getSelection().toString();
     if (selection !== "") {
         // Envía la selección al backend de Streamlit
-        Shiny.setInputValue('selected_text', selection);
+        Streamlit.setComponentValue(selection);
     }
 });
 </script>
@@ -92,6 +96,10 @@ st.markdown(css, unsafe_allow_html=True)
 
 # Agrega el script JavaScript al Streamlit
 st.markdown(javascript, unsafe_allow_html=True)
+
+# Inicializa el estado de la sesión
+if 'selected_text' not in st.session_state:
+    st.session_state.selected_text = ""
 
 # Título de la aplicación
 st.title("Subrayar Texto")
@@ -105,10 +113,9 @@ st.markdown(subrayado, unsafe_allow_html=True)
 
 # Botón para guardar el texto subrayado
 if st.button("Guardar Texto Subrayado"):
-    selected_text = st.session_state.selected_text
-    if selected_text:
+    if st.session_state.selected_text:
         st.success("Texto subrayado guardado exitosamente!")
-        st.write("Texto subrayado:", selected_text)
+        st.write("Texto subrayado:", st.session_state.selected_text)
     else:
         st.warning("Por favor, selecciona un texto subrayado antes de guardar.")
 
