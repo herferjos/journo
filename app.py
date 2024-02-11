@@ -33,6 +33,17 @@ try:
         
     if 'noticia_cargada' not in st.session_state:
         st.session_state.noticia_cargada = False
+
+    if 'X' not in st.session_state:
+        st.session_state.X = None
+    if 'Y' not in st.session_state:
+        st.session_state.Y = None
+    if 'Z' not in st.session_state:
+        st.session_state.Z = None
+    if 'A' not in st.session_state:
+        st.session_state.A = None
+    if 'B' not in st.session_state:
+        st.session_state.B = None
     
     
     st.markdown("""
