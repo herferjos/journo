@@ -63,6 +63,7 @@ def show_journo():
                         
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+            st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
 
 
     if st.session_state.phase == 1:
