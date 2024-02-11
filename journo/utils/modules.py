@@ -31,7 +31,7 @@ def load_database(force=False):
     return
 
 def reset_variables():
-    to_delete = [key for key in st.session_state.keys() if key.startswith('anotaciones')]
+    to_delete = [key for key in st.session_state.keys() if key.startswith('anotaciones') or key.startswith('lista')]
     for key in to_delete:
         try:
             del st.session_state[key]
@@ -86,11 +86,6 @@ def reset_variables():
         pass
     
     try:
-        del st.session_state.transcripcion_final
-    except AttributeError:
-        pass
-    
-    try:
         del st.session_state.noticia_generada
     except AttributeError:
         pass
@@ -139,7 +134,7 @@ def cargar_noticia(content):
 def generar_txt():
     contenido = ""
     for variable, valor in st.session_state.items():
-        if variable.startswith('anotaciones') or variable.startswith('on_') or variable.startswith('messages') or variable.startswith('lista'):
+        if variable.startswith('anotaciones') or variable.startswith('messages') or variable.startswith('lista'):
             contenido += f"st.session_state.{variable} = {valor}\n"
 
     contenido += f"st.session_state.X = '''{st.session_state.X}'''\n"
@@ -148,9 +143,11 @@ def generar_txt():
     contenido += f"st.session_state.A = '''{st.session_state.A}'''\n"
     contenido += f"st.session_state.B = '''{st.session_state.B}'''\n"
     contenido += f"st.session_state.transcription2 = '''{st.session_state.transcription2}'''\n"
+    contenido += f"st.session_state.transcripcion_editada = '''{st.session_state.transcripcion_editada}'''\n"
+    contenido += f"st.session_state.anotaciones_finales = '''{st.session_state.anotaciones_finales}'''\n"
+    contenido += f"st.session_state.lista = '''{st.session_state.lista}'''\n"
     contenido += f"st.session_state.noticia_generada = '''{st.session_state.noticia_generada}'''\n"
-    contenido += f"st.session_state.transcripcion_final = '''{st.session_state.transcripcion_final}'''\n"
-    
+    contenido += f"st.session_state.noticia_editada = '''{st.session_state.noticia_editada}'''\n"
     
     return contenido
         
