@@ -36,14 +36,9 @@ def show_journo():
     
     def cargar_y_transcribir_audio(audio):
         # Convierte el audio a formato MP3
-        mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
-        transcription1 = transcribe_audio(mp3_audio_path)
-        transcription2 = parrafer(transcription1)
-
-        # Actualizar el estado de la sesión con los resultados
-        st.session_state.mp3_audio_path = mp3_audio_path
-        st.session_state.transcription1 = transcription1
-        st.session_state.transcription2 = transcription2
+        st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
+        st.session_state.transcription1 = transcribe_audio(mp3_audio_path)
+        st.session_state.transcription2 = parrafer(transcription1)
         st.session_state.transcripcion_editada = st.session_state.transcription2
     
 
@@ -88,32 +83,21 @@ def show_journo():
     if st.session_state.phase == 1:
         
         if 'X' in st.session_state:
-            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
-            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
-            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
-            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
-            Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
+            st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", value = st.session_state.X)
+            st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", value = st.session_state.Y)
+            st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", value = st.session_state.A)
+            st.session_state.B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", value = st.session_state.B)
+            st.session_state.Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z)
 
         
         else:
             st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-            X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
-            Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
-            A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
-            B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
-            Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
+            st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
+            st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
+            st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
+            st.session_state.B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
+            st.session_state.Z = st.text_area(":blue[Añade más contexto]", placeholder = 'Partido vs Atletico de Madrid')
           
-              
-        if st.button("Guardar", type = "primary", key = "Enviar"):
-              with st.spinner("Enviando información... ⌛"):
-                st.warning("Este proceso puede tardar unos minutos.")
-                st.session_state.X = X
-                st.session_state.Y = Y
-                st.session_state.Z = Z
-                st.session_state.A = A
-                st.session_state.B = B
-    
-                st.rerun()
                   
         if 'X' in st.session_state:
             st.success(f"Contexto cargado correctamente. Ve a la pestaña de 'Transcripción' para continuar")
