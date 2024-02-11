@@ -1,6 +1,5 @@
 import streamlit as st
 from journo.pages.inicio import show_inicio
-from journo.pages.database import show_database
 from journo.pages.journo import show_journo
 from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
@@ -47,22 +46,20 @@ try:
     load_database()
     
     with st.sidebar:
-        st.session_state.selected = option_menu("", ["Crea tu noticia", "Tus noticias",  "Chatbot", "¿Qué es Journo?"], 
-            icons=['pencil-fill', 'clipboard-data', 'robot', 'house'], menu_icon="", default_index=0)
+        st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
+            icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
     
     if 'email' in st.session_state and st.session_state.user_subscribed == True: 
         
-        if st.session_state.selected == '¿Qué es Journo?':
-            show_inicio()
-    
-        if st.session_state.selected == 'Tus noticias':
-            show_database()
-            
         if st.session_state.selected == 'Crea tu noticia':
             show_journo()
     
         if st.session_state.selected == 'Chatbot':
             show_bot()
+        
+        if st.session_state.selected == '¿Qué es Journo?':
+            show_inicio()
+    
 
 except:
     st.error('Ha habido un error en Journo. La página será recargada en 5 segundos, si el error persiste contácta con hola@journo-ai.com')
