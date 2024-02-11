@@ -50,6 +50,56 @@ try:
       <style>
       div.stLinkButton {text-align:center}
       </style>""", unsafe_allow_html=True)
+
+    
+    import streamlit as st
+    
+    # Define el estilo CSS para el subrayado
+    css = """
+    <style>
+    .underline {
+        position: relative;
+        text-decoration: none;
+    }
+    
+    .underline::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 2px;
+        background-color: blue; /* Puedes cambiar el color del subrayado aquí */
+    }
+    </style>
+    """
+    
+    # Agrega el estilo CSS al Streamlit
+    st.markdown(css, unsafe_allow_html=True)
+    
+    # Título de la aplicación
+    st.title("Subrayar Texto")
+    
+    # Entrada de texto
+    text_input = st.text_area("Escribe o pega tu texto aquí:")
+    
+    # Muestra el texto subrayado con la clase CSS "underline"
+    subrayado = f'<div class="underline">{text_input}</div>'
+    st.markdown(subrayado, unsafe_allow_html=True)
+    
+    # Botón para guardar el texto subrayado
+    if st.button("Guardar Texto Subrayado"):
+        # Guarda el texto subrayado en una variable
+        texto_subrayado = text_input
+        st.success("Texto subrayado guardado exitosamente!")
+        st.write("Texto subrayado:", texto_subrayado)
+
+
+
+
+
+
+    
     
     
     add_auth(required=True, login_sidebar = False)
