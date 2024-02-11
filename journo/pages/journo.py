@@ -10,9 +10,12 @@ def show_journo():
         st.write('## 📊 Tus noticias')
         if st.session_state.database.isna().all().all():
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
-            
+
             if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                reset_variables()
+                st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
+                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
+                    reset_variables()
+        
         else:
             st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
             df_copia = st.session_state.database.copy()
@@ -184,11 +187,5 @@ def show_journo():
                 st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.session_state.noticia_editada = st.session_state.noticia_generada
                 st.rerun()
-            
-            
-    if st.button("Crear nueva noticia", type = "primary", key = "start"):
-        st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-        if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
-            reset_variables()
-
+                  
     return
