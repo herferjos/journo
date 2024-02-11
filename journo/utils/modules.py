@@ -23,13 +23,13 @@ def load_database(force=False):
     if 'database' not in st.session_state or force:
       st.session_state.sheet = load_sheet()
       try:
-        st.write('base de datos cargada')
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
       except:
         nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
-        st.write('creando database')
         st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
         st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
+        st.session_state.database = st.session_state.database.dropna(how='all')
+        st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
     return
 
 def reset_variables():
