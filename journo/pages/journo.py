@@ -41,8 +41,7 @@ def show_journo():
         st.session_state.transcription2 = parrafer(transcription1)
         st.session_state.transcripcion_editada = st.session_state.transcription2
 
-        st.write('Transcripcion acabada')
-    
+        st.rerun()    
 
     if st.session_state.phase == 0:
                       
@@ -58,10 +57,8 @@ def show_journo():
                 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
-                    with st.spinner("Cargando audio y transcribiendo... ⌛"):
-
-                        mp3_bytes = audio_a_bytes( st.session_state.archivo)
-                        threading.Thread(target=cargar_y_transcribir_audio, args=(mp3_bytes,)).start()
+                    mp3_bytes = audio_a_bytes( st.session_state.archivo)
+                    threading.Thread(target=cargar_y_transcribir_audio, args=(mp3_bytes,)).start()
     
         with col2:
             if 'mp3_audio_path' not in st.session_state:
@@ -74,9 +71,7 @@ def show_journo():
                         
                     st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
                 if st.button("Guardar audio", type = "primary", key = "record"):
-                    with st.spinner("Cargando audio y transcribiendo... ⌛"):
-
-                        threading.Thread(target=cargar_y_transcribir_audio, args=(audio['bytes'],)).start()
+                    threading.Thread(target=cargar_y_transcribir_audio, args=(audio['bytes'],)).start()
 
         if 'mp3_audio_path' in st.session_state:
             st.success("Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
@@ -94,7 +89,7 @@ def show_journo():
         
         else:
             st.info("Completa los siguientes campos para proporcionar contexto y detalles específicos que ayudarán a generar la noticia.")
-            st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid')
+            st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = None)
             st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti')
             st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa')
             st.session_state.B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12')
