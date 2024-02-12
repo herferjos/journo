@@ -7,6 +7,7 @@ from journo.utils.modules import img_to_html, load_database
 from streamlit_option_menu import option_menu
 import time
 import pandas as pd
+from streamlit_gsheets import GSheetsConnection
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
