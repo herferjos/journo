@@ -56,7 +56,7 @@ st.markdown("""
 
 add_auth(required=True, login_sidebar = False)
 
-load_database(force=True)
+# load_database(force=True)
 
 st.write(st.session_state.database)
 
