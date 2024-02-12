@@ -57,8 +57,8 @@ st.markdown("""
 add_auth(required=True, login_sidebar = False)
 
 # load_database(force=True)
-
-st.write(st.session_state.database)
+if 'database' in st.session_state:
+    st.write(st.session_state.database)
 
 if st.button('Crear nuevo df'):
     nuevo_df = pd.DataFrame({'Transcripción': ['_']*5, 'Transcripción editada': ['_']*5, 'Cargo': ['_']*5, 'Nombre': ['_']*5, 'Donde': ['_']*5, 'Cuando': ['_']*5, 'Extra': ['_']*5, 'Anotaciones': ['_']*5, 'Noticia': ['_']*5, 'Noticia editada': ['_']*5,'Sesion': ['_']*5}, index=range(5))
