@@ -62,6 +62,7 @@ st.write(st.session_state.database)
 if st.button('Crear nuevo df'):
     nuevo_df = pd.DataFrame({'Transcripción': ['_']*5, 'Transcripción editada': ['_']*5, 'Cargo': ['_']*5, 'Nombre': ['_']*5, 'Donde': ['_']*5, 'Cuando': ['_']*5, 'Extra': ['_']*5, 'Anotaciones': ['_']*5, 'Noticia': ['_']*5, 'Noticia editada': ['_']*5,'Sesion': ['_']*5}, index=range(5))
     st.session_state.sheet.create(worksheet='test', data=nuevo_df)
+    st.session_state.sheet = load_sheet()
     st.session_state.database = st.session_state.sheet.read(worksheet='test')
     st.rerun()
 
