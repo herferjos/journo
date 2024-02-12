@@ -56,6 +56,9 @@ st.markdown("""
 
 add_auth(required=True, login_sidebar = False)
 
+st.session_state.sheet = st.connection("gsheets", type=GSheetsConnection)
+
+
 # load_database(force=True)
 if 'database' in st.session_state:
     st.write(st.session_state.database)
