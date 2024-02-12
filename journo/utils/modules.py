@@ -126,7 +126,8 @@ def guardar_info():
     return
     
 
-def cargar_noticia(content):
+def cargar_noticia():
+    content= st.session_state.database.iloc[int(st.session_state.index_cargado), -1]
     exec(content)
     st.session_state.noticia_cargada = True
     st.rerun()
@@ -175,7 +176,7 @@ def dataframetipo(df):
     try:
         selected_row = grid_table["selected_rows"]     
         id = selected_row[0]['_selectedRowNodeInfo']['nodeId']
-        return st.session_state.database.iloc[int(id), -1]
+        return id
     except:
         pass
 
