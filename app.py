@@ -72,10 +72,8 @@ if st.button('Crear nuevo df'):
     st.rerun()
 
 if st.button('Actualizar'):
-    st.session_state.database.append({'Transcripción': 'xd', 'Transcripción editada': 'xd', 'Cargo': 'xd', 'Nombre': 'xd', 'Donde': 'xd', 'Cuando': 'xd', 'Extra': 'xd', 'Anotaciones':'xd', 'Noticia': 'xd', 'Noticia editada': 'xd', 'Sesion': 'xd'}, ignore_index=True)
-    st.session_state.database2 = st.session_state.database
-    st.session_state.sheet.update(worksheet='test', data = st.session_state.database)
-    st.session_state.database = st.session_state.sheet.read(worksheet='test')
+    st.session_state.database = st.session_state.database.append({'Transcripción': 'xd', 'Transcripción editada': 'xd', 'Cargo': 'xd', 'Nombre': 'xd', 'Donde': 'xd', 'Cuando': 'xd', 'Extra': 'xd', 'Anotaciones':'xd', 'Noticia': 'xd', 'Noticia editada': 'xd', 'Sesion': 'xd'}, ignore_index=True)
+    st.session_state.database = st.session_state.sheet.update(worksheet='test', data = st.session_state.database)
     st.rerun()
 
 with st.sidebar:
