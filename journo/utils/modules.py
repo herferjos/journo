@@ -153,7 +153,7 @@ def generar_txt():
         
 
 def load_sheet():
-    return st.experimental_connection("gsheets", type=GSheetsConnection)
+    return st.connection("gsheets", type=GSheetsConnection)
 
 def dataframetipo(df):
     # Eliminar filas con todas las celdas vacías
