@@ -21,11 +21,11 @@ def show_journo():
             st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
-            df_cargado = dataframetipo(df_copia)
+            st.session_state.index_cargado = dataframetipo(df_copia)
             a,b = st.columns([0.7,1])
             with a:
                 if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
-                    cargar_noticia(df_cargado)
+                    cargar_noticia()
             with b:
                 if st.button("Crear nueva noticia", type = "primary", key = "restart"):
                     st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
