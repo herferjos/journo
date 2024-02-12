@@ -19,7 +19,7 @@ from streamlit_gsheets import GSheetsConnection
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
-def load_database(force=False):
+def load_database():
   st.session_state.sheet = load_sheet()
   try:
     st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
@@ -116,12 +116,10 @@ def guardar_info():
     contenido = generar_txt()
     with st.spinner("Guardando información... ⌛"):
         if st.session_state.database.isna().all().all():
-            st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Sesion': [contenido]}))
+            st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Sesion': [contenido]}))
         else:
-            st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
-            st.session_state.database = st.session_state.database.dropna(how='all')
-            st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
-        load_database(force = True)
+            st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
+            st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
     return
     
 
