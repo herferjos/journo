@@ -27,7 +27,7 @@ def show_journo():
                 if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
                     cargar_noticia(df_cargado)
             with b:
-                if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                if st.button("Crear nueva noticia", type = "primary", key = "restart"):
                     st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
                 if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
                     reset_variables()
