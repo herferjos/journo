@@ -22,9 +22,16 @@ def show_journo():
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             df_cargado = dataframetipo(df_copia)
-            if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                cargar_noticia(df_cargado)
-    
+            a,b = st.columns([0.7,1])
+            with a:
+                if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
+                    cargar_noticia(df_cargado)
+            with b:
+                if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                    st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
+                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
+                    reset_variables()
+                    
             if st.session_state.noticia_cargada == True:
                 
                 st.success(f"👍🏻 Noticia cargada correctamente. Puedes ir a la sección 'Journo' para continuar modificando la noticia")
