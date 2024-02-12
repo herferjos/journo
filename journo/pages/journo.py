@@ -105,7 +105,7 @@ def show_journo():
 
         if 'transcription2' in st.session_state:
             st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
-            st.session_state.lista = st.session_state.transcription2.split('\n\n')
+            st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
             
             for i in range(len(st.session_state.lista)):
               st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
