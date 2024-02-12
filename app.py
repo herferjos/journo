@@ -62,6 +62,8 @@ st.session_state.sheet = st.connection("gsheets", type=GSheetsConnection)
 # load_database(force=True)
 if 'database' in st.session_state:
     st.write(st.session_state.database)
+if 'database2' in st.session_state:
+    st.write(st.session_state.database2)
 
 if st.button('Crear nuevo df'):
     nuevo_df = pd.DataFrame({'Transcripción': ['_']*5, 'Transcripción editada': ['_']*5, 'Cargo': ['_']*5, 'Nombre': ['_']*5, 'Donde': ['_']*5, 'Cuando': ['_']*5, 'Extra': ['_']*5, 'Anotaciones': ['_']*5, 'Noticia': ['_']*5, 'Noticia editada': ['_']*5,'Sesion': ['_']*5}, index=range(5))
@@ -71,7 +73,7 @@ if st.button('Crear nuevo df'):
 
 if st.button('Actualizar'):
     st.session_state.database.append({'Transcripción': 'xd', 'Transcripción editada': 'xd', 'Cargo': 'xd', 'Nombre': 'xd', 'Donde': 'xd', 'Cuando': 'xd', 'Extra': 'xd', 'Anotaciones':'xd', 'Noticia': 'xd', 'Noticia editada': 'xd', 'Sesion': 'xd'}, ignore_index=True)
-    st.session_state.sheet.clear(worksheet='test')
+    st.session_state.database2 = st.session_state.database
     st.session_state.sheet.update(worksheet='test', data = st.session_state.database)
     st.session_state.database = st.session_state.sheet.read(worksheet='test')
     st.rerun()
