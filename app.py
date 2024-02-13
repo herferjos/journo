@@ -60,6 +60,8 @@ with st.sidebar:
     st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
         icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
     
+    st.write('---')
+    
     c,d = st.columns(2)
 
     with c:
