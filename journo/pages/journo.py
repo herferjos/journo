@@ -7,7 +7,7 @@ import pandas as pd
 import subprocess 
 
 def show_journo():
-    with st.sidebar.expander('**Ver tus noticias**'):
+    with st.expander('**Ver tus noticias**'):
         st.write('## 📊 Tus noticias')
         if st.session_state.database.isna().all().all():
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
