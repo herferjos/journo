@@ -3,7 +3,7 @@ from journo.pages.inicio import show_inicio
 from journo.pages.journo import show_journo
 from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
-from journo.utils.modules import img_to_html, load_database
+from journo.utils.modules import img_to_html, load_database, reset_variables
 from streamlit_option_menu import option_menu
 import time
 
@@ -56,8 +56,7 @@ if 'noticia_cargada' in st.session_state:
     st.write(st.session_state.noticia_cargada)
 
 if st.button('borrar'):
-    del st.session_state.noticia_cargada
-    st.rerun()
+    reset_variables()
 
 add_auth(required=True, login_sidebar = False)
 
