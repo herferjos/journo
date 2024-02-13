@@ -148,16 +148,21 @@ def show_journo():
             st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_generada)/5))
             a,b = st.columns([0.7,1])
             with a:
-                if st.button("Añadir más contenido", type = "primary"):
-                    st.session_state.noticia_extra = extra_noticia(st.session_state.mensajes_noticias)
-                    st.session_state.noticia_editada = st.session_state.noticia_extra
-                    st.rerun()
+                boton_extra = st.button("Añadir más contenido", type = "primary")
             with b:
-                if st.button("Volver a generar noticia", type = "primary"):
-                  with st.spinner("Generar noticia... ⌛"):
-                    st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                    st.session_state.noticia_editada = st.session_state.noticia_generada
-                    st.rerun()
+                boton_regenerar = st.button("Volver a generar noticia", type = "primary")
+
+            if boton_extra:
+              with st.spinner("Añadiendo contenido a la noticia... ⌛"):
+                st.session_state.noticia_extra = extra_noticia(st.session_state.mensajes_noticias)
+                st.session_state.noticia_editada = st.session_state.noticia_extra
+                st.rerun()
+                
+            if boton_regenerar: 
+              with st.spinner("Generando noticia... ⌛"):
+                st.session_state.noticia_generada = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.noticia_editada = st.session_state.noticia_generada
+                st.rerun()
         else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
             if st.button("Generar noticia", type = "primary"):
