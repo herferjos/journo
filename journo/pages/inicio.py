@@ -1,6 +1,7 @@
 import streamlit as st
 from journo.utils.modules import generar_html_con_destacados
 import extra_streamlit_components as stx
+from journo.utils.modules import img_to_html
 
 def show_inicio():
     if 'email' in st.session_state:
