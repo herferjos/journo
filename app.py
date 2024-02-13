@@ -11,7 +11,7 @@ import time
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 st.sidebar.markdown(
-    "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 180, 180) + "</p>",
+    "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
     unsafe_allow_html=True
 )
 
