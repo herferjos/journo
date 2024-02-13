@@ -44,7 +44,7 @@ def require_auth(
         st.markdown(
             """
             <div style='text-align: center;'>
-                <h4>Una nueva forma de hacer periodismo<</h4>
+                <h4>Una nueva forma de hacer periodismo</h4>
             </div>
             """,
             unsafe_allow_html=True
@@ -55,7 +55,10 @@ def require_auth(
         show_inicio()
         st.stop()
     if payment_provider == "stripe":
-        is_subscriber = user_email and is_active_subscriber(user_email)
+        if 'subscriptions' in st.session_state:
+            is_subscriber = user_email and len(st.session_state.subscriptions)>0
+        else:
+            is_subscriber = user_email and is_active_subscriber(user_email)
     else:
         raise ValueError("payment_provider must be 'stripe'")
 
