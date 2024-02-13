@@ -41,7 +41,7 @@ st.markdown("""
 add_auth(required=True, login_sidebar = False)
 
 load_database()
-st.write(st.session_state.subscriptions)
+
 with st.sidebar:
     st.markdown(
         "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
