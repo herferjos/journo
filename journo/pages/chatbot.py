@@ -32,7 +32,7 @@ def show_bot():
         with st.chat_message("assistant"):
                     
             response = openai_client.chat.completions.create(
-            model="gpt-3.5-turbo-1106",
+            model="gpt-3.5-turbo-0125",
             messages=st.session_state.messages,
             temperature = 0,
             stream = True
