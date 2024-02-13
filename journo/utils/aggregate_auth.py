@@ -36,9 +36,6 @@ def require_auth(
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        show_login_button(
-            text=login_button_text, color=login_button_color, sidebar=login_sidebar
-        )
         st.markdown(
             "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
             unsafe_allow_html=True
@@ -51,6 +48,9 @@ def require_auth(
             </div>
             """,
             unsafe_allow_html=True
+        )
+        show_login_button(
+            text=login_button_text, color=login_button_color, sidebar=login_sidebar
         )
         show_inicio()
         st.stop()
