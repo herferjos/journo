@@ -42,8 +42,10 @@ def show_bot():
             full_response = ""
             
             for chunk in response:
-                full_response += chunk.choices[0].delta.content
-                message_placeholder.markdown(full_response + "▌")
+                if chunk.choices[0].delta.content is not None:
+                    full_response += chunk.choices[0].delta.content
+                    message_placeholder.markdown(full_response + "▌")
+
                       
             st.session_state.messages.append({"role": "assistant", "content": full_response})
     return
