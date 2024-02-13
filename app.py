@@ -61,7 +61,7 @@ with st.sidebar:
         icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
     st.write('---')
     st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-    if st.button("Crear nueva noticia", type = "primary", key = "restart"):
+    if st.button("Empezar nueva noticia", type = "primary", key = "restart"):
         reset_variables()
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
