@@ -6,7 +6,7 @@ def show_inicio():
     st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
         """
-        <h4>Journo es una <strong>Inteligencia Artificial</strong> que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:</h4>
+        <h4>Journo es un asistente de redacción con el que podrás:</h4>
         <ul>
             <li><strong>Automatizar</strong> la transcripción de audios</li>
             <li><strong>Guíar</strong> a la Inteligencia Artificial a redactar la noticia a tu gusto</li>
