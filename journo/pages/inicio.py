@@ -44,16 +44,11 @@ def show_inicio():
         st.write("### 2) Describir el contexto de las declaraciones")
         st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
 
-        st.write("#### :blue[¿Cuál es el cargo de la persona que habla?]")
-        st.write(st.session_state.X_demo)
-        st.write("#### :blue[¿Cuál es el nombre de la persona que habla?]")
-        st.write(st.session_state.Y_demo)
-        st.write("#### :blue[¿Cuál es el tema más relevante del que ha hablado?]")
-        st.write(st.session_state.Z_demo)
-        st.write("#### :blue[¿Dónde ha dicho las declaraciones?]")
-        st.write(st.session_state.A_demo)
-        st.write("#### :blue[Cuándo ha dicho las declaraciones?]")
-        st.write(st.session_state.B_demo)
+        X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = st.session_state.X_demo)
+        Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti', value = st.session_state.Y_demo)
+        A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa', value = st.session_state.A_demo)
+        B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12', value = st.session_state.B_demo)
+        Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z_demo)
             
     if phase == 2:
         st.write("### 3) Transcripción de las declaraciones")
