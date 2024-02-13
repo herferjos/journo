@@ -7,6 +7,8 @@ import pandas as pd
 import subprocess 
 
 def show_journo():
+    st.write('## ✍🏼 Crea tu noticia')
+    
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacado", "Noticia"])
 
     if st.session_state.phase == 0:
