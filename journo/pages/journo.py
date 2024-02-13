@@ -30,17 +30,6 @@ def show_journo():
             if st.session_state.noticia_cargada == True:
                 
                 st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")
-
-    c,d = st.columns(2)
-
-    with c:
-        if st.button("Empezar nueva noticia", type = "primary", key = "restart"):
-            reset_variables()
-    with d:
-        if st.button("Guardar progreso", type = "primary"):
-            guardar_info()
-            st.rerun()
-        
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacado", "Noticia"])
 
