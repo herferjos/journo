@@ -10,7 +10,7 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-st.markdown(
+st.sidebar.markdown(
     "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo.png', 200, 200) + "</p>",
     unsafe_allow_html=True
 )
@@ -57,6 +57,7 @@ add_auth(required=True, login_sidebar = False)
 load_database()
 
 with st.sidebar:
+    st.write('---')
     st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
         icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
     st.write('---')
