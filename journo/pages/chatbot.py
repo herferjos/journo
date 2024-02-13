@@ -8,13 +8,16 @@ def show_bot():
     st.write('## 🤖 Chatea con Journo')
     st.info('Puedes chatear con una IA para ayudarte a formatear la noticia cómo desees. Importa fácilmente la noticia generada haciendo click en el siguiente botón:')
     
-    a, b, c = st.columns([0.5, 0.3, 0.5])
-    
-    with b:
-        if st.button("Copiar noticia ", type = "primary"):
-            st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_editada}"})
-            st.rerun()
-    
+    if 'noticia_editada' in st.session_state:
+        a, b, c = st.columns([0.5, 0.3, 0.5])
+        
+        with b:
+            if st.button("Copiar noticia ", type = "primary"):
+                st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_editada}"})
+                st.rerun()
+    else:
+        st.warning('Oh...! Parece que aún no has generado ninguna noticia. Ve a la pestaña de "Crea tu noticia" y regresa cuando hayas acabado')
+        
     for message in st.session_state.messages:
         if message["role"] == "system":
             pass
