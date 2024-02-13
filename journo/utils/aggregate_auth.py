@@ -55,11 +55,7 @@ def require_auth(
         show_inicio()
         st.stop()
     if payment_provider == "stripe":
-        if 'subscriptions' in st.session_state:
-            if len(st.session_state.subscriptions)>0:
-                is_suscriber = True
-        else:
-            is_subscriber = user_email and is_active_subscriber(user_email)
+        is_subscriber = user_email and is_active_subscriber(user_email)
     else:
         raise ValueError("payment_provider must be 'stripe'")
 
