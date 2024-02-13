@@ -30,7 +30,7 @@ def show_inicio():
   
     exec(content)
   
-    phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Selección/descarte", "Noticia"])
+    phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacados", "Noticia"])
   
     if phase == 0:
         st.write("### 1) Cargar o subir audio")
