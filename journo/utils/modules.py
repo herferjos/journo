@@ -169,7 +169,7 @@ def dataframetipo(df):
     # Eliminar columnas con todas las celdas vacías
     df = df.dropna(axis=1, how='all')
   
-    df = df.iloc[:, 1:7]
+    df = df.iloc[:, 2:7]
   
     gd = GridOptionsBuilder.from_dataframe(df)
     gd.configure_selection(selection_mode='single', use_checkbox=True)
