@@ -3,9 +3,7 @@ from journo.utils.modules import generar_html_con_destacados
 import extra_streamlit_components as stx
 
 def show_inicio():
-    if 'email' in st.session_state:
-        st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
-    st.write("## ¿Qué es Journo?")
+    st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
         """
         <h4>Journo es una <strong>Inteligencia Artificial</strong> que te ayudará en tu día a día a la hora de redactar noticias. Con Journo podrás:</h4>
