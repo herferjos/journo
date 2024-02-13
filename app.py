@@ -59,6 +59,17 @@ with st.sidebar:
     
     st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
         icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
+    
+    c,d = st.columns(2)
+
+    with c:
+        if st.button("Empezar nueva noticia", type = "primary", key = "restart"):
+            reset_variables()
+    with d:
+        if st.button("Guardar progreso", type = "primary"):
+            guardar_info()
+            st.rerun()
+        
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
