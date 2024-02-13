@@ -2,6 +2,7 @@ import streamlit as st
 from journo.utils.google_auth import get_logged_in_user_email, show_login_button
 from journo.utils.stripe_auth import is_active_subscriber, redirect_button
 from journo.pages.inicio import show_inicio
+from journo.utils.modules import img_to_html
 
 payment_provider = st.secrets.get("payment_provider", "stripe")
 
@@ -37,6 +38,19 @@ def require_auth(
     if not user_email:
         show_login_button(
             text=login_button_text, color=login_button_color, sidebar=login_sidebar
+        )
+        st.markdown(
+            "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
+            unsafe_allow_html=True
+        )
+        
+        st.markdown(
+            """
+            <div style='text-align: center;'>
+                <h4>Tu asistente periodístico de inteligencia artificial</h4>
+            </div>
+            """,
+            unsafe_allow_html=True
         )
         show_inicio()
         st.stop()
