@@ -26,7 +26,7 @@ def load_database(force=False):
     try:
       st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
     except:
-      nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5,'Sesion': [None]*5}, index=range(5))
+      nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5, 'Noticia extra': [None]*5, 'Sesion': [None]*5}, index=range(5))
       st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
       st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
   return
@@ -41,7 +41,7 @@ def reset_variables():
         'mp3_audio_path', 'archivo', 'transcription1', 'transcription2', 
         'transcripcion_editada', 'X', 'Y', 'Z', 'A', 'B', 'noticia_generada',
         'lista', 'anotaciones_finales', 'noticia_editada', 'noticia_generada',
-        'noticia_cargada'
+        'noticia_cargada', 'noticia_extra'
     ])
 
     for key in keys_to_delete:
@@ -56,13 +56,13 @@ def guardar_info():
     contenido = generar_txt()
     with st.spinner("Guardando información... ⌛"):
         if st.session_state.database.isna().all().all():
-            st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Sesion': [contenido]}))
+            st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Noticia extra': [st.session_state.noticia_extra], 'Sesion': [contenido]}))
         else:
             if st.session_state.noticia_cargada:
-               st.session_state.database.loc[st.session_state.index_cargado] = pd.Series({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido})
+               st.session_state.database.loc[st.session_state.index_cargado] = pd.Series({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Noticia extra': st.session_state.noticia_extra, 'Sesion': contenido})
                st.session_state.database = st.session_state.database.dropna(how='all')
             else:                                                    
-              st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
+              st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Noticia extra': st.session_state.noticia_extra, 'Sesion': contenido}, ignore_index=True)
             st.session_state.database = st.session_state.database.dropna(how='all')
             st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
         st.cache_data.clear()
@@ -93,6 +93,8 @@ def generar_txt():
     contenido += f"st.session_state.lista = '''{st.session_state.lista}'''\n"
     contenido += f"st.session_state.noticia_generada = '''{st.session_state.noticia_generada}'''\n"
     contenido += f"st.session_state.noticia_editada = '''{st.session_state.noticia_editada}'''\n"
+    contenido += f"st.session_state.noticia_extra = '''{st.session_state.noticia_extra}'''\n"
+    contenido += f"st.session_state.mensajes_noticias = '''{st.session_state.mensajes_noticias}'''\n"
     
     return contenido
         
