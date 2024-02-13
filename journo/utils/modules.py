@@ -121,7 +121,7 @@ def guardar_info():
         else:
             if st.session_state.noticia_cargada:
                st.session_state.database.loc[st.session_state.index_cargado] = pd.Series({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido})
-                st.session_state.database = st.session_state.database.dropna(how='all')
+               st.session_state.database = st.session_state.database.dropna(how='all')
             else:                                                    
               st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
             st.session_state.database = st.session_state.database.dropna(how='all')
