@@ -32,89 +32,24 @@ def load_database(force=False):
   return
 
 def reset_variables():
-    to_delete = [key for key in st.session_state.keys() if key.startswith('anotaciones') or key.startswith('lista')]
-    for key in to_delete:
-        try:
+    keys_to_delete = [
+        key for key in st.session_state.keys() 
+        if key.startswith('anotaciones') or key.startswith('lista')
+    ]
+
+    keys_to_delete.extend([
+        'mp3_audio_path', 'archivo', 'transcription1', 'transcription2', 
+        'transcripcion_editada', 'X', 'Y', 'Z', 'A', 'B', 'noticia_generada',
+        'lista', 'anotaciones_finales', 'noticia_editada', 'noticia_generada',
+        'noticia_cargada'
+    ])
+
+    for key in keys_to_delete:
+        if key in st.session_state:
             del st.session_state[key]
-        except KeyError:
-            pass
-        
-    try:
-        del st.session_state.mp3_audio_path
-    except AttributeError:
-        pass
-
-    try:
-        del st.session_state.archivo
-    except AttributeError:
-        pass
-    try:
-        del st.session_state.transcription1
-    except AttributeError:
-        pass
-    try:
-        del st.session_state.transcription2
-    except AttributeError:
-        pass
-    try:
-        del st.session_state.transcripcion_editada
-    except AttributeError:
-        pass
-
-    try:
-        del st.session_state.X
-    except AttributeError:
-        pass
-    
-    try:
-        del st.session_state.Y
-    except AttributeError:
-        pass
-    
-    try:
-        del st.session_state.Z
-    except AttributeError:
-        pass
-    
-    try:
-        del st.session_state.A
-    except AttributeError:
-        pass
-    
-    try:
-        del st.session_state.B
-    except AttributeError:
-        pass
-    
-    try:
-        del st.session_state.noticia_generada
-    except AttributeError:
-        pass
-    
-    try:
-        del st.session_state.lista
-    except AttributeError:
-        pass
-
-    try:
-        del st.session_state.anotaciones_finales
-    except AttributeError:
-        pass
-    try:
-        del st.session_state.noticia_editada
-    except AttributeError:
-        pass
-    try:
-        del st.session_state.noticia_generada
-    except AttributeError:
-        pass
-
-    try:
-        del st.session_state.noticia_cargada
-    except AttributeError:
-        pass
 
     st.rerun()
+    return
 
 
 def guardar_info():
