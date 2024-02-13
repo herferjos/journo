@@ -15,7 +15,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown(
+st.sidebar.markdown(
     """
     <div style='text-align: center;'>
         <h4>Tu asistente periodístico de inteligencia artificial</h4>
