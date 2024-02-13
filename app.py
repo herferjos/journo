@@ -51,7 +51,7 @@ with st.sidebar:
     st.markdown(
         """
         <div style='text-align: center;'>
-            <h4>Tu asistente periodístico de inteligencia artificial</h4>
+            <h4>Una nueva forma de hacer periodismo</h4>
         </div>
         """,
         unsafe_allow_html=True
