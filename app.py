@@ -10,7 +10,7 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-if user_suscribed not in st.session_state:
+if 'user_suscribed' not in st.session_state:
     st.session_state.user_subscribed = False
 
 if st.session_state.user_subscribed == False:
