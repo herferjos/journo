@@ -10,19 +10,24 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-st.sidebar.markdown(
-    "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
-    unsafe_allow_html=True
-)
+if user_suscribed not in st.session_state:
+    st.session_state.user_subscribed = False
 
-st.sidebar.markdown(
-    """
-    <div style='text-align: center;'>
-        <h4>Tu asistente periodístico de inteligencia artificial</h4>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+if st.session_state.user_subscribed == False:
+
+    st.markdown(
+        "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
+        unsafe_allow_html=True
+    )
+    
+    st.markdown(
+        """
+        <div style='text-align: center;'>
+            <h4>Tu asistente periodístico de inteligencia artificial</h4>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 if "messages" not in st.session_state:
@@ -57,6 +62,20 @@ add_auth(required=True, login_sidebar = False)
 load_database()
 
 with st.sidebar:
+    st.markdown(
+        "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
+        unsafe_allow_html=True
+    )
+    
+    st.markdown(
+        """
+        <div style='text-align: center;'>
+            <h4>Tu asistente periodístico de inteligencia artificial</h4>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
     st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
         icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
     st.write('---')
