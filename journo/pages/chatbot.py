@@ -12,7 +12,7 @@ def show_bot():
     
     with b:
         if st.button("Copiar noticia ", type = "primary"):
-            st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_generada}"})
+            st.session_state.messages.append({"role": "system", "content": f"Esta es la noticia del usuario: {st.session_state.noticia_editada}"})
             st.rerun()
     
     for message in st.session_state.messages:
