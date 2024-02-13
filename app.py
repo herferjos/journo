@@ -51,10 +51,9 @@ st.markdown("""
   div.stLinkButton {text-align:center}
   </style>""", unsafe_allow_html=True)
 
-if 'transcripcion_editada' in st.session_state:
+if 'noticia_cargada' in st.session_state:
 
-    del st.session_state.transcripcion_editada
-    st.write('eliminado')
+    st.write(st.session_state.noticia_cargada)
 
 add_auth(required=True, login_sidebar = False)
 
