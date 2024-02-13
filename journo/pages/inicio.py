@@ -1,25 +1,10 @@
 import streamlit as st
 from journo.utils.modules import generar_html_con_destacados
 import extra_streamlit_components as stx
-from journo.utils.modules import img_to_html
 
 def show_inicio():
     if 'email' in st.session_state:
         st.success(f"🥳 ¡Bienvenido {st.session_state.email}!")
-    else:
-        st.markdown(
-            "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
-            unsafe_allow_html=True
-        )
-        
-        st.markdown(
-            """
-            <div style='text-align: center;'>
-                <h4>Tu asistente periodístico de inteligencia artificial</h4>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
     st.write("## ¿Qué es Journo?")
     st.markdown(
         """
