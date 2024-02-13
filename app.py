@@ -3,7 +3,7 @@ from journo.pages.inicio import show_inicio
 from journo.pages.journo import show_journo
 from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
-from journo.utils.modules import load_database, reset_variables
+from journo.utils.modules import load_database, reset_variables, img_to_html
 from streamlit_option_menu import option_menu
 import time
 
