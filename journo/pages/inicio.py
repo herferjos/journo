@@ -62,7 +62,7 @@ def show_inicio():
       st.info("En este paso tendrás que descartar los párrafos que no te interesen (aparecerán desmarcados) y subrayar los momentos de mayor relevancia en las declaraciones.")
       for i in range(len(st.session_state.lista_demo)):
           frases = []
-          for item in st.session_state[f'anotaciones_demo_{i}']:
+          for item in st.session_state[f'anotaciones_{i}_demo']:
               for x in item:
                 frases.append(x['label'])
           st.write(generar_html_con_destacados(st.session_state.lista_demo[i], frases), unsafe_allow_html=True)
