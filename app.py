@@ -51,12 +51,6 @@ st.markdown("""
   div.stLinkButton {text-align:center}
   </style>""", unsafe_allow_html=True)
 
-if 'noticia_cargada' in st.session_state:
-
-    st.write(st.session_state.noticia_cargada)
-
-if st.button('borrar'):
-    reset_variables()
 
 add_auth(required=True, login_sidebar = False)
 
@@ -65,6 +59,11 @@ load_database()
 with st.sidebar:
     st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
         icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
+    st.write('---')
+    if st.button("Crear nueva noticia", type = "primary", key = "restart"):
+        st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
+        if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
+            reset_variables()
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
