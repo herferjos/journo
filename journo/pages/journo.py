@@ -35,7 +35,6 @@ def show_journo():
     c,d = st.columns(2)
 
     with c:
-        st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
         if st.button("Empezar nueva noticia", type = "primary", key = "restart"):
             reset_variables()
     with d:
