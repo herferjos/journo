@@ -109,6 +109,7 @@ def reset_variables():
     except AttributeError:
         pass
 
+    st.cache_data.clear()
 
     st.session_state.noticia_cargada = False
     st.rerun()
