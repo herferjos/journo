@@ -57,6 +57,7 @@ if 'noticia_cargada' in st.session_state:
 
 if st.button('borrar'):
     del st.session_state.noticia_cargada
+    st.rerun()
 
 add_auth(required=True, login_sidebar = False)
 
