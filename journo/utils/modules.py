@@ -209,16 +209,6 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
   
     return messages
 
-def extra_noticia(messages):
-    messages.append({"role": "user", "content": 'Añade cinco párrafos más a la noticia que cumplan escrupulosamente las indicaciones iniciales, sean coherentes con el resto del texto y no repitan información ya dada. Recuerda que solo puedes citar entre comillas citas exactas del individuo'})
-    response_noticia = openai_client.chat.completions.create(
-        model="gpt-4-turbo-preview",
-        messages=messages,
-        temperature=0,
-        seed = 42
-    )
-  
-    return response_noticia.choices[0].message.content
   
 st.cache_resource(show_spinner = False)
 def parrafer(texto):
