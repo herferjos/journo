@@ -165,6 +165,7 @@ def show_journo():
             if boton_regenerar: 
               with st.spinner("Generando noticia... ⌛"):
                 st.session_state.responses_noticia, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.noticia_generada = ''
                 st.rerun()
         else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
