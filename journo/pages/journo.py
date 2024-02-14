@@ -154,10 +154,16 @@ def show_journo():
                         full_response += chunk.choices[0].delta.content   
                         message_placeholder.markdown(full_response + "▌")
 
+                if st.session_state.extra:
+                    st.session_state.noticia_extra = full_response
+                    st.session_state.noticia_editada = st.session_state.noticia_extra
+                else:
+                    st.session_state.noticia_generada = full_response
+                    st.session_state.noticia_editada = st.session_state.noticia_generada
+                    
                 st.session_state.generacion = False
-                st.session_state.noticia_generada = full_response
-                st.session_state.noticia_editada = st.session_state.noticia_generada
-                st.session_state.mensajes_noticias.append({"role": "user", "content": full_response})
+                st.session_state.extra = False
+                st.session_state.mensajes_noticias.append({"role": "assistant", "content": full_response})
                 st.rerun() 
             else:
                 st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
@@ -170,8 +176,9 @@ def show_journo():
 
             if boton_extra:
               with st.spinner("Añadiendo contenido a la noticia... ⌛"):
-                st.session_state.noticia_extra = extra_noticia(st.session_state.mensajes_noticias)
-                st.session_state.noticia_editada = st.session_state.noticia_extra
+                st.session_state.mensajes_noticias.append({"role": "user", "content": 'Añade cinco párrafos más a la noticia que cumplan escrupulosamente las indicaciones iniciales, sean coherentes con el resto del texto y no repitan información ya dada. Recuerda que solo puedes citar entre comillas citas exactas del individuo'})
+                st.session_state.generacion = True
+                st.session_state.extra = True
                 st.rerun()
                 
             if boton_regenerar: 
