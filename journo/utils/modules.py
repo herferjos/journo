@@ -211,11 +211,11 @@ def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
         model="gpt-4-turbo-preview",
         messages=messages,
         temperature=0,
-        seed = 42
+        seed = 42,
+        stream = True
     )
-    messages.append({"role": "assistant", "content": response_noticia.choices[0].message.content})
   
-    return response_noticia.choices[0].message.content, messages
+    return response_noticia, messages
 
 def extra_noticia(messages):
     messages.append({"role": "user", "content": 'Añade cinco párrafos más a la noticia que cumplan escrupulosamente las indicaciones iniciales, sean coherentes con el resto del texto y no repitan información ya dada. Recuerda que solo puedes citar entre comillas citas exactas del individuo'})
