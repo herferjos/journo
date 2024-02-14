@@ -5,6 +5,9 @@ from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
 import subprocess 
+from openai import OpenAI
+
+openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 def show_journo():
     st.write('## ✍🏼 Crea tu noticia')
@@ -134,7 +137,16 @@ def show_journo():
         if 'noticia_generada' in st.session_state:
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
-            if len(st.session_state.response_noticia)>0:
+            if st.session_state.generacion:
+
+                response_noticia = openai_client.chat.completions.create(
+                    model="gpt-4-turbo-preview",
+                    messages=st.session_state.mensajes_noticias,
+                    temperature=0,
+                    seed = 42,
+                    stream = True
+                )
+
                 full_response = ""
                 message_placeholder = st.empty()
                 for chunk in st.session_state.response_noticia:
@@ -142,7 +154,7 @@ def show_journo():
                         full_response += chunk.choices[0].delta.content   
                         message_placeholder.markdown(full_response + "▌")
 
-                st.session_state.responses_noticia = []
+                st.session_state.generacion = False
                 st.session_state.noticia_generada = full_response
                 st.session_state.noticia_editada = st.session_state.noticia_generada
                 st.session_state.mensajes_noticias.append({"role": "user", "content": full_response})
@@ -164,15 +176,17 @@ def show_journo():
                 
             if boton_regenerar: 
               with st.spinner("Generando noticia... ⌛"):
-                st.session_state.responses_noticia, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.session_state.noticia_generada = ''
+                st.session_state.generacion = True
                 st.rerun()
         else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
             if st.button("Generar noticia", type = "primary"):
               with st.spinner("Generar noticia... ⌛"):
-                st.session_state.responses_noticia, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.session_state.noticia_generada = ''
-                st.rerun()  
+                st.session_state.generacion = True
+                st.rerun()
                 
     return
