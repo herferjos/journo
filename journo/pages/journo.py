@@ -149,7 +149,7 @@ def show_journo():
 
                 full_response = ""
                 message_placeholder = st.empty()
-                for chunk in st.session_state.response_noticia:
+                for chunk in response_noticia:
                     if chunk.choices[0].delta.content is not None:
                         full_response += chunk.choices[0].delta.content   
                         message_placeholder.markdown(full_response + "▌")
