@@ -134,7 +134,22 @@ def show_journo():
         if 'noticia_generada' in st.session_state:
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
-            st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_generada)/5))
+            if len(st.session_state.response_noticia)>0:
+                full_response = ""
+                
+                for chunk in st.session_state.response_noticia:
+                    if chunk.choices[0].delta.content is not None:
+                        full_response += chunk.choices[0].delta.content   
+                        x = st.text_area(label = ":blue[Noticia generada]", value = full_response, height = int(len(full_response)/5))
+
+                st.session_state.responses_noticia = []
+                st.session_state.noticia_generada = full_response
+                st.session_state.noticia_editada = st.session_state.noticia_generada
+                st.session_state.mensajes_noticias.append({"role": "user", "content": full_response})
+                st.rerun() 
+            else:
+                st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
+                        
             a,b = st.columns([0.7,1])
             with a:
                 boton_extra = st.button("Añadir más contenido", type = "primary")
@@ -149,16 +164,14 @@ def show_journo():
                 
             if boton_regenerar: 
               with st.spinner("Generando noticia... ⌛"):
-                st.session_state.noticia_generada, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.session_state.noticia_editada = st.session_state.noticia_generada
+                st.session_state.responses_noticia, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.rerun()
-
         else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
             if st.button("Generar noticia", type = "primary"):
               with st.spinner("Generar noticia... ⌛"):
-                st.session_state.noticia_generada, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.session_state.noticia_editada = st.session_state.noticia_generada
-                st.rerun()    
+                st.session_state.responses_noticia, st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.noticia_generada = ''
+                st.rerun()  
                 
     return
