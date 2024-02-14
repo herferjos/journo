@@ -30,7 +30,8 @@ if 'A' not in st.session_state:
     st.session_state.A = None
 if 'B' not in st.session_state:
     st.session_state.B = None
-
+if 'responses_noticia' not in st.session_state:
+    st.session_state.responses_noticia = []
 
 st.markdown("""
   <style>
