@@ -30,8 +30,8 @@ if 'A' not in st.session_state:
     st.session_state.A = None
 if 'B' not in st.session_state:
     st.session_state.B = None
-if 'response_noticia' not in st.session_state:
-    st.session_state.response_noticia = []
+if 'generacion' not in st.session_state:
+    st.session_state.generacion = True
 
 st.markdown("""
   <style>
