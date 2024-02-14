@@ -31,7 +31,7 @@ if 'A' not in st.session_state:
 if 'B' not in st.session_state:
     st.session_state.B = None
 if 'generacion' not in st.session_state:
-    st.session_state.generacion = True
+    st.session_state.generacion = False
 
 st.markdown("""
   <style>
