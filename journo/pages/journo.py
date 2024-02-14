@@ -136,11 +136,11 @@ def show_journo():
             st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
             if len(st.session_state.response_noticia)>0:
                 full_response = ""
-                
+                message_placeholder = st.empty()
                 for chunk in st.session_state.response_noticia:
                     if chunk.choices[0].delta.content is not None:
                         full_response += chunk.choices[0].delta.content   
-                        x = st.text_area(label = ":blue[Noticia generada]", value = full_response, height = int(len(full_response)/5))
+                        message_placeholder.markdown(full_response + "▌")
 
                 st.session_state.responses_noticia = []
                 st.session_state.noticia_generada = full_response
