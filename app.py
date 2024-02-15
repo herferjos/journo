@@ -66,8 +66,6 @@ with st.sidebar:
         unsafe_allow_html=True
     )
 
-    st.warning('Esta versión de Journo está diseñada para el desarrollo de nuevas funcionalidades')
-
     st.write('---')
     with st.expander('**📊 Noticias generadas**'):
         if st.session_state.database.isna().all().all():
