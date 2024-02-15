@@ -10,7 +10,6 @@ import time
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 def show_journo():
-    st.write(st.session_state.messages)
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacado", "Noticia"])
 
