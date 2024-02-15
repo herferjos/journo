@@ -4,7 +4,6 @@ from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
-import subprocess 
 from openai import OpenAI
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
