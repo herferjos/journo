@@ -9,6 +9,21 @@ import time
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
+from streamlit.components.v1 import html
+
+# Define tu código HTML con el script de Stripe
+stripe_script = """
+<script async src="https://js.stripe.com/v3/buy-button.js"></script>
+<stripe-buy-button
+  buy-button-id="buy_btn_1Ok56qK1QYY02aNnRgduTwjR"
+  publishable-key="pk_test_51OdxyzK1QYY02aNnkIkBfeVlK4k1fo7v07TO9WuZJ7VMuPaQbAHnCtSyIJTg9BSt9beCeBDG4IUAFg8ZTMSXRnXQ00Sml5euD7">
+</stripe-buy-button>
+"""
+
+# Renderiza el código HTML en tu aplicación Streamlit
+st.title("Stripe Buy Button Example")
+st.components.v1.html(stripe_script)
+
 
 
 if "messages" not in st.session_state:
