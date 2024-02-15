@@ -134,11 +134,9 @@ def show_journo():
                     with st.chat_message(st.session_state.messages[i]["role"]):
                         st.markdown(st.session_state.messages[i]["content"])
             
-            intento = 0
-            next = True
-            
             if prompt := st.chat_input("Pregunta lo que quieras") or st.session_state.generacion:
-
+                intento = 0
+                next = True
                 if st.session_state.generacion == False:
                 
                     st.session_state.messages.append({"role": "user", "content": prompt})
