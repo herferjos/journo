@@ -66,7 +66,8 @@ with st.sidebar:
         unsafe_allow_html=True
     )
 
-    with st.expander('**📊 Tus noticias**'):
+    st.write('---')
+    with st.expander('**📊 Noticias generadas**'):
         if st.session_state.database.isna().all().all():
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
 
