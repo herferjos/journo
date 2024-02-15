@@ -134,11 +134,10 @@ def show_journo():
     if st.session_state.phase == 4:
         if 'noticia_generada' in st.session_state:
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
-            with st.expander('Editar noticia'):
+            with st.expander('Editar noticia original'):
                 st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
                 if st.button("Guardar noticia", type = "primary"): 
-                   st.session_state.mensajes_noticias.append({"role": "user", "content": f'Esta es la nueva noticia editada por mi: {st.session_state.noticia_editada}'})
-                   st.session_state.mensajes.append({"role": "user", "content": st.session_state.noticia_editada})
+                   st.session_state.messages.append({"role": "user", "content": f'Esta es la nueva noticia editada por mi: {st.session_state.noticia_editada}'})
                     
                 if st.button("Volver a generar noticia", type = "primary"): 
                   with st.spinner("Generando noticia... ⌛"):
@@ -150,7 +149,7 @@ def show_journo():
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
             if st.button("Generar noticia", type = "primary"):
               with st.spinner("Generar noticia... ⌛"):
-                st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
 
         with st.container(height = 500):
             for i in range(len(st.session_state.messages)):
