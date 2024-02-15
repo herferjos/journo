@@ -1,9 +1,7 @@
 import streamlit as st
-from journo.pages.inicio import show_inicio
 from journo.pages.journo import show_journo
-from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
-from journo.utils.modules import load_database, reset_variables, img_to_html, dataframetipo
+from journo.utils.modules import *
 import time
 
 
