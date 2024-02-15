@@ -1,17 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stripe Buy Button</title>
-  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-</head>
-<body>
+<html>
+  <body>
+    <!-- Set up your HTML here -->
+    <div id="stripe-buy-button-container">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1Ok56qK1QYY02aNnRgduTwjR"
+        publishable-key="pk_test_51OdxyzK1QYY02aNnkIkBfeVlK4k1fo7v07TO9WuZJ7VMuPaQbAHnCtSyIJTg9BSt9beCeBDG4IUAFg8ZTMSXRnXQ00Sml5euD7"
+      >
+      </stripe-buy-button>
+    </div>
 
-<stripe-buy-button
-  buy-button-id="buy_btn_1Ok56qK1QYY02aNnRgduTwjR"
-  publishable-key="pk_test_51OdxyzK1QYY02aNnkIkBfeVlK4k1fo7v07TO9WuZJ7VMuPaQbAHnCtSyIJTg9BSt9beCeBDG4IUAFg8ZTMSXRnXQ00Sml5euD7">
-</stripe-buy-button>
+    <script async src="https://js.stripe.com/v3/buy-button.js">
+    </script>
 
-</body>
+    <script>
+      // ----------------------------------------------------
+      // Just copy/paste these functions as-is:
+
+      function sendMessageToStreamlitClient(type, data) {
+        var outData = Object.assign({
+          isStreamlitMessage: true,
+          type: type,
+        }, data);
+        window.parent.postMessage(outData, "*");
+      }
+
+      function init() {
+        sendMessageToStreamlitClient("streamlit:componentReady", {apiVersion: 1});
+      }
+
+      function setFrameHeight(height) {
+        sendMessageToStreamlitClient("streamlit:setFrameHeight", {height: height});
+      }
+
+      // The `data` argument can be any JSON-serializable value.
+      function sendDataToPython(data) {
+        sendMessageToStreamlitClient("streamlit:setComponentValue", data);
+      }
+
+      // ----------------------------------------------------
+      // Hook things up!
+      window.addEventListener("load", function() {
+        init();
+
+        // Hack to autoset the iframe height.
+        window.setTimeout(function() {
+          setFrameHeight(document.documentElement.clientHeight)
+        }, 0);
+
+        var stripeBuyButtonContainer = document.getElementById("stripe-buy-button-container");
+
+        // Notify Streamlit when the Stripe buy button is clicked
+        stripeBuyButtonContainer.addEventListener("click", function() {
+          sendDataToPython({
+            stripeBuyButtonClicked: true,
+            dataType: "json",
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
