@@ -10,30 +10,6 @@ from openai import OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 def show_journo():
-
-    st.write('## ✍🏼 Crea tu noticia')
-
-    with st.expander('**📊 Tus noticias**'):
-        if st.session_state.database.isna().all().all():
-            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
-
-            if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
-                    reset_variables()
-        
-        else:
-            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
-            df_copia = st.session_state.database.copy()
-            df_copia = df_copia.iloc[:, :-1]
-            st.session_state.index_cargado = dataframetipo(df_copia)
-
-            if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
-                cargar_noticia()
-                    
-            if st.session_state.noticia_cargada == True:
-                
-                st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacado", "Noticia"])
 
@@ -196,5 +172,26 @@ def show_journo():
                 st.session_state.noticia_generada = ''
                 st.session_state.generacion = True
                 st.rerun()
+                  
+    with st.expander('**📊 Tus noticias**'):
+        if st.session_state.database.isna().all().all():
+            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+
+            if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
+                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
+                    reset_variables()
+        
+        else:
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
+            df_copia = st.session_state.database.copy()
+            df_copia = df_copia.iloc[:, :-1]
+            st.session_state.index_cargado = dataframetipo(df_copia)
+
+            if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
+                cargar_noticia()
+                    
+            if st.session_state.noticia_cargada == True:
                 
+                st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")      
     return
