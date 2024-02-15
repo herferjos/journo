@@ -47,8 +47,8 @@ def show_journo():
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
                     with st.spinner("Transcribiendo audio... ⌛"):
+                        st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         mp3_bytes = audio_a_bytes(st.session_state.archivo)
-                        #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(mp3_bytes)"])
                         cargar_y_transcribir_audio(mp3_bytes)
                     
     
@@ -60,7 +60,7 @@ def show_journo():
             if audio is not None:
                 if st.button("Guardar audio", type = "primary", key = "record"):
                     with st.spinner("Transcribiendo audio... ⌛"):
-                    #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(audio['bytes'])"])
+                        st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         cargar_y_transcribir_audio(audio['bytes'])
                         
         if 'mp3_audio_path' in st.session_state:
