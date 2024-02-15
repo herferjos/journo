@@ -4,15 +4,11 @@ from journo.pages.journo import show_journo
 from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
 from journo.utils.modules import load_database, reset_variables, img_to_html
-from streamlit_option_menu import option_menu
 import time
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-
-if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
 
 if 'guardado' not in st.session_state:
     st.session_state.guardado = False
@@ -57,8 +53,6 @@ with st.sidebar:
         unsafe_allow_html=True
     )
     
-    st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
-        icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
     
     st.write('---')
     
@@ -75,14 +69,7 @@ with st.sidebar:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
-    if st.session_state.selected == 'Crea tu noticia':
-        show_journo()
-
-    if st.session_state.selected == 'Chatbot':
-        show_bot()
-    
-    if st.session_state.selected == '¿Qué es Journo?':
-        show_inicio()
+    show_journo()
 
 
 #except:
