@@ -10,6 +10,50 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
+import streamlit as st
+
+# Ruta de la nueva imagen que deseas usar
+new_image_path = "files/logo-removebg-preview.png"
+
+# Codificación de la imagen en base64
+import base64
+
+with open(new_image_path, "rb") as img_file:
+    encoded_image = base64.b64encode(img_file.read()).decode()
+
+# Clave del botón seleccionado
+selected_button_key = None
+
+# Definición de estilo para el botón con la imagen al lado del texto
+button_style = f"""
+    <style>
+    .button-container {{
+        display: flex;
+        align-items: center;
+    }}
+    .button-container img {{
+        width: 2em; /* Ancho de la imagen */
+        height: auto;
+        margin-right: 0.5em; /* Espacio entre la imagen y el texto */
+    }}
+    .button-text {{
+        font-size: 1.2em; /* Tamaño del texto */
+    }}
+    </style>
+"""
+
+# Renderizado de los botones
+for button_key in ["button1", "button2", "button3"]:
+    st.markdown(button_style, unsafe_allow_html=True)
+    st.markdown(f'<div class="button-container" id="{button_key}">', unsafe_allow_html=True)
+    if selected_button_key == button_key:
+        st.button(f'<span class="button-text">{button_key}</span>', key=button_key, on_click=None)
+    else:
+        if st.button(f'<span class="button-text">{button_key}</span>', key=button_key):
+            selected_button_key = button_key
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
 
