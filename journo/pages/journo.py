@@ -169,6 +169,7 @@ def show_journo():
                                       
                             st.session_state.messages.append({"role": "assistant", "content": full_response})
                             st.session_state.generacion = False
+                            next = False
                             intento = 0
                             st.rerun()
                         except:
