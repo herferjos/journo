@@ -133,6 +133,8 @@ def show_journo():
                     with st.chat_message(st.session_state.messages[i]["role"]):
                         st.markdown(st.session_state.messages[i]["content"])
             
+            intento = 0
+            next = True
             
             if prompt := st.chat_input("Pregunta lo que quieras") or st.session_state.generacion:
 
@@ -144,25 +146,34 @@ def show_journo():
                         st.markdown(prompt)
                 
                 with st.chat_message("assistant"):
+                    if intento > 3:
+                        st.error('No hemos podido restaurar la conexión con nuestro servidores, vuelve a cargar la página y si el error persiste ponte en contacto con el equipo de Journo')
+                    while next:
+                        try:
+                            response = openai_client.chat.completions.create(
+                            model="gpt-4-turbo-preview",
+                            messages=st.session_state.messages,
+                            temperature = 0,
+                            stream = True
+                            )
                             
-                    response = openai_client.chat.completions.create(
-                    model="gpt-4-turbo-preview",
-                    messages=st.session_state.messages,
-                    temperature = 0,
-                    stream = True
-                    )
-                    
-                    message_placeholder = st.empty()
-                    full_response = ""
-                    
-                    for chunk in response:
-                        if chunk.choices[0].delta.content is not None:
-                            full_response += chunk.choices[0].delta.content
-                            message_placeholder.markdown(full_response + "▌")
-        
-                              
-                    st.session_state.messages.append({"role": "assistant", "content": full_response})
-                    st.session_state.generacion = False
-                    st.rerun()
+                            message_placeholder = st.empty()
+                            full_response = ""
+                            
+                            for chunk in response:
+                                if chunk.choices[0].delta.content is not None:
+                                    full_response += chunk.choices[0].delta.content
+                                    message_placeholder.markdown(full_response + "▌")
+                
+                                      
+                            st.session_state.messages.append({"role": "assistant", "content": full_response})
+                            st.session_state.generacion = False
+                            intento = 0
+                            st.rerun()
+                        except:
+                            intento
+                            time.sleep(3)
+                            intento += 1
+                            st.warning('Ha habido un error con nuestro servidor de Inteligencia Artificial, volvemos a intentarlo en 3 segundos...⌛')
                   
     return
