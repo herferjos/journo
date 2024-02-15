@@ -148,12 +148,12 @@ def show_journo():
                 st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
 
         with st.container():
-            for message in st.session_state.messages:
-                if message["role"] == "system":
+            for i in range(len(st.session_state.messages)):
+                if st.session_state.messages[i]["role"] == "system" or i == 1:
                     pass
                 else:
-                    with st.chat_message(message["role"]):
-                        st.markdown(message["content"])
+                    with st.chat_message(st.session_state.messages[i]["role"]):
+                        st.markdown(st.session_state.messages[i]["content"])
             
             
             if prompt := st.chat_input("Pregunta lo que quieras"):
@@ -184,9 +184,9 @@ def show_journo():
                     st.rerun()
 
                 
-    if st.button("Volver a generar noticia", type = "primary"): 
-      with st.spinner("Generando noticia... ⌛"):
-        st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-        st.rerun()
+        if st.button("Volver a generar noticia", type = "primary"): 
+          with st.spinner("Generando noticia... ⌛"):
+            st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+            st.rerun()
                   
     return
