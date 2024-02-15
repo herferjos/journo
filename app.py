@@ -19,7 +19,7 @@ st.markdown(
 )
 
 if 'messages' not in st.session_state:
-    st.session_state.messages = [{'role': 'assisstant', 'content': 'Hola, soy Journo y estoy aquí para ayudarte. Aún no has generado ninguna noticia. Te invito a rellenar toda la información necesaria y luego podrás volver aquí y generar tu noticia'}]
+    st.session_state.messages = [{'role': 'assistant', 'content': 'Hola, soy Journo y estoy aquí para ayudarte. Aún no has generado ninguna noticia. Te invito a rellenar toda la información necesaria y luego podrás volver aquí y generar tu noticia'}]
 
 if 'guardado' not in st.session_state:
     st.session_state.guardado = False
