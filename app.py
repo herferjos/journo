@@ -60,7 +60,7 @@ with st.sidebar:
     st.markdown(
         """
         <div style='text-align: center;'>
-            <h4>Una nueva forma de hacer periodismo</h4>
+            <h2>Una nueva forma de hacer periodismo</h2>
         </div>
         """,
         unsafe_allow_html=True
