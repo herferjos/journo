@@ -11,6 +11,7 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 def show_journo():
 
+    st.write(st.session_state.mensajes_noticias)
     st.write('## ✍🏼 Crea tu noticia')
 
     with st.expander('**📊 Tus noticias**'):
