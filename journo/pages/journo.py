@@ -165,7 +165,7 @@ def show_journo():
         with st.chat_message("assistant"):
                     
             response = openai_client.chat.completions.create(
-            model="gpt-4-turbo-preview"",
+            model="gpt-4-turbo-preview",
             messages=st.session_state.messages,
             temperature = 0,
             stream = True
