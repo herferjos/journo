@@ -5,6 +5,7 @@ from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
 from openai import OpenAI
+import time
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
