@@ -63,6 +63,19 @@ def require_auth(
         raise ValueError("payment_provider must be 'stripe'")
 
     if not is_subscriber:
+        st.markdown(
+            "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
+            unsafe_allow_html=True
+        )
+        
+        st.markdown(
+            """
+            <div style='text-align: center;'>
+                <h4>Una nueva forma de hacer periodismo</h4>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         redirect_button(
             text="¡Suscríbete para usar Journo!",
             customer_email=user_email,
