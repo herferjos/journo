@@ -139,7 +139,12 @@ def show_journo():
                 if st.button("Guardar noticia", type = "primary"): 
                    st.session_state.mensajes_noticias.append({"role": "user", "content": f'Esta es la nueva noticia editada por mi: {st.session_state.noticia_editada}'})
                    st.session_state.mensajes.append({"role": "user", "content": st.session_state.noticia_editada})
-
+                    
+                if st.button("Volver a generar noticia", type = "primary"): 
+                  with st.spinner("Generando noticia... ⌛"):
+                    st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                    st.session_state.generacion = True
+                    st.rerun()
 
         else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
@@ -186,12 +191,5 @@ def show_journo():
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
                     st.session_state.generacion = False
                     st.rerun()
-
-                
-        if st.button("Volver a generar noticia", type = "primary"): 
-          with st.spinner("Generando noticia... ⌛"):
-            st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-            st.session_state.generacion = True
-            st.rerun()
                   
     return
