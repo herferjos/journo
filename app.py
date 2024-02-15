@@ -72,7 +72,7 @@ with st.sidebar:
     c,d = st.columns(2)
 
     with c:
-        if st.button("Empezar nueva noticia", type = "primary", key = "restart"):
+        if st.button("Nueva noticia", type = "primary", key = "restart"):
             reset_variables()
     with d:
         if st.button("Guardar progreso", type = "primary"):
