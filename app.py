@@ -10,9 +10,8 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-from boton_stripe import boton_stripe
+from journo.components.boton_stripe import boton_stripe
 value = boton_stripe()
-
 
 
 if "messages" not in st.session_state:
