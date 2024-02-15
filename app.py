@@ -10,15 +10,6 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-# Agrega el script de Stripe
-st.markdown("""
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-    <stripe-buy-button buy-button-id="buy_btn_1Ok56qK1QYY02aNnRgduTwjR"
-    publishable-key="pk_test_51OdxyzK1QYY02aNnkIkBfeVlK4k1fo7v07TO9WuZJ7VMuPaQbAHnCtSyIJTg9BSt9beCeBDG4IUAFg8ZTMSXRnXQ00Sml5euD7">
-    </stripe-buy-button>
-""", unsafe_allow_html=True)
-
-
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
 
