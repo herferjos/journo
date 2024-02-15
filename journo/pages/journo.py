@@ -149,7 +149,7 @@ def show_journo():
 
         with st.container():
             for i in range(len(st.session_state.messages)):
-                if st.session_state.messages[i]["role"] == "system" or i == 1:
+                if st.session_state.messages[i]["role"] == "system":
                     pass
                 else:
                     with st.chat_message(st.session_state.messages[i]["role"]):
@@ -159,9 +159,12 @@ def show_journo():
             if prompt := st.chat_input("Pregunta lo que quieras"):
                 
                 st.session_state.messages.append({"role": "user", "content": prompt})
-                with st.chat_message("user"):
+            
+                with st.chat_message("user"): 
                     st.markdown(prompt)
                     
+            elif st.session_state.generacion:
+                
                 with st.chat_message("assistant"):
                             
                     response = openai_client.chat.completions.create(
