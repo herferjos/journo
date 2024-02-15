@@ -59,9 +59,6 @@ def show_journo():
             st.info("Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
-            
-            if st.button("Guardar transcripción editada", type = "primary"):
-                st.rerun()
 
         else:
             st.warning('Aún no has generado ninguna transcripción')
