@@ -1,18 +1,25 @@
 import streamlit as st
-from journo.pages.inicio import show_inicio
 from journo.pages.journo import show_journo
-from journo.pages.chatbot import show_bot
 from journo.utils.aggregate_auth import add_auth
-from journo.utils.modules import load_database, reset_variables, img_to_html
-from streamlit_option_menu import option_menu
+from journo.utils.modules import *
 import time
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
+st.markdown(
+    """
+    <style>
+        section[data-testid="stSidebar"] {
+            width: 400px !important; # Set the width to your desired value
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "system", "content": "Eres un asistente virtual de Journo, una webapp de asistencia con IA para periodistas y ahora podrás comunicarte con los usuarios de Journo. Trata de ayudar a los usuarios con sus peticiones e instrucciones para dar forma y estilo a una noticia periodística. Razona siempre paso por paso cualquier petición."}]
+if 'messages' not in st.session_state:
+    st.session_state.messages = [{'role': 'assistant', 'content': 'Hola, soy Journo y estoy aquí para ayudarte. Aún no has generado ninguna noticia. Te invito a rellenar toda la información necesaria y luego podrás volver aquí y generar tu noticia'}]
 
 if 'guardado' not in st.session_state:
     st.session_state.guardado = False
@@ -30,10 +37,9 @@ if 'A' not in st.session_state:
     st.session_state.A = None
 if 'B' not in st.session_state:
     st.session_state.B = None
-if 'generacion' not in st.session_state:
+if 'generacion' not in st.session_state:   
     st.session_state.generacion = False
-if 'extra' not in st.session_state:
-    st.session_state.extra = False
+
 
 st.markdown("""
   <style>
@@ -54,21 +60,41 @@ with st.sidebar:
     st.markdown(
         """
         <div style='text-align: center;'>
-            <h4>Una nueva forma de hacer periodismo</h4>
+            <h2>Una nueva forma de hacer periodismo</h2>
         </div>
         """,
         unsafe_allow_html=True
     )
-    
-    st.session_state.selected = option_menu("", ["Crea tu noticia", "Chatbot", "¿Qué es Journo?"], 
-        icons=['pencil-fill', 'robot', 'house'], menu_icon="", default_index=0)
-    
+
     st.write('---')
+    with st.expander('**📊 Noticias generadas**'):
+        if st.session_state.database.isna().all().all():
+            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+
+            if st.button("Crear nueva noticia", type = "primary", key = "start"):
+                st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
+                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
+                    reset_variables()
+        
+        else:
+            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
+            df_copia = st.session_state.database.copy()
+            df_copia = df_copia.iloc[:, :-1]
+            st.session_state.index_cargado = dataframetipo(df_copia)
+
+            if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
+                cargar_noticia()
+                    
+            if st.session_state.noticia_cargada == True:
+                
+                st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")   
+
+    st.write('')
     
     c,d = st.columns(2)
 
     with c:
-        if st.button("Empezar nueva noticia", type = "primary", key = "restart"):
+        if st.button("Nueva noticia", type = "primary", key = "restart"):
             reset_variables()
     with d:
         if st.button("Guardar progreso", type = "primary"):
@@ -78,14 +104,7 @@ with st.sidebar:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
-    if st.session_state.selected == 'Crea tu noticia':
-        show_journo()
-
-    if st.session_state.selected == 'Chatbot':
-        show_bot()
-    
-    if st.session_state.selected == '¿Qué es Journo?':
-        show_inicio()
+    show_journo()
 
 
 #except:

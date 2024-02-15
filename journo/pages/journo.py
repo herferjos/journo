@@ -4,35 +4,13 @@ from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
-import subprocess 
 from openai import OpenAI
+import time
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 def show_journo():
-    st.write('## ✍🏼 Crea tu noticia')
-
-    with st.expander('**📊 Tus noticias**'):
-        if st.session_state.database.isna().all().all():
-            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
-
-            if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
-                    reset_variables()
-        
-        else:
-            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
-            df_copia = st.session_state.database.copy()
-            df_copia = df_copia.iloc[:, :-1]
-            st.session_state.index_cargado = dataframetipo(df_copia)
-
-            if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
-                cargar_noticia()
-                    
-            if st.session_state.noticia_cargada == True:
-                
-                st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")
+    st.write(st.session_state.messages)
     
     st.session_state.phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacado", "Noticia"])
 
@@ -47,8 +25,8 @@ def show_journo():
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
                     with st.spinner("Transcribiendo audio... ⌛"):
+                        st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         mp3_bytes = audio_a_bytes(st.session_state.archivo)
-                        #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(mp3_bytes)"])
                         cargar_y_transcribir_audio(mp3_bytes)
                     
     
@@ -60,14 +38,13 @@ def show_journo():
             if audio is not None:
                 if st.button("Guardar audio", type = "primary", key = "record"):
                     with st.spinner("Transcribiendo audio... ⌛"):
-                    #subprocess.Popen(["python", "-c", "cargar_y_transcribir_audio(audio['bytes'])"])
+                        st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         cargar_y_transcribir_audio(audio['bytes'])
                         
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-            st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")
-
-
+            st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")   
+    
     if st.session_state.phase == 1:
         st.info(f"Una vez acabes de rellenar los campos, ve a la pestaña de 'Transcripción' para continuar")
         st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = st.session_state.X)
@@ -83,9 +60,6 @@ def show_journo():
             st.info("Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
-            
-            if st.button("Guardar transcripción editada", type = "primary"):
-                st.rerun()
 
         else:
             st.warning('Aún no has generado ninguna transcripción')
@@ -136,64 +110,60 @@ def show_journo():
     if st.session_state.phase == 4:
         if 'noticia_generada' in st.session_state:
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
-            st.info("Podrás editar la noticia directamente aquí para adaptarla a tu gusto. Si lo prefieres, puedes pedirle a la IA que lo haga por ti en la pestaña de 'Chatear con IA'")
-            if st.session_state.generacion:
-
-                response_noticia = openai_client.chat.completions.create(
-                    model="gpt-4-turbo-preview",
-                    messages=st.session_state.mensajes_noticias,
-                    temperature=0,
-                    seed = 42,
-                    stream = True
-                )
-
-                full_response = ""
-                message_placeholder = st.empty()
-                for chunk in response_noticia:
-                    if chunk.choices[0].delta.content is not None:
-                        full_response += chunk.choices[0].delta.content   
-                        message_placeholder.markdown(full_response + "▌")
-
-                if st.session_state.extra:
-                    st.session_state.noticia_extra = full_response
-                    st.session_state.noticia_editada = st.session_state.noticia_extra
-                else:
-                    st.session_state.noticia_generada = full_response
-                    st.session_state.noticia_editada = st.session_state.noticia_generada
-                    
-                st.session_state.generacion = False
-                st.session_state.extra = False
-                st.session_state.mensajes_noticias.append({"role": "assistant", "content": full_response})
-                st.rerun() 
-            else:
+            with st.expander('Editar noticia original'):
                 st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
-                        
-            a,b = st.columns([0.7,1])
-            with a:
-                boton_extra = st.button("Añadir más contenido", type = "primary")
-            with b:
-                boton_regenerar = st.button("Volver a generar noticia", type = "primary")
+                if st.button("Guardar noticia", type = "primary"): 
+                   st.session_state.messages.append({"role": "user", "content": f'Esta es la nueva noticia editada por mi: {st.session_state.noticia_editada}'})
+                    
+                if st.button("Volver a generar noticia", type = "primary"): 
+                  with st.spinner("Generando noticia... ⌛"):
+                    st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                    st.session_state.generacion = True
+                    st.rerun()
 
-            if boton_extra:
-              with st.spinner("Añadiendo contenido a la noticia... ⌛"):
-                st.session_state.mensajes_noticias.append({"role": "user", "content": 'Añade cinco párrafos más a la noticia que cumplan escrupulosamente las indicaciones iniciales, sean coherentes con el resto del texto y no repitan información ya dada. Recuerda que solo puedes citar entre comillas citas exactas del individuo'})
-                st.session_state.generacion = True
-                st.session_state.extra = True
-                st.rerun()
-                
-            if boton_regenerar: 
-              with st.spinner("Generando noticia... ⌛"):
-                st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.session_state.noticia_generada = ''
-                st.session_state.generacion = True
-                st.rerun()
         else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
             if st.button("Generar noticia", type = "primary"):
               with st.spinner("Generar noticia... ⌛"):
-                st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.session_state.noticia_generada = ''
-                st.session_state.generacion = True
-                st.rerun()
+                st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+
+        with st.container(height = min(len(st.session_state.messages) * 150, 500)):
+            for i in range(len(st.session_state.messages)):
+                if st.session_state.messages[i]["role"] == "system" or i == 1:
+                    pass
+                else:
+                    with st.chat_message(st.session_state.messages[i]["role"]):
+                        st.markdown(st.session_state.messages[i]["content"])
+            
+            if prompt := st.chat_input("Pregunta lo que quieras") or st.session_state.generacion:
+    
+                if st.session_state.generacion == False:
                 
+                    st.session_state.messages.append({"role": "user", "content": prompt})
+                
+                    with st.chat_message("user"): 
+                        st.markdown(prompt)
+                
+                with st.chat_message("assistant"):
+   
+                    response = openai_client.chat.completions.create(
+                    model="gpt-4-turbo-preview",
+                    messages=st.session_state.messages,
+                    temperature = 0,
+                    stream = True
+                    )
+                    
+                    message_placeholder = st.empty()
+                    full_response = ""
+                    
+                    for chunk in response:
+                        if chunk.choices[0].delta.content is not None:
+                            full_response += chunk.choices[0].delta.content
+                            message_placeholder.markdown(full_response + "▌")
+        
+                              
+                    st.session_state.messages.append({"role": "assistant", "content": full_response})
+                    st.session_state.generacion = False
+                    st.rerun()
+
     return
