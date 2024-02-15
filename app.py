@@ -10,8 +10,13 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-from journo.components.boton_stripe import boton_stripe
-value = boton_stripe()
+# Agrega el script de Stripe
+st.markdown("""
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <stripe-buy-button buy-button-id="buy_btn_1Ok56qK1QYY02aNnRgduTwjR"
+    publishable-key="pk_test_51OdxyzK1QYY02aNnkIkBfeVlK4k1fo7v07TO9WuZJ7VMuPaQbAHnCtSyIJTg9BSt9beCeBDG4IUAFg8ZTMSXRnXQ00Sml5euD7">
+    </stripe-buy-button>
+""", unsafe_allow_html=True)
 
 
 if "messages" not in st.session_state:
