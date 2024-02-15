@@ -149,7 +149,7 @@ def show_journo():
 
         with st.container():
             for i in range(len(st.session_state.messages)):
-                if st.session_state.messages[i]["role"] == "system":
+                if st.session_state.messages[i]["role"] == "system" or i == 1:
                     pass
                 else:
                     with st.chat_message(st.session_state.messages[i]["role"]):
@@ -184,12 +184,14 @@ def show_journo():
         
                               
                     st.session_state.messages.append({"role": "assistant", "content": full_response})
+                    st.session_state.generacion = False
                     st.rerun()
 
                 
         if st.button("Volver a generar noticia", type = "primary"): 
           with st.spinner("Generando noticia... ⌛"):
             st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+            st.session_state.generacion = True
             st.rerun()
                   
     return
