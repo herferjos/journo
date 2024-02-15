@@ -147,41 +147,41 @@ def show_journo():
               with st.spinner("Generar noticia... ⌛"):
                 st.session_state.mensajes_noticias = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
 
-
-    for message in st.session_state.messages:
-        if message["role"] == "system":
-            pass
-        else:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
-    
-    
-    if prompt := st.chat_input("Pregunta lo que quieras"):
+    with st.container():
+        for message in st.session_state.messages:
+            if message["role"] == "system":
+                pass
+            else:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
         
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+        
+        if prompt := st.chat_input("Pregunta lo que quieras"):
             
-        with st.chat_message("assistant"):
-                    
-            response = openai_client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=st.session_state.messages,
-            temperature = 0,
-            stream = True
-            )
-            
-            message_placeholder = st.empty()
-            full_response = ""
-            
-            for chunk in response:
-                if chunk.choices[0].delta.content is not None:
-                    full_response += chunk.choices[0].delta.content
-                    message_placeholder.markdown(full_response + "▌")
-
-                      
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
-            st.rerun()
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            with st.chat_message("user"):
+                st.markdown(prompt)
+                
+            with st.chat_message("assistant"):
+                        
+                response = openai_client.chat.completions.create(
+                model="gpt-4-turbo-preview",
+                messages=st.session_state.messages,
+                temperature = 0,
+                stream = True
+                )
+                
+                message_placeholder = st.empty()
+                full_response = ""
+                
+                for chunk in response:
+                    if chunk.choices[0].delta.content is not None:
+                        full_response += chunk.choices[0].delta.content
+                        message_placeholder.markdown(full_response + "▌")
+    
+                          
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                st.rerun()
 
                 
     if st.button("Volver a generar noticia", type = "primary"): 
