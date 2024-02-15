@@ -88,9 +88,7 @@ with st.sidebar:
             if st.session_state.noticia_cargada == True:
                 
                 st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")   
-    
-    st.write('---')
-    
+        
     c,d = st.columns(2)
 
     with c:
