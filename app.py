@@ -8,8 +8,8 @@ import time
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 
-img = Image.open("files/logo-removebg-preview.png")
-if st.button(st.image(img)):
+
+if st.button(st.image("files/logo-removebg-preview.png")):
     st.write('Hola')
 
 try:
