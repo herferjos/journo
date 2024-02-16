@@ -64,47 +64,47 @@ def show_journo():
             st.warning('Aún no has generado ninguna transcripción')
     
     if st.session_state.phase == 3:
-            if 'anotaciones_0' in st.session_state:
-                with st.expander('✍🏼Ver anotaciones'):
-                      st.info("Aquí los momentos de mayor relevancia en las declaraciones.")
-                        
-                      for i in range(len(st.session_state.lista)):
-                          frases = []
-                          if f'anotaciones_{i}' in st.session_state:
-                              if st.session_state[f'anotaciones_{i}'] == None:
-                                  pass
-                              else:         
-                                  for item in st.session_state[f'anotaciones_{i}']:
-                                      for x in item:
-                                        frases.append(x['label'])
-                                  st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
-    
-    
-            if 'transcription2' in st.session_state:
-                st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
-                st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
-                
+        if 'anotaciones_0' in st.session_state:
+            with st.expander('✍🏼Ver anotaciones'):
+                  st.info("Aquí los momentos de mayor relevancia en las declaraciones.")
+                    
+                  for i in range(len(st.session_state.lista)):
+                      frases = []
+                      if f'anotaciones_{i}' in st.session_state:
+                          if st.session_state[f'anotaciones_{i}'] == None:
+                              pass
+                          else:         
+                              for item in st.session_state[f'anotaciones_{i}']:
+                                  for x in item:
+                                    frases.append(x['label'])
+                              st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
+
+
+        if 'transcription2' in st.session_state:
+            st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
+            st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
+            
+            for i in range(len(st.session_state.lista)):
+              st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
+
+
+            if st.button("Guardar anotaciones", type = "primary"):
+              with st.spinner("Guardando anotaciones... ⌛"):
+                st.session_state.anotaciones_finales = []
+                  
                 for i in range(len(st.session_state.lista)):
-                  st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
-    
-    
-                if st.button("Guardar anotaciones", type = "primary"):
-                  with st.spinner("Guardando anotaciones... ⌛"):
-                    st.session_state.anotaciones_finales = []
-                      
-                    for i in range(len(st.session_state.lista)):
-                        for item in st.session_state[f'anotaciones_{i}']:
-                            for x in item:
-                                st.session_state.anotaciones_finales.append(x['label'])
-                                                    
-                    st.rerun()
-    
-    
-                if 'anotaciones_finales' in st.session_state:
-                    st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
-                
-            else:
-                st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
+                    for item in st.session_state[f'anotaciones_{i}']:
+                        for x in item:
+                            st.session_state.anotaciones_finales.append(x['label'])
+                                                
+                st.rerun()
+
+
+            if 'anotaciones_finales' in st.session_state:
+                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
+            
+        else:
+            st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
 
     if st.session_state.phase == 4:
         if 'noticia_generada' in st.session_state:
