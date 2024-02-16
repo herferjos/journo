@@ -77,6 +77,7 @@ def show_journo():
                               for item in st.session_state[f'anotaciones_{i}']:
                                   for x in item:
                                     frases.append(x['label'])
+                              st.write('')
                               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
 
