@@ -8,7 +8,7 @@ import time
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 
-try:
+
     st.markdown(
         """
         <style>
@@ -112,7 +112,8 @@ try:
         show_journo()
 
 
-except Exception as e:
-    st.error('Ha habido un error en Journo. La página será recargada en 3 segundos, si el error persiste contácta con el equipo de atención al cliente de Journo')
-    time.sleep(3)
-    st.rerun()
+#except Exception as e:
+    #st.write(e)
+    #st.error('Ha habido un error en Journo. La página será recargada en 3 segundos, si el error persiste contácta con el equipo de atención al cliente de Journo')
+    #time.sleep(3)
+    #st.rerun()
