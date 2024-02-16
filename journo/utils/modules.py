@@ -40,7 +40,7 @@ def reset_variables():
     keys_to_delete.extend([
         'mp3_audio_path', 'archivo', 'transcription1', 'transcription2', 
         'transcripcion_editada', 'X', 'Y', 'Z', 'A', 'B', 'noticia_generada',
-        'lista', 'anotaciones_finales', 'noticia_editada', 'noticia_generada',
+        'lista', 'anotaciones_finales', 'noticia_editada',
         'noticia_cargada', 'noticia_extra'
     ])
 
