@@ -79,7 +79,7 @@ def show_journo():
                                     frases.append(x['label'])
                               
                   for frase in frases:
-                    st.write(generar_html_con_destacados(st.session_state.lista[i], frase), unsafe_allow_html=True)
+                    st.write(generar_html_con_destacados(st.session_state.lista[i], [frase]), unsafe_allow_html=True)
 
 
         if 'transcription2' in st.session_state:
