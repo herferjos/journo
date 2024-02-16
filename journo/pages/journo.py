@@ -114,7 +114,7 @@ def show_journo():
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
             with st.expander('Editar noticia original'):
                 st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
-            a,b = st.columns([0.7,1])
+            a,b = st.columns([0.5,1])
             with a:
                 if st.button("Guardar noticia", type = "primary"): 
                    st.session_state.messages.append({"role": "user", "content": f'Esta es la nueva noticia editada por mi: {st.session_state.noticia_editada}'})
