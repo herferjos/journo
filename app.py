@@ -40,6 +40,8 @@ try:
         st.session_state.B = None
     if 'generacion' not in st.session_state:   
         st.session_state.generacion = False
+    if 'variables_dinamicas' not in st.session_state:   
+        st.session_state.variables_dinamicas = {}  
     
     
     st.markdown("""
