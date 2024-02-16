@@ -15,27 +15,10 @@ import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_gsheets import GSheetsConnection
-import base64
-from st_clickable_images import clickable_images
+
 
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
-
-def clickable_logo():
-  images = []
-  for file in ["files/logo-removebg-preview.png"]:
-      with open(file, "rb") as image:
-          encoded = base64.b64encode(image.read()).decode()
-          images.append(f"data:image/jpeg;base64,{encoded}")
-  
-  clicked = clickable_images(
-      images,
-      titles=[f"Image #{str(i)}" for i in range(2)],
-      div_style={"display": "flex", "justify-content": "center", "flex-wrap": "wrap"},
-      img_style={"margin": "5px", "height": "200px"},
-  )
-  
-  return clicked
 
 def load_database(force=False):
   if 'database' not in st.session_state or force:
