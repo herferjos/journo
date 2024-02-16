@@ -119,7 +119,7 @@ def show_journo():
                 if st.button("Guardar noticia", type = "primary"): 
                    st.session_state.messages.append({"role": "user", "content": f'Esta es la nueva noticia editada por mi: {st.session_state.noticia_editada}'})
                 
-            ith b:
+            with b:
                 if st.button("Volver a generar noticia", type = "primary"): 
                   with st.spinner("Generando noticia... ⌛"):
                     st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
