@@ -97,12 +97,17 @@ with st.sidebar:
     c,d = st.columns(2)
 
     with c:
-        if st.button("Nueva noticia", type = "primary", key = "restart"):
-            reset_variables()
+        boton_reset = st.button("Nueva noticia", type = "primary", key = "restart")
+        
+    if boton_reset:
+        reset_variables()
+        
     with d:
-        if st.button("Guardar progreso", type = "primary"):
-            guardar_info()
-            st.rerun()
+        boton_guardar = st.button("Guardar progreso", type = "primary")
+        
+    if boton_guardar:
+        guardar_info()
+        st.rerun()
         
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
