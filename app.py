@@ -77,8 +77,6 @@ with st.sidebar:
             st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
 
             if st.button("Crear nueva noticia", type = "primary", key = "start"):
-                st.warning('¿Estás seguro de que quieres comenzar a crear una nueva noticia desde cero? Perderás la noticia que estás editando ahora mismo')
-                if st.button("¡Sí, adelante!", type = "primary", key = "yes"): 
                     reset_variables()
         
         else:
