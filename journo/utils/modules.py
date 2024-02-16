@@ -81,21 +81,15 @@ def generar_txt():
     contenido = ""
     for variable, valor in st.session_state.items():
         if variable.startswith('anotaciones') or variable.startswith('messages') or variable.startswith('lista'):
+
             contenido += f"st.session_state.{variable} = {valor}\n"
 
-    contenido += f"st.session_state.X = '''{st.session_state.X}'''\n"
-    contenido += f"st.session_state.Y = '''{st.session_state.Y}'''\n"
-    contenido += f"st.session_state.Z = '''{st.session_state.Z}'''\n"
-    contenido += f"st.session_state.A = '''{st.session_state.A}'''\n"
-    contenido += f"st.session_state.B = '''{st.session_state.B}'''\n"
-    contenido += f"st.session_state.transcription2 = '''{st.session_state.transcription2}'''\n"
-    contenido += f"st.session_state.transcripcion_editada = '''{st.session_state.transcripcion_editada}'''\n"
-    contenido += f"st.session_state.anotaciones_finales = '''{st.session_state.anotaciones_finales}'''\n"
-    contenido += f"st.session_state.lista = '''{st.session_state.lista}'''\n"
-    contenido += f"st.session_state.noticia_generada = '''{st.session_state.noticia_generada}'''\n"
-    contenido += f"st.session_state.noticia_editada = '''{st.session_state.noticia_editada}'''\n"
-    contenido += f"st.session_state.noticia_extra = '''{st.session_state.noticia_extra}'''\n"
-    contenido += f"st.session_state.mensajes_noticias = '''{st.session_state.mensajes_noticias}'''\n"
+    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcription2', 'transcripcion_editada', 'anotaciones_finales', 'lista', 'noticia_generada', 'noticia_editada', 'noticia_extra', 'mensajes_noticias']
+    
+    contenido = ""
+    for variable in variables:
+        if variable in st.session_state: 
+            contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
     
     return contenido
         
