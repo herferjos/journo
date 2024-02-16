@@ -67,17 +67,19 @@ def show_journo():
         if 'anotaciones_0' in st.session_state:
             with st.expander('✍🏼Ver anotaciones'):
                   st.info("Aquí los momentos de mayor relevancia en las declaraciones.")
-                    
+                   
                   for i in range(len(st.session_state.lista)):
+                      frases = []
                       if f'anotaciones_{i}' in st.session_state:
                           if st.session_state[f'anotaciones_{i}'] == None:
                               pass
                           else:         
                               for item in st.session_state[f'anotaciones_{i}']:
                                   for x in item:
-
-                                    st.write('')
-                                    st.write(generar_html_con_destacados(st.session_state.lista[i], x['label']), unsafe_allow_html=True)
+                                    frases.append(x['label'])
+                                      
+                    for frase in frases:
+                        st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
 
         if 'transcription2' in st.session_state:
