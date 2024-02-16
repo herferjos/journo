@@ -83,9 +83,9 @@ def show_journo():
         if 'transcription2' in st.session_state:
             st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
-            variables_dinamicas = {}
+            
             for i in range(len(st.session_state.lista)):
-              variables_dinamicas[f"anotaciones_{i}"] = text_highlighter(st.session_state.lista[i])
+              st.session_state.variables_dinamicas[f"anotaciones_{i}"] = text_highlighter(st.session_state.lista[i])
             
 
             if st.button("Guardar anotaciones", type = "primary"):
@@ -97,7 +97,8 @@ def show_journo():
                     for item in st.session_state[f'anotaciones_{i}']:
                         for x in item:
                             st.session_state.anotaciones_finales.append(x['label'])
-                                                
+                            
+                st.session_state.variables_dinamicas = {}         
                 st.rerun()
 
 
