@@ -113,6 +113,6 @@ try:
 
 
 except Exception as e:
-    st.error('Ha habido un error en Journo. La página será recargada en 5 segundos, si el error persiste contácta con el equipo de atención al cliente de Journo')
-    time.sleep(5)
+    st.error('Ha habido un error en Journo. La página será recargada en 3 segundos, si el error persiste contácta con el equipo de atención al cliente de Journo')
+    time.sleep(3)
     st.rerun()
