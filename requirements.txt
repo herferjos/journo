@@ -72,4 +72,3 @@ stripe==8.0.0
 PyJWT==2.8.0
 st-gsheets-connection==0.0.4
 streamlit-aggrid==0.3.4
-streamlit-option-menu==0.3.12
