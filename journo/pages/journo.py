@@ -84,8 +84,9 @@ def show_journo():
             st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
             
+            anotaciones= []
             for i in range(len(st.session_state.lista)):
-              st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
+              anotaciones.append(text_highlighter(st.session_state.lista[i]))
 
 
             if st.button("Guardar anotaciones", type = "primary"):
@@ -93,6 +94,7 @@ def show_journo():
                 st.session_state.anotaciones_finales = []
                   
                 for i in range(len(st.session_state.lista)):
+                    st.session_state[f'anotaciones_{i}'] = anotaciones[i]
                     for item in st.session_state[f'anotaciones_{i}']:
                         for x in item:
                             st.session_state.anotaciones_finales.append(x['label'])
