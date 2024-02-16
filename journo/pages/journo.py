@@ -164,6 +164,9 @@ def show_journo():
             
                                   
                         st.session_state.messages.append({"role": "assistant", "content": full_response})
+                        if st.session_state.generacion:
+                            st.session_state.noticia_generada = full_response
+                            st.session_state.noticia_editada = st.session_state.noticia_generada
                         st.session_state.generacion = False
                         st.rerun()
 
