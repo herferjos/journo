@@ -8,27 +8,6 @@ import time
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 
-import base64
-import streamlit as st
-from st_clickable_images import clickable_images
-
-images = []
-for file in ["files/logo-removebg-preview.png"]:
-    with open(file, "rb") as image:
-        encoded = base64.b64encode(image.read()).decode()
-        images.append(f"data:image/jpeg;base64,{encoded}")
-
-clicked = clickable_images(
-    images,
-    titles=[f"Image #{str(i)}" for i in range(2)],
-    div_style={"display": "flex", "justify-content": "center", "flex-wrap": "wrap"},
-    img_style={"margin": "5px", "height": "200px"},
-)
-
-st.markdown(f"Image #{clicked} clicked" if clicked > -1 else "No image clicked")
-
-
-
 try:
     st.markdown(
         """
@@ -77,11 +56,11 @@ try:
     load_database()
     
     with st.sidebar:
-        st.markdown(
-            "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
-            unsafe_allow_html=True
-        )
-        
+ 
+        clicked = clickable_logo():
+        if clicked == 0:
+            reset_variables()
+            clicked = None
         st.markdown(
             """
             <div style='text-align: center;'>
