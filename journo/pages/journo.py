@@ -63,7 +63,7 @@ def show_journo():
         else:
             st.warning('Aún no has generado ninguna transcripción')
     
-     if st.session_state.phase == 3:
+    if st.session_state.phase == 3:
             if 'anotaciones_0' in st.session_state:
                 with st.expander('✍🏼Ver anotaciones'):
                       st.info("Aquí los momentos de mayor relevancia en las declaraciones.")
