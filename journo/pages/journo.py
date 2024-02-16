@@ -141,7 +141,8 @@ def show_journo():
                     else:
                         with st.chat_message(st.session_state.messages[i]["role"]):
                             st.markdown(st.session_state.messages[i]["content"])
-                
+                            
+                    
                 if prompt := st.chat_input("Pregunta lo que quieras") or st.session_state.generacion:
         
                     if st.session_state.generacion == False:
