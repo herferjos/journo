@@ -125,6 +125,8 @@ def show_journo():
             if st.button("Generar noticia", type = "primary"):
               with st.spinner("Generar noticia... ⌛"):
                 st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                st.session_state.generacion = True
+                st.rerun()
 
         with st.container(height = min(len(st.session_state.messages) * 150, 500)):
             for i in range(len(st.session_state.messages)):
