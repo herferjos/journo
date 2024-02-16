@@ -8,9 +8,26 @@ import time
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 
+import base64
+import streamlit as st
+from st_clickable_images import clickable_images
 
-if st.button(st.image("files/logo-removebg-preview.png")):
-    st.write('Hola')
+images = []
+for file in ["files/logo-removebg-preview.png"]:
+    with open(file, "rb") as image:
+        encoded = base64.b64encode(image.read()).decode()
+        images.append(f"data:image/jpeg;base64,{encoded}")
+
+clicked = clickable_images(
+    images,
+    titles=[f"Image #{str(i)}" for i in range(2)],
+    div_style={"display": "flex", "justify-content": "center", "flex-wrap": "wrap"},
+    img_style={"margin": "5px", "height": "200px"},
+)
+
+st.markdown(f"Image #{clicked} clicked" if clicked > -1 else "No image clicked")
+
+
 
 try:
     st.markdown(
