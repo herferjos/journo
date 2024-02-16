@@ -57,7 +57,7 @@ try:
     
     with st.sidebar:
  
-        clicked = clickable_logo():
+        clicked = clickable_logo()
         if clicked == 0:
             reset_variables()
             clicked = None
