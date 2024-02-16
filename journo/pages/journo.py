@@ -94,7 +94,7 @@ def show_journo():
                 st.session_state.anotaciones_finales = []
                   
                 for i in range(len(st.session_state.lista)):
-                    st.session_state[f'anotaciones_{i}'] = variables_dinamicas[f"anotaciones_{i}"]
+                    st.session_state[f'anotaciones_{i}'] = st.session_state.variables_dinamicas[f"anotaciones_{i}"]
                     for item in st.session_state[f'anotaciones_{i}']:
                         for x in item:
                             st.session_state.anotaciones_finales.append(x['label'])
