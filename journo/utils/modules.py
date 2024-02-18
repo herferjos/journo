@@ -281,7 +281,7 @@ def transcribir():
     for segment in segments:
       for palabra in segment.text.split():
         if '.' in palabra:
-          separacion = '\n'
+          separacion = '\n\n'
         else:
           separacion = ' '
         st.session_state.transcription1 += palabra + separacion
