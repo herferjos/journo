@@ -36,18 +36,12 @@ st.markdown(
         width: 24px;
         height: 24px;
     }
-    a {
-        text-decoration: none; /* Añade esta línea para eliminar el subrayado del enlace */
-        color: black; /* Añade esta línea para cambiar el color del texto del enlace */
-    }
     </style>
     """
     , unsafe_allow_html=True
 )
 
-import streamlit.components.v1 as components
-
-components.html(
+st.markdown(
     """
     <a href="http://www.google.com" class="google-button">
         <span class="google-icon">
@@ -57,7 +51,9 @@ components.html(
         </span>
         Ir a Google
     </a>
-    """)
+    """
+    , unsafe_allow_html=True
+)
 
 
 
