@@ -270,10 +270,9 @@ def encontrar_ocurrencias(texto, frase):
         inicio += len(frase)
     return ocurrencias
 
-import time
-import threading
+
 import queue
-import streamlit as st
+import threading
 
 def transcribir_segmento(segment, q):
     for palabra in segment.text.split():
@@ -284,27 +283,20 @@ def transcribir_segmento(segment, q):
         q.put(palabra + separacion)
         time.sleep(0.1)
 
-def procesar_segmentos(segments, message_placeholder):
-    st.session_state.transcription1 = ''
-    q = queue.Queue()
-
-    def worker():
-        nonlocal transcription
-        for segment in segments:
-            t = threading.Thread(target=transcribir_segmento, args=(segment, q))
-            t.start()
-            while t.is_alive() or not q.empty():
-                if not q.empty():
-                    st.session_state.transcription1 += q.get()
-                    message_placeholder.markdown(st.session_state.transcription1 + "▌")
-    
-    thread = threading.Thread(target=worker)
-    thread.start()
-
 def transcribir():
     segments = transcribe_audio_2(st.session_state.mp3_audio_path)
     message_placeholder = st.empty()
-    procesar_segmentos(segments, message_placeholder)
+    st.session_state.transcription1 = ''
+
+    q = queue.Queue()
+    for segment in segments:
+        print('Empezando')
+        t = threading.Thread(target=transcribir_segmento, args=(segment, q))
+        t.start()
+        while t.is_alive() or not q.empty():
+            if not q.empty():
+                st.session_state.transcription1 += q.get()
+                message_placeholder.markdown(st.session_state.transcription1 + "▌")
 
     st.session_state.transcription2 = st.session_state.transcription1
     st.session_state.transcripcion_editada = st.session_state.transcription2
