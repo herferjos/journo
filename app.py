@@ -23,11 +23,15 @@ st.markdown(
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-decoration: none;
+        font-family: Arial, sans-serif; /* Fuente */
     }
     .google-icon {
         margin-right: 8px;
         width: 24px;
         height: 24px;
+    }
+    .google-button:hover {
+        background-color: #f0f0f0; /* Cambio de color al pasar el mouse */
     }
     </style>
     """
@@ -36,15 +40,16 @@ st.markdown(
 
 st.markdown(
     """
-    <a href="your_google_link" class="google-button">
+    <a href="https://www.google.com" class="google-button">
         <span class="google-icon">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
+            <img src="https://www.logo.wine/a/logo/Google/Google-Logo.wine.svg" alt="Google Logo">
         </span>
         Continuar con Google
     </a>
     """
     , unsafe_allow_html=True
 )
+
 
 
 
