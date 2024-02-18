@@ -7,13 +7,6 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-# Lee el contenido del archivo SVG
-with open("files/google.svg", "r") as file:
-    svg_content = file.read()
-
-# Modificar el tamaño del SVG
-svg_content = svg_content.replace('<svg ', '<svg width="40" height="40" ')
-
 # Muestra el estilo del botón de Google
 st.markdown("""
     <style>
@@ -30,6 +23,15 @@ st.markdown("""
         cursor: pointer;
         text-decoration: none;
     }
+    .google-icon {
+        margin-right: 10px;
+    }
+    .google-button:hover {
+        border-color: #000000;
+    }
+    .google-text {
+        margin-left: 10px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -40,11 +42,12 @@ st.markdown(
         <span class="google-icon">
             {svg_content}
         </span>
-        Ir a Google
+        <span class="google-text">Iniciar Sesión con Google</span>
     </a>
     """,
     unsafe_allow_html=True
 )
+
 
 
 
