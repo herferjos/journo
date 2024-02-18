@@ -139,9 +139,7 @@ def img_to_html(img_path, width=None, height=None):
 
 st.cache_resource(show_spinner = False)
 def load_model():
-    model_size = "small"
-    st.session_state.model = WhisperModel(model_size, device="cpu", compute_type="fp32")
-
+    st.session_state.model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads = 8)
     return st.session_state.model
     
 st.cache_resource(show_spinner = False)   
