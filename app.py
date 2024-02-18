@@ -27,14 +27,10 @@ st.markdown("""
         justify-content: center;
         font-weight: bold;
         cursor: pointer;
-        transition: background-color 0.3s ease;
         text-decoration: none;
     }
-    .google-button:hover {
-        background-color: #f2f2f2;
-    }
     .google-icon {
-        margin-right: 8px;
+        margin-right: 0px;
         fill: #000000;
         width: 20px;
         height: 20px;
