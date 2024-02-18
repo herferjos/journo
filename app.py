@@ -7,45 +7,45 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-# Definir el código HTML del botón
-spotify_button = """
-    <span class="ButtonInner-sc-14ud5tc-0 eqNhnK encore-inverted-dark-set">
-        <span aria-hidden="true" class="IconWrapper__Wrapper-sc-1hf1hjl-0 fypQYO">
-            <svg data-encore-id="icon" role="img" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE">
-                <path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm5.045 15.866a.686.686 0 0 1-.943.228c-2.583-1.579-5.834-1.935-9.663-1.06a.686.686 0 0 1-.306-1.337c4.19-.958 7.785-.546 10.684 1.226a.686.686 0 0 1 .228.943zm1.346-2.995a.858.858 0 0 1-1.18.282c-2.956-1.817-7.464-2.344-10.961-1.282a.856.856 0 0 1-1.11-.904.858.858 0 0 1 .611-.737c3.996-1.212 8.962-.625 12.357 1.462a.857.857 0 0 1 .283 1.179zm.116-3.119c-3.546-2.106-9.395-2.3-12.78-1.272a1.029 1.029 0 0 1-.597-1.969c3.886-1.18 10.345-.952 14.427 1.471a1.029 1.029 0 0 1-1.05 1.77z"></path>
-            </svg>
-        </span>
-        Continuar con Spotify
-    </span>
-"""
-
-# Estilo CSS para el botón
-button_style = """
-    .ButtonInner-sc-14ud5tc-0.eqNhnK.encore-inverted-dark-set {
-        background-color: #1DB954;
+st.markdown(
+    """
+    <style>
+    .spotify-button {
+        background-color: #1db954;
         color: white;
         padding: 10px 20px;
         border-radius: 5px;
-        cursor: pointer;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
         font-weight: bold;
-        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
-    .ButtonInner-sc-14ud5tc-0.eqNhnK.encore-inverted-dark-set:hover {
-        background-color: #25A856;
+    .spotify-button:hover {
+        background-color: #179246;
     }
-"""
+    .spotify-icon {
+        margin-right: 8px;
+    }
+    </style>
+    """
+    , unsafe_allow_html=True
+)
 
-# Aplicar el estilo CSS
-st.markdown(f"<style>{button_style}</style>", unsafe_allow_html=True)
-
-# Mostrar el botón
-if st.button("Continuar con Spotify", unsafe_allow_html=True):
-    # Aquí puedes agregar la lógica para continuar con Spotify
-    st.write("Continuando con Spotify...")
+st.markdown(
+    """
+    <a href="your_spotify_link" class="spotify-button">
+        <span class="spotify-icon">
+            <svg viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 bneLcE">
+                <path fill="#ffffff" d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm5.045 15.866a.686.686 0 0 1-.943.228c-2.583-1.579-5.834-1.935-9.663-1.06a.686.686 0 0 1-.306-1.337c4.19-.958 7.785-.546 10.684 1.226a.686.686 0 0 1 .228.943zm1.346-2.995a.858.858 0 0 1-1.18.282c-2.956-1.817-7.464-2.344-10.961-1.282a.856.856 0 0 1-1.11-.904.858.858 0 0 1 .611-.737c3.996-1.212 8.962-.625 12.357 1.462a.857.857 0 0 1 .283 1.179zm.116-3.119c-3.546-2.106-9.395-2.3-12.78-1.272a1.029 1.029 0 0 1-.597-1.969c3.886-1.18 10.345-.952 14.427 1.471a1.029 1.029 0 0 1-1.05 1.77z"></path>
+            </svg>
+        </span>
+        Continuar con Spotify
+    </a>
+    """
+    , unsafe_allow_html=True
+)
 
 
 
