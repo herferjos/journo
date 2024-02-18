@@ -63,13 +63,6 @@ def require_auth(
         raise ValueError("payment_provider must be 'stripe'")
 
     if not is_subscriber:
-
-        redirect_button(
-            text="¡Suscríbete para usar Journo!",
-            customer_email=user_email,
-            payment_provider=payment_provider,
-        )
-        
         st.markdown(
             "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
             unsafe_allow_html=True
@@ -82,6 +75,11 @@ def require_auth(
             </div>
             """,
             unsafe_allow_html=True
+        )
+        redirect_button(
+            text="¡Suscríbete para usar Journo!",
+            customer_email=user_email,
+            payment_provider=payment_provider,
         )
         
         show_inicio()
