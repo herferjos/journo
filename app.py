@@ -45,7 +45,9 @@ st.markdown(
     , unsafe_allow_html=True
 )
 
-st.markdown(
+import streamlit.components.v1 as components
+
+components.html(
     """
     <a href="http://www.google.com" class="google-button">
         <span class="google-icon">
@@ -55,9 +57,7 @@ st.markdown(
         </span>
         Ir a Google
     </a>
-    """
-    , unsafe_allow_html=True
-)
+    """)
 
 
 
