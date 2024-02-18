@@ -10,7 +10,11 @@ st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 import streamlit as st
 
-# Definir el estilo del botón de Google
+# Lee el contenido del archivo SVG
+with open("files/google.svg", "r") as file:
+    svg_content = file.read()
+
+# Define el estilo del botón de Google
 google_button_style = """
     <style>
     .google-button {
@@ -39,16 +43,15 @@ google_button_style = """
     </style>
 """
 
-# Mostrar el botón de Google
+# Muestra el estilo del botón de Google
 st.markdown(google_button_style, unsafe_allow_html=True)
 
+# Muestra el botón de Google con el SVG cargado
 st.markdown(
-    """
+    f"""
     <a href="http://www.google.com" class="google-button">
         <span class="google-icon">
-            <svg viewBox="0 0 24 24" class="google-icon">
-                <path fill="#000000" d="M21.39 11.57h-8.02v2.86h4.6c-.19 1.27-1.05 3.08-2.86 4.09l-.13.08c-1.64 1.02-3.71 1.04-5.36 0l-.13-.08c-1.8-1.02-2.67-2.82-2.86-4.09H2.63v-2.86h4.08c-.38-1.1-.59-2.27-.59-3.48 0-1.21.21-2.38.59-3.48H2.63v-2.86h4.62c.2-1.27 1.06-3.07 2.86-4.09l.13-.08c1.65-1.02 3.72-1.04 5.36 0l.13.08c1.8 1.02 2.67 2.82 2.86 4.09h4.62v2.86h-4.08c.38 1.1.59 2.27.59 3.48 0 1.21-.21 2.38-.59 3.48h4.08v2.86z"></path>
-            </svg>
+            {svg_content}
         </span>
         Ir a Google
     </a>
