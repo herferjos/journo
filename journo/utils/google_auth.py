@@ -51,15 +51,18 @@ def markdown_button(url: str, text: Optional[str] = None, color="#FD504D", sideb
         # Muestra el estilo del botón de Google
         st.markdown("""
             <style>
+            .google-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh; /* Ajusta la altura según necesites */
+            }
             .google-button {
                 background-color: #ffffff;
                 color: #000000;
                 padding: 10px 20px;
                 border: 2px solid #cccccc;
                 border-radius: 5px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
                 font-weight: bold;
                 cursor: pointer;
                 text-decoration: none;
@@ -76,15 +79,17 @@ def markdown_button(url: str, text: Optional[str] = None, color="#FD504D", sideb
             </style>
         """, unsafe_allow_html=True)
         
-        # Muestra el botón de Google con el SVG cargado
+        # Muestra el botón de Google con el SVG cargado centrado en la página
         st.markdown(
             f"""
-            <a href="http://www.google.com" class="google-button">
-                <span class="google-icon">
-                    {svg_content}
-                </span>
-                Iniciar Sesión
-            </a>
+            <div class="google-container">
+                <a href="http://www.google.com" class="google-button">
+                    <span class="google-icon">
+                        {svg_content}
+                    </span>
+                    Iniciar Sesión
+                </a>
+            </div>
             """,
             unsafe_allow_html=True
         )
