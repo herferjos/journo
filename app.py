@@ -10,8 +10,8 @@ st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
 import streamlit as st
 
-st.markdown(
-    """
+# Definir el estilo del botón de Google
+google_button_style = """
     <style>
     .google-button {
         background-color: #ffffff;
@@ -37,9 +37,10 @@ st.markdown(
         height: 24px;
     }
     </style>
-    """
-    , unsafe_allow_html=True
-)
+"""
+
+# Mostrar el botón de Google
+st.markdown(google_button_style, unsafe_allow_html=True)
 
 st.markdown(
     """
@@ -51,10 +52,9 @@ st.markdown(
         </span>
         Ir a Google
     </a>
-    """
-    , unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True
 )
-
 
 
 
