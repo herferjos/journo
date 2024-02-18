@@ -289,6 +289,7 @@ def transcribir():
 
     q = queue.Queue()
     for segment in segments:
+        print('Empezando')
         t = threading.Thread(target=transcribir_segmento, args=(segment, q))
         t.start()
         while t.is_alive() or not q.empty():
