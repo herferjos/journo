@@ -37,6 +37,7 @@ st.markdown(
         height: 24px;
     }
     a {
+        text-decoration: none; /* Añade esta línea para eliminar el subrayado del enlace */
         color: black; /* Añade esta línea para cambiar el color del texto del enlace */
     }
     </style>
@@ -57,6 +58,7 @@ st.markdown(
     """
     , unsafe_allow_html=True
 )
+
 
 
 
