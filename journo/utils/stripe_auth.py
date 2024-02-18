@@ -50,7 +50,7 @@ def redirect_button(
         .pago-button {
             background-color: #ffffff;
             color: #000000;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border: 2px solid #cccccc;
             border-radius: 5px;
             font-weight: bold;
