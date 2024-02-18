@@ -270,44 +270,44 @@ def encontrar_ocurrencias(texto, frase):
         inicio += len(frase)
     return ocurrencias
 
-import queue
+import time
 import threading
+import queue
+import streamlit as st
 
-def transcribir_segmento(segment_queue, transcription_queue):
-    while not segment_queue.empty():
-        segment = segment_queue.get()
-        transcripcion = ''
-        for palabra in segment.split():
-            if '.' in palabra:
-                separacion = '\n\n'
-            else:
-                separacion = ' '
-            transcripcion += palabra + separacion
-            time.sleep(0.1)
-        transcription_queue.put(transcripcion)
+def transcribir_segmento(segment, q):
+    for palabra in segment.text.split():
+        if '.' in palabra:
+            separacion = '\n\n'
+        else:
+            separacion = ' '
+        q.put(palabra + separacion)
+        time.sleep(0.1)
 
-def transcribir(segments):
-    segment_queue = queue.Queue()
-    transcription_queue = queue.Queue()
+def procesar_segmentos(segments, message_placeholder):
+    st.session_state.transcription1 = ''
+    q = queue.Queue()
 
-    # Llenar la cola de segmentos
-    for segment in segments:
-        segment_queue.put(segment)
+    def worker():
+        nonlocal transcription
+        for segment in segments:
+            t = threading.Thread(target=transcribir_segmento, args=(segment, q))
+            t.start()
+            while t.is_alive() or not q.empty():
+                if not q.empty():
+                    st.session_state.transcription1 += q.get()
+                    message_placeholder.markdown(st.session_state.transcription1 + "▌")
+    
+    thread = threading.Thread(target=worker)
+    thread.start()
 
-    # Crear hilos para transcripción
-    threads = []
-    for _ in range(len(segments)):
-        t = threading.Thread(target=transcribir_segmento, args=(segment_queue, transcription_queue))
-        t.start()
-        threads.append(t)
+def transcribir():
+    segments = transcribe_audio_2(st.session_state.mp3_audio_path)
+    message_placeholder = st.empty()
+    procesar_segmentos(segments, message_placeholder)
 
-    # Esperar a que todos los hilos terminen
-    for t in threads:
-        t.join()
+    st.session_state.transcription2 = st.session_state.transcription1
+    st.session_state.transcripcion_editada = st.session_state.transcription2
 
-    # Recolectar las transcripciones
-    transcriptions = []
-    while not transcription_queue.empty():
-        transcriptions.append(transcription_queue.get())
+    st.rerun()
 
-    return transcriptions
