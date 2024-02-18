@@ -279,8 +279,9 @@ def transcribir():
     message_placeholder = st.empty()
     st.session_state.transcription1 = ''
     for segment in segments:
-      st.session_state.transcription1 += segment.text
-      message_placeholder.markdown(st.session_state.transcription1 + "▌")
+      for palabra in segment.split():
+        st.session_state.transcription1 += palabra
+        message_placeholder.markdown(st.session_state.transcription1 + "▌")
 
     st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
