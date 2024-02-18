@@ -279,7 +279,7 @@ def transcribir():
     message_placeholder = st.empty()
     st.session_state.transcription1 = ''
     for segment in segments:
-      st.session_state.transcription1 += segment
+      st.session_state.transcription1 += segment.text
       message_placeholder.markdown(st.session_state.transcription1 + "▌")
 
     st.session_state.transcription2 = parrafer(st.session_state.transcription1)
