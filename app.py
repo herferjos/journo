@@ -13,8 +13,8 @@ import streamlit as st
 with open("files/google.svg", "r") as file:
     svg_content = file.read()
 
-# Define el estilo del botón de Google
-google_button_style = """
+# Muestra el estilo del botón de Google
+st.markdown("""
     <style>
     .google-button {
         background-color: #ffffff;
@@ -36,14 +36,11 @@ google_button_style = """
     .google-icon {
         margin-right: 8px;
         fill: #000000;
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
     }
     </style>
-"""
-
-# Muestra el estilo del botón de Google
-st.markdown(google_button_style, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Muestra el botón de Google con el SVG cargado
 st.markdown(
