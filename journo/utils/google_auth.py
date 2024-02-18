@@ -83,7 +83,7 @@ def markdown_button(url: str, text: Optional[str] = None, color="#FD504D", sideb
         st.markdown(
             f"""
             <div class="google-container">
-                <a href="http://www.google.com" class="google-button">
+                <a href={url} class="google-button">
                     <span class="google-icon">
                         {svg_content}
                     </span>
