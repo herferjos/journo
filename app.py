@@ -6,15 +6,15 @@ import time
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
-import streamlit as st
 
 st.markdown(
     """
     <style>
-    .spotify-button {
-        background-color: #1db954;
-        color: #ffffff;
+    .google-button {
+        background-color: #ffffff; /* Fondo blanco */
+        color: #000000; /* Texto negro */
         padding: 10px 20px;
+        border: 1px solid #808080; /* Bordes grises */
         border-radius: 5px;
         display: inline-flex;
         align-items: center;
@@ -22,16 +22,12 @@ st.markdown(
         font-weight: bold;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        text-decoration: none; /* added */
+        text-decoration: none;
     }
-    .spotify-button:hover {
-        background-color: #179246;
-    }
-    .spotify-icon {
+    .google-icon {
         margin-right: 8px;
-        fill: #ffffff; /* added */
-        width: 24px; /* added */
-        height: 24px; /* added */
+        width: 24px;
+        height: 24px;
     }
     </style>
     """
@@ -40,13 +36,11 @@ st.markdown(
 
 st.markdown(
     """
-    <a href="your_spotify_link" class="spotify-button">
-        <span class="spotify-icon">
-            <svg viewBox="0 0 24 24" class="spotify-icon">
-                <path fill="#ffffff" d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm5.045 15.866a.686.686 0 0 1-.943.228c-2.583-1.579-5.834-1.935-9.663-1.06a.686.686 0 0 1-.306-1.337c4.19-.958 7.785-.546 10.684 1.226a.686.686 0 0 1 .228.943zm1.346-2.995a.858.858 0 0 1-1.18.282c-2.956-1.817-7.464-2.344-10.961-1.282a.856.856 0 0 1-1.11-.904.858.858 0 0 1 .611-.737c3.996-1.212 8.962-.625 12.357 1.462a.857.857 0 0 1 .283 1.179zm.116-3.119c-3.546-2.106-9.395-2.3-12.78-1.272a1.029 1.029 0 0 1-.597-1.969c3.886-1.18 10.345-.952 14.427 1.471a1.029 1.029 0 0 1-1.05 1.77z"></path>
-            </svg>
+    <a href="your_google_link" class="google-button">
+        <span class="google-icon">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google Logo">
         </span>
-        Continuar con Spotify
+        Continuar con Google
     </a>
     """
     , unsafe_allow_html=True
