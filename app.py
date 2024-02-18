@@ -6,15 +6,16 @@ import time
 
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
+import streamlit as st
 
 st.markdown(
     """
     <style>
     .google-button {
-        background-color: #ffffff; /* Fondo blanco */
-        color: #000000; /* Texto negro */
+        background-color: #ffffff;
+        color: #000000;
         padding: 10px 20px;
-        border: 1px solid #808080; /* Bordes grises */
+        border: 2px solid #cccccc;
         border-radius: 5px;
         display: inline-flex;
         align-items: center;
@@ -23,15 +24,15 @@ st.markdown(
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-decoration: none;
-        font-family: Arial, sans-serif; /* Fuente */
+    }
+    .google-button:hover {
+        background-color: #f2f2f2;
     }
     .google-icon {
         margin-right: 8px;
+        fill: #000000;
         width: 24px;
         height: 24px;
-    }
-    .google-button:hover {
-        background-color: #f0f0f0; /* Cambio de color al pasar el mouse */
     }
     </style>
     """
@@ -40,11 +41,13 @@ st.markdown(
 
 st.markdown(
     """
-    <a href="https://www.google.com" class="google-button">
+    <a href="http://www.google.com" class="google-button">
         <span class="google-icon">
-            <img src="https://www.logo.wine/a/logo/Google/Google-Logo.wine.svg" alt="Google Logo">
+            <svg viewBox="0 0 24 24" class="google-icon">
+                <path fill="#000000" d="M6 3c3.309 0 5.977 2.691 5.977 6 0 2.263-1.17 4.204-2.936 5.329l-.023.02 1.116 1.484c1.283-1.037 3.448-2.422 3.448-4.838C13.582 5.691 10.914 3 7.605 3c-1.17 0-2.238.445-3.054 1.18l1.346 1.602C5.075 5.383 6 4.276 6 3zm9 4a4.482 4.482 0 0 1-1.027 2.861c-.241.357-.634.872-1.109 1.398-1.256 1.256-2.654 2.665-2.654 5.188h2c0-1.635.724-2.635 1.557-3.468l1.857-1.857c.459-.459 1.248-.459 1.707 0 .236.236.365.547.365.854 0 .307-.129.618-.365.854l-1.428 1.428 1.442 1.442c1.318-1.318 2.901-2.891 2.901-5.824 0-3.309-2.691-6-6-6z"></path>
+            </svg>
         </span>
-        Continuar con Google
+        Ir a Google
     </a>
     """
     , unsafe_allow_html=True
