@@ -36,7 +36,7 @@ def redirect_button(
         svg_content = file.read()
     
     # Modificar el tamaño del SVG
-    svg_content = svg_content.replace('<svg ', '<svg width="35" height="35" ')
+    svg_content = svg_content.replace('<svg ', '<svg width="50" height="50" ')
     
     # Muestra el estilo del botón de Google
     st.markdown("""
