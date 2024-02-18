@@ -15,7 +15,7 @@ import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_gsheets import GSheetsConnection
-
+import time
 
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
@@ -280,8 +280,9 @@ def transcribir():
     st.session_state.transcription1 = ''
     for segment in segments:
       for palabra in segment.text.split():
-        st.session_state.transcription1 += palabra
+        st.session_state.transcription1 += palabra + ' '
         message_placeholder.markdown(st.session_state.transcription1 + "▌")
+      time.sleep(0.5)
 
     st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
