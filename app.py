@@ -12,7 +12,7 @@ with open("files/google.svg", "r") as file:
     svg_content = file.read()
 
 # Modificar el tamaño del SVG
-svg_content = svg_content.replace('<svg ', '<svg width="30" height="30" ')
+svg_content = svg_content.replace('<svg ', '<svg width="40" height="40" ')
 
 # Muestra el estilo del botón de Google
 st.markdown("""
@@ -20,7 +20,7 @@ st.markdown("""
     .google-button {
         background-color: #ffffff;
         color: #000000;
-        padding: 10px 20px;
+        padding: 15px 20px;
         border: 2px solid #cccccc;
         border-radius: 5px;
         display: inline-flex;
