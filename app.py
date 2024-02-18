@@ -7,7 +7,8 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-
+for variable, valor in st.session_state.items():
+    st.write(variable)
 
 st.markdown(
     """
