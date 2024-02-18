@@ -30,7 +30,7 @@ st.markdown("""
         text-decoration: none;
     }
     .google-icon {
-        margin-right: 0px;
+        margin-right: 300px;
         fill: #000000;
         width: 20px;
         height: 20px;
