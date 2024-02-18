@@ -124,7 +124,7 @@ def show_journo():
             with b:
                 boton_volver = st.button("Volver a generar noticia", type = "primary")
                 
-            if boton_generar: 
+            if boton_volver: 
               with st.spinner("Generando noticia... ⌛"):
                 st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.session_state.generacion = True
