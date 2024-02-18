@@ -7,7 +7,6 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-
 import streamlit as st
 
 # Lee el contenido del archivo SVG
@@ -58,6 +57,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 st.markdown(
