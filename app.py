@@ -51,6 +51,7 @@ st.markdown("""
 
 
 add_auth(required=True, login_sidebar = False)
+st.write('')
 
 load_database()
 
