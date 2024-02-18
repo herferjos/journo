@@ -12,7 +12,7 @@ with open("files/google.svg", "r") as file:
     svg_content = file.read()
 
 # Modificar el tamaño del SVG
-svg_content = svg_content.replace('<svg ', '<svg width="10" height="10" ')
+svg_content = svg_content.replace('<svg ', '<svg width="20" height="20" ')
 
 # Muestra el estilo del botón de Google
 st.markdown("""
