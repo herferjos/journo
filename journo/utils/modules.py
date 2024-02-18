@@ -282,7 +282,7 @@ def transcribir():
       for palabra in segment.text.split():
         st.session_state.transcription1 += palabra + ' '
         message_placeholder.markdown(st.session_state.transcription1 + "▌")
-      time.sleep(0.5)
+        time.sleep(0.2)
 
     st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
