@@ -55,7 +55,7 @@ def markdown_button(url: str, text: Optional[str] = None, color="#FD504D", sideb
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 5vh; /* Ajusta la altura según necesites */
+                height: 10vh; /* Ajusta la altura según necesites */
             }
             .google-button {
                 background-color: #ffffff;
