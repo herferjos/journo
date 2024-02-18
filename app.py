@@ -20,7 +20,7 @@ st.markdown("""
     .google-button {
         background-color: #ffffff;
         color: #000000;
-        padding: 15px 20px;
+        padding: 10px 20px;
         border: 2px solid #cccccc;
         border-radius: 5px;
         display: inline-flex;
