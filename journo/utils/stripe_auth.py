@@ -31,7 +31,7 @@ def redirect_button(
     else:
         raise ValueError("payment_provider must be 'stripe' or 'bmac'")
 
-
+        st.write('Hola')
         # Lee el contenido del archivo SVG
         with open("files/pago.svg", "r") as file:
             svg_content = file.read()
