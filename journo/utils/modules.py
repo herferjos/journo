@@ -274,6 +274,7 @@ import queue
 import threading
 
 def transcribir_segmento(segment, q):
+    print(f"Comenzando a procesar el segmento: {segment}")
     for palabra in segment.text.split():
         if '.' in palabra:
             separacion = '\n\n'
@@ -289,7 +290,6 @@ def transcribir():
 
     q = queue.Queue()
     for segment in segments:
-        print('Empezando')
         t = threading.Thread(target=transcribir_segmento, args=(segment, q))
         t.start()
         while t.is_alive() or not q.empty():
