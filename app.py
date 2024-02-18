@@ -7,11 +7,12 @@ import time
 
 st.set_page_config(page_title="Journo", page_icon="🗞️") #layout="wide"
 
-import streamlit as st
-
 # Lee el contenido del archivo SVG
 with open("files/google.svg", "r") as file:
     svg_content = file.read()
+
+# Modificar el tamaño del SVG
+svg_content = svg_content.replace('<svg ', '<svg width="100" height="100" ')
 
 # Muestra el estilo del botón de Google
 st.markdown("""
@@ -29,12 +30,6 @@ st.markdown("""
         cursor: pointer;
         text-decoration: none;
     }
-    .google-icon {
-        margin-right: 300px;
-        fill: #000000;
-        width: 0px;
-        height: 0px;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -50,6 +45,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
