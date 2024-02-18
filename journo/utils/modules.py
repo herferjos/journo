@@ -275,7 +275,7 @@ def encontrar_ocurrencias(texto, frase):
 
 
 def transcribir():
-    segments = transcribe_audio2(st.session_state.mp3_audio_path)
+    segments = transcribe_audio_2(st.session_state.mp3_audio_path)
     message_placeholder = st.empty()
     st.session_state.transcription1 = ''
     for segment in segments:
