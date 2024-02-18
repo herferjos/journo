@@ -64,11 +64,12 @@ def require_auth(
 
     if not is_subscriber:
 
-       redirect_button(
+        redirect_button(
             text="¡Suscríbete para usar Journo!",
             customer_email=user_email,
             payment_provider=payment_provider,
         )
+        
         st.markdown(
             "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>",
             unsafe_allow_html=True
