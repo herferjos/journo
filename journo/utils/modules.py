@@ -146,17 +146,14 @@ def load_model():
     
 st.cache_resource(show_spinner = False)   
 def transcribe_audio_2(file_path):
-    
-    st.session_state.model = load_model()
+
+    if 'model' not in st.session_state:
+      st.session_state.model = load_model()
     
     segments, info = st.session_state.model.transcribe(file_path, beam_size=5, 
         language="es", condition_on_previous_text=False)
-    
-    texto = ''
-    for segment in segments:
-      texto += segment.text
         
-    return texto
+    return segments
   
 st.cache_resource(show_spinner = False)
 # Funciones auxiliares
