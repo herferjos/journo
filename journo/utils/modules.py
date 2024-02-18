@@ -274,15 +274,13 @@ import queue
 import threading
 
 def transcribir_segmento(segment, q):
-    transcription = ''
     for palabra in segment.text.split():
         if '.' in palabra:
             separacion = '\n\n'
         else:
             separacion = ' '
-        transcription += palabra + separacion
+        q.put(palabra + separacion)
         time.sleep(0.1)
-    q.put(transcription)
 
 def transcribir():
     segments = transcribe_audio_2(st.session_state.mp3_audio_path)
@@ -297,7 +295,6 @@ def transcribir():
             if not q.empty():
                 st.session_state.transcription1 += q.get()
                 message_placeholder.markdown(st.session_state.transcription1 + "▌")
-                time.sleep(0.1)
 
     st.session_state.transcription2 = st.session_state.transcription1
     st.session_state.transcripcion_editada = st.session_state.transcription2
