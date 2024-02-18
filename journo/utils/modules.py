@@ -269,38 +269,40 @@ def encontrar_ocurrencias(texto, frase):
         ocurrencias.append((inicio, inicio + len(frase)))
         inicio += len(frase)
     return ocurrencias
-  
-import threading
-import time
+
+
+import concurrent.futures
+
+def transcribe_segment(segment, message_placeholder):
+    transcription = ''
+    for palabra in segment.text.split():
+        if '.' in palabra:
+            separacion = '\n\n'
+        else:
+            separacion = ' '
+        transcription += palabra + separacion
+        message_placeholder.markdown(transcription + "▌")
+        time.sleep(0.1)
+    return transcription
 
 def transcribir():
     segments = transcribe_audio_2(st.session_state.mp3_audio_path)
     message_placeholder = st.empty()
-    st.session_state.transcription1 = ''
-    
-    # Define una función que procesa un segmento
-    def procesar_segmento(segment):
-        for palabra in segment.text.split():
-            if '.' in palabra:
-                separacion = '\n\n'
-            else:
-                separacion = ' '
-            st.session_state.transcription1 += palabra + separacion
-            message_placeholder.markdown(st.session_state.transcription1 + "▌")
-            time.sleep(0.1)
-    
-    # Función para mostrar el progreso al usuario
-    def mostrar_progreso(segments):
+    transcription_list = []
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = []
         for segment in segments:
-            procesar_segmento(segment)
-    
-    # Lanzar un hilo para mostrar el progreso
-    thread = threading.Thread(target=mostrar_progreso, args=(segments,))
-    thread.start()
+            future = executor.submit(transcribe_segment, segment, message_placeholder)
+            futures.append(future)
 
-        
-    st.session_state.transcription2 = st.session_state.transcription1
-    #st.session_state.transcription2 = parrafer(st.session_state.transcription1)
-    st.session_state.transcripcion_editada = st.session_state.transcription2
+        for future in concurrent.futures.as_completed(futures):
+            transcription_list.append(future.result())
 
-    st.rerun()   
+    # Concatenar las transcripciones en orden
+    transcription = ''.join(transcription_list)
+
+    st.session_state.transcription1 = transcription
+    st.session_state.transcription2 = transcription
+    st.session_state.transcripcion_editada = transcription
+
