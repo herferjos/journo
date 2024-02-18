@@ -31,59 +31,58 @@ def redirect_button(
     else:
         raise ValueError("payment_provider must be 'stripe' or 'bmac'")
 
-        st.write('Hola')
-        # Lee el contenido del archivo SVG
-        with open("files/pago.svg", "r") as file:
-            svg_content = file.read()
-        
-        # Modificar el tamaño del SVG
-        svg_content = svg_content.replace('<svg ', '<svg width="35" height="35" ')
-        
-        # Muestra el estilo del botón de Google
-        st.markdown("""
-            <style>
-            .pago-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 10vh; /* Ajusta la altura según necesites */
-            }
-            .pago-button {
-                background-color: #ffffff;
-                color: #000000;
-                padding: 10px 20px;
-                border: 2px solid #cccccc;
-                border-radius: 5px;
-                font-weight: bold;
-                cursor: pointer;
-                text-decoration: none;
-            }
-            .pago-icon {
-                margin-right: 10px;
-            }
-            .pago-button:hover {
-                border-color: #000000;
-            }
-            .pago-text {
-                margin-left: 10px;
-            }
-            </style>
-        """, unsafe_allow_html=True)
-        
-        # Muestra el botón de Google con el SVG cargado centrado en la página
-        st.markdown(
-            f"""
-            <div class="pago-container">
-                <a href={button_url} class="pago-button">
-                    <span class="pago-icon">
-                        {svg_content}
-                    </span>
-                    Suscríbete
-                </a>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+    # Lee el contenido del archivo SVG
+    with open("files/pago.svg", "r") as file:
+        svg_content = file.read()
+    
+    # Modificar el tamaño del SVG
+    svg_content = svg_content.replace('<svg ', '<svg width="35" height="35" ')
+    
+    # Muestra el estilo del botón de Google
+    st.markdown("""
+        <style>
+        .pago-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10vh; /* Ajusta la altura según necesites */
+        }
+        .pago-button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .pago-icon {
+            margin-right: 10px;
+        }
+        .pago-button:hover {
+            border-color: #000000;
+        }
+        .pago-text {
+            margin-left: 10px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # Muestra el botón de Google con el SVG cargado centrado en la página
+    st.markdown(
+        f"""
+        <div class="pago-container">
+            <a href={button_url} class="pago-button">
+                <span class="pago-icon">
+                    {svg_content}
+                </span>
+                Suscríbete
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 def is_active_subscriber(email: str) -> bool:
