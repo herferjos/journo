@@ -287,8 +287,9 @@ def transcribir():
         st.session_state.transcription1 += palabra + separacion
         message_placeholder.markdown(st.session_state.transcription1 + "▌")
         time.sleep(0.1)
-
-    st.session_state.transcription2 = parrafer(st.session_state.transcription1)
+        
+    st.session_state.transcription2 = st.session_state.transcription1
+    #st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
 
     st.rerun()   
