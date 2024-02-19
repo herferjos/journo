@@ -15,6 +15,7 @@ import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_gsheets import GSheetsConnection
+import extra_streamlit_components as stx
 
 
 # Configuración de la clave API de OpenAI
@@ -146,17 +147,14 @@ def load_model():
     
 st.cache_resource(show_spinner = False)   
 def transcribe_audio_2(file_path):
-    
-    st.session_state.model = load_model()
+
+    if 'model' not in st.session_state:
+      st.session_state.model = load_model()
     
     segments, info = st.session_state.model.transcribe(file_path, beam_size=5, 
         language="es", condition_on_previous_text=False)
-    
-    texto = ''
-    for segment in segments:
-      texto += segment.text
         
-    return texto
+    return segments
   
 st.cache_resource(show_spinner = False)
 # Funciones auxiliares
@@ -164,7 +162,8 @@ def transcribe_audio(file_path):
     with open(file_path, "rb") as audio_file:
         transcript_response = openai_client.audio.transcriptions.create(
             model="whisper-1", 
-            file=audio_file
+            file=audio_file,
+            language = 'es'
         )
         # Accede al texto de la transcripción directamente desde el objeto de respuesta
         return transcript_response.text
@@ -285,3 +284,74 @@ def cargar_y_transcribir_audio(audio):
     st.session_state.transcripcion_editada = st.session_state.transcription2
 
     st.rerun()   
+
+
+def show_inicio():
+    st.write("## 🤔 ¿Qué es Journo?")
+    st.markdown(
+        """
+        <h4>Journo es un asistente de redacción con el que podrás:</h4>
+        <ul>
+            <li><strong>Automatizar</strong> la transcripción de audios</li>
+            <li><strong>Guíar</strong> a la Inteligencia Artificial a redactar la noticia a tu gusto</li>
+            <li><strong>Modificar</strong> las noticias y darle el toque final</li>
+            <li><strong>Recibirás</strong> toda la información en un correo electrónico</li>
+        </ul>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.write("")
+     
+    st.link_button("Ver video tutorial", "https://streamlit.io/gallery", type = "primary")
+    
+    st.write("---")
+        
+    st.write("## ¿Cómo funciona Journo?")
+    
+    with open('files/demo.txt', "r",encoding="utf-8") as archivo:
+        content = archivo.read()
+  
+    exec(content)
+  
+    phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacados", "Noticia"])
+  
+    if phase == 0:
+        st.write("### 1) Cargar o subir audio")
+        st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
+        try:
+            st.audio('files/audio.mp3', format="audio/mpeg")
+        except:
+            st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
+    
+    if phase == 1:
+        st.write("### 2) Describir el contexto de las declaraciones")
+        st.info("Ahora deberemos de aportar información a la Inteligencia Artificial para que sepa en qué contexto se han producido las declaraciones que has aportado")
+
+        X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = st.session_state.X_demo)
+        Y = st.text_input(":blue[¿Cuál es el nombre de la persona que habla?]", placeholder = 'Ancelotti', value = st.session_state.Y_demo)
+        A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'Rueda de Prensa', value = st.session_state.A_demo)
+        B = st.text_input(":blue[¿Cuándo ha dicho las declaraciones?]", placeholder = 'Martes 12', value = st.session_state.B_demo)
+        Z = st.text_area(":blue[Añade más contexto]", value = st.session_state.Z_demo)
+            
+    if phase == 2:
+        st.write("### 3) Transcripción de las declaraciones")
+        st.info("Journo entonces nos generará la transcripción completa del audio.")
+
+        st.write(st.session_state.transcription2_demo, unsafe_allow_html=True)
+    
+        
+    if phase == 3:
+      st.write("### 4) Selección/descarte de temas mencionados")
+      st.info("En este paso tendrás que descartar los párrafos que no te interesen (aparecerán desmarcados) y subrayar los momentos de mayor relevancia en las declaraciones.")
+      for i in range(len(st.session_state.lista_demo)):
+          frases = []
+          for item in st.session_state[f'anotaciones_{i}_demo']:
+              for x in item:
+                frases.append(x['label'])
+          st.write(generar_html_con_destacados(st.session_state.lista_demo[i], frases), unsafe_allow_html=True)
+          
+    if phase == 4:
+        st.info('Finalmente, Journo nos dará una primera versión de nuestra noticia a partir del audio y la información proporcionada. Posteriormente podremos editarla manualmente o con ayuda de Journo.')
+        st.write(st.session_state.noticia_generada_demo)
+    return 
