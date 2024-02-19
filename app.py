@@ -218,22 +218,22 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 stream = True
                 )
                 
-                message_placeholder = st.empty()
-                full_response = ""
+            message_placeholder = st.empty()
+            full_response = ""
                 
-                for chunk in response:
-                    if chunk.choices[0].delta.content is not None:
-                        full_response += chunk.choices[0].delta.content
-                        message_placeholder.markdown(full_response + "▌")
+            for chunk in response:
+                if chunk.choices[0].delta.content is not None:
+                    full_response += chunk.choices[0].delta.content
+                    message_placeholder.markdown(full_response + "▌")
 
 
-                if len(st.session_state.messages) > 2
-                    st.session_state.messages =  st.session_state.messages[:2]          
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
-                st.session_state.noticia_generada = full_response
-                st.session_state.noticia_editada = st.session_state.noticia_generada
-                st.session_state.generacion = False
-                st.rerun()
+            if len(st.session_state.messages) > 2
+                st.session_state.messages =  st.session_state.messages[:2]          
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
+            st.session_state.noticia_generada = full_response
+            st.session_state.noticia_editada = st.session_state.noticia_generada
+            st.session_state.generacion = False
+            st.rerun()
         
         if 'noticia_generada' in st.session_state:
             with st.container():
