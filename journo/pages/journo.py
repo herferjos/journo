@@ -62,8 +62,8 @@ def show_journo():
         else:
             st.warning('Aún no has generado ninguna transcripción')
             if st.button("Generar transcripción", type = "primary", key = "record"):
-                with st.spinner("Transcribiendo audio... ⌛"):
-                    transcribir()
+            with st.spinner("Transcribiendo audio... ⌛"):
+                transcribir()
     
     if st.session_state.phase == 3:
         if 'anotaciones_0' in st.session_state:
