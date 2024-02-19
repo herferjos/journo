@@ -195,12 +195,15 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.anotaciones_finales = []
                   
                 for i in range(len(st.session_state.lista)):
-                    st.session_state[f'anotaciones_{i}'] = st.session_state.anotaciones_state[i]
                     if st.session_state[f'anotaciones_{i}'] is not None:
                         for item in st.session_state[f'anotaciones_{i}']:
                             for x in item:
                                 st.session_state.anotaciones_finales.append(x['label'])
-                                                    
+
+                        st.session_state[f'anotaciones_{i}'] = st.session_state.anotaciones_state[i]
+                    else:
+                         st.session_state[f'anotaciones_{i}'] = []
+                                                      
                 st.rerun()
               
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
