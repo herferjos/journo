@@ -241,17 +241,19 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 with st.chat_message("assistant"):
                     st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
                         
-                    if st.button("Volver a generar noticia", type = "primary"): 
-                      with st.spinner("Generando noticia... ⌛"):
-                        st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                        st.session_state.generacion = True
-                        st.rerun()
-        
-                    if prompt := st.chat_input("Pregunta lo que quieras"):
-                            
-                        st.session_state.messages.append({"role": "user", "content": prompt})
-                        st.session_state.generacion = True
-                        st.rerun()
+                    a,b = st.columns([0.7,1])
+                    with a:
+                        if st.button("Volver a generar noticia", type = "primary"): 
+                          with st.spinner("Generando noticia... ⌛"):
+                            st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                            st.session_state.generacion = True
+                            st.rerun()
+                    with b:
+                        if prompt := st.chat_input("Pregunta lo que quieras"):
+                                
+                            st.session_state.messages.append({"role": "user", "content": prompt})
+                            st.session_state.generacion = True
+                            st.rerun()
 
        else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
