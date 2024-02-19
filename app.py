@@ -29,9 +29,6 @@ st.markdown(
 
 if 'messages' not in st.session_state:
     st.session_state.messages = [{'role': 'assistant', 'content': 'Hola, soy Journo y estoy aquí para ayudarte. Aún no has generado ninguna noticia. Te invito a rellenar toda la información necesaria y luego podrás volver aquí y generar tu noticia'}]
-
-if 'guardado' not in st.session_state:
-    st.session_state.guardado = False
     
 if 'noticia_cargada' not in st.session_state:
     st.session_state.noticia_cargada = False
@@ -48,8 +45,7 @@ if 'B' not in st.session_state:
     st.session_state.B = None
 if 'generacion' not in st.session_state:   
     st.session_state.generacion = False
-if 'variables_dinamicas' not in st.session_state:   
-    st.session_state.variables_dinamicas = {}  
+
 if 'anotaciones_state' not in st.session_state:
     st.session_state.anotaciones_state = []
 
@@ -200,10 +196,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                   
                 for i in range(len(st.session_state.lista)):
                     st.session_state[f'anotaciones_{i}'] = st.session_state.anotaciones_state[i]
-                    for item in st.session_state[f'anotaciones_{i}']:
-                        for x in item:
-                            st.session_state.anotaciones_finales.append(x['label'])
-                                                
+                    if st.session_state[f'anotaciones_{i}'] is not None:
+                        for item in st.session_state[f'anotaciones_{i}']:
+                            for x in item:
+                                st.session_state.anotaciones_finales.append(x['label'])
+                                                    
                 st.rerun()
               
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
