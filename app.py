@@ -227,7 +227,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     message_placeholder.markdown(full_response + "▌")
 
 
-            if len(st.session_state.messages) > 2
+            if len(st.session_state.messages) > 2:
                 st.session_state.messages =  st.session_state.messages[:2]          
             st.session_state.messages.append({"role": "assistant", "content": full_response})
             st.session_state.noticia_generada = full_response
