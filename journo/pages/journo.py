@@ -23,10 +23,11 @@ def show_journo():
 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Guardar audio", type = "primary", key = "upload"):
-                    with st.spinner("Guardando audio... ⌛"):
+                    with st.spinner("Transcribiendo audio... ⌛"):
                         st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         mp3_bytes = audio_a_bytes(st.session_state.archivo)
-                        st.session_state.mp3_audio_path = bytes_a_audio(mp3_bytes, formato_destino="mp3")                    
+                        cargar_y_transcribir_audio(mp3_bytes)
+                    
     
         with col2:
             if 'mp3_audio_path' not in st.session_state:
@@ -35,9 +36,9 @@ def show_journo():
             audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
             if audio is not None:
                 if st.button("Guardar audio", type = "primary", key = "record"):
-                    with st.spinner("Guardando audio... ⌛"):
+                    with st.spinner("Transcribiendo audio... ⌛"):
                         st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
-                        st.session_state.mp3_audio_path = bytes_a_audio(audio['bytes'], formato_destino="mp3")
+                        cargar_y_transcribir_audio(audio['bytes'])
                         
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
@@ -61,9 +62,6 @@ def show_journo():
 
         else:
             st.warning('Aún no has generado ninguna transcripción')
-            if st.button("Generar transcripción", type = "primary", key = "record"):
-            with st.spinner("Transcribiendo audio... ⌛"):
-                transcribir()
     
     if st.session_state.phase == 3:
         if 'anotaciones_0' in st.session_state:
