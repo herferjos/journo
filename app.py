@@ -126,7 +126,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.archivo = st.file_uploader("Cargar archivo de audio")
 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
-                if st.button("Guardar audio", type = "primary", key = "upload"):
+                if st.button("Generar transcripción", type = "primary", key = "upload"):
                     with st.spinner("Transcribiendo audio... ⌛"):
                         st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         mp3_bytes = audio_a_bytes(st.session_state.archivo)
@@ -139,17 +139,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         
             audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
             if audio is not None:
-                if st.button("Guardar audio", type = "primary", key = "record"):
+                if st.button("Generar transcripción", type = "primary", key = "record"):
                     with st.spinner("Transcribiendo audio... ⌛"):
                         st.warning('Estamos transcribiendo el audio, no cambies de pestaña para no perder el progreso')
                         cargar_y_transcribir_audio(audio['bytes'])
                         
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-            st.success(f"Audio cargado correctamente. Ve a la pestaña de 'Contexto' para continuar")  
 
         if 'transcription2' in st.session_state:
-            st.info("Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
+            st.success("Transcripción generada correctamente. Puedes editarla o ir directamente a la pestaña de 'Contexto' para continuar")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
     
