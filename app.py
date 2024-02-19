@@ -178,7 +178,18 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                               
                               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
-
+        if st.button("Guardar anotaciones", type = "primary"):
+          with st.spinner("Guardando anotaciones... ⌛"):
+            st.session_state.anotaciones_finales = []
+              
+            for i in range(len(st.session_state.lista)):
+                st.session_state[f'anotaciones_{i}'] = anotaciones[i]
+                for item in st.session_state[f'anotaciones_{i}']:
+                    for x in item:
+                        st.session_state.anotaciones_finales.append(x['label'])
+                                            
+            st.rerun()
+                  
         if 'transcription2' in st.session_state:
             st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
@@ -186,19 +197,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             anotaciones= []
             for i in range(len(st.session_state.lista)):
               anotaciones.append(text_highlighter(st.session_state.lista[i]))
-
-
-            if st.button("Guardar anotaciones", type = "primary"):
-              with st.spinner("Guardando anotaciones... ⌛"):
-                st.session_state.anotaciones_finales = []
-                  
-                for i in range(len(st.session_state.lista)):
-                    st.session_state[f'anotaciones_{i}'] = anotaciones[i]
-                    for item in st.session_state[f'anotaciones_{i}']:
-                        for x in item:
-                            st.session_state.anotaciones_finales.append(x['label'])
-                                                
-                st.rerun()
 
 
             if 'anotaciones_finales' in st.session_state:
