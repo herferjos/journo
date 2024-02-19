@@ -179,6 +179,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
                   
         if 'transcription2' in st.session_state:
+            anotaciones= []
             if 'anotaciones_finales' in st.session_state:
                 st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
             else:
@@ -202,8 +203,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.rerun()
               
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
-            
-            anotaciones= []
+        
             for i in range(len(st.session_state.lista)):
               anotaciones.append(text_highlighter(st.session_state.lista[i]))
 
