@@ -152,9 +152,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.info("Transcripción generada correctamente. Puedes editarla y darle a guardar o ir directamente a la pestaña de 'Selección' para continuar")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
-
-        else:
-            st.warning('Aún no has generado ninguna transcripción')
     
     if st.session_state.phase == 1:
         st.info(f"Una vez acabes de rellenar los campos, ve a la pestaña de 'Transcripción' para continuar")
