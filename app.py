@@ -166,10 +166,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                   for i in range(len(st.session_state.lista)):
                       frases = []
                       if f'anotaciones_{i}' in st.session_state:
-                          if st.session_state[f'anotaciones_{i}'] == None:
-                              pass
-                          else:
-                              st.write('prueba')
+                          if st.session_state[f'anotaciones_{i}'] is not None:
                               for item in st.session_state[f'anotaciones_{i}']:
                                   for x in item:
                                     frases.append(x['label'])
