@@ -13,7 +13,6 @@ def get_api_key() -> str:
 
 
 def redirect_button(
-    text: str,
     customer_email: str,
     color="#FD504D",
     payment_provider: str = "stripe",
