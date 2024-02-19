@@ -207,8 +207,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
               
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
             anotaciones = []
-            for i in range(len(st.session_state.lista)):
-                
+            for i in range(len(st.session_state.lista)): 
               anotaciones.append(text_highlighter(st.session_state.lista[i]))
                 if anotaciones[i] is not None:
                      st.session_state.anotaciones_state.append(anotaciones[i])
