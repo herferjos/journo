@@ -46,7 +46,8 @@ if 'generacion' not in st.session_state:
     st.session_state.generacion = False
 if 'variables_dinamicas' not in st.session_state:   
     st.session_state.variables_dinamicas = {}  
-
+if 'anotaciones_state' not in st.session_state:
+    st.session_state.anotaciones_state = []
 
 st.markdown("""
   <style>
@@ -179,7 +180,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
                   
         if 'transcription2' in st.session_state:
-            anotaciones= []
             if 'anotaciones_finales' in st.session_state:
                 st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
             else:
@@ -195,7 +195,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.anotaciones_finales = []
                   
                 for i in range(len(st.session_state.lista)):
-                    st.session_state[f'anotaciones_{i}'] = anotaciones[i]
+                    st.session_state[f'anotaciones_{i}'] = st.session_state.anotaciones_state[i]
                     for item in st.session_state[f'anotaciones_{i}']:
                         for x in item:
                             st.session_state.anotaciones_finales.append(x['label'])
@@ -205,7 +205,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
         
             for i in range(len(st.session_state.lista)):
-              anotaciones.append(text_highlighter(st.session_state.lista[i]))
+              st.session_state.anotaciones_state.append(text_highlighter(st.session_state.lista[i]))
 
             
         else:
