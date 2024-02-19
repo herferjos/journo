@@ -237,9 +237,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         
        if 'noticia_generada' in st.session_state:
             with st.container():
+                st.write("""## ✅ ¡Ya está lista tu noticia!""")
                 with st.chat_message("assistant"):
-                    st.write("""## ✅ ¡Ya está lista tu noticia!""")
-                    
                     st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
                         
                     if st.button("Volver a generar noticia", type = "primary"): 
