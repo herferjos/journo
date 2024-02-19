@@ -1,6 +1,6 @@
 import streamlit as st
-from journo.utils.aggregate_auth import add_auth
-from journo.utils.modules import *
+from journo.aggregate_auth import add_auth
+from journo.modules import *
 import time
 from streamlit_annotation_tools import text_highlighter
 from streamlit_mic_recorder import mic_recorder
