@@ -253,7 +253,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.generacion = True
                     st.rerun()
 
-         else:
+       else:
             st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
             if st.button("Generar noticia", type = "primary"):
               with st.spinner("Generar noticia... ⌛"):
