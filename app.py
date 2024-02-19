@@ -12,6 +12,7 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
 
+st.write(st.session_state.anotaciones_finales)
 for key in st.session_state:
     if key.startswith('anotaciones'):
         st.write(st.session_state[f'{key}'])
@@ -193,7 +194,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.anotaciones_finales = []
                   
                 for i in range(len(st.session_state.lista)):
-                    if st.session_state.anotaciones_state[i]is not None:
+                    if st.session_state.anotaciones_state[i] is not None:
                         for item in st.session_state.anotaciones_state[i]:
                             for x in item:
                                 st.session_state.anotaciones_finales.append(x['label'])
