@@ -12,7 +12,8 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
 
-st.write(st.session_state.anotaciones_finales)
+if 'anotaciones_finales' in st.session_state:
+    st.write(st.session_state.anotaciones_finales)
 for key in st.session_state:
     if key.startswith('anotaciones'):
         st.write(st.session_state[f'{key}'])
