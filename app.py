@@ -191,16 +191,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.rerun()
                   
         if 'transcription2' in st.session_state:
-            st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
+            if 'anotaciones_finales' in st.session_state:
+                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
+            else:
+                st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
             
             anotaciones= []
             for i in range(len(st.session_state.lista)):
               anotaciones.append(text_highlighter(st.session_state.lista[i]))
 
-
-            if 'anotaciones_finales' in st.session_state:
-                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
             
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
