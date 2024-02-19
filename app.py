@@ -177,23 +177,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                                     frases.append(x['label'])
                               
                               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
-
-        c,g,v = st.columns(3)
-
-        with g: 
-            guardar_anotaciones = st.button("Guardar anotaciones", type = "primary")
-
-        if guardar_anotaciones:
-          with st.spinner("Guardando anotaciones... ⌛"):
-            st.session_state.anotaciones_finales = []
-              
-            for i in range(len(st.session_state.lista)):
-                st.session_state[f'anotaciones_{i}'] = anotaciones[i]
-                for item in st.session_state[f'anotaciones_{i}']:
-                    for x in item:
-                        st.session_state.anotaciones_finales.append(x['label'])
                                             
-            st.rerun()
                   
         if 'transcription2' in st.session_state:
             if 'anotaciones_finales' in st.session_state:
@@ -206,7 +190,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             for i in range(len(st.session_state.lista)):
               anotaciones.append(text_highlighter(st.session_state.lista[i]))
 
-            
+            st.session_state.anotaciones_finales = []
+              
+            for i in range(len(st.session_state.lista)):
+                st.session_state[f'anotaciones_{i}'] = anotaciones[i]
+                for item in st.session_state[f'anotaciones_{i}']:
+                    for x in item:
+                        st.session_state.anotaciones_finales.append(x['label'])
+
+
+        
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
 
