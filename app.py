@@ -1,5 +1,5 @@
 import streamlit as st
-from journo.aggregate_auth import add_auth
+from journo.aggregate_auth import auth
 from journo.modules import *
 import time
 from streamlit_annotation_tools import text_highlighter
@@ -54,7 +54,7 @@ st.markdown("""
   </style>""", unsafe_allow_html=True)
 
 
-add_auth(required=True, login_sidebar = False)
+auth(required=True, login_sidebar = False)
 
 load_database()
 
