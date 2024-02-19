@@ -161,7 +161,8 @@ def transcribe_audio(file_path):
     with open(file_path, "rb") as audio_file:
         transcript_response = openai_client.audio.transcriptions.create(
             model="whisper-1", 
-            file=audio_file
+            file=audio_file,
+            language = 'es'
         )
         # Accede al texto de la transcripción directamente desde el objeto de respuesta
         return transcript_response.text
