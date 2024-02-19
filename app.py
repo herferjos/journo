@@ -235,7 +235,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.session_state.generacion = False
             st.rerun()
         
-        if 'noticia_generada' in st.session_state:
+       if 'noticia_generada' in st.session_state:
             with st.container():
                 st.write("""## ✅ ¡Ya está lista tu noticia!""")
                 
