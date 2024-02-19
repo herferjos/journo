@@ -209,7 +209,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     if st.session_state.phase == 3:
         
-       if st.session_state.generacion = True
+       if st.session_state.generacion:
 
             response = openai_client.chat.completions.create(
                 model="gpt-4-turbo-preview",
