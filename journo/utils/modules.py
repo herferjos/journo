@@ -15,7 +15,7 @@ import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_gsheets import GSheetsConnection
-import time
+
 
 # Configuración de la clave API de OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
@@ -139,7 +139,9 @@ def img_to_html(img_path, width=None, height=None):
 
 st.cache_resource(show_spinner = False)
 def load_model():
-    st.session_state.model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads = 8)
+    model_size = "base"
+    st.session_state.model = WhisperModel(model_size, device="cpu", compute_type="int8")
+
     return st.session_state.model
     
 st.cache_resource(show_spinner = False)   
@@ -148,7 +150,8 @@ def transcribe_audio_2(file_path):
     if 'model' not in st.session_state:
       st.session_state.model = load_model()
     
-    segments, info = st.session_state.model.transcribe(file_path, beam_size=5,language="es", condition_on_previous_text=False, vad_filter=True, vad_parameters=dict(min_silence_duration_ms=500))
+    segments, info = st.session_state.model.transcribe(file_path, beam_size=5, 
+        language="es", condition_on_previous_text=False)
         
     return segments
   
@@ -271,35 +274,11 @@ def encontrar_ocurrencias(texto, frase):
     return ocurrencias
 
 
-import queue
-import threading
-
-def transcribir_segmento(segment, q):
-    for palabra in segment.text.split():
-        if '.' in palabra:
-            separacion = '\n\n'
-        else:
-            separacion = ' '
-        q.put(palabra + separacion)
-        time.sleep(0.1)
-
-def transcribir():
-    segments = transcribe_audio_2(st.session_state.mp3_audio_path)
-    message_placeholder = st.empty()
-    st.session_state.transcription1 = ''
-
-    q = queue.Queue()
-    for segment in segments:
-        print('Empezando')
-        t = threading.Thread(target=transcribir_segmento, args=(segment, q))
-        t.start()
-        while t.is_alive() or not q.empty():
-            if not q.empty():
-                st.session_state.transcription1 += q.get()
-                message_placeholder.markdown(st.session_state.transcription1 + "▌")
-
-    st.session_state.transcription2 = st.session_state.transcription1
+def cargar_y_transcribir_audio(audio):
+    # Convierte el audio a formato MP3
+    st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
+    st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+    st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
 
-    st.rerun()
-
+    st.rerun()   
