@@ -54,7 +54,7 @@ st.markdown("""
   </style>""", unsafe_allow_html=True)
 
 
-auth(required=True, login_sidebar = False)
+auth()
 
 load_database()
 
