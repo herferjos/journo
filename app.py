@@ -12,6 +12,10 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
 
+for key in st.session_state:
+    if key.startswith('anotaciones'):
+        st.write(key)
+
 st.markdown(
     """
     <style>
