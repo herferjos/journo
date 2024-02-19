@@ -40,10 +40,10 @@ def reset_variables():
     ]
 
     keys_to_delete.extend([
-        'mp3_audio_path', 'archivo', 'transcription1', 'transcription2', 
+        'mp3_audio_path', 'transcription1', 'transcription2', 
         'transcripcion_editada', 'X', 'Y', 'Z', 'A', 'B', 'noticia_generada',
         'lista', 'anotaciones_finales', 'noticia_editada',
-        'noticia_cargada', 'noticia_extra'
+        'noticia_cargada', 'anotaciones_state', 'messages', 'generacion', 'index_cargado', 'archivo'
     ])
 
     for key in keys_to_delete:
@@ -80,18 +80,23 @@ def cargar_noticia():
 
 def generar_txt():
     contenido = ""
-    for variable, valor in st.session_state.items():
-        if variable.startswith('anotaciones') or variable.startswith('messages') or variable.startswith('lista'):
-
-            contenido += f"st.session_state.{variable} = {valor}\n"
-
-    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcription2', 'transcripcion_editada', 'anotaciones_finales', 'lista', 'noticia_generada', 'noticia_editada', 'noticia_extra', 'mensajes_noticias']
     
-    contenido = ""
-    for variable in variables:
-        if variable in st.session_state: 
-            contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
+    # Variables que cumplen con ciertos criterios
+    variables_seleccionadas = [
+        variable for variable in st.session_state.keys() 
+        if variable.startswith('anotaciones') or 
+           variable.startswith('messages') or 
+           variable.startswith('lista') or 
+           variable in ['X', 'Y', 'Z', 'A', 'B', 
+                        'transcription2', 'transcripcion_editada', 
+                        'anotaciones_finales', 'lista', 
+                        'noticia_generada', 'noticia_editada']
+    ]
     
+    # Recorremos las variables seleccionadas y las agregamos al contenido
+    for variable in variables_seleccionadas:
+        contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
+
     return contenido
         
 
