@@ -178,7 +178,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                               
                               st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
 
-        if st.button("Guardar anotaciones", type = "primary"):
+        c,g,v = st.columns(3)
+
+        with g: 
+            guardar_anotaciones = st.button("Guardar anotaciones", type = "primary")
+
+        if guardar_anotaciones:
           with st.spinner("Guardando anotaciones... ⌛"):
             st.session_state.anotaciones_finales = []
               
