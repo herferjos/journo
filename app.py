@@ -210,8 +210,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if st.session_state.phase == 3:
         if 'noticia_generada' in st.session_state:
             st.write("""## ✅ ¡Ya está lista tu noticia!""")
-            with st.expander('Editar noticia original'):
-                st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
+            st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
             a,b = st.columns([0.5,1])
             with a:
                 boton_guardar = st.button("Guardar noticia", type = "primary")
@@ -235,49 +234,51 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                 st.session_state.generacion = True
                 st.rerun()
-        if len(st.session_state.messages) > 1:
-            with st.container(height = min(len(st.session_state.messages) * 150, 500)):
-                for i in range(len(st.session_state.messages)):
-                    if st.session_state.messages[i]["role"] == "system" or i == 1:
-                        pass
-                    else:
-                        with st.chat_message(st.session_state.messages[i]["role"]):
-                            st.markdown(st.session_state.messages[i]["content"])
-                            
-                    
-                if prompt := st.chat_input("Pregunta lo que quieras") or st.session_state.generacion:
-        
-                    if st.session_state.generacion == False:
-                    
-                        st.session_state.messages.append({"role": "user", "content": prompt})
-                    
-                        with st.chat_message("user"): 
-                            st.markdown(prompt)
-                    
-                    with st.chat_message("assistant"):
-       
-                        response = openai_client.chat.completions.create(
-                        model="gpt-4-turbo-preview",
-                        messages=st.session_state.messages,
-                        temperature = 0,
-                        stream = True
-                        )
+
+        with st.expander('Chatear'):
+            if len(st.session_state.messages) > 1:
+                with st.container(height = min(len(st.session_state.messages) * 150, 500)):
+                    for i in range(len(st.session_state.messages)):
+                        if st.session_state.messages[i]["role"] == "system" or i == 1:
+                            pass
+                        else:
+                            with st.chat_message(st.session_state.messages[i]["role"]):
+                                st.markdown(st.session_state.messages[i]["content"])
+                                
                         
-                        message_placeholder = st.empty()
-                        full_response = ""
-                        
-                        for chunk in response:
-                            if chunk.choices[0].delta.content is not None:
-                                full_response += chunk.choices[0].delta.content
-                                message_placeholder.markdown(full_response + "▌")
+                    if prompt := st.chat_input("Pregunta lo que quieras") or st.session_state.generacion:
             
-                                  
-                        st.session_state.messages.append({"role": "assistant", "content": full_response})
-                        if st.session_state.generacion:
-                            st.session_state.noticia_generada = full_response
-                            st.session_state.noticia_editada = st.session_state.noticia_generada
-                        st.session_state.generacion = False
-                        st.rerun()
+                        if st.session_state.generacion == False:
+                        
+                            st.session_state.messages.append({"role": "user", "content": prompt})
+                        
+                            with st.chat_message("user"): 
+                                st.markdown(prompt)
+                        
+                        with st.chat_message("assistant"):
+           
+                            response = openai_client.chat.completions.create(
+                            model="gpt-4-turbo-preview",
+                            messages=st.session_state.messages,
+                            temperature = 0,
+                            stream = True
+                            )
+                            
+                            message_placeholder = st.empty()
+                            full_response = ""
+                            
+                            for chunk in response:
+                                if chunk.choices[0].delta.content is not None:
+                                    full_response += chunk.choices[0].delta.content
+                                    message_placeholder.markdown(full_response + "▌")
+                
+                                      
+                            st.session_state.messages.append({"role": "assistant", "content": full_response})
+                            if st.session_state.generacion:
+                                st.session_state.noticia_generada = full_response
+                                st.session_state.noticia_editada = st.session_state.noticia_generada
+                            st.session_state.generacion = False
+                            st.rerun()
 
 #except Exception as e:
     #st.write(e)
