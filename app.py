@@ -209,7 +209,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             anotaciones = []
             for i in range(len(st.session_state.lista)): 
               anotaciones.append(text_highlighter(st.session_state.lista[i]))
-                if anotaciones[i] is not None:
+              if anotaciones[i] is not None:
                      st.session_state.anotaciones_state.append(anotaciones[i])
             
         else:
