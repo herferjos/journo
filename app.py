@@ -191,8 +191,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.anotaciones_finales = []
                   
                 for i in range(len(st.session_state.lista)):
-                    if st.session_state[f'anotaciones_{i}'] is not None:
-                        for item in st.session_state[f'anotaciones_{i}']:
+                    if st.session_state.anotaciones_state[i]is not None:
+                        for item in st.session_state.anotaciones_state[i]:
                             for x in item:
                                 st.session_state.anotaciones_finales.append(x['label'])
 
