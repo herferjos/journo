@@ -37,62 +37,59 @@ async def get_authorization_url(client: GoogleOAuth2, redirect_url: str) -> str:
     return authorization_url
 
 
-def markdown_button(url: str, text: Optional[str] = None, color="#FD504D", sidebar: bool = True):
-    if sidebar:
-        st.sidebar.link_button(label=text, url=url, help=None, type="primary", disabled=False, use_container_width=False)
-    else:
-        # Lee el contenido del archivo SVG
-        with open("files/google.svg", "r") as file:
-            svg_content = file.read()
-        
-        # Modificar el tamaño del SVG
-        svg_content = svg_content.replace('<svg ', '<svg width="35" height="35" ')
-        
-        # Muestra el estilo del botón de Google
-        st.markdown("""
-            <style>
-            .google-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 10vh; /* Ajusta la altura según necesites */
-            }
-            .google-button {
-                background-color: #ffffff;
-                color: #000000;
-                padding: 10px 20px;
-                border: 2px solid #cccccc;
-                border-radius: 5px;
-                font-weight: bold;
-                cursor: pointer;
-                text-decoration: none;
-            }
-            .google-icon {
-                margin-right: 10px;
-            }
-            .google-button:hover {
-                border-color: #000000;
-            }
-            .google-text {
-                margin-left: 10px;
-            }
-            </style>
-        """, unsafe_allow_html=True)
-        
-        # Muestra el botón de Google con el SVG cargado centrado en la página
-        st.markdown(
-            f"""
-            <div class="google-container">
-                <a href={url} class="google-button">
-                    <span class="google-icon">
-                        {svg_content}
-                    </span>
-                    Iniciar Sesión
-                </a>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+def markdown_button(url: str):
+    # Lee el contenido del archivo SVG
+    with open("files/google.svg", "r") as file:
+        svg_content = file.read()
+    
+    # Modificar el tamaño del SVG
+    svg_content = svg_content.replace('<svg ', '<svg width="35" height="35" ')
+    
+    # Muestra el estilo del botón de Google
+    st.markdown("""
+        <style>
+        .google-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 10vh; /* Ajusta la altura según necesites */
+        }
+        .google-button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .google-icon {
+            margin-right: 10px;
+        }
+        .google-button:hover {
+            border-color: #000000;
+        }
+        .google-text {
+            margin-left: 10px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # Muestra el botón de Google con el SVG cargado centrado en la página
+    st.markdown(
+        f"""
+        <div class="google-container">
+            <a href={url} class="google-button">
+                <span class="google-icon">
+                    {svg_content}
+                </span>
+                Iniciar Sesión
+            </a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 async def get_access_token(
@@ -115,13 +112,9 @@ def get_access_token_from_query_params(
      return token
 
 
-def show_login_button(
-    text: Optional[str] = "Login with Google", color="#FD504D", sidebar: bool = True
-):
-    authorization_url = asyncio.run(
-        get_authorization_url(client=client, redirect_url=redirect_url)
-    )
-    markdown_button(authorization_url, text, color, sidebar)
+def show_login_button():
+    authorization_url = asyncio.run(get_authorization_url(client=client, redirect_url=redirect_url))
+    markdown_button(authorization_url)
 
 
 def get_logged_in_user_email() -> Optional[str]:
