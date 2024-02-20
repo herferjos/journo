@@ -176,7 +176,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
                    st.session_state.anotaciones[i] = [[]]
-                    st.session_state.anotaciones_state[i] = [[]]
+                   st.session_state.anotaciones_state[i] = [[]]
 
             c,v,g = st.columns(3)
 
