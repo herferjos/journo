@@ -175,12 +175,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.anotaciones[i] = [[]]
                     st.session_state.anotaciones_state[i] = [[]]
 
-            for i in range(len(st.session_state.lista_2)):
-                if len(st.session_state.anotaciones[i][0]) == 0:
-                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
-                else:
-                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
-
             c,v,g = st.columns(3)
 
             with v: 
@@ -188,6 +182,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     for i in range(len(st.session_state.lista_2)):
                         st.session_state.anotaciones[i] = st.session_state.anotaciones_state[i]
                     st.rerun()
+
+            for i in range(len(st.session_state.lista_2)):
+                if len(st.session_state.anotaciones[i][0]) == 0:
+                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
+                else:
+                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
         
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
