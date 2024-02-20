@@ -165,15 +165,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
             if 'lista_2' not in st.session_state:
                 st.session_state.lista_2 = st.session_state.lista_1
-                for i in range(len(st.session_state.lista_2)):
-                    st.session_state.anotaciones[i] = [[]]
-                    st.session_state.anotaciones_state[i] = [[]]
                 
             if listas_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
                     st.session_state.anotaciones[i] = [[]]
-                    st.session_state.anotaciones_state[i] = [[]]
+                    
 
             c,v,g = st.columns(3)
 
@@ -220,7 +217,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.generacion = False
                 st.rerun()
         
-       if 'noticia_generada' in st.session_state:
+       if 'noticia_editada' in st.session_state:
             with st.container():
                 st.write("""## ✅ ¡Ya está lista tu noticia!""")
                 with st.chat_message("assistant"):
