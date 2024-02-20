@@ -17,7 +17,7 @@ for key, value in {key: value for key, value in st.session_state.items() if key.
 
 
 if 'prueba' not in st.session_state:
-    st.session_state.prueba = [[]]
+    st.session_state.prueba = [[{}]]
 
 st.session_state.prueba = text_highlighter('Esto es un texto de prueba jeje', st.session_state.prueba)
 
