@@ -167,24 +167,25 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             if 'lista_2' not in st.session_state:
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
-                    st.session_state.anotaciones[i] = None
+                    st.session_state.anotaciones[i] = [[]]
                 
             if listas_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
-                   st.session_state.anotaciones[i] = None
-
+                   st.session_state.anotaciones[i] = [[]]
+            anotaciones = {}
             for i in range(len(st.session_state.lista_2)):
-                if st.session_state.anotaciones[i] == None:
-                    st.session_state.anotaciones[i] = text_highlighter(st.session_state.lista_2[i])
+                if len(st.session_state.anotaciones[i][0]) == 0:
+                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i])
                 else:
-                    st.session_state.anotaciones[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
+                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
 
             c,v,g = st.columns(3)
 
             with v: 
                 if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
                     for i in range(len(st.session_state.lista_2)):
+                        st.session_state.anotaciones[i] = anotaciones[i]
                         st.rerun()
         
         else:
