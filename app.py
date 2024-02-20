@@ -172,12 +172,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 for i in range(len(st.session_state.lista_2)):
                     st.session_state[f'anotaciones_{i}'] = None
 
-            anotaciones = []
+            anotaciones = {}
             for i in range(len(st.session_state.lista_2)):
                 if st.session_state[f'anotaciones_{i}'] == None:
-                    anotaciones.append(text_highlighter(st.session_state.lista_2[i]))
+                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i])
                 else:
-                    anotaciones.append(text_highlighter(st.session_state.lista_2[i], st.session_state[f'anotaciones_{i}']))
+                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i], st.session_state[f'anotaciones_{i}'])
 
             c,v,g = st.columns(3)
 
