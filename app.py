@@ -156,7 +156,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     
     if st.session_state.phase == 2:
-        if 'anotaciones_0' in st.session_state:
+        if 'transcripcion_editada' in st.session_state:
             st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
 
             for i in range(len(st.session_state.lista)):
