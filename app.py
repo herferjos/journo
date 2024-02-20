@@ -63,14 +63,7 @@ with st.sidebar:
         unsafe_allow_html=True
     )
     
-    st.markdown(
-        """
-        <div style='text-align: center;'>
-            <h2>Una nueva forma de hacer periodismo</h2>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    #st.markdown("""<div style='text-align: center;'><h2>Una nueva forma de hacer periodismo</h2></div>""",unsafe_allow_html=True)
 
     st.write('---')
     with st.expander('**📊 Noticias generadas**'):
