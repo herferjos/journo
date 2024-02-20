@@ -169,12 +169,18 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state[f'anotaciones_state_{i}'] = None
                 
             if listas_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
-                st.warning('Ha reinicinado las anotaciones')
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
                     st.session_state[f'anotaciones_{i}'] = None
                     st.session_state[f'anotaciones_state_{i}'] = None
 
+            for i in range(len(st.session_state.lista_2)):
+                anotaciones = []
+                if st.session_state[f'anotaciones_{i}'] == None:
+                    st.session_state[f'anotaciones_state_{i}'] = text_highlighter(st.session_state.lista_2[i])
+                else:
+                    anotaciones.append(text_highlighter(st.session_state.lista_2[i], st.session_state[f'anotaciones_{i}']))
+            
             c,v,g = st.columns(3)
 
             with v: 
@@ -182,13 +188,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     for i in range(len(st.session_state.lista_2)):
                         st.session_state[f'anotaciones_state_{i}'] = st.session_state[f'anotaciones_{i}']
                         st.rerun()
-
-            for i in range(len(st.session_state.lista_2)):
-                if st.session_state[f'anotaciones_{i}'] == None:
-                    st.session_state[f'anotaciones_state_{i}'] = text_highlighter(st.session_state.lista_2[i])
-                else:
-                    st.session_state[f'anotaciones_state_{i}'] = text_highlighter(st.session_state.lista_2[i], st.session_state[f'anotaciones_{i}'])
-
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
 
