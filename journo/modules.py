@@ -77,19 +77,9 @@ def cargar_noticia():
 def generar_txt():
     contenido = ""
     
-    # Variables que cumplen con ciertos criterios
-    variables_seleccionadas = [
-        variable for variable in st.session_state.keys() 
-        if variable.startswith('anotaciones') or 
-           variable.startswith('messages') or 
-           variable.startswith('lista') or 
-           variable in ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 
-                        'anotaciones_finales', 'noticia_editada', 'anotaciones']
-    ]
-    
-    # Recorremos las variables seleccionadas y las agregamos al contenido
-    for variable in variables_seleccionadas:
-        contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
+    for variable in st.session_state.keys():                   
+        if variable in ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada', 'anotaciones']:
+            contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"                 
 
     return contenido
         
