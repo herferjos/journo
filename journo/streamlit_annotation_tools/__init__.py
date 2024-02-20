@@ -5,7 +5,7 @@ import streamlit.components.v1 as components
 
 parent_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.path.join(parent_dir, "frontend/build")
-_component = components.declare_component("annotation_tools", path='/mount/src/journo/journo/streamlit_annotation_tools/frontend/src/component/Builder.tsx')
+_component = components.declare_component("annotation_tools", path='journo/streamlit_annotation_tools/frontend/src/component/Builder.tsx')
 
 
 def text_highlighter(text: str, highlights=[]):
