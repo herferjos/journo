@@ -87,10 +87,8 @@ def generar_txt():
         if variable.startswith('anotaciones') or 
            variable.startswith('messages') or 
            variable.startswith('lista') or 
-           variable in ['X', 'Y', 'Z', 'A', 'B', 
-                        'transcription2', 'transcripcion_editada', 
-                        'anotaciones_finales', 'lista', 
-                        'noticia_generada', 'noticia_editada']
+           variable in ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 
+                        'anotaciones_finales', 'noticia_editada', 'anotaciones']
     ]
     
     # Recorremos las variables seleccionadas y las agregamos al contenido
