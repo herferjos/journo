@@ -291,6 +291,34 @@ def cargar_y_transcribir_audio(audio):
     st.rerun()   
 
 
+def listas_iguales(lista1, lista2):
+    # Si las longitudes de las listas no son iguales, no pueden ser iguales
+    if len(lista1) != len(lista2):
+        return False
+    
+    # Ordenar las listas (si las listas contienen elementos de tipos mutables)
+    lista1.sort()
+    lista2.sort()
+    
+    # Comprobar elemento por elemento
+    for elemento1, elemento2 in zip(lista1, lista2):
+        # Si son listas, llamamos recursivamente a la función
+        if isinstance(elemento1, list) and isinstance(elemento2, list):
+            if not listas_iguales(elemento1, elemento2):
+                return False
+        # Si son diccionarios, llamamos recursivamente a la función
+        elif isinstance(elemento1, dict) and isinstance(elemento2, dict):
+            if not diccionarios_iguales(elemento1, elemento2):
+                return False
+        else:
+            # Para otros tipos de datos, simplemente comparamos
+            if elemento1 != elemento2:
+                return False
+    
+    # Si pasamos todas las comparaciones, las listas son iguales
+    return True
+
+
 def show_inicio():
     st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
