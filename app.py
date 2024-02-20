@@ -183,8 +183,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.rerun()
 
             for i in range(len(st.session_state.lista_2)):
-                if len(st.session_state.anotaciones[i][0]) == 0:
+                if len(st.session_state.anotaciones[i]) == 0:
                     st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
+                else:
+                    if len(st.session_state.anotaciones[i][0]) == 0:
+                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
                 else:
                     st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
         
