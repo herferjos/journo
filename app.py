@@ -161,7 +161,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
             for i in range(len(st.session_state.lista)):
                 if f'anotaciones_{i}' not in st.session_state:
-                    st.session_state[f'anotaciones_{i}'] = [[]
+                    st.session_state[f'anotaciones_{i}'] = [[]]
                 st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i], st.session_state[f'anotaciones_{i}'])
             
         else:
