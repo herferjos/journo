@@ -25,6 +25,8 @@ st.markdown(
 
 if 'noticia_cargada' not in st.session_state:
     st.session_state.noticia_cargada = False
+if 'messages' not in st.session_state:
+     st.session_state.messages = []
 
 if 'X' not in st.session_state:
     st.session_state.X = None
