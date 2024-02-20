@@ -190,6 +190,19 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     if st.session_state.phase == 3:
         
+       if 'noticia_editada' in st.session_state:
+            with st.container():
+                st.write("""## ✅ ¡Ya está lista tu noticia!""")
+                for i in range(len(st.session_state.messages)):
+                    if i == 0 or i == 1:
+                        pass
+                    elif i == 2:
+                        st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
+                    elif st.session_state.messages[i]['role'] == 'user':
+                        st.info(st.session_state.messages[i]['content'])
+                    else:
+                        st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/5))
+                
        if st.session_state.generacion:
             response = openai_client.chat.completions.create(
                 model="gpt-4-turbo-preview",
@@ -215,22 +228,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.session_state.generacion_noticia = False
            
             st.rerun()
-        
-       if 'noticia_editada' in st.session_state:
-            with st.container():
-                st.write("""## ✅ ¡Ya está lista tu noticia!""")
-                for i in range(len(st.session_state.messages)):
-                    if i == 0 or i == 1:
-                        pass
-                    elif i == 2:
-                        st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
-                    elif st.session_state.messages[i]['role'] == 'user':
-                        st.info(st.session_state.messages[i]['content'])
-                    else:
-                        st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/5))
+                
                 a,b = st.columns([0.5,1])
                 with a:
-
 
                     if st.button("Volver a generar noticia", type = "primary"): 
                       with st.spinner("Generando noticia... ⌛"):
