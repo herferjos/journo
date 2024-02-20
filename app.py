@@ -188,9 +188,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 else:
                     if len(st.session_state.anotaciones[i][0]) == 0:
                         st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
-                else:
-                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
-        
+                    else:
+                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
+            
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
 
