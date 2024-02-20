@@ -169,6 +169,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state[f'anotaciones_state_{i}'] = None
                 
             if listas_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
+                st.warning('Ha reinicinado las anotaciones')
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
                     st.session_state[f'anotaciones_{i}'] = None
