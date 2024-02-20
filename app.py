@@ -3,6 +3,7 @@ from journo.aggregate_auth import auth
 from journo.modules import *
 import time
 # from streamlit_annotation_tools import text_highlighter
+from journo.streamlit_annotation_tools.__init__ import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
@@ -11,6 +12,8 @@ from openai import OpenAI
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
+
+text_highlighter('texto prueba')
 
 st.markdown(
     """
