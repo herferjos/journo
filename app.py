@@ -245,12 +245,16 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                             st.rerun()
 
        else:
-            st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
-            if st.button("Generar noticia", type = "primary"):
-              with st.spinner("Generar noticia... ⌛"):
-                st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                st.session_state.generacion = True
-                st.rerun()
+           
+            if 'noticia_editada' in st.session_state:
+                st.warning('Aún no has generado ninguna noticia, dale click a "Generar noticia"')
+                if st.button("Generar noticia", type = "primary"):
+                  with st.spinner("Generar noticia... ⌛"):
+                    st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                    st.session_state.generacion = True
+                    st.rerun()
+            else:
+                st.warning('Aún no puedes generar una noticia. Vuelve atrás y completa los anteriores pasos')
 
  
 #except Exception as e:
