@@ -3,7 +3,7 @@ from journo.aggregate_auth import auth
 from journo.modules import *
 import time
 # from streamlit_annotation_tools import text_highlighter
-from journo.streamlit_annotation_tools.__init__ import text_highlighter
+#from journo.streamlit_annotation_tools.__init__ import text_highlighter
 from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
