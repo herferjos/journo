@@ -179,12 +179,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 if st.session_state.anotaciones[i] == None:
                     anotaciones[i] = text_highlighter(st.session_state.lista_2[i])
                 else:
-                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i], st.session_state[f'anotaciones_{i}'])
+                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
 
             c,v,g = st.columns(3)
 
             with v: 
-                if st.button("Guardar anotaciones", type = "primary", key = "anotaciones"):
+                if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
                     for i in range(len(st.session_state.lista_2)):
                         st.session_state.anotaciones[i] = anotaciones[i]
                         st.rerun()
