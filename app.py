@@ -148,7 +148,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.success("Transcripción generada correctamente. Puedes editarla o ir directamente a la pestaña de 'Contexto' para continuar")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
-    
+            st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
+            
     if st.session_state.phase == 1:
         st.info(f"Una vez acabes de rellenar los campos, ve a la pestaña de 'Transcripción' para continuar")
         st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = st.session_state.X)
@@ -160,11 +161,18 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
     if st.session_state.phase == 2:
         if 'transcripcion_editada' in st.session_state:
-            st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
 
-            for i in range(len(st.session_state.lista)):
-                if f'anotaciones_{i}' not in st.session_state:
+            if 'lista_2' not in st.session_state:
+                st.session_state.lista_2 = st.session_state.lista_1
+                for i in range(len(st.session_state.lista_2)):
                     st.session_state[f'anotaciones_{i}'] = None
+                
+            if lista_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
+                st.session_state.lista_2 = st.session_state.lista_1
+                for i in range(len(st.session_state.lista_2)):
+                    st.session_state[f'anotaciones_{i}'] = None
+
+            for i in range(len(st.session_state.lista_2)):
                 if st.session_state[f'anotaciones_{i}'] == None:
                     st.session_state[f'anotaciones_{i}'] = text_highlighter(st.session_state.lista[i])
                 else:
