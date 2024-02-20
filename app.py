@@ -15,6 +15,9 @@ st.set_page_config(page_title="Journo", page_icon="🗞️")
 high = text_highlighter('xd esto es una prueba para ver lo que se guarda y lo qe no')
 st.write(high)
 
+if st.butto('algo'):
+    st.rerun()
+
 st.markdown(
     """
     <style>
