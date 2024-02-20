@@ -79,7 +79,7 @@ def generar_txt():
     
     for variable in st.session_state.keys():                   
         if variable in ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada', 'anotaciones']:
-            contenido += '''f"st.session_state.{variable} = {st.session_state.variable}'''\n"                 
+            contenido += f'''st.session_state.{variable} = {st.session_state.variable}\n'''                
 
     return contenido
         
