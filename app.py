@@ -185,9 +185,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             with v: 
                 if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
                     for i in range(len(st.session_state.lista_2)):
-                        print(f'{i}: {st.session_state.anotaciones[i]}')
                         st.session_state.anotaciones[i] = anotaciones[i]
-                        st.rerun()
+                    st.rerun()
         
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
