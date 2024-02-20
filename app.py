@@ -191,7 +191,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if st.session_state.phase == 3:
         
        if 'noticia_editada' in st.session_state:
-            with st.container():
+           with st.container():
                 st.write("""## ✅ ¡Ya está lista tu noticia!""")
                 for i in range(len(st.session_state.messages)):
                     if i == 0 or i == 1:
@@ -203,42 +203,42 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     else:
                         st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/5))
                 
-       if st.session_state.generacion:
-            response = openai_client.chat.completions.create(
-                model="gpt-4-turbo-preview",
-                messages=st.session_state.messages,
-                temperature = 0,
-                stream = True
-                )
-                
-            message_placeholder = st.empty()
-            full_response = ""
-                
-            for chunk in response:
-                if chunk.choices[0].delta.content is not None:
-                    full_response += chunk.choices[0].delta.content
-                    message_placeholder.markdown(full_response + "▌")
-
-      
-            st.session_state.messages.append({"role": "assistant", "content": full_response})
-            if st.session_state.generacion_noticia:
-                st.session_state.noticia_generada = full_response
-                st.session_state.noticia_editada = st.session_state.noticia_generada
-            st.session_state.generacion = False
-            st.session_state.generacion_noticia = False
-           
-            st.rerun()
-                
-            a,b = st.columns([0.5,1])
-            with a:
-
+           if st.session_state.generacion:
+                response = openai_client.chat.completions.create(
+                    model="gpt-4-turbo-preview",
+                    messages=st.session_state.messages,
+                    temperature = 0,
+                    stream = True
+                    )
+                    
+                message_placeholder = st.empty()
+                full_response = ""
+                    
+                for chunk in response:
+                    if chunk.choices[0].delta.content is not None:
+                        full_response += chunk.choices[0].delta.content
+                        message_placeholder.markdown(full_response + "▌")
+    
+          
+                st.session_state.messages.append({"role": "assistant", "content": full_response})
+                if st.session_state.generacion_noticia:
+                    st.session_state.noticia_generada = full_response
+                    st.session_state.noticia_editada = st.session_state.noticia_generada
+                st.session_state.generacion = False
+                st.session_state.generacion_noticia = False
+               
+                st.rerun()
+                 
+           a,b = st.columns([0.5,1])
+           with a:
+        
                 if st.button("Volver a generar noticia", type = "primary"): 
                   with st.spinner("Generando noticia... ⌛"):
                     st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.session_state.generacion = True
                     st.session_state.generacion_noticia = True
                     st.rerun()
-            with b:
+           with b:
                 if prompt := st.chat_input("Pregunta lo que quieras"):
                         
                     st.session_state.messages.append({"role": "user", "content": prompt})
