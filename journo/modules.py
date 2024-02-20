@@ -74,15 +74,22 @@ def cargar_noticia():
     st.rerun()
     
 
+
 def generar_txt():
     contenido = ""
-    
-    for variable in st.session_state.keys():                   
-        if variable in ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada', 'anotaciones']:
-            contenido += f"""st.session_state['{variable}'] = {st.session_state[variable]}\n"""
+    for variable, valor in st.session_state.items():
+        if variable.startswith('anotaciones'):
 
+            contenido += f"st.session_state.{variable} = {valor}\n"
+
+    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada']
+    
+    for variable in variables:
+        if variable in st.session_state: 
+            contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
+    
     return contenido
-        
+
 
 def load_sheet():
     return st.connection("gsheets", type=GSheetsConnection)
