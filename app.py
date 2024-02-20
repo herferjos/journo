@@ -12,6 +12,8 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
 
+text_highlighter('xd esto es una prueba para ver lo que se guarda y lo qe no')
+
 st.markdown(
     """
     <style>
