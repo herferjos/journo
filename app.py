@@ -199,30 +199,29 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     if st.session_state.phase == 3:
         
        if st.session_state.generacion:
-           with st.chat_message("assistant"):
-                response = openai_client.chat.completions.create(
-                    model="gpt-4-turbo-preview",
-                    messages=st.session_state.messages,
-                    temperature = 0,
-                    stream = True
-                    )
-                    
-                message_placeholder = st.empty()
-                full_response = ""
-                    
-                for chunk in response:
-                    if chunk.choices[0].delta.content is not None:
-                        full_response += chunk.choices[0].delta.content
-                        message_placeholder.markdown(full_response + "▌")
-    
-    
-                if len(st.session_state.messages) > 2:
-                    st.session_state.messages =  st.session_state.messages[:2]          
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
-                st.session_state.noticia_generada = full_response
-                st.session_state.noticia_editada = st.session_state.noticia_generada
-                st.session_state.generacion = False
-                st.rerun()
+            response = openai_client.chat.completions.create(
+                model="gpt-4-turbo-preview",
+                messages=st.session_state.messages,
+                temperature = 0,
+                stream = True
+                )
+                
+            message_placeholder = st.empty()
+            full_response = ""
+                
+            for chunk in response:
+                if chunk.choices[0].delta.content is not None:
+                    full_response += chunk.choices[0].delta.content
+                    message_placeholder.markdown(full_response + "▌")
+
+
+            if len(st.session_state.messages) > 2:
+                st.session_state.messages =  st.session_state.messages[:2]          
+            st.session_state.messages.append({"role": "assistant", "content": full_response})
+            st.session_state.noticia_generada = full_response
+            st.session_state.noticia_editada = st.session_state.noticia_generada
+            st.session_state.generacion = False
+            st.rerun()
         
        if 'noticia_editada' in st.session_state:
             with st.container():
