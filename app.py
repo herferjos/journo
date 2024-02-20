@@ -145,7 +145,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if 'transcription2' in st.session_state:
+        if 'transcripcion_editada' in st.session_state:
             st.success("Transcripción generada correctamente. Puedes editarla o ir directamente a la pestaña de 'Contexto' para continuar")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
