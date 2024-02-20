@@ -12,6 +12,9 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
 
+if ' high' not in st.session_state:
+    st.session_state.high = []
+
 st.session_state.high = text_highlighter('xd esto es una prueba para ver lo que se guarda y lo qe no', st.session_state.high)
 st.write(high)
 
