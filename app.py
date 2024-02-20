@@ -148,7 +148,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if 'transcripcion_editada' in st.session_state:
             st.success("Transcripción generada correctamente. Puedes editarla o ir directamente a la pestaña de 'Contexto' para continuar")
             
-            st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
+            st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
             st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
             
     if st.session_state.phase == 1:
