@@ -46,6 +46,8 @@ if 'generacion' not in st.session_state:
     st.session_state.generacion = False
 if 'anotaciones' not in st.session_state:   
     st.session_state.anotaciones = {}
+if 'anotaciones_state' not in st.session_state:   
+    st.session_state.anotaciones_state = {}
 
 st.markdown("""
   <style>
