@@ -16,7 +16,7 @@ if ' high' not in st.session_state:
     st.session_state.high = []
 
 st.session_state.high = text_highlighter('xd esto es una prueba para ver lo que se guarda y lo qe no', st.session_state.high)
-st.write(high)
+st.write(st.session_state.high)
 
 if st.button('algo'):
     st.rerun()
