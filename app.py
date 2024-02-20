@@ -25,9 +25,6 @@ st.markdown(
 
 if 'messages' not in st.session_state:
     st.session_state.messages = [{'role': 'assistant', 'content': 'Hola, soy Journo y estoy aquí para ayudarte. Aún no has generado ninguna noticia. Te invito a rellenar toda la información necesaria y luego podrás volver aquí y generar tu noticia'}]
-
-if 'guardado' not in st.session_state:
-    st.session_state.guardado = False
     
 if 'noticia_cargada' not in st.session_state:
     st.session_state.noticia_cargada = False
@@ -44,10 +41,10 @@ if 'B' not in st.session_state:
     st.session_state.B = None
 if 'generacion' not in st.session_state:   
     st.session_state.generacion = False
-if 'variables_dinamicas' not in st.session_state:   
-    st.session_state.variables_dinamicas = {}  
-if 'anotaciones_state' not in st.session_state:
-    st.session_state.anotaciones_state = []
+if 'anotaciones' not in st.session_state:   
+    st.session_state.anotaciones = {}
+if 'anotaciones_state' not in st.session_state:   
+    st.session_state.anotaciones_state = {}
 
 st.markdown("""
   <style>
@@ -148,11 +145,12 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
-        if 'transcription2' in st.session_state:
+        if 'transcripcion_editada' in st.session_state:
             st.success("Transcripción generada correctamente. Puedes editarla o ir directamente a la pestaña de 'Contexto' para continuar")
             
-            st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcription2)/4))
-    
+            st.session_state.transcripcion_editada = st.text_area(label = ":blue[Transcripción generada]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
+            st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
+            
     if st.session_state.phase == 1:
         st.info(f"Una vez acabes de rellenar los campos, ve a la pestaña de 'Transcripción' para continuar")
         st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'Entrenador Real Madrid', value = st.session_state.X)
@@ -163,50 +161,37 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     
     if st.session_state.phase == 2:
-        if 'anotaciones_0' in st.session_state:
-            with st.expander('✍🏼Ver anotaciones'):
-                  st.info("Aquí los momentos de mayor relevancia en las declaraciones.")
+        if 'transcripcion_editada' in st.session_state:
+
+            if 'lista_2' not in st.session_state:
+                st.session_state.lista_2 = st.session_state.lista_1
+                
+            if listas_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
+                st.session_state.lista_2 = st.session_state.lista_1
+                for i in range(len(st.session_state.lista_2)):
+                    st.session_state.anotaciones[i] = [[]]
                     
-                  for i in range(len(st.session_state.lista)):
-                      frases = []
-                      if f'anotaciones_{i}' in st.session_state:
-                          if st.session_state[f'anotaciones_{i}'] == None:
-                              pass
-                          else:         
-                              for item in st.session_state[f'anotaciones_{i}']:
-                                  for x in item:
-                                    frases.append(x['label'])
-                              
-                              st.write(generar_html_con_destacados(st.session_state.lista[i], frases), unsafe_allow_html=True)
-                  
-        if 'transcription2' in st.session_state:
-            if 'anotaciones_finales' in st.session_state:
-                st.success(f"Anotaciones guardadas correctamente. Ve a la pestaña de 'Noticia' para continuar")
-            else:
-                st.info("Aquí puedes subrayar los momentos más importantes de las declaraciones a la hora de generar la noticia.")
 
-            c,g,v = st.columns(3)
-    
-            with g: 
-                guardar_anotaciones = st.button("Guardar anotaciones", type = "primary")
-    
-            if guardar_anotaciones:
-              with st.spinner("Guardando anotaciones... ⌛"):
-                st.session_state.anotaciones_finales = []
-                  
-                for i in range(len(st.session_state.lista)):
-                    st.session_state[f'anotaciones_{i}'] = st.session_state.anotaciones_state[i]
-                    for item in st.session_state[f'anotaciones_{i}']:
-                        for x in item:
-                            st.session_state.anotaciones_finales.append(x['label'])
-                                                
-                st.rerun()
-              
-            st.session_state.lista = st.session_state.transcripcion_editada.split('\n\n')
-        
-            for i in range(len(st.session_state.lista)):
-              st.session_state.anotaciones_state.append(text_highlighter(st.session_state.lista[i]))
+            c,v,g = st.columns(3)
 
+            with v: 
+                if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
+                    st.session_state.anotaciones_finales = []
+                    for i in range(len(st.session_state.lista_2)):
+                        st.session_state.anotaciones[i] = st.session_state.anotaciones_state[i]
+                        for element in st.session_state.anotaciones[i]:
+                            for item in element:
+                                st.session_state.anotaciones_finales.append(item['label'])
+                    st.rerun()
+
+            for i in range(len(st.session_state.lista_2)):
+                if not st.session_state.anotaciones:
+                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
+                else:
+                    if len(st.session_state.anotaciones[i][0]) == 0:
+                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
+                    else:
+                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
             
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
@@ -239,7 +224,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.generacion = False
                 st.rerun()
         
-       if 'noticia_generada' in st.session_state:
+       if 'noticia_editada' in st.session_state:
             with st.container():
                 st.write("""## ✅ ¡Ya está lista tu noticia!""")
                 with st.chat_message("assistant"):

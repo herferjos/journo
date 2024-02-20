@@ -40,10 +40,10 @@ def reset_variables():
     ]
 
     keys_to_delete.extend([
-        'mp3_audio_path', 'archivo', 'transcription1', 'transcription2', 
+        'mp3_audio_path', 'transcription1', 'transcription2', 
         'transcripcion_editada', 'X', 'Y', 'Z', 'A', 'B', 'noticia_generada',
         'lista', 'anotaciones_finales', 'noticia_editada',
-        'noticia_cargada', 'noticia_extra'
+        'noticia_cargada', 'anotaciones_state', 'messages', 'generacion', 'index_cargado', 'archivo'
     ])
 
     for key in keys_to_delete:
@@ -59,12 +59,8 @@ def guardar_info():
     with st.spinner("Guardando información... ⌛"):
         if st.session_state.database.isna().all().all():
             st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Sesion': [contenido]}))
-        else:
-            if st.session_state.noticia_cargada:
-               st.session_state.database.loc[st.session_state.index_cargado] = pd.Series({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido})
-               st.session_state.database = st.session_state.database.dropna(how='all')
-            else:                                                    
-              st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
+        else:                                          
+            st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
             st.session_state.database = st.session_state.database.dropna(how='all')
             st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
         st.cache_data.clear()
@@ -78,22 +74,22 @@ def cargar_noticia():
     st.rerun()
     
 
+
 def generar_txt():
     contenido = ""
     for variable, valor in st.session_state.items():
-        if variable.startswith('anotaciones') or variable.startswith('messages') or variable.startswith('lista'):
+        if variable.startswith('anotaciones'):
 
             contenido += f"st.session_state.{variable} = {valor}\n"
 
-    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcription2', 'transcripcion_editada', 'anotaciones_finales', 'lista', 'noticia_generada', 'noticia_editada', 'noticia_extra', 'mensajes_noticias']
+    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada']
     
-    contenido = ""
     for variable in variables:
         if variable in st.session_state: 
             contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
     
     return contenido
-        
+
 
 def load_sheet():
     return st.connection("gsheets", type=GSheetsConnection)
@@ -284,6 +280,34 @@ def cargar_y_transcribir_audio(audio):
     st.session_state.transcripcion_editada = st.session_state.transcription2
 
     st.rerun()   
+
+
+def listas_iguales(lista1, lista2):
+    # Si las longitudes de las listas no son iguales, no pueden ser iguales
+    if len(lista1) != len(lista2):
+        return False
+    
+    # Ordenar las listas (si las listas contienen elementos de tipos mutables)
+    lista1.sort()
+    lista2.sort()
+    
+    # Comprobar elemento por elemento
+    for elemento1, elemento2 in zip(lista1, lista2):
+        # Si son listas, llamamos recursivamente a la función
+        if isinstance(elemento1, list) and isinstance(elemento2, list):
+            if not listas_iguales(elemento1, elemento2):
+                return False
+        # Si son diccionarios, llamamos recursivamente a la función
+        elif isinstance(elemento1, dict) and isinstance(elemento2, dict):
+            if not diccionarios_iguales(elemento1, elemento2):
+                return False
+        else:
+            # Para otros tipos de datos, simplemente comparamos
+            if elemento1 != elemento2:
+                return False
+    
+    # Si pasamos todas las comparaciones, las listas son iguales
+    return True
 
 
 def show_inicio():
