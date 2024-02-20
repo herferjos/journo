@@ -229,21 +229,21 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
            
             st.rerun()
                 
-                a,b = st.columns([0.5,1])
-                with a:
+            a,b = st.columns([0.5,1])
+            with a:
 
-                    if st.button("Volver a generar noticia", type = "primary"): 
-                      with st.spinner("Generando noticia... ⌛"):
-                        st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                        st.session_state.generacion = True
-                        st.session_state.generacion_noticia = True
-                        st.rerun()
-                with b:
-                    if prompt := st.chat_input("Pregunta lo que quieras"):
-                            
-                        st.session_state.messages.append({"role": "user", "content": prompt})
-                        st.session_state.generacion = True
-                        st.rerun()
+                if st.button("Volver a generar noticia", type = "primary"): 
+                  with st.spinner("Generando noticia... ⌛"):
+                    st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                    st.session_state.generacion = True
+                    st.session_state.generacion_noticia = True
+                    st.rerun()
+            with b:
+                if prompt := st.chat_input("Pregunta lo que quieras"):
+                        
+                    st.session_state.messages.append({"role": "user", "content": prompt})
+                    st.session_state.generacion = True
+                    st.rerun()
 
        else:
            
