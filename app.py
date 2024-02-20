@@ -12,9 +12,6 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon="🗞️")
 
-for key, value in {key: value for key, value in st.session_state.items() if key.startswith('anotaciones')}.items():
-    st.write(f"{key}: {value}")
-
 st.markdown(
     """
     <style>
@@ -170,26 +167,27 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
                     st.session_state.anotaciones[i] = [[]]
+                    st.session_state.anotaciones_state[i] = [[]]
                 
             if listas_iguales(st.session_state.lista_1, st.session_state.lista_2) == False:
                 st.session_state.lista_2 = st.session_state.lista_1
                 for i in range(len(st.session_state.lista_2)):
-                   st.session_state.anotaciones[i] = [[]]
-            anotaciones = {}
+                    st.session_state.anotaciones[i] = [[]]
+                    st.session_state.anotaciones_state[i] = [[]]
+
             for i in range(len(st.session_state.lista_2)):
                 if len(st.session_state.anotaciones[i][0]) == 0:
-                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i])
+                    st.session_state.anotaciones_state[i][i] = text_highlighter(st.session_state.lista_2[i])
                 else:
-                    anotaciones[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
+                    st.session_state.anotaciones_state[i][i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
 
             c,v,g = st.columns(3)
 
             with v: 
                 if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
                     for i in range(len(st.session_state.lista_2)):
-                        print(f'{i}: {st.session_state.anotaciones[i]}')
-                        st.session_state.anotaciones[i] = anotaciones[i]
-                        st.rerun()
+                        st.session_state.anotaciones[i] = st.session_state.anotaciones_state[i]
+                    st.rerun()
         
         else:
             st.warning('Aún no has generado ninguna transcripción. Vuelve al paso de contexto y guarda la información para que la transcripción se genere correctamente.')
