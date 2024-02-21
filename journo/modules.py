@@ -310,7 +310,7 @@ def listas_iguales(lista1, lista2):
     return True
 
 
-def show_inicio():
+# def show_inicio():
     st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
         """
