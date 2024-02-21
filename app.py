@@ -135,7 +135,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
 
         if 'transcripcion_editada' in st.session_state:
-            st.success("¡Aquí está la transcripción de tus declaraciones! Revísala y edítala si lo necesitas. /nPara continuar con la redacción, avanza a 2️⃣ Contexto")
+            st.success("¡Aquí está la transcripción de tus declaraciones! Revísala y edítala si lo necesitas.
+            
+                       Para continuar con la redacción, avanza a 2️⃣ Contexto")
             
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Tus declaraciones]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
             st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
@@ -183,7 +185,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
             
         else:
-            st.warning('¡No tan rápido, Kapuściński! /nVuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas.')
+            st.warning('¡No tan rápido, Kapuściński!
+            
+            Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas.')
 
     if st.session_state.phase == 3:
         
