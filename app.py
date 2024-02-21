@@ -146,7 +146,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
         st.session_state.B = st.text_input(":blue[¿Cuándo las ha dicho?]", placeholder = 'durante el mediodía de este martes, tras el Consejo de Gobierno autonómico', value = st.session_state.B)
         st.session_state.Z = st.text_area(":blue[¿Qué más contexto es relevante para redactar la noticia?]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
-        st.info(f"¿Lo tienes? Continúa a 3️⃣ Transcripción")
+        st.info(f"¿Lo tienes? Continúa en 3️⃣ Destacados")
 
     
     if st.session_state.phase == 2:
