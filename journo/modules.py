@@ -313,16 +313,16 @@ def listas_iguales(lista1, lista2):
 def show_inicio():
     # st.write("## 🤔 ¿Qué es Journo?")
     # st.markdown(
-        """
-        <h4>Journo es un asistente de redacción con el que podrás:</h4>
-        <ul>
-            <li><strong>Automatizar</strong> la transcripción de audios</li>
-            <li><strong>Guíar</strong> a la Inteligencia Artificial a redactar la noticia a tu gusto</li>
-            <li><strong>Modificar</strong> las noticias y darle el toque final</li>
-            <li><strong>Recibirás</strong> toda la información en un correo electrónico</li>
-        </ul>
-        """,
-        unsafe_allow_html=True
+        # """
+        # <h4>Journo es un asistente de redacción con el que podrás:</h4>
+        # <ul>
+            # <li><strong>Automatizar</strong> la transcripción de audios</li>
+            # <li><strong>Guíar</strong> a la Inteligencia Artificial a redactar la noticia a tu gusto</li>
+            # <li><strong>Modificar</strong> las noticias y darle el toque final</li>
+            # <li><strong>Recibirás</strong> toda la información en un correo electrónico</li>
+        # </ul>
+        # """,
+        # unsafe_allow_html=True
     )
     
     # st.write("")
@@ -334,19 +334,19 @@ def show_inicio():
     # st.write("## ¿Cómo funciona Journo?")
     
     # with open('files/demo.txt', "r",encoding="utf-8") as archivo:
-        content = archivo.read()
+        # content = archivo.read()
   
     # exec(content)
   
     # phase = stx.stepper_bar(steps=["Audio", "Contexto", "Transcripción", "Destacados", "Noticia"])
   
     # if phase == 0:
-        st.write("### 1) Cargar o subir audio")
-        st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
-        try:
-            st.audio('files/audio.mp3', format="audio/mpeg")
-        except:
-            st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
+        # st.write("### 1) Cargar o subir audio")
+        # st.info("En esta primera etapa deberemos aportar al sistema el audio a transcribir. Podemos subir un audio ya grabado o grabarlo directamente desde la app")
+        # try:
+            # st.audio('files/audio.mp3', format="audio/mpeg")
+        # except:
+            # st.error("Error al cargar el audio. Recuerda que si cargas una noticia de la base de datos, no está disponible el audio para escuchar")
     
     # if phase == 1:
         # st.write("### 2) Describir el contexto de las declaraciones")
@@ -376,6 +376,6 @@ def show_inicio():
           # st.write(generar_html_con_destacados(st.session_state.lista_demo[i], frases), unsafe_allow_html=True)
           
     # if phase == 4:
-        st.info('Finalmente, Journo nos dará una primera versión de nuestra noticia a partir del audio y la información proporcionada. Posteriormente podremos editarla manualmente o con ayuda de Journo.')
-        st.write(st.session_state.noticia_generada_demo)
+        # st.info('Finalmente, Journo nos dará una primera versión de nuestra noticia a partir del audio y la información proporcionada. Posteriormente podremos editarla manualmente o con ayuda de Journo.')
+        # st.write(st.session_state.noticia_generada_demo)
     # return 
