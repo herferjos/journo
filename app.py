@@ -64,7 +64,7 @@ with st.sidebar:
     
     #st.markdown("""<div style='text-align: center;'><h2>Una nueva forma de hacer periodismo</h2></div>""",unsafe_allow_html=True)
 
-    st.write('---')
+    st.write('')
     with st.expander('**📰 Tu hemeroteca**'):
         if st.session_state.database.isna().all().all():
             st.info('¡Todavía no has creado ninguna noticia!')
