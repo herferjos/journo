@@ -151,6 +151,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
     if st.session_state.phase == 2:
         if 'transcripcion_editada' in st.session_state:
+            st.info('Aquí puedes destacar los momentos más importantes de las declaraciones')
 
             if 'lista_2' not in st.session_state:
                 st.session_state.lista_2 = st.session_state.lista_1
