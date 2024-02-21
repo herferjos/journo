@@ -65,9 +65,9 @@ with st.sidebar:
     #st.markdown("""<div style='text-align: center;'><h2>Una nueva forma de hacer periodismo</h2></div>""",unsafe_allow_html=True)
 
     st.write('---')
-    with st.expander('**📊 Noticias generadas**'):
+    with st.expander('**📰 Tu hemeroteca**'):
         if st.session_state.database.isna().all().all():
-            st.info('Actualmente no has generado ninguna noticia. Adelante, prueba Journo y guarda tu primera noticia asistida por IA')
+            st.info('¡Todavía no has creado ninguna noticia!')
 
             if st.button("Crear nueva noticia", type = "primary", key = "start"):
                     reset_variables()
