@@ -253,7 +253,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.generacion_noticia = True
                     st.rerun()
             else:
-                st.warning('Journo no puede redactar tu noticia hasta que no le hayas toda la información que necesita :(')
+                st.warning('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
 
  
 #except Exception as e:
