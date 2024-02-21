@@ -124,7 +124,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             if 'mp3_audio_path' not in st.session_state:
                 st.info("También puedes grabar tu audio directamente desde Journo")
         
-            audio=mic_recorder(start_prompt="Empezar a grabar",stop_prompt="Parar de grabar",key='recorder')
+            audio=mic_recorder(start_prompt="Start recording",stop_prompt="Stop recording",key='recorder')
             if audio is not None:
                 if st.button("Generar transcripción", type = "primary", key = "record"):
                     with st.spinner("Transcribiendo... ⌛"):
