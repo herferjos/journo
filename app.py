@@ -144,7 +144,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'El presidente de la Junta de Andalucía', value = st.session_state.X)
         st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre del orador?]", placeholder = 'Juanma Moreno', value = st.session_state.Y)
         st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
-        st.session_state.B = st.text_input(":blue[¿Cuándo las ha dicho?]", placeholder = 'durante el mediodía de este martes, tras el Consejo de Gobierno autonómico', value = st.session_state.B)
+        st.session_state.B = st.text_input(":blue[¿Cuándo las ha dicho?]", placeholder = 'tras el Consejo de Gobierno autonómico durante la mañana de este martes', value = st.session_state.B)
         st.session_state.Z = st.text_area(":blue[¿Qué más contexto es relevante para redactar la noticia?]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
         st.info(f"¿Lo tienes? Continúa en 3️⃣ Destacados")
 
@@ -253,7 +253,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.generacion_noticia = True
                     st.rerun()
             else:
-                st.warning('Recuerda que Journo no puede redactar tu noticia hasta que no tenga toda la información')
+                st.warning('Repasa las pestañas previas para asegurarte de que ya está cargada toda la información necesaria para redactar la noticia')
 
  
 #except Exception as e:
