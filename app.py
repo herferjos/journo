@@ -160,6 +160,15 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 for i in range(len(st.session_state.lista_2)):
                     st.session_state.anotaciones[i] = [[]]
                     
+            for i in range(len(st.session_state.lista_2)):
+                if not st.session_state.anotaciones:
+                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
+                else:
+                    if len(st.session_state.anotaciones[i][0]) == 0:
+                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
+                    else:
+                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
+
 
             c,v,g = st.columns(3)
 
@@ -173,15 +182,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                                 st.session_state.anotaciones_finales.append(item['label'])
                     st.rerun()
 
-            for i in range(len(st.session_state.lista_2)):
-                if not st.session_state.anotaciones:
-                    st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
-                else:
-                    if len(st.session_state.anotaciones[i][0]) == 0:
-                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i])
-                    else:
-                        st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
-            
         else:
             st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
 
