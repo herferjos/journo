@@ -64,13 +64,13 @@ with st.sidebar:
     
     #st.markdown("""<div style='text-align: center;'><h2>Una nueva forma de hacer periodismo</h2></div>""",unsafe_allow_html=True)
 
-    st.write('')
+    st.write('---')
     with st.expander('**📰 Tu hemeroteca**'):
         if st.session_state.database.isna().all().all():
             st.info('¡Todavía no has creado ninguna noticia!')
         
         else:
-            st.info('Estas son las noticias que has creado con Journo. Puedes cargarlas directamente, explorar la información o crear una nueva.')
+            st.info('Estas son las noticias que has creado con Journo. Puedes cargarlas, explorar la información o crear una nueva.')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             st.session_state.index_cargado = dataframetipo(df_copia)
@@ -80,7 +80,7 @@ with st.sidebar:
                     
             if st.session_state.noticia_cargada == True:
                 
-                st.success(f"👍🏻 Noticia cargada correctamente. Ahora puedes seguir modificando la noticia más abajo.")   
+                st.success(f"¡Carga completa! Ahora puedes seguir modificando la noticia.")   
 
     st.write('')
     
