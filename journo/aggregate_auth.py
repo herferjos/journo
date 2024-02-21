@@ -10,7 +10,7 @@ def auth():
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        cabecera()
+        #cabecera()
         
         show_login_button()
         
@@ -23,7 +23,7 @@ def auth():
         is_subscriber = user_email and is_active_subscriber(user_email)
 
     if not is_subscriber:
-        cabecera()
+        #cabecera()
         
         redirect_button(customer_email=user_email)
         
