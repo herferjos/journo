@@ -10,11 +10,11 @@ def auth():
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        #cabecera()
+        cabecera()
         
         show_login_button()
         
-        show_inicio()
+        #show_inicio()
         st.stop()
         
     if 'subscriptions' in st.session_state:
@@ -23,11 +23,11 @@ def auth():
         is_subscriber = user_email and is_active_subscriber(user_email)
 
     if not is_subscriber:
-        #cabecera()
+        cabecera()
         
         redirect_button(customer_email=user_email)
         
-        show_inicio()
+        #show_inicio()
         
         st.session_state.user_subscribed = False
         st.stop()
