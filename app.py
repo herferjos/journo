@@ -68,9 +68,6 @@ with st.sidebar:
     with st.expander('**📰 Tu hemeroteca**'):
         if st.session_state.database.isna().all().all():
             st.info('¡Todavía no has creado ninguna noticia!')
-
-            if st.button("Comienza a redactar", type = "primary", key = "start"):
-                    reset_variables()
         
         else:
             st.info('Estas son las noticias que has creado con Journo. Puedes cargarlas directamente, explorar la información o crear una nueva.')
