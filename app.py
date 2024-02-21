@@ -102,14 +102,14 @@ with st.sidebar:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
-    st.session_state.phase = stx.stepper_bar(steps=["Transcripción", "Contexto", "Destacado", "Noticia"])
+    st.session_state.phase = stx.stepper_bar(steps=["Transcripción", "Contexto", "Destacados", "Tu noticia"])
 
     if st.session_state.phase == 0:
                       
         col1, col2 = st.tabs(["📼 Subir", "🎙️ Grabar"])
         with col1:
             if 'mp3_audio_path' not in st.session_state:
-                st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia.")
+                st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
                 st.session_state.archivo = st.file_uploader("Cargar archivo")
 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
@@ -183,7 +183,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
             
         else:
-            st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas.')
+            st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
 
     if st.session_state.phase == 3:
         
