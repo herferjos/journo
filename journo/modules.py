@@ -56,6 +56,13 @@ def reset_variables():
 
 def guardar_info():
     contenido = generar_txt()
+    
+    variables = ['transcription2', 'transcripcion_editada', 'X', 'Y', 'Z', 'A', 'B', 'anotaciones_finales', 'noticia_generada', 'noticia_editada']
+    
+    for variable in variables:
+        if variable not in st.session_state:
+            st.session_state[variable] = ''
+
     with st.spinner("Guardando información... ⌛"):
         if st.session_state.database.isna().all().all():
             st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada], 'Sesion': [contenido]}))
@@ -82,7 +89,7 @@ def generar_txt():
 
             contenido += f"st.session_state.{variable} = {valor}\n"
 
-    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada']
+    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada', 'messages']
     
     for variable in variables:
         if variable in st.session_state: 
@@ -287,12 +294,12 @@ def listas_iguales(lista1, lista2):
     if len(lista1) != len(lista2):
         return False
     
-    # Ordenar las listas (si las listas contienen elementos de tipos mutables)
-    lista1.sort()
-    lista2.sort()
+    # Creamos copias de las listas para no modificar las originales
+    lista1_sorted = sorted(lista1)
+    lista2_sorted = sorted(lista2)
     
     # Comprobar elemento por elemento
-    for elemento1, elemento2 in zip(lista1, lista2):
+    for elemento1, elemento2 in zip(lista1_sorted, lista2_sorted):
         # Si son listas, llamamos recursivamente a la función
         if isinstance(elemento1, list) and isinstance(elemento2, list):
             if not listas_iguales(elemento1, elemento2):
@@ -308,6 +315,7 @@ def listas_iguales(lista1, lista2):
     
     # Si pasamos todas las comparaciones, las listas son iguales
     return True
+
 
 
 def show_inicio():

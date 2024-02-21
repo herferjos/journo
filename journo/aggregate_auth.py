@@ -14,7 +14,7 @@ def auth():
         
         show_login_button()
         
-        show_inicio()
+        #show_inicio()
         st.stop()
         
     if 'subscriptions' in st.session_state:
@@ -27,7 +27,7 @@ def auth():
         
         redirect_button(customer_email=user_email)
         
-        show_inicio()
+        #show_inicio()
         
         st.session_state.user_subscribed = False
         st.stop()
@@ -37,7 +37,7 @@ def auth():
 def cabecera():
     st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>", unsafe_allow_html=True)
     
-    st.markdown("""<div style='text-align: center;'> <h4>Una nueva forma de hacer periodismo</h4></div>""",unsafe_allow_html=True)
+    #st.markdown("""<div style='text-align: center;'> <h4>Una nueva forma de hacer periodismo</h4></div>""",unsafe_allow_html=True)
 
     return
     
