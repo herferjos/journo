@@ -15,6 +15,7 @@ st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.p
 if 'lista_1' in st.session_state:
     st.write(st.session_state.lista_1)
     st.write(st.session_state.transcripcion_editada)
+    st.write('---')
     st.write(st.session_state.transcripcion_editada).split('\n\n')
 
 st.markdown(
