@@ -69,11 +69,11 @@ with st.sidebar:
         if st.session_state.database.isna().all().all():
             st.info('¡Todavía no has creado ninguna noticia!')
 
-            if st.button("Crear nueva noticia", type = "primary", key = "start"):
+            if st.button("Comienza a redactar", type = "primary", key = "start"):
                     reset_variables()
         
         else:
-            st.info('Aquí tienes las noticias que has generado con el asistente Journo. Puedes cargar una noticia directamente, explorar la información o crear una nueva.')
+            st.info('Estas son las noticias que has creado con Journo. Puedes cargarlas directamente, explorar la información o crear una nueva.')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             st.session_state.index_cargado = dataframetipo(df_copia)
