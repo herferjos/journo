@@ -183,7 +183,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         st.session_state.anotaciones_state[i] = text_highlighter(st.session_state.lista_2[i], st.session_state.anotaciones[i])
             
         else:
-            st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas.')
+            st.warning('¡No tan rápido, Kapuściński! /nVuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas.')
 
     if st.session_state.phase == 3:
         
