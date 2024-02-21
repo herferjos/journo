@@ -294,12 +294,12 @@ def listas_iguales(lista1, lista2):
     if len(lista1) != len(lista2):
         return False
     
-    # Ordenar las listas (si las listas contienen elementos de tipos mutables)
-    lista1.sort()
-    lista2.sort()
+    # Creamos copias de las listas para no modificar las originales
+    lista1_sorted = sorted(lista1)
+    lista2_sorted = sorted(lista2)
     
     # Comprobar elemento por elemento
-    for elemento1, elemento2 in zip(lista1, lista2):
+    for elemento1, elemento2 in zip(lista1_sorted, lista2_sorted):
         # Si son listas, llamamos recursivamente a la función
         if isinstance(elemento1, list) and isinstance(elemento2, list):
             if not listas_iguales(elemento1, elemento2):
@@ -315,6 +315,7 @@ def listas_iguales(lista1, lista2):
     
     # Si pasamos todas las comparaciones, las listas son iguales
     return True
+
 
 
 def show_inicio():
