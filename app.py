@@ -244,7 +244,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
        else:
            
-            if 'noticia_editada' in st.session_state:
+            if 'anotaciones_finales' in st.session_state:
                 st.warning('')
                 if st.button("Redactar noticia", type = "primary"):
                   with st.spinner("Escribiendo... ⌛"):
