@@ -151,7 +151,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
     if st.session_state.phase == 2:
         if 'transcripcion_editada' in st.session_state:
-            st.info('Aquí puedes seleccionar las frases más relevantes de las declaraciones para la redacción de tu noticia')
+            if 'anotaciones_finales' in st.session_state:
+                 st.success("¡Ya tenemos los destacados! Avanaza a 4️⃣ Tu noticia para culminar la redacción")
+            else:
+                st.info('Aquí puedes seleccionar las frases más relevantes de las declaraciones para la redacción de tu noticia')
 
             if 'lista_2' not in st.session_state:
                 st.session_state.lista_2 = st.session_state.lista_1
