@@ -188,7 +188,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
     if st.session_state.phase == 3:
         
-       if 'noticia_editada' in st.session_state:
+       if 'noticia_editada' in st.session_state or st.session_state.generacion:
            with st.container():
                 st.write("""""")
                 for i in range(len(st.session_state.messages)):
