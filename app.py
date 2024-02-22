@@ -182,7 +182,6 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                             for item in element:
                                 st.session_state.anotaciones_finales.append(item['label'])
                     st.rerun()
-                    st.success("¡Ya tenemos los destacados! Avanza a 4️⃣ Tu noticia para culminar la redacción")
 
         else:
             st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
