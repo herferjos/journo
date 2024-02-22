@@ -70,7 +70,7 @@ with st.sidebar:
             st.info('¡Todavía no has creado ninguna noticia!')
         
         else:
-            st.info('Estas son las noticias que has redactado con Journo. Puedes cargarlas, explorar la información o crear una nueva.')
+            st.info('Estas son tus noticias guardadas. Puedes seleccionar alguna para volver a editarla con Journo')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             st.session_state.index_cargado = dataframetipo(df_copia)
@@ -80,7 +80,7 @@ with st.sidebar:
                     
             if st.session_state.noticia_cargada == True:
                 
-                st.success(f"¡Carga completa! Ahora puedes seguir modificando la noticia.")   
+                st.success(f"¡Ya puedes seguir modificando tu noticia!")   
 
     st.write('')
     
@@ -98,7 +98,6 @@ with st.sidebar:
     if boton_guardar:
         guardar_info()
         st.rerun()
-        
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
@@ -151,7 +150,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
     if st.session_state.phase == 2:
         if 'transcripcion_editada' in st.session_state:
-            st.info('Aquí puedes destacar los momentos más importantes de las declaraciones')
+            if 'anotaciones_finales' not in st.session_state:
+                st.info('Aquí puedes seleccionar las frases más relevantes de las declaraciones para la redacción de tu noticia')
 
             if 'lista_2' not in st.session_state:
                 st.session_state.lista_2 = st.session_state.lista_1
@@ -174,7 +174,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             c,v,g = st.columns(3)
 
             with v: 
-                if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
+                if st.button("Guardar destacados", type = "primary", key = "anotaciones_button"):
                     st.session_state.anotaciones_finales = []
                     for i in range(len(st.session_state.lista_2)):
                         st.session_state.anotaciones[i] = st.session_state.anotaciones_state[i]
@@ -183,23 +183,26 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                                 st.session_state.anotaciones_finales.append(item['label'])
                     st.rerun()
 
+            if 'anotaciones_finales' in st.session_state:
+                st.success("¡Ya tenemos los destacados! Avanza a 4️⃣ Tu noticia para culminar la redacción")
+
         else:
             st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
 
     if st.session_state.phase == 3:
         
-       if 'noticia_editada' in st.session_state:
+       if 'noticia_editada' in st.session_state or st.session_state.generacion:
            with st.container():
                 st.write("""""")
                 for i in range(len(st.session_state.messages)):
                     if i == 0 or i == 1:
                         pass
                     elif i == 2:
-                        st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/5))
+                        st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/4))
                     elif st.session_state.messages[i]['role'] == 'user':
                         st.info(st.session_state.messages[i]['content'])
                     else:
-                        st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/5))
+                        st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4))
                 
            if st.session_state.generacion:
                 response = openai_client.chat.completions.create(
@@ -237,19 +240,23 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.generacion_noticia = True
                     st.rerun()
            with b:
-                if prompt := st.chat_input("Haz que la noticia sea más larga / Propón tres titulares atractivos"):
+                if prompt := st.chat_input("Haz que la noticia sea más larga / Propón tres titulares"):
                         
                     st.session_state.messages.append({"role": "user", "content": prompt})
                     st.session_state.generacion = True
                     st.rerun()
 
        else:
+
+            d,r,m = st.columns(3)
+
+            with r: 
+                boton_generar = st.button("Redactar noticia", type = "primary")
            
             if 'anotaciones_finales' in st.session_state:
-                st.warning('')
-                if st.button("Redactar noticia", type = "primary"):
+                if boton_generar:
                   with st.spinner("Escribiendo... ⌛"):
-                    st.session_state.messages.extend(generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B))
+                    st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.session_state.generacion = True
                     st.session_state.generacion_noticia = True
                     st.rerun()

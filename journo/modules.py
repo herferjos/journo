@@ -70,7 +70,8 @@ def guardar_info():
             st.session_state.database = st.session_state.database.append({'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada, 'Sesion': contenido}, ignore_index=True)
             st.session_state.database = st.session_state.database.dropna(how='all')
             st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = st.session_state.database)
-        st.cache_data.clear()
+    
+    st.rerun()
     return
     
 
@@ -84,16 +85,17 @@ def cargar_noticia():
 
 def generar_txt():
     contenido = ""
+  
     for variable, valor in st.session_state.items():
-        if variable.startswith('anotaciones'):
+        if variable.startswith('anotaciones') or variable == 'messages' or variable == 'anotaciones_finales':
 
             contenido += f"st.session_state.{variable} = {valor}\n"
 
-    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada', 'messages']
+    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'noticia_editada']
     
     for variable in variables:
         if variable in st.session_state: 
-            contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
+            contenido += f"st.session_state.{variable} = '''{st.session_state[variable]}'''\n"
     
     return contenido
 
