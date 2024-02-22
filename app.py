@@ -151,9 +151,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
     
     if st.session_state.phase == 2:
         if 'transcripcion_editada' in st.session_state:
-            if 'anotaciones_finales' in st.session_state:
-                 st.success("¡Ya tenemos los destacados! Avanaza a 4️⃣ Tu noticia para culminar la redacción")
-            else:
+            if 'anotaciones_finales' not in st.session_state:
                 st.info('Aquí puedes seleccionar las frases más relevantes de las declaraciones para la redacción de tu noticia')
 
             if 'lista_2' not in st.session_state:
@@ -185,6 +183,9 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                             for item in element:
                                 st.session_state.anotaciones_finales.append(item['label'])
                     st.rerun()
+
+            if 'anotaciones_finales' in st.session_state:
+                st.success("¡Ya tenemos los destacados! Avanaza a 4️⃣ Tu noticia para culminar la redacción")
 
         else:
             st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
