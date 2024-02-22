@@ -93,7 +93,7 @@ def generar_txt():
     
     for variable in variables:
         if variable in st.session_state: 
-            contenido += f"st.session_state.{variable} = '''{getattr(st.session_state, variable)}'''\n"
+            contenido += f"st.session_state.{variable} = {st.session_state[variable]}\n"
     
     return contenido
 
