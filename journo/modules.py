@@ -84,16 +84,17 @@ def cargar_noticia():
 
 def generar_txt():
     contenido = ""
+  
     for variable, valor in st.session_state.items():
-        if variable.startswith('anotaciones'):
+        if variable.startswith('anotaciones') or variable == 'messages' or variable == 'anotaciones_finales':
 
             contenido += f"st.session_state.{variable} = {valor}\n"
 
-    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'anotaciones_finales', 'noticia_editada', 'messages']
+    variables = ['X', 'Y', 'Z', 'A', 'B', 'transcripcion_editada', 'noticia_editada']
     
     for variable in variables:
         if variable in st.session_state: 
-            contenido += f"st.session_state.{variable} = {st.session_state[variable]}\n"
+            contenido += f"st.session_state.{variable} = '''{st.session_state[variable]}'''\n"
     
     return contenido
 
