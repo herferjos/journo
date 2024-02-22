@@ -98,7 +98,6 @@ with st.sidebar:
     if boton_guardar:
         guardar_info()
         st.rerun()
-        
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
