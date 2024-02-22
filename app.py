@@ -12,6 +12,9 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
 
+if 'messages' in st.session_state:
+    st.write(st.session_state.messages)
+
 st.markdown(
     """
     <style>
