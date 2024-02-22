@@ -70,7 +70,7 @@ with st.sidebar:
             st.info('¡Todavía no has creado ninguna noticia!')
         
         else:
-            st.info('Estas son las noticias que has redactado con Journo. Puedes cargarlas, explorar la información o crear una nueva.')
+            st.info('Estas son tus noticias guardadas. Puedes seleccionar alguna para volver a editarla con Journo')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             st.session_state.index_cargado = dataframetipo(df_copia)
@@ -80,7 +80,7 @@ with st.sidebar:
                     
             if st.session_state.noticia_cargada == True:
                 
-                st.success(f"¡Carga completa! Ahora puedes seguir modificando la noticia.")   
+                st.success(f"¡Ya puedes seguir modificando tu noticia!")   
 
     st.write('')
     
@@ -174,7 +174,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             c,v,g = st.columns(3)
 
             with v: 
-                if st.button("Guardar anotaciones", type = "primary", key = "anotaciones_button"):
+                if st.button("Guardar destacados", type = "primary", key = "anotaciones_button"):
                     st.session_state.anotaciones_finales = []
                     for i in range(len(st.session_state.lista_2)):
                         st.session_state.anotaciones[i] = st.session_state.anotaciones_state[i]
