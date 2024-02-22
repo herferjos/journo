@@ -251,16 +251,17 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             d,r,m = st.columns(3)
 
             with r: 
+                boton_generar = st.button("Redactar noticia", type = "primary")
            
-                if 'anotaciones_finales' in st.session_state:
-                    if st.button("Redactar noticia", type = "primary"):
-                      with st.spinner("Escribiendo... ⌛"):
-                        st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
-                        st.session_state.generacion = True
-                        st.session_state.generacion_noticia = True
-                        st.rerun()
-                else:
-                    st.warning('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
+            if 'anotaciones_finales' in st.session_state:
+                if boton_generar:
+                  with st.spinner("Escribiendo... ⌛"):
+                    st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
+                    st.session_state.generacion = True
+                    st.session_state.generacion_noticia = True
+                    st.rerun()
+            else:
+                st.warning('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
 
  
 #except Exception as e:
