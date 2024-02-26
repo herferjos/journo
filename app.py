@@ -164,7 +164,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     end_text = f"{minuto_end}:{segundo_end}"
                     
                     range = f"{start_text} - {end_text}"
-                    st.write(text)
+                    text
                     
                     if st.button(range):
                         st.session_state["start_time"] = start
