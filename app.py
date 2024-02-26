@@ -7,6 +7,7 @@ from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
 from openai import OpenAI
+from streamlit_extras.stylable_container import stylable_container
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
@@ -44,6 +45,8 @@ if 'anotaciones' not in st.session_state:
     st.session_state.anotaciones = {}
 if 'anotaciones_state' not in st.session_state:   
     st.session_state.anotaciones_state = {}
+if "start_time" not in st.session_state:
+    st.session_state.start_time = 0
 
 st.markdown("""
   <style>
@@ -131,7 +134,33 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         cargar_y_transcribir_audio(audio['bytes'])
                         
         if 'mp3_audio_path' in st.session_state:
-            st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
+
+            # Style buttons as links
+            with stylable_container(
+                key="link_buttons",
+                css_styles="""
+                button {
+                    background: none!important;
+                    border: none;
+                    padding: 0!important;
+                    font-family: arial, sans-serif;
+                    color: #069;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+                """,
+            ):
+                for timestamp in st.session_state.timestamps:
+                    start = timestamp['start']
+                    end = timestamp['end']
+                    text = timestamp['text']
+                    range = f"""00:{start:02} - 00:{end}
+                    {text}"""
+                    if st.button(range):
+                        st.session_state["start_time"] = start
+                        st.rerun()
+
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
 
         if 'transcripcion_editada' in st.session_state:
             st.success("¡Aquí está la transcripción de tus declaraciones! Revísala y edítala si lo necesitas. Para continuar con la redacción, avanza a 2️⃣ Contexto")
