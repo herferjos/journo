@@ -46,7 +46,7 @@ if 'anotaciones' not in st.session_state:
 if 'anotaciones_state' not in st.session_state:   
     st.session_state.anotaciones_state = {}
 if "start_time" not in st.session_state:
-    st.session_state.start_time = 0
+    st.session_state.start_time = int(0)
 
 st.markdown("""
   <style>
