@@ -136,7 +136,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
             with st.expander('**¿Dudas con algún instante de la transcripción?** Consúltala aquí segundo a segundo'):
-                with st.container(height = 300, border = True):
+                with st.container(height = 300):
                     with stylable_container(
                         key="link_buttons",
                         css_styles="""
