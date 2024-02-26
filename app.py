@@ -151,8 +151,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                 """,
             ):
                 for timestamp in st.session_state.timestamps:
-                    start = timestamp['start']
-                    end = timestamp['end']
+                    start = int(timestamp['start'])
+                    end = int(timestamp['end'])
                     text = timestamp['text']
                     range = f"""00:{start:02} - 00:{end}
                     {text}"""
