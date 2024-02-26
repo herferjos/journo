@@ -154,8 +154,18 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     start = int(timestamp['start'])
                     end = int(timestamp['end'])
                     text = timestamp['text']
-                    range = f"""00:{start:02} - 00:{end}
-                    {text}"""
+                    
+                    minuto_start = start//60
+                    segundo_start = start%60
+                    start_text = f"{minuto_start}:{segundo_start}"
+
+                    minuto_end = start//60
+                    segundo_end = start%60
+                    end_text = f"{minuto_end}:{segundo_end}"
+                    
+                    range = f"{start_text} - {end_text}"
+                    st.write(text)
+                    
                     if st.button(range):
                         st.session_state["start_time"] = start
                         st.rerun()
