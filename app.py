@@ -155,22 +155,28 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     end = int(timestamp['end'])
                     text = timestamp['text']
                     
-                    minuto_start = start//60
-                    segundo_start = start%60
-                    start_text = f"{minuto_start}:{segundo_start}"
-
-                    minuto_end = start//60
-                    segundo_end = start%60
-                    end_text = f"{minuto_end}:{segundo_end}"
+                    # Convertir los tiempos en minutos y segundos
+                    minuto_start = start // 60
+                    segundo_start = start % 60
+                    start_text = f"{minuto_start:02d}:{segundo_start:02d}"
+            
+                    minuto_end = end // 60
+                    segundo_end = end % 60
+                    end_text = f"{minuto_end:02d}:{segundo_end:02d}"
                     
                     range = f"{start_text} - {end_text}"
-                    text
-                    
+            
+                    # Muestra el rango de tiempo como un botón
                     if st.button(range):
                         st.session_state["start_time"] = start
                         st.rerun()
+            
+                    # Muestra el texto debajo del rango de tiempo
+                    st.write(text)
+            
+            # Añadir la reproducción de audio al final del bucle de tiempo
+            st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
 
-                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
 
         if 'transcripcion_editada' in st.session_state:
             st.success("¡Aquí está la transcripción de tus declaraciones! Revísala y edítala si lo necesitas. Para continuar con la redacción, avanza a 2️⃣ Contexto")
