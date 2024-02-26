@@ -8,7 +8,6 @@ import extra_streamlit_components as stx
 import pandas as pd
 from openai import OpenAI
 from streamlit_extras.stylable_container import stylable_container
-from streamlit_autorefresh import st_autorefresh
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
@@ -102,9 +101,6 @@ with st.sidebar:
     if boton_guardar:
         guardar_info()
         st.rerun()
-
-if st.button("Autorefresh", type = "primary", key = "auto"):
-    st_autorefresh(interval=2000, limit=1, key="fizzbuzzcounter")
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
