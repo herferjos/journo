@@ -168,10 +168,11 @@ def transcribe_audio(file_path):
         transcript_response = openai_client.audio.transcriptions.create(
             model="whisper-1", 
             file=audio_file,
-            language = 'es'
+            language = 'es',
+            response_format="verbose_json"
         )
         # Accede al texto de la transcripción directamente desde el objeto de respuesta
-        return transcript_response.text
+        return transcript_response.text, transcript_response.segments
 
 
 st.cache_resource(show_spinner = False)
@@ -284,7 +285,7 @@ def encontrar_ocurrencias(texto, frase):
 def cargar_y_transcribir_audio(audio):
     # Convierte el audio a formato MP3
     st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
-    st.session_state.transcription1 = transcribe_audio(st.session_state.mp3_audio_path)
+    st.session_state.transcription1, st.session_state.timestamps = transcribe_audio(st.session_state.mp3_audio_path)
     st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
 

@@ -7,6 +7,7 @@ from streamlit_mic_recorder import mic_recorder
 import extra_streamlit_components as stx
 import pandas as pd
 from openai import OpenAI
+from streamlit_extras.stylable_container import stylable_container
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
@@ -44,6 +45,8 @@ if 'anotaciones' not in st.session_state:
     st.session_state.anotaciones = {}
 if 'anotaciones_state' not in st.session_state:   
     st.session_state.anotaciones_state = {}
+if "start_time" not in st.session_state:
+    st.session_state.start_time = int(0)
 
 st.markdown("""
   <style>
@@ -105,38 +108,83 @@ try:
         st.session_state.phase = stx.stepper_bar(steps=["Transcripción", "Contexto", "Destacados", "Tu noticia"])
     
         if st.session_state.phase == 0:
-                          
+
             col1, col2 = st.tabs(["📼 Subir", "🎙️ Grabar"])
             with col1:
                 if 'mp3_audio_path' not in st.session_state:
                     st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
                     st.session_state.archivo = st.file_uploader("Cargar archivo")
-    
+
                 if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                     if st.button("Generar transcripción", type = "primary", key = "upload"):
                         with st.spinner("Transcribiendo... ⌛"):
                             st.warning('¡No cambies de pestaña para no perder el progreso!')
                             mp3_bytes = audio_a_bytes(st.session_state.archivo)
                             cargar_y_transcribir_audio(mp3_bytes)
-                        
-        
+
+
             with col2:
                 if 'mp3_audio_path' not in st.session_state:
                     st.info("También puedes grabar tu audio directamente desde Journo")
-            
+
                 audio=mic_recorder(start_prompt="Start recording",stop_prompt="Stop recording",key='recorder')
                 if audio is not None:
                     if st.button("Generar transcripción", type = "primary", key = "record"):
                         with st.spinner("Transcribiendo... ⌛"):
                             st.warning('¡No cambies de pestaña para no perder el progreso!')
                             cargar_y_transcribir_audio(audio['bytes'])
-                            
+
             if 'mp3_audio_path' in st.session_state:
-                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg")
-    
+                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
+                with st.expander('**¿Dudas con algún instante de la transcripción?** Consúltala aquí segundo a segundo'):
+                    with st.container(height = 300, border = False):
+                        with stylable_container(
+                            key="link_buttons",
+                            css_styles="""
+                            button {
+                                background: none!important;
+                                border: none;
+                                padding: 0!important;
+                                font-family: arial, sans-serif;
+                                color: #069;
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                            """,
+                        ):
+                            timestamps = st.session_state.timestamps
+                            num_timestamps = len(timestamps)
+                            for i in range(0, num_timestamps, 3):
+                                group = timestamps[i:i+3]  # Obtener un grupo de tres elementos
+                                start = int(group[0]['start'])  # Obtener el tiempo inicial del primer elemento
+                                end = int(group[-1]['end'])  # Obtener el tiempo final del último elemento
+
+                                # Convertir los tiempos en minutos y segundos
+                                minuto_start = start // 60
+                                segundo_start = start % 60
+                                start_text = f"{minuto_start:02d}:{segundo_start:02d}"
+
+                                minuto_end = end // 60
+                                segundo_end = end % 60
+                                end_text = f"{minuto_end:02d}:{segundo_end:02d}"
+
+                                range = f"{start_text} - {end_text}"
+
+                                # Mostrar el rango de tiempo como un botón
+                                if st.button(range):
+                                    st.session_state["start_time"] = start
+                                    st.rerun()
+
+                                texto = ''
+                                for timestamp in group:
+                                    texto += ' ' + timestamp['text']
+
+                                st.write(texto)
+
+
             if 'transcripcion_editada' in st.session_state:
                 st.success("¡Aquí está la transcripción de tus declaraciones! Revísala y edítala si lo necesitas. Para continuar con la redacción, avanza a 2️⃣ Contexto")
-                
+
                 st.session_state.transcripcion_editada = st.text_area(label = ":blue[Tus declaraciones]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
                 st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
                 
@@ -266,7 +314,7 @@ try:
 
  
 except Exception as e:
-    #st.write(e)
-    st.error('Cargando...')
+    print(e)
+    st.error('Cargando... Si el error persiste, contacta con el equipo de Journo para solucionarlo')
     time.sleep(3)
     st.rerun()
