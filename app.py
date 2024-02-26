@@ -135,49 +135,50 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
-            with st.expander('¿Dudas con algún instante de la transcripción? Consúltala aquí segundo a segundo'):
-                with stylable_container(
-                    key="link_buttons",
-                    css_styles="""
-                    button {
-                        background: none!important;
-                        border: none;
-                        padding: 0!important;
-                        font-family: arial, sans-serif;
-                        color: #069;
-                        text-decoration: underline;
-                        cursor: pointer;
-                    }
-                    """,
-                ):
-                    timestamps = st.session_state.timestamps
-                    num_timestamps = len(timestamps)
-                    for i in range(0, num_timestamps, 3):
-                        group = timestamps[i:i+3]  # Obtener un grupo de tres elementos
-                        start = int(group[0]['start'])  # Obtener el tiempo inicial del primer elemento
-                        end = int(group[-1]['end'])  # Obtener el tiempo final del último elemento
-                
-                        # Convertir los tiempos en minutos y segundos
-                        minuto_start = start // 60
-                        segundo_start = start % 60
-                        start_text = f"{minuto_start:02d}:{segundo_start:02d}"
-                
-                        minuto_end = end // 60
-                        segundo_end = end % 60
-                        end_text = f"{minuto_end:02d}:{segundo_end:02d}"
-                        
-                        range = f"{start_text} - {end_text}"
-                
-                        # Mostrar el rango de tiempo como un botón
-                        if st.button(range):
-                            st.session_state["start_time"] = start
-                            st.rerun()
-                
-                        texto = ''
-                        for timestamp in group:
-                            texto += ' ' + timestamp['text']
+            with st.expander('**¿Dudas con algún instante de la transcripción?** Consúltala aquí segundo a segundo'):
+                with st.container(height = 300, border = True):
+                    with stylable_container(
+                        key="link_buttons",
+                        css_styles="""
+                        button {
+                            background: none!important;
+                            border: none;
+                            padding: 0!important;
+                            font-family: arial, sans-serif;
+                            color: #069;
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                        """,
+                    ):
+                        timestamps = st.session_state.timestamps
+                        num_timestamps = len(timestamps)
+                        for i in range(0, num_timestamps, 3):
+                            group = timestamps[i:i+3]  # Obtener un grupo de tres elementos
+                            start = int(group[0]['start'])  # Obtener el tiempo inicial del primer elemento
+                            end = int(group[-1]['end'])  # Obtener el tiempo final del último elemento
+                    
+                            # Convertir los tiempos en minutos y segundos
+                            minuto_start = start // 60
+                            segundo_start = start % 60
+                            start_text = f"{minuto_start:02d}:{segundo_start:02d}"
+                    
+                            minuto_end = end // 60
+                            segundo_end = end % 60
+                            end_text = f"{minuto_end:02d}:{segundo_end:02d}"
                             
-                        st.write(texto)
+                            range = f"{start_text} - {end_text}"
+                    
+                            # Mostrar el rango de tiempo como un botón
+                            if st.button(range):
+                                st.session_state["start_time"] = start
+                                st.rerun()
+                    
+                            texto = ''
+                            for timestamp in group:
+                                texto += ' ' + timestamp['text']
+                                
+                            st.write(texto)
 
 
         if 'transcripcion_editada' in st.session_state:
