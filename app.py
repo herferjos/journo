@@ -172,13 +172,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                             st.session_state["start_time"] = start
                             st.rerun()
                 
-                        # Mostrar el texto de cada elemento en el grupo
+                        texto = ''
                         for timestamp in group:
-                            st.write(timestamp['text'])
+                            texto += ' ' + timestamp['text']
+                            
+                        st.write(texto)
                 
-                # Añadir la reproducción de audio al final del bucle de tiempo
-                st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
-
+            st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
 
 
         if 'transcripcion_editada' in st.session_state:
