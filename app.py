@@ -134,7 +134,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                         cargar_y_transcribir_audio(audio['bytes'])
                         
         if 'mp3_audio_path' in st.session_state:
-            with st.container(height = 200, border = True):
+            with st.container(height = 300, border = True):
                 with stylable_container(
                     key="link_buttons",
                     css_styles="""
