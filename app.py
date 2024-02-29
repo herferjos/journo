@@ -62,7 +62,7 @@ try:
     with st.sidebar:
     
         st.markdown(
-            "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 200, 200) + "</p>",
+            "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 160, 160) + "</p>",
             unsafe_allow_html=True
         )
         
