@@ -69,7 +69,7 @@ try:
         #st.markdown("""<div style='text-align: center;'><h2>Una nueva forma de hacer periodismo</h2></div>""",unsafe_allow_html=True)
     
         st.write('')
-        with st.expander('**📰 Tu hemeroteca**'):
+        with st.expander('**Tu hemeroteca**'):
             if st.session_state.database.isna().all().all():
                 st.info('¡Todavía no has creado ninguna noticia!')
             
@@ -109,7 +109,7 @@ try:
     
         if st.session_state.phase == 0:
 
-            col1, col2 = st.tabs(["📼 Subir", "🎙️ Grabar"])
+            col1, col2 = st.tabs(["Subir", "Grabar"])
             with col1:
                 if 'mp3_audio_path' not in st.session_state:
                     st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
@@ -117,7 +117,7 @@ try:
 
                 if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                     if st.button("Generar transcripción", type = "primary", key = "upload"):
-                        with st.spinner("Transcribiendo... ⌛"):
+                        with st.spinner("Transcribiendo..."):
                             st.warning('¡No cambies de pestaña para no perder el progreso!')
                             mp3_bytes = audio_a_bytes(st.session_state.archivo)
                             cargar_y_transcribir_audio(mp3_bytes)
@@ -130,7 +130,7 @@ try:
                 audio=mic_recorder(start_prompt="Start recording",stop_prompt="Stop recording",key='recorder')
                 if audio is not None:
                     if st.button("Generar transcripción", type = "primary", key = "record"):
-                        with st.spinner("Transcribiendo... ⌛"):
+                        with st.spinner("Transcribiendo..."):
                             st.warning('¡No cambies de pestaña para no perder el progreso!')
                             cargar_y_transcribir_audio(audio['bytes'])
 
