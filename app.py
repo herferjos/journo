@@ -251,7 +251,7 @@ try:
                         elif st.session_state.messages[i]['role'] == 'user':
                             st.info(st.session_state.messages[i]['content'])
                         else:
-                            st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4))
+                            st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4), key = st.session_state.messages[i]['content'])
                     
                if st.session_state.generacion:
                     response = openai_client.chat.completions.create(
