@@ -251,7 +251,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     elif st.session_state.messages[i]['role'] == 'user':
                         st.info(st.session_state.messages[i]['content'])
                     else:
-                        st.session_state.messages[i]['content'] = st.text_area(label = i, value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4), key = st.session_state.messages[i]['content'], label_visibility = "collapsed")
+                        st.session_state.messages[i]['content'] = st.text_area(label = f'{i}', value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4), key = st.session_state.messages[i]['content'], label_visibility = "collapsed")
                 
            if st.session_state.generacion:
                 response = openai_client.chat.completions.create(
