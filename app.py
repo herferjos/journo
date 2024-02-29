@@ -200,7 +200,7 @@ try:
         if st.session_state.phase == 2:
             if 'transcripcion_editada' in st.session_state:
                 if 'anotaciones_finales' not in st.session_state:
-                    st.info('Aquí puedes seleccionar las frases más relevantes de las declaraciones para la redacción de tu noticia')
+                    st.info('Puedes subrayar en el texto las frases más relevantes de las declaraciones para destacarlas en tu noticia')
     
                 if 'lista_2' not in st.session_state:
                     st.session_state.lista_2 = st.session_state.lista_1
