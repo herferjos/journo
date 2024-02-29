@@ -191,7 +191,7 @@ try:
         if st.session_state.phase == 1:
             st.session_state.X = st.text_input(":black[**¿Cuál es el cargo de la persona que habla?**]", placeholder = 'El presidente de la Junta de Andalucía', value = st.session_state.X)
             st.session_state.Y = st.text_input(":black[**¿Cuál es el nombre del orador?**]", placeholder = 'Juanma Moreno', value = st.session_state.Y)
-            st.session_state.A = st.text_input(":black[**¿Dónde ha dicho las declaraciones?*]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
+            st.session_state.A = st.text_input(":black[**¿Dónde ha dicho las declaraciones?**]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
             st.session_state.B = st.text_input(":black[**¿Cuándo las ha dicho?**]", placeholder = 'tras el Consejo de Gobierno autonómico durante la mañana de este martes', value = st.session_state.B)
             st.session_state.Z = st.text_area(":black[**¿Qué más información de contexto es relevante para redactar la noticia?**]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
             st.info(f"¿Lo tienes? Continúa en 3️⃣ Destacados")
