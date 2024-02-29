@@ -247,11 +247,11 @@ try:
                         if i == 0 or i == 1:
                             pass
                         elif i == 2:
-                            st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/4))
+                            st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/4), key = st.session_state.noticia_editada)
                         elif st.session_state.messages[i]['role'] == 'user':
                             st.info(st.session_state.messages[i]['content'])
                         else:
-                            st.session_state.messages[i]['content'] = st.text_area(label = "", value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4))
+                            st.session_state.messages[i]['content'] = st.text_area(label = i, value = st.session_state.messages[i]['content'], height = int(len(st.session_state.messages[i]['content'])/4), key = st.session_state.messages[i]['content'], label_visibility = "collapsed")
                     
                if st.session_state.generacion:
                     response = openai_client.chat.completions.create(
