@@ -35,7 +35,7 @@ def auth():
         st.session_state.user_subscribed = True
 
 def cabecera():
-    st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 180, 180) + "</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 200, 200) + "</p>", unsafe_allow_html=True)
     
     #st.markdown("""<div style='text-align: center;'> <h4>Una nueva forma de hacer periodismo</h4></div>""",unsafe_allow_html=True)
 
