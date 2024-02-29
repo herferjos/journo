@@ -112,7 +112,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         col1, col2 = st.tabs(["Subir", "Grabar"])
         with col1:
             if 'mp3_audio_path' not in st.session_state:
-                st.warning("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
+                st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
                 st.session_state.archivo = st.file_uploader("Cargar archivo")
 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
