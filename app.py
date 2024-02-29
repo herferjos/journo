@@ -315,6 +315,6 @@ try:
  
 except Exception as e:
     print(e)
-        st.error('Cargando... Prueba a reiniciar Journo si no consigues avanzar de esta pantalla. En caso de que el error persista, puedes ponerte en contacto con hola@journo.es')
+    st.error('Cargando... Prueba a reiniciar Journo si no consigues avanzar de esta pantalla. En caso de que el error persista, puedes ponerte en contacto con hola@journo.es')
     time.sleep(3)
     st.rerun()
