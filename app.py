@@ -183,7 +183,7 @@ try:
 
 
             if 'transcripcion_editada' in st.session_state:
-                st.success("¡Aquí está la transcripción de tus declaraciones! Revísala y edítala si lo necesitas. Para continuar con la redacción, avanza a 2️⃣ Contexto")
+                st.success("¡Listo! Recuerda revisar y editar el texto por si ha ocurrido algún error de transcripción, ¡cuidado con los nombres propios! Para continuar con la redacción, avanza a 2️⃣ Contexto")
 
                 st.session_state.transcripcion_editada = st.text_area(label = ":blue[Tus declaraciones]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
                 st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
