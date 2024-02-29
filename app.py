@@ -58,7 +58,7 @@ auth()
 
 load_database()
 
-try:
+
     with st.sidebar:
     
         st.markdown(
@@ -313,8 +313,8 @@ try:
                     st.warning('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
 
  
-except Exception as e:
-    print(e)
-    st.error('Cargando... Prueba a reiniciar Journo si no consigues avanzar de esta pantalla. En caso de que el error persista, puedes ponerte en contacto con hola@journo.es')
-    time.sleep(3)
-    st.rerun()
+#except Exception as e:
+    #print(e)
+    #st.error('Cargando... Prueba a reiniciar Journo si no consigues avanzar de esta pantalla. En caso de que el error persista, puedes ponerte en contacto con hola@journo.es')
+    #time.sleep(3)
+    #st.rerun()
