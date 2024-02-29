@@ -283,7 +283,7 @@ try:
                with a:
             
                     if st.button("Volver a redactar noticia", type = "primary"): 
-                      with st.spinner("Escribiendo... ⌛"):
+                      with st.spinner("Escribiendo..."):
                         st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                         st.session_state.generacion = True
                         st.session_state.generacion_noticia = True
@@ -304,7 +304,7 @@ try:
                
                 if 'anotaciones_finales' in st.session_state:
                     if boton_generar:
-                      with st.spinner("Escribiendo... ⌛"):
+                      with st.spinner("Escribiendo..."):
                         st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                         st.session_state.generacion = True
                         st.session_state.generacion_noticia = True
@@ -315,6 +315,6 @@ try:
  
 except Exception as e:
     print(e)
-    st.error('Cargando... Si el error persiste, contacta con el equipo de Journo para solucionarlo')
+        st.error('Cargando... Prueba a reiniciar Journo si no consigues avanzar de esta pantalla. En caso de que el error persista, puedes ponerte en contacto con hola@journo.es')
     time.sleep(3)
     st.rerun()
