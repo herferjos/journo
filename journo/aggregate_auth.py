@@ -28,7 +28,7 @@ def auth():
                 </div>
             ''', unsafe_allow_html=True)
         
-        show_inicio2()
+        show_inicio()
         
         st.stop()
         
