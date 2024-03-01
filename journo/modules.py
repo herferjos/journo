@@ -352,10 +352,10 @@ def show_inicio():
         
       ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
 
-      <p> </p>
+      #
 
       <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
-      <p> </p>
+      #
       </div>
       
     </div>
