@@ -13,7 +13,7 @@ def auth():
         cabecera()
         
         show_login_button()
-        xf, xd = st.columns([5,1])
+        xf, xd = st.columns([2,1])
         with xd:
             show_inicio2()
         with xf:
