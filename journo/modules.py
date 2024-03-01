@@ -16,6 +16,10 @@ from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_gsheets import GSheetsConnection
 import extra_streamlit_components as stx
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 
 
 # Configuración de la clave API de OpenAI
@@ -28,6 +32,7 @@ def load_database(force=False):
     try:
       st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
     except:
+      email_bienvenida(st.session_state.email)
       nuevo_df = pd.DataFrame({'Transcripción': [None]*5, 'Transcripción editada': [None]*5, 'Cargo': [None]*5, 'Nombre': [None]*5, 'Donde': [None]*5, 'Cuando': [None]*5, 'Extra': [None]*5, 'Anotaciones': [None]*5, 'Noticia': [None]*5, 'Noticia editada': [None]*5, 'Sesion': [None]*5}, index=range(5))
       st.session_state.sheet.create(worksheet=st.session_state.email,data=nuevo_df)
       st.session_state.database = st.session_state.sheet.read(worksheet=st.session_state.email)
@@ -327,13 +332,39 @@ def listas_iguales(lista1, lista2):
     return True
 
 
-
 def show_inicio():
-  st.write("## 🤔 ¿Qué es Journo?")
-  with st.container(border=True):
-    st.video('files/Journo Demo.mp4')
-  return
+  st.markdown('#')
+  st.markdown('#')
   
+  st.markdown("""
+      <div style="background-color: #fbfbfb; border-radius: 20px;">
+        <div style="text-align: justify; margin-left: 22%; margin-right: 0%; padding-top: 3%">
+          <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+        </div>
+        <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; padding-bottom: 3%; padding-top: 3%">
+          
+        🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+          
+        ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+          
+        📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+          
+        ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+  
+        #
+  
+        <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
+  
+        <p> </p>
+        
+        </div>
+        
+      </div>
+    """, unsafe_allow_html=True)
+
+  
+  return
+
 def show_inicio2():
     st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
@@ -403,3 +434,49 @@ def show_inicio2():
         st.info('Finalmente, Journo nos dará una primera versión de nuestra noticia a partir del audio y la información proporcionada. Posteriormente podremos editarla manualmente o con ayuda de Journo.')
         st.write(st.session_state.noticia_generada_demo)
     return 
+
+
+def email_bienvenida(email):
+    # Configurar los detalles del servidor SMTP de Gmail
+    smtp_host = 'smtp.hostinger.com'
+    smtp_port = 465  # Use port 465 for SMTP_SSL
+    smtp_username = 'hola@journo.es'
+    smtp_password = st.secrets["email_pass"]
+
+    # Configurar los detalles del mensaje
+    sender = 'hola@journo.es'
+    recipients = [email]  # Lista de destinatarios
+    subject = '🥳 ¡Bienvenido a Journo!'
+    message = f"""
+¡Gracias por registrarte en Journo!
+
+Ya puedes empezar a darle uso a tu copiloto periodístico en journo.streamlit.app. Debes iniciar sesión con esta cuenta de correo con la que te has suscrito, y lo tienes a tu disposición de forma ilimitada. Para lograr los mejores resultados, nuestra recomendación es revisar la transcripción y añadir la información de contexto con la mayor precisión posible.
+
+¡Solo un pequeño aviso! Esta versión de Journo es un prototipo aún en trabajo. Es posible que, mientras lo uses, aparezca algún error en formato de código. ¡No pasa nada, es normal! Haz captura de pantalla, prueba a reiniciar la aplicación y envíanos a este correo (hola@journo.es) la imagen del error. Eso hará que podamos dar cada vez mejor servicio a periodistas como tú.
+
+Si quieres, también puedes escribirnos a este correo para compartir tus impresiones y sugerencias sobre la herramienta, ¡nos vendrá genial! 
+
+Esperamos de corazón que Journo te sea de mucha utilidad. 
+
+Muchas gracias,
+
+Demo y José Luis
+Creadores de Journo
+    """
+
+    # Crear el objeto MIME para el correo electrónico
+    msg = MIMEMultipart()
+    msg['From'] = sender
+    msg['To'] = ', '.join(recipients)  # Convertir la lista de destinatarios en una cadena separada por comas
+    msg['Subject'] = subject
+    msg.attach(MIMEText(message, 'plain'))
+
+    # Iniciar la conexión SMTP con SMTP_SSL
+    with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+        # Iniciar sesión en la cuenta de correo
+        server.login(smtp_username, smtp_password)
+
+        # Enviar el correo electrónico
+        server.send_message(msg)
+
+    return

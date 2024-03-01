@@ -11,12 +11,12 @@ from streamlit_extras.stylable_container import stylable_container
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
-st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
+st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png', layout = 'wide')
+
 
 st.markdown(
     """
     <style>
-            [data-testid="stStatusWidget"] {visibility: hidden;}
             [data-testid="stToolbar"] {visibility: hidden !important;}
             footer {visibility: hidden !important;}
             section[data-testid="stSidebar"] {
@@ -27,6 +27,8 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
+#[data-testid="stStatusWidget"] {visibility: hidden;}
 
 if 'noticia_cargada' not in st.session_state:
     st.session_state.noticia_cargada = False
