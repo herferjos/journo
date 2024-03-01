@@ -76,7 +76,7 @@ def redirect_button(
                 <span class="pago-icon">
                     {svg_content}
                 </span>
-                Suscríbete
+                Pruébalo gratis
             </a>
         </div>
         """,
