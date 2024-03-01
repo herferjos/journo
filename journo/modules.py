@@ -331,26 +331,22 @@ def listas_iguales(lista1, lista2):
 def show_inicio():
 
   st.markdown("""
-  #
-  #
-  <div style="text-align: justify; margin-left: 20%; margin-right: 20%;">
+    <div style="text-align: justify; margin-left: 20%; margin-right: 20%;">
+    
+    <h1 style="font-size: 28px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+    
+    🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+    
+    ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+    
+    📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+    
+    ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
   
-  # **Convierte tu audio en noticia en cuestión de minutos**
-  
-  🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
-  
-  ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
-  
-  📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
-  
-  ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
-
-  #
-  
-  Hecho con ❤️ desde Málaga. Por y para periodistas.
-  
-  </div>
-  """, unsafe_allow_html=True)
+    <p style="font-size: 14px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
+    
+    </div>
+    """, unsafe_allow_html=True)
   return
 
 def show_inicio2():
