@@ -62,7 +62,7 @@ load_database()
 with st.sidebar:
 
     st.markdown(
-        "<p style='text-align: left;'>" + img_to_html('files/logo-removebg-preview.png', 120, 120) + "</p>",
+        "<p style='text-align: center;'>" + img_to_html('files/logo-removebg-preview.png', 120, 120) + "</p>",
         unsafe_allow_html=True
     )
     
