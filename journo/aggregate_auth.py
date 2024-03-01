@@ -10,7 +10,7 @@ def auth():
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        xd, xf = st.columns(2)
+        xd, xf = st.columns([10,1])
 
         with xf:
             cabecera()
