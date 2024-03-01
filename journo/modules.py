@@ -337,30 +337,31 @@ def show_inicio():
   st.markdown('#')
   
   st.markdown("""
-    <div style="background-color: #fbfbfb; border-radius: 20px; padding-left: 100px; padding-right: 100px">
-      <div style="text-align: justify; margin-left: 22%; margin-right: 0%; padding-top: 3%">
-        <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+      <div style="margin: 20px; background-color: #fbfbfb; border-radius: 20px;">
+        <div style="text-align: justify; margin-left: 22%; margin-right: 0%; padding-top: 3%">
+          <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+        </div>
+        <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; padding-bottom: 3%; padding-top: 3%">
+          
+        🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+          
+        ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+          
+        📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+          
+        ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+  
+        #
+  
+        <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
+  
+        <p> </p>
+        
+        </div>
+        
       </div>
-      <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; padding-bottom: 3%; padding-top: 3%">
-        
-      🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
-        
-      ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
-        
-      📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
-        
-      ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+    """, unsafe_allow_html=True)
 
-      #
-
-      <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
-
-      <p> </p>
-      
-      </div>
-      
-    </div>
-  """, unsafe_allow_html=True)
   
   return
 
