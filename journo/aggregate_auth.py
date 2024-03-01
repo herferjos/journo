@@ -10,15 +10,11 @@ def auth():
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        xd, xf = st.columns([10,1])
+        cabecera()
+        
+        show_login_button()
 
-        with xf:
-            cabecera()
-            
-            show_login_button()
-
-        with xd:
-            show_inicio()
+        show_inicio()
             
         st.stop()
         
