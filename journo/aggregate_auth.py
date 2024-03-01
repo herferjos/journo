@@ -27,7 +27,7 @@ def auth():
         
         redirect_button(customer_email=user_email)
         st.write(' ')
-        st.markdown("""<div style='text-align: center;'> <h4>Y si te convence, suscríbete por 9,90€ al mes</h4></div>""",unsafe_allow_html=True)
+        st.markdown("""<div style='text-align: center;'> <h5>Y si te convence, suscríbete por 9,90€ al mes</h5></div>""",unsafe_allow_html=True)
         
         #show_inicio()
         
