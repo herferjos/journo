@@ -17,22 +17,10 @@ hide_streamlit_style = """
             <style>
             [data-testid="stStatusWidget"] {visibility: hidden;}
             [data-testid="stToolbar"] {visibility: hidden !important;}
-            [data-testid="viewerBadge_container__r5tak"] {visibility: hidden !important;}
             footer {visibility: hidden !important;}
             </style>
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-import streamlit as st
-
-st.markdown(
-    """
-    <style>
-    .viewerBadge_container__r5tak { display: none !important; }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 
 st.markdown(
