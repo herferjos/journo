@@ -75,7 +75,7 @@ def redirect_button(
             <a href={button_url} class="pago-button">
                 <span class="pago-icon">
                 </span>
-                Pruébalo gratis
+                🥳 Pruébalo gratis
             </a>
         </div>
         """,
