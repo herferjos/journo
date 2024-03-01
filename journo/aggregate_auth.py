@@ -10,15 +10,16 @@ def auth():
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        cabecera()
         
-        show_login_button()
         xf, xd = st.columns([2,1])
         with xd:
-            show_inicio2()
+            cabecera()
+            show_login_button()
         with xf:
             st.write(f'<div style="display: flex; justify-content: center;"><video width="1000" height="800" controls loop autoplay><source src="data:video/mp4;base64,{base64.b64encode(open("files/Journo Demo.mp4", "rb").read()).decode()}" type="video/mp4"></video></div>', unsafe_allow_html=True)
-            
+        
+        show_inicio2()
+        
         st.stop()
         
     if 'subscriptions' in st.session_state:
