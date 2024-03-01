@@ -330,7 +330,7 @@ def listas_iguales(lista1, lista2):
 
 def show_inicio():
   st.markdown("""
-  <div style="text-align: justify; padding: 20px;">
+  <div style="text-align: justify; padding: 1000px;">
   
   # **Journo: Convierte tu audio en noticia en cuestión de minutos**
   
