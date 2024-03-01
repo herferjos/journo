@@ -328,11 +328,22 @@ def listas_iguales(lista1, lista2):
     return True
 
 
-
-def show_inicio():
-    st.write(f'<div style="display: flex; justify-content: center;"><video width="1200" height="800" controls loop autoplay><source src="data:video/mp4;base64,{base64.b64encode(open("files/Journo Demo.mp4", "rb").read()).decode()}" type="video/mp4"></video></div>', unsafe_allow_html=True)
-    return
+def show_inicio2():
+  st.markdown("""
+  # **Journo: Convierte tu audio en noticia en cuestión de minutos**
   
+  🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+  
+  ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+  
+  📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+  
+  ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+  
+  Hecho con ❤️ desde Málaga. Por y para periodistas.
+  """)
+  return
+
 def show_inicio2():
     st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
