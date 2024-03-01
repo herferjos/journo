@@ -335,7 +335,7 @@ def show_inicio():
   st.markdown("""
     <div style="text-align: justify; margin-left: 20%; margin-right: 20%; font-size: 25px;">
     
-    <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+    <h1 style="font-size: 30px;">Convierte tu audio en noticia en cuestión de minutos</h1>
     
     🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
     
@@ -348,7 +348,7 @@ def show_inicio():
     </div>
     """, unsafe_allow_html=True)
 
-  st.markdown('<p style="font-size: 20px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>')
+  st.markdown('<p style="font-size: 20px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>', unsafe_allow_html=True)
   
   return
 
