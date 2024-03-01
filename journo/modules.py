@@ -333,9 +333,13 @@ def show_inicio():
   st.markdown('#')
 
   st.markdown("""
-    <div style="text-align: justify; margin-left: 25%; margin-right: 20%; font-size: 25px;">
-    
+  <div style="text-align: justify; margin-left: 20%; margin-right: 20%;">
     <h1 style="font-size: 30px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+  </div>
+  """, unsafe_allow_html=True)
+  
+  st.markdown("""
+    <div style="text-align: justify; margin-left: 25%; margin-right: 15%; font-size: 30px;">
     
     🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
     
@@ -351,7 +355,7 @@ def show_inicio():
   st.markdown('#')
 
   st.markdown("""
-  <div style="text-align: justify; margin-left: 25%; margin-right: 20%;">
+  <div style="text-align: justify; margin-left: 25%; margin-right: 15%;">
     <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
   </div>
   """, unsafe_allow_html=True)
