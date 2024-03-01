@@ -15,6 +15,7 @@ st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.p
 
 hide_streamlit_style = """
             <style>
+            [data-testid="stStatusWidget"] {visibility: hidden;}
             [data-testid="stToolbar"] {visibility: hidden !important;}
             footer {visibility: hidden !important;}
             </style>
