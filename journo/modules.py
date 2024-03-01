@@ -348,7 +348,9 @@ def show_inicio():
     </div>
     """, unsafe_allow_html=True)
 
-  st.markdown('<p style="font-size: 20px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>', unsafe_allow_html=True)
+  st.markdown('#')
+
+  st.markdown('<p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>', unsafe_allow_html=True)
   
   return
 
