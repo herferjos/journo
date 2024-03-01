@@ -22,7 +22,7 @@ def auth():
             # Muestra el video utilizando la representación base64
             st.write(f'''
                 <div style="display: flex; justify-content: center;">
-                    <video width="1000" height="600" controls loop autoplay>
+                    <video width="1000" height="500" controls loop autoplay>
                         <source src="data:video/mp4;base64,{video_base64}" type="video/mp4">
                     </video>
                 </div>
