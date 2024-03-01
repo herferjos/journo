@@ -22,20 +22,20 @@ hide_streamlit_style = """
             """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-    st.markdown(
-        """
-        <style>
+st.markdown(
+"""
+            <style>
             body {
               margin: 0;
             }
-
+            
             .wrapper {
               position: relative;
               z-index: 1;
               display: inline-block;
               width: 100vw;
             }
-
+            
             .hidefooter {
               position: absolute;
               width: 90%;
@@ -48,10 +48,10 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
               display: block;
               color: rgb(0, 0, 0);
             }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+            </style>
+""",
+unsafe_allow_html=True
+)
 
 
 st.markdown(
