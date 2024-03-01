@@ -329,6 +329,8 @@ def listas_iguales(lista1, lista2):
 
 
 def show_inicio():
+  st.video('files/Journo Demo.mp4')
+def show_inicio2():
     st.write("## 🤔 ¿Qué es Journo?")
     st.markdown(
         """
