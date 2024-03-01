@@ -24,17 +24,14 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 import streamlit as st
 
-# Definir el estilo CSS para ocultar el elemento con la clase viewerBadge_link__qRIco
-css = """
-<style>
-.viewerBadge_link__qRIco {
-    display: none !important;
-}
-</style>
-"""
-
-# Mostrar el estilo CSS en Streamlit
-st.markdown(css, unsafe_allow_html=True)
+st.markdown(
+    """
+    <style>
+    .viewerBadge_container__r5tak { display: none !important; }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 st.markdown(
