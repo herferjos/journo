@@ -17,15 +17,16 @@ def auth():
             show_login_button()
         with xf:
             with open("files/video_base64.txt", "r") as input_file:
-                 video_base64 = input_file.read()
+                video_base64 = input_file.read()
+        
+            st.write(f'''
+                <div style="display: flex; justify-content: center;">
+                    <video width="1000" height="600" controls autoplay loop>
+                        <source src="data:video/mp4;base64,{video_base64}" type="video/mp4">
+                    </video>
+                </div>
+            ''', unsafe_allow_html=True)
 
-                 st.write(f'''
-                 <div style="display: flex; justify-content: center;">
-                     <video width="1000" height="600" controls autoplay loop>
-                             <source src="data:video/mp4;base64,{video_base64}" type="video/mp4">
-                     </video>
-                 </div>
-                 ''', unsafe_allow_html=True)
         
         show_inicio()
         
