@@ -78,6 +78,7 @@ with st.sidebar:
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
             st.session_state.index_cargado = dataframetipo(df_copia)
+            st.data_editor(df_copia)
 
             if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
                 cargar_noticia()
