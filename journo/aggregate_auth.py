@@ -16,7 +16,9 @@ def auth():
             cabecera()
             show_login_button()
         with xf:
-            st.write(f'<div style="display: flex; justify-content: center;"><video width="1000" height="800" controls loop autoplay><source src="data:video/mp4;base64,{base64.b64encode(open("files/Journo Demo.mp4", "rb").read()).decode()}" type="video/mp4"></video></div>', unsafe_allow_html=True)
+            st.write(f'<div style="display: flex; justify-content: center;"><video width="1000" height="600" controls loop autoplay><source src="data:video/mp4;base64,{base64.b64encode(open("files/Journo Demo.mp4", "rb").read()).decode()}" type="video/mp4"></video></div>', unsafe_allow_html=True)
+
+        
         show_inicio2()
         
         st.stop()
