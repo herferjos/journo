@@ -80,6 +80,8 @@ with st.sidebar:
             df_copia = df_copia.dropna(axis=0, how='all')
             df_copia = df_copia.dropna(axis=1, how='all')
             df_copia = df_copia.iloc[:, 2:7]
+            length = df_copia.shape[0]
+            df_copia2.insert(0, '', [False]*length)
   
             st.session_state.index_cargado = dataframetipo(df_copia)
             st.data_editor(df_copia)
