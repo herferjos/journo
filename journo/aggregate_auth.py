@@ -10,11 +10,16 @@ def auth():
     user_email = get_logged_in_user_email()
 
     if not user_email:
-        cabecera()
-        
-        show_login_button()
-        
-        show_inicio()
+        xd, xf = st.columns(2)
+
+        with xf:
+            cabecera()
+            
+            show_login_button()
+
+        with xd:
+            show_inicio()
+            
         st.stop()
         
     if 'subscriptions' in st.session_state:
