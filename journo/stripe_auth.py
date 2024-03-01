@@ -49,7 +49,7 @@ def redirect_button(
         .pago-button {
             background-color: #ffffff;
             color: #000000;
-            padding: 4px 15px;
+            padding: 15px 15px;
             border: 2px solid #cccccc;
             border-radius: 5px;
             font-weight: bold;
@@ -75,7 +75,7 @@ def redirect_button(
             <a href={button_url} class="pago-button">
                 <span class="pago-icon">
                 </span>
-                🥳 Pruébalo gratis
+                🥳  Pruébalo gratis
             </a>
         </div>
         """,
