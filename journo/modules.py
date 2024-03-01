@@ -333,7 +333,7 @@ def show_inicio():
   #
   #
   <div style="text-align: justify; margin-left: 20%; margin-right: 20%;">
-  # **Convierte tu audio en noticia en cuestión de minutos**
+  # **Journo: Convierte tu audio en noticia en cuestión de minutos**
   
   🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
   
