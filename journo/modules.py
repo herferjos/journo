@@ -401,3 +401,41 @@ def show_inicio2():
         st.info('Finalmente, Journo nos dará una primera versión de nuestra noticia a partir del audio y la información proporcionada. Posteriormente podremos editarla manualmente o con ayuda de Journo.')
         st.write(st.session_state.noticia_generada_demo)
     return 
+
+
+def email_bienvenida(email):
+    # Configurar los detalles del servidor SMTP de Gmail
+    smtp_host = 'smtp.hostinger.com'
+    smtp_port = 465  # Use port 465 for SMTP_SSL
+    smtp_username = 'hola@journo.com'
+    smtp_password = st.secrets["email_pass"]
+
+    # Configurar los detalles del mensaje
+    sender = 'hola@journo.com'
+    recipients = [email]  # Lista de destinatarios
+    subject = '🧬¡Bienvenido a DxRare!🧬'
+    message = f"""
+Estamos muy contentos de que pruebes DxRare y te sumes a nuestra iniciativa.
+Por eso estaremos encantados de saber qué opinas sobre la plataforma y si te ha resultado útil.
+¡Esperamos con ganas tu feedback!
+
+Saludos,
+Equipo de DxRare
+    """
+
+    # Crear el objeto MIME para el correo electrónico
+    msg = MIMEMultipart()
+    msg['From'] = sender
+    msg['To'] = ', '.join(recipients)  # Convertir la lista de destinatarios en una cadena separada por comas
+    msg['Subject'] = subject
+    msg.attach(MIMEText(message, 'plain'))
+
+    # Iniciar la conexión SMTP con SMTP_SSL
+    with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+        # Iniciar sesión en la cuenta de correo
+        server.login(smtp_username, smtp_password)
+
+        # Enviar el correo electrónico
+        server.send_message(msg)
+
+    return
