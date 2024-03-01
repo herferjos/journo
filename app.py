@@ -90,7 +90,7 @@ with st.sidebar:
             if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
                 diccionario = st.session_state.edited_df.to_dict(orient='list')
                 if any(diccionario[''][i] for i in range(len(diccionario['']))):
-                  index = next((i for i in range(len(diccionario[''])) if diccionario['Explorar'][i]), None)
+                  index = next((i for i in range(len(diccionario[''])) if diccionario[''][i]), None)
                   if index is not None:
                     st.session_state.index_cargado = index
                     cargar_noticia()
