@@ -43,10 +43,9 @@ def auth():
         st.session_state.user_subscribed = True
 
 def cabecera():
-    espacios = "&nbsp;" * 5  # Cinco espacios en blanco
-    imagen_html = img_to_html('files/logo-removebg-preview.png', 200, 200)
-    html_text = f"<p style='text-align: center; color: grey;'>{espacios}{imagen_html}</p>"
-    st.markdown(html_text, unsafe_allow_html=True)
+    st.markdown('#')
+    st.markdown('#')
+    st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 200, 200) + "</p>", unsafe_allow_html=True)
 
     st.markdown("""<div style='text-align: center;'> <h5>Tu copiloto periodístico</h5></div>""",unsafe_allow_html=True)
 
