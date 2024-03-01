@@ -338,7 +338,7 @@ def show_inicio():
 
     # Utiliza la etiqueta HTML <video> para mostrar el video con autoplay y loop
     st.write(f'<video width="640" height="360" controls autoplay loop><source src="{video_url}" type="video/mp4"></video>', unsafe_allow_html=True)
-  return
+    return
   
 def show_inicio2():
     st.write("## 🤔 ¿Qué es Journo?")
