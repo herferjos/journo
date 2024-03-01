@@ -103,19 +103,27 @@ def generar_txt():
 def load_sheet():
     return st.connection("gsheets", type=GSheetsConnection)
 
-def dataframetipo(df):
-    gd = GridOptionsBuilder.from_dataframe(df)
-    gd.configure_selection(selection_mode='single', use_checkbox=True)
-    gd.configure_auto_height(autoHeight=True)
-    gd.configure_default_column(resizable=True)
-    gridoptions = gd.build()
-    grid_table = AgGrid(df, gridOptions=gridoptions, update_mode=GridUpdateMode.SELECTION_CHANGED, fit_columns_on_grid_load=True, columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS)
-    try:
-        selected_row = grid_table["selected_rows"]     
-        id = selected_row[0]['_selectedRowNodeInfo']['nodeId']
-        return id
-    except:
-        pass
+def hemeroteca():
+    df_copia = st.session_state.database.copy()
+    df_copia = df_copia.iloc[:, :-1]
+    df_copia = df_copia.dropna(axis=0, how='all')
+    df_copia = df_copia.dropna(axis=1, how='all')
+    df_copia = df_copia.iloc[:, 2:7]
+    length = df_copia.shape[0]
+    df_copia2 = df_copia.copy()
+    df_copia2.insert(0, '', [False]*length)
+  
+    #st.session_state.index_cargado = dataframetipo(df_copia)
+    st.session_state.edited_df = st.data_editor(df_copia2, hide_index = True)
+  
+    if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
+        diccionario = st.session_state.edited_df.to_dict(orient='list')
+        if any(diccionario[''][i] for i in range(len(diccionario['']))):
+          index = next((i for i in range(len(diccionario[''])) if diccionario[''][i]), None)
+          if index is not None:
+            st.session_state.index_cargado = index
+            cargar_noticia()
+            
 
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
