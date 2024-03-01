@@ -333,12 +333,12 @@ def show_inicio():
   st.markdown('#')
 
   st.markdown("""
-  <div style="text-align: justify; margin-left: 20%; margin-right: 0%;">
+  <div style="text-align: justify; margin-left: 22%; margin-right: 0%;">
     <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
   </div>
   """, unsafe_allow_html=True)
 
-  st.markdown('##')
+  st.markdown('###')
   
   st.markdown("""
     <div style="text-align: justify; margin-left: 25%; margin-right: 15%; font-size: 30px;">
