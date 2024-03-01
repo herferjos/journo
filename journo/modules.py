@@ -333,9 +333,9 @@ def show_inicio():
   st.markdown('#')
 
   st.markdown("""
-    <div style="text-align: justify; margin-left: 20%; margin-right: 20%; font-size: 16px;">
+    <div style="text-align: justify; margin-left: 20%; margin-right: 20%; font-size: 25px;">
     
-    <h1 style="font-size: 28px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+    <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
     
     🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
     
@@ -344,11 +344,12 @@ def show_inicio():
     📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
     
     ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
-    <br></br>
-    <p style="font-size: 14px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
     
     </div>
     """, unsafe_allow_html=True)
+
+  st.markdown('<p style="font-size: 20px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>')
+  
   return
 
 def show_inicio2():
