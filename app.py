@@ -11,7 +11,7 @@ from streamlit_extras.stylable_container import stylable_container
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
-st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
+st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png', layout = 'wide')
 
 
 st.markdown(
