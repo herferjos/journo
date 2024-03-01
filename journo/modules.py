@@ -337,21 +337,35 @@ def show_inicio():
   st.markdown('#')
   
   st.markdown("""
-    <div style="text-align: justify; margin-left: 22%; margin-right: 0%; background-color: #fbfbfb; padding: 20px; border-radius: 15px;">
+    <div style="text-align: justify; margin-left: 22%; margin-right: 5%; background-color: #fbfbfb; border-radius: 15px;">
       <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
-      
-      <p style="font-size: 30px; margin-left: 3%;">
-        🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.<br>
-        ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...<br>
-        📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.<br>
-        ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
-      </p>
-      
-      <hr style="border-top: 1px solid #ccc;">
-      
-      <p style="font-size: 15px; margin-left: 3%;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
     </div>
   """, unsafe_allow_html=True)
+  
+  st.markdown('###')
+  
+  st.markdown("""
+    <div style="text-align: justify; margin-left: 25%; margin-right: 15%; font-size: 30px; background-color: #fbfbfb">
+      
+    🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+      
+    ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+      
+    📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+      
+    ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+      
+    </div>
+  """, unsafe_allow_html=True)
+  
+  st.markdown('#')
+  
+  st.markdown("""
+    <div style="text-align: justify; margin-left: 25%; margin-right: 15%; background-color: #fbfbfb; padding: 10px; border-radius: 10px;">
+      <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
+    </div>
+  """, unsafe_allow_html=True)
+
 
   
   return
