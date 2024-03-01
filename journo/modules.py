@@ -355,7 +355,7 @@ def show_inicio():
       #
 
       <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
-      #
+    
       </div>
       
     </div>
