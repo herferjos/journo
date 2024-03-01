@@ -16,6 +16,10 @@ from st_aggrid import AgGrid, GridUpdateMode, ColumnsAutoSizeMode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 from streamlit_gsheets import GSheetsConnection
 import extra_streamlit_components as stx
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 
 
 # Configuración de la clave API de OpenAI
