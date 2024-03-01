@@ -84,11 +84,16 @@ with st.sidebar:
             df_copia2 = df_copia.copy()
             df_copia2.insert(0, '', [False]*length)
   
-            st.session_state.index_cargado = dataframetipo(df_copia)
-            st.data_editor(df_copia2, hide_index = True)
+            #st.session_state.index_cargado = dataframetipo(df_copia)
+            st.session_state.edited_df = st.data_editor(df_copia2, hide_index = True)
 
             if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
-                cargar_noticia()
+                diccionario = st.session_state.edited_df.to_dict(orient='list')
+                if any(diccionario[''][i] for i in range(len(diccionario['']))):
+                  index = next((i for i in range(len(diccionario[''])) if diccionario['Explorar'][i]), None)
+                  if index is not None:
+                    st.session_state.index_cargado = index
+                    cargar_noticia()
                     
             if st.session_state.noticia_cargada == True:
                 
