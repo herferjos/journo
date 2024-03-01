@@ -85,7 +85,7 @@ with st.sidebar:
             df_copia2.insert(0, '', [False]*length)
   
             st.session_state.index_cargado = dataframetipo(df_copia)
-            st.data_editor(df_copia2)
+            st.data_editor(df_copia2, hide_index = True)
 
             if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
                 cargar_noticia()
