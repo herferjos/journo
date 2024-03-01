@@ -63,7 +63,7 @@ def redirect_button(
             border-color: #000000;
         }
         .pago-text {
-            margin-left: 10px;
+            margin-left: 8px;
         }
         </style>
     """, unsafe_allow_html=True)
