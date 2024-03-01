@@ -13,6 +13,13 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
 
+html_code = """
+<div style="position: absolute; bottom: 0; right: 0; background-color: blue; width: 200px; height: 200px;"></div>
+"""
+
+# Renderiza el cuadro azul en Streamlit
+st.markdown(html_code, unsafe_allow_html=True)
+
 hide_streamlit_style = """
             <style>
             [data-testid="stStatusWidget"] {visibility: hidden;}
