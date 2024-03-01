@@ -338,10 +338,10 @@ def show_inicio():
   
   st.markdown("""
     <div style="background-color: #fbfbfb">
-      <div style="text-align: justify; margin-left: 22%; margin-right: 0%; background-color: #fbfbfb; border-radius: 15px; padding-top: 3%">
+      <div style="text-align: justify; margin-left: 22%; margin-right: 0%; background-color: #fbfbfb; border-radius: 15px; padding-top: 3%, padding-left: -10%; padding-right: -10%">
         <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
       </div>
-      <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; padding-bottom: 3%">
+      <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; padding-bottom: 3%; padding-top: 3%; padding-left: -10%; padding-right: -10%">
         
       🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
         
