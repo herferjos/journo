@@ -24,8 +24,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.markdown(
     """
-    <div style='position: fixed; bottom: 10px; right: 10px; padding: 10px; background-color: white; border-radius: 5px;'>
-        Contenido del cuadro blanco
+    <div style='position: fixed; bottom: 0px; right: 0px; padding: 0px; background-color: white; border-radius: 5px;'>
     </div>
     """,
     unsafe_allow_html=True
