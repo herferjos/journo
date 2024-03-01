@@ -75,12 +75,7 @@ with st.sidebar:
         
         else:
             st.info('Estas son tus noticias guardadas. Puedes seleccionar alguna para volver a editarla con Journo')
-            df_copia = st.session_state.database.copy()
-            df_copia = df_copia.iloc[:, :-1]
-            st.session_state.index_cargado = dataframetipo(df_copia)
-
-            if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
-                cargar_noticia()
+            hemeroteca()
                     
             if st.session_state.noticia_cargada == True:
                 
@@ -189,11 +184,11 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
             
     if st.session_state.phase == 1:
-        st.session_state.X = st.text_input(":blue[**¿Cuál es el cargo de la persona que habla?**]", placeholder = 'El presidente de la Junta de Andalucía', value = st.session_state.X)
-        st.session_state.Y = st.text_input(":blue[**¿Cuál es el nombre del orador?**]", placeholder = 'Juanma Moreno', value = st.session_state.Y)
-        st.session_state.A = st.text_input(":blue[**¿Dónde ha dicho las declaraciones?**]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
-        st.session_state.B = st.text_input(":blue[**¿Cuándo las ha dicho?**]", placeholder = 'tras el Consejo de Gobierno autonómico durante la mañana de este martes', value = st.session_state.B)
-        st.session_state.Z = st.text_area(":blue[**¿Qué más información de contexto es relevante para redactar la noticia?**]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
+        st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'El presidente de la Junta de Andalucía', value = st.session_state.X)
+        st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre del orador?]", placeholder = 'Juanma Moreno', value = st.session_state.Y)
+        st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
+        st.session_state.B = st.text_input(":blue[¿Cuándo las ha dicho?]", placeholder = 'tras el Consejo de Gobierno autonómico durante la mañana de este martes', value = st.session_state.B)
+        st.session_state.Z = st.text_area(":blue[¿Qué más información de contexto es relevante para redactar la noticia?]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
         st.info(f"¿Lo tienes? Continúa en 3️⃣ Destacados")
 
     
