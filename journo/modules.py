@@ -342,7 +342,7 @@ def show_inicio():
         <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
       </div>
       <p> </p>
-      <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; margin-bottom: 10%">
+      <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 30px; padding-bottom: 10%">
         
       🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
         
