@@ -77,6 +77,10 @@ with st.sidebar:
             st.info('Estas son tus noticias guardadas. Puedes seleccionar alguna para volver a editarla con Journo')
             df_copia = st.session_state.database.copy()
             df_copia = df_copia.iloc[:, :-1]
+            df_copia = df_copia.dropna(axis=0, how='all')
+            df_copia = df_copia.dropna(axis=1, how='all')
+            df_copia = df_copia.iloc[:, 2:7]
+  
             st.session_state.index_cargado = dataframetipo(df_copia)
             st.data_editor(df_copia)
 
