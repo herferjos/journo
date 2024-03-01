@@ -344,17 +344,17 @@ def show_inicio():
       <p> </p>
       <div style="text-align: justify; margin-left: 20%; margin-right: 0%; font-size: 30px;">
         
-        🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
-          
-        ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
-          
-        📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
-          
-        ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
-  
-        <p> </p>
-  
-        <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
+      🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+        
+      ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+        
+      📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+        
+      ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+
+      <p> </p>
+
+      <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
       </div>
       
     </div>
