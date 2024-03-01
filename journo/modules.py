@@ -329,16 +329,7 @@ def listas_iguales(lista1, lista2):
 
 
 def show_inicio():
-    video_file = open("files/Journo Demo.mp4", "rb")
-    video_bytes = video_file.read()
-
-    # Codifica el video en base64 para la reproducción
-    video_encoded = base64.b64encode(video_bytes).decode()
-    video_url = f"data:video/mp4;base64,{video_encoded}"
-
-    # Utiliza la etiqueta HTML <video> para mostrar el video
-    st.write(f'<video width="640" height="360" controls loop autoplay><source src="{video_url}" type="video/mp4"></video>', unsafe_allow_html=True)
-
+    st.write(f'<div style="display: flex; justify-content: center;"><video width="800" height="400" controls loop autoplay><source src="data:video/mp4;base64,{base64.b64encode(open("files/Journo Demo.mp4", "rb").read()).decode()}" type="video/mp4"></video></div>', unsafe_allow_html=True)
     return
   
 def show_inicio2():
