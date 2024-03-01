@@ -17,6 +17,7 @@ hide_streamlit_style = """
             <style>
             [data-testid="stStatusWidget"] {visibility: hidden;}
             [data-testid="stToolbar"] {visibility: hidden !important;}
+            [data-testid="viewerBadge_container__r5tak"] {visibility: hidden !important;}
             footer {visibility: hidden !important;}
             </style>
             """
