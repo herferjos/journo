@@ -443,20 +443,28 @@ def email_bienvenida(email):
     # Configurar los detalles del servidor SMTP de Gmail
     smtp_host = 'smtp.hostinger.com'
     smtp_port = 465  # Use port 465 for SMTP_SSL
-    smtp_username = 'hola@journo.com'
+    smtp_username = 'hola@journo.es'
     smtp_password = st.secrets["email_pass"]
 
     # Configurar los detalles del mensaje
-    sender = 'hola@journo.com'
+    sender = 'hola@journo.es'
     recipients = [email]  # Lista de destinatarios
-    subject = '🧬¡Bienvenido a DxRare!🧬'
+    subject = '🥳 ¡Bienvenido a Journo!'
     message = f"""
-Estamos muy contentos de que pruebes DxRare y te sumes a nuestra iniciativa.
-Por eso estaremos encantados de saber qué opinas sobre la plataforma y si te ha resultado útil.
-¡Esperamos con ganas tu feedback!
+¡Gracias por registrarte en Journo!
 
-Saludos,
-Equipo de DxRare
+Ya puedes empezar a darle uso a tu copiloto periodístico en journo.streamlit.app. Debes iniciar sesión con esta cuenta de correo con la que te has suscrito, y lo tienes a tu disposición de forma ilimitada. Para lograr los mejores resultados, nuestra recomendación es revisar la transcripción y añadir la información de contexto con la mayor precisión posible.
+
+¡Solo un pequeño aviso! Esta versión de Journo es un prototipo aún en trabajo. Es posible que, mientras lo uses, aparezca algún error en formato de código. ¡No pasa nada, es normal! Haz captura de pantalla, prueba a reiniciar la aplicación y envíanos a este correo (hola@journo.es) la imagen del error. Eso hará que podamos dar cada vez mejor servicio a periodistas como tú.
+
+Si quieres, también puedes escribirnos a este correo para compartir tus impresiones y sugerencias sobre la herramienta, ¡nos vendrá genial! 
+
+Esperamos de corazón que Journo te sea de mucha utilidad. 
+
+Muchas gracias,
+
+Demo y José Luis
+Creadores de Journo
     """
 
     # Crear el objeto MIME para el correo electrónico
