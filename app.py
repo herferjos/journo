@@ -13,7 +13,6 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
 
-
 st.markdown(
     """
     <style>
