@@ -74,7 +74,6 @@ def redirect_button(
         <div class="pago-container">
             <a href={button_url} class="pago-button">
                 <span class="pago-icon">
-                    {svg_content}
                 </span>
                 Pruébalo gratis
             </a>
