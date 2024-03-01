@@ -328,8 +328,10 @@ def listas_iguales(lista1, lista2):
     return True
 
 
-def show_inicio2():
+def show_inicio():
   st.markdown("""
+  <div style="text-align: center;">
+  
   # **Journo: Convierte tu audio en noticia en cuestión de minutos**
   
   🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
@@ -341,7 +343,9 @@ def show_inicio2():
   ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
   
   Hecho con ❤️ desde Málaga. Por y para periodistas.
-  """)
+  
+  </div>
+  """, unsafe_allow_html=True)
   return
 
 def show_inicio2():
