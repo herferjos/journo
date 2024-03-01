@@ -1,7 +1,7 @@
 import streamlit as st
 from journo.google_auth import get_logged_in_user_email, show_login_button
 from journo.stripe_auth import is_active_subscriber, redirect_button
-from journo.modules import show_inicio, img_to_html
+from journo.modules import *
 
 payment_provider = st.secrets.get("payment_provider", "stripe")
 
