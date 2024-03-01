@@ -23,36 +23,13 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.markdown(
-"""
-            <style>
-            body {
-              margin: 0;
-            }
-            
-            .wrapper {
-              position: relative;
-              z-index: 1;
-              display: inline-block;
-              width: 100vw;
-            }
-            
-            .hidefooter {
-              position: absolute;
-              width: 90%;
-              height: 35px;
-              background: rgb(242,240,246);
-              left: 0%;
-              right: 5%;
-              bottom: 0px;
-              z-index: 2;
-              display: block;
-              color: rgb(0, 0, 0);
-            }
-            </style>
-""",
-unsafe_allow_html=True
+    """
+    <div style='position: fixed; bottom: 10px; right: 10px; padding: 10px; background-color: white; border-radius: 5px;'>
+        Contenido del cuadro blanco
+    </div>
+    """,
+    unsafe_allow_html=True
 )
-
 
 st.markdown(
     """
