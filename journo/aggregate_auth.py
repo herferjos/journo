@@ -29,7 +29,7 @@ def auth():
         st.write(' ')
         st.markdown("""<div style='text-align: center;'> <h5>Y si te convence, suscríbete por 9,90€ al mes</h5></div>""",unsafe_allow_html=True)
         
-        #show_inicio()
+        show_inicio()
         
         st.session_state.user_subscribed = False
         st.stop()
