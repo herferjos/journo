@@ -13,6 +13,17 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
 
+video_file = open("file/Journo Demo.mp4", "rb")
+video_bytes = video_file.read()
+
+# Codifica el video en base64 para la reproducción
+video_encoded = base64.b64encode(video_bytes).decode()
+video_url = f"data:video/mp4;base64,{video_encoded}"
+
+# Utiliza la etiqueta HTML <video> para mostrar el video
+st.write(f'<video width="640" height="360" controls loop autoplay><source src="{video_url}" type="video/mp4"></video>', unsafe_allow_html=True)
+
+
 st.markdown(
     """
     <style>
