@@ -14,7 +14,7 @@ def auth():
         
         show_login_button()
         
-        #show_inicio()
+        show_inicio()
         st.stop()
         
     if 'subscriptions' in st.session_state:
@@ -26,6 +26,8 @@ def auth():
         cabecera()
         
         redirect_button(customer_email=user_email)
+        st.write(' ')
+        st.markdown("""<div style='text-align: center;'> <h5>Y si te convence, suscríbete por 9,90€ al mes</h5></div>""",unsafe_allow_html=True)
         
         #show_inicio()
         

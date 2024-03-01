@@ -13,20 +13,16 @@ openai_client = OpenAI(api_key=st.secrets.openai_api)
 
 st.set_page_config(page_title="Journo", page_icon='files/logo-removebg-preview.png')
 
-hide_streamlit_style = """
-            <style>
-            [data-testid="stToolbar"] {visibility: hidden !important;}
-            footer {visibility: hidden !important;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 st.markdown(
     """
     <style>
-        section[data-testid="stSidebar"] {
+            [data-testid="stStatusWidget"] {visibility: hidden;}
+            [data-testid="stToolbar"] {visibility: hidden !important;}
+            footer {visibility: hidden !important;}
+            section[data-testid="stSidebar"] {
             width: 400px !important; # Set the width to your desired value
-        }
+            div.stLinkButton {text-align:center}
+            }
     </style>
     """,
     unsafe_allow_html=True,
@@ -55,11 +51,6 @@ if 'anotaciones_state' not in st.session_state:
     st.session_state.anotaciones_state = {}
 if "start_time" not in st.session_state:
     st.session_state.start_time = int(0)
-
-st.markdown("""
-  <style>
-  div.stLinkButton {text-align:center}
-  </style>""", unsafe_allow_html=True)
 
 
 auth()
