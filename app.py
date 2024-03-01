@@ -62,7 +62,7 @@ load_database()
 with st.sidebar:
 
     st.markdown(
-        "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 160, 160) + "</p>",
+        "<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 100, 100) + "</p>",
         unsafe_allow_html=True
     )
     
@@ -84,7 +84,7 @@ with st.sidebar:
                     
             if st.session_state.noticia_cargada == True:
                 
-                st.success(f"¡Ya puedes seguir modificando tu noticia!")   
+                st.info(f"¡Ya puedes seguir modificando tu noticia!")   
 
     st.write('')
     
@@ -112,13 +112,13 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
         col1, col2 = st.tabs(["Subir", "Grabar"])
         with col1:
             if 'mp3_audio_path' not in st.session_state:
-                st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
+                st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia, font =")
                 st.session_state.archivo = st.file_uploader("Cargar archivo")
 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
                 if st.button("Generar transcripción", type = "primary", key = "upload"):
                     with st.spinner("Transcribiendo..."):
-                        st.warning('¡No cambies de pestaña para no perder el progreso!')
+                        st.info('¡No cambies de pestaña para no perder el progreso!')
                         mp3_bytes = audio_a_bytes(st.session_state.archivo)
                         cargar_y_transcribir_audio(mp3_bytes)
 
@@ -131,7 +131,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             if audio is not None:
                 if st.button("Generar transcripción", type = "primary", key = "record"):
                     with st.spinner("Transcribiendo..."):
-                        st.warning('¡No cambies de pestaña para no perder el progreso!')
+                        st.info('¡No cambies de pestaña para no perder el progreso!')
                         cargar_y_transcribir_audio(audio['bytes'])
 
         if 'mp3_audio_path' in st.session_state:
@@ -183,7 +183,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
 
         if 'transcripcion_editada' in st.session_state:
-            st.success("¡Listo! Recuerda revisar y editar el texto por si ha ocurrido algún error de transcripción, ¡cuidado con los nombres propios! Para continuar con la redacción, avanza a 2️⃣ Contexto")
+            st.info("¡Listo! Recuerda revisar y editar el texto por si ha ocurrido algún error de transcripción, ¡cuidado con los nombres propios! Para continuar con la redacción, avanza a 2️⃣ Contexto")
 
             st.session_state.transcripcion_editada = st.text_area(label = ":blue[Tus declaraciones]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
             st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
@@ -233,10 +233,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.rerun()
 
             if 'anotaciones_finales' in st.session_state:
-                st.success("¡Ya tenemos los destacados! Avanza a 4️⃣ Tu noticia para culminar la redacción")
+                st.info("¡Ya tenemos los destacados! Avanza a 4️⃣ Tu noticia para culminar la redacción")
 
         else:
-            st.warning('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
+            st.info('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
 
     if st.session_state.phase == 3:
         
@@ -310,7 +310,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.generacion_noticia = True
                     st.rerun()
             else:
-                st.warning('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
+                st.info('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
 
 
 #except Exception as e:
