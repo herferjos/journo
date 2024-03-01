@@ -329,7 +329,7 @@ def listas_iguales(lista1, lista2):
 
 
 def show_inicio():
-    video_file = open("file/Journo Demo.mp4", "rb")
+    video_file = open("files/Journo Demo.mp4", "rb")
     video_bytes = video_file.read()
 
     # Codifica el video en base64 para la reproducción
