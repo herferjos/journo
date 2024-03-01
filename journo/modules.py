@@ -331,7 +331,7 @@ def listas_iguales(lista1, lista2):
 def show_inicio():
   st.markdown("""
   #
-  # **Journo: Convierte tu audio en noticia en cuestión de minutos**
+  # **Convierte tu audio en noticia en cuestión de minutos**
   <div style="text-align: justify; margin-left: 20%; margin-right: 20%;">
   
   🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
