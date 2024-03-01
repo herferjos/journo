@@ -337,36 +337,28 @@ def show_inicio():
   st.markdown('#')
   
   st.markdown("""
-    <div style="text-align: justify; margin-left: 22%; margin-right: 0%; background-color: #fbfbfb; border-radius: 15px; padding-left: 10px">
-      <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+    <div style="background-color: #fbfbfb">
+      <div style="text-align: justify; margin-left: 22%; margin-right: 0%; background-color: #fbfbfb; border-radius: 15px; padding-left: 10px">
+        <h1 style="font-size: 35px;">Convierte tu audio en noticia en cuestión de minutos</h1>
+      </div>
+      <p> </p>
+      <div style="text-align: justify; margin-left: 25%; margin-right: 15%; font-size: 30px;">
+        
+      🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
+        
+      ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
+        
+      📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
+        
+      ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
+        
+      </div>
+      <p> </p>
+      <div style="text-align: justify; margin-left: 25%; margin-right: 15%; background-color: #fbfbfb; padding: 10px; border-radius: 10px;">
+        <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
+      </div>
     </div>
   """, unsafe_allow_html=True)
-  
-  st.markdown('###')
-  
-  st.markdown("""
-    <div style="text-align: justify; margin-left: 25%; margin-right: 15%; font-size: 30px; background-color: #fbfbfb">
-      
-    🎙 **Transcribe tu audio en segundos.** Puedes revisar y, si lo necesitas, editar la transcripción.
-      
-    ❓ **Journo te hará algunas preguntas de contexto necesarias para la redacción:** quién habla, cuándo, dónde...
-      
-    📝 **Selecciona las declaraciones más destacadas** para que Journo jerarquice el artículo bajo tu criterio.
-      
-    ✨ Y, zas, **Journo redacta tu noticia al momento.** Puedes pedirle titulares, que te la personalice, editarla tú mismo...
-      
-    </div>
-  """, unsafe_allow_html=True)
-  
-  st.markdown('#')
-  
-  st.markdown("""
-    <div style="text-align: justify; margin-left: 25%; margin-right: 15%; background-color: #fbfbfb; padding: 10px; border-radius: 10px;">
-      <p style="font-size: 15px;">Hecho con ❤️ desde Málaga. Por y para periodistas.</p>
-    </div>
-  """, unsafe_allow_html=True)
-
-
   
   return
 
