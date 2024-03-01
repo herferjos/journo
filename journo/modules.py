@@ -104,14 +104,6 @@ def load_sheet():
     return st.connection("gsheets", type=GSheetsConnection)
 
 def dataframetipo(df):
-    # Eliminar filas con todas las celdas vacías
-    df = df.dropna(axis=0, how='all')
-    
-    # Eliminar columnas con todas las celdas vacías
-    df = df.dropna(axis=1, how='all')
-  
-    df = df.iloc[:, 2:7]
-  
     gd = GridOptionsBuilder.from_dataframe(df)
     gd.configure_selection(selection_mode='single', use_checkbox=True)
     gd.configure_auto_height(autoHeight=True)
