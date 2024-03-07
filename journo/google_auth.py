@@ -84,7 +84,7 @@ def markdown_button(url: str):
                 <span class="google-icon">
                     {svg_content}
                 </span>
-                Iniciar Sesión
+                Log In
             </a>
         </div>
         """,
