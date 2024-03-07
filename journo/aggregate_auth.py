@@ -42,7 +42,7 @@ def auth():
         
         redirect_button(customer_email=user_email)
         st.write(' ')
-        st.markdown("""<div style='text-align: center;'> <h5>Y si te convence, suscríbete por 9,90€ al mes</h5></div>""",unsafe_allow_html=True)
+        st.markdown("""<div style='text-align: center;'> <h5>And if you are convinced, subscribe for 9,90€ per month</h5></div>""",unsafe_allow_html=True)
         
         #show_inicio()
         
@@ -57,7 +57,7 @@ def cabecera():
     st.markdown('#')
     st.markdown("<p style='text-align: center; color: grey;'>" + img_to_html('files/logo-removebg-preview.png', 200, 200) + "</p>", unsafe_allow_html=True)
 
-    st.markdown("""<div style='text-align: center;'> <h5>Tu copiloto periodístico</h5></div>""",unsafe_allow_html=True)
+    st.markdown("""<div style='text-align: center;'> <h5>Your journalistic copilot</h5></div>""",unsafe_allow_html=True)
 
     return
     
