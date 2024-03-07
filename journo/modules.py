@@ -121,7 +121,7 @@ def hemeroteca():
     #st.session_state.index_cargado = dataframetipo(df_copia)
     st.session_state.edited_df = st.data_editor(df_copia2, hide_index = True)
   
-    if st.button("Cargar noticia seleccionada", type = "primary", key = "start"):
+    if st.button("Load selected news", type = "primary", key = "start"):
         diccionario = st.session_state.edited_df.to_dict(orient='list')
         if any(diccionario[''][i] for i in range(len(diccionario['']))):
           index = next((i for i in range(len(diccionario[''])) if diccionario[''][i]), None)
