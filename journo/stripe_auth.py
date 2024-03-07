@@ -49,7 +49,7 @@ def redirect_button(
         .pago-button {
             background-color: #ffffff;
             color: #000000;
-            padding: 4px 15px;
+            padding: 15px 15px;
             border: 2px solid #cccccc;
             border-radius: 5px;
             font-weight: bold;
@@ -63,7 +63,7 @@ def redirect_button(
             border-color: #000000;
         }
         .pago-text {
-            margin-left: 10px;
+            margin-left: 8px;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -74,9 +74,8 @@ def redirect_button(
         <div class="pago-container">
             <a href={button_url} class="pago-button">
                 <span class="pago-icon">
-                    {svg_content}
                 </span>
-                Suscríbete
+                🥳  Pruébalo gratis
             </a>
         </div>
         """,
