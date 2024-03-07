@@ -70,30 +70,30 @@ with st.sidebar:
     #st.markdown("""<div style='text-align: center;'><h2>Una nueva forma de hacer periodismo</h2></div>""",unsafe_allow_html=True)
 
     st.write('')
-    with st.expander('**Tu hemeroteca**'):
+    with st.expander('**Your newspaper library**'):
         if st.session_state.database.isna().all().all():
-            st.info('¡Todavía no has creado ninguna noticia!')
+            st.info("You haven't created any news yet!")
         
         else:
-            st.info('Estas son tus noticias guardadas. Puedes seleccionar alguna para volver a editarla con Journo')
+            st.info('These are your saved news. You can select some of them to edit them again with Journo')
             hemeroteca()
                     
             if st.session_state.noticia_cargada == True:
                 
-                st.info(f"¡Ya puedes seguir modificando tu noticia!")   
+                st.info(f"Now you can continue modifying your news!")   
 
     st.write('')
     
     c,d = st.columns(2)
 
     with c:
-        boton_reset = st.button("Nueva noticia", type = "primary", key = "restart")
+        boton_reset = st.button("Start creating", type = "primary", key = "restart")
         
     if boton_reset:
         reset_variables()
         
     with d:
-        boton_guardar = st.button("Guardar progreso", type = "primary")
+        boton_guardar = st.button("Save progress", type = "primary")
         
     if boton_guardar:
         guardar_info()
@@ -101,38 +101,38 @@ with st.sidebar:
 
 if 'email' in st.session_state and st.session_state.user_subscribed == True: 
     
-    st.session_state.phase = stx.stepper_bar(steps=["Transcripción", "Contexto", "Destacados", "Tu noticia"])
+    st.session_state.phase = stx.stepper_bar(steps=["Transcription", "Context", "Highlights", "Your news"])
 
     if st.session_state.phase == 0:
 
-        col1, col2 = st.tabs(["Subir", "Grabar"])
+        col1, col2 = st.tabs(["Upload", "Record"])
         with col1:
             if 'mp3_audio_path' not in st.session_state:
-                st.info("Adjunta aquí tu audio con las declaraciones que deseas convertir en una noticia")
-                st.session_state.archivo = st.file_uploader("Cargar archivo")
+                st.info("Attach here your audio with the statements you want to turn into a press release")
+                st.session_state.archivo = st.file_uploader("Upload file")
 
             if  st.session_state.archivo is not None and 'mp3_audio_path' not in st.session_state:       
-                if st.button("Generar transcripción", type = "primary", key = "upload"):
-                    with st.spinner("Transcribiendo..."):
-                        st.info('¡No cambies de pestaña para no perder el progreso!')
+                if st.button("Generate transcription", type = "primary", key = "upload"):
+                    with st.spinner("Transcribing..."):
+                        st.info("Don't switch tabs so as not to lose progress!")
                         mp3_bytes = audio_a_bytes(st.session_state.archivo)
                         cargar_y_transcribir_audio(mp3_bytes)
 
 
         with col2:
             if 'mp3_audio_path' not in st.session_state:
-                st.info("También puedes grabar tu audio directamente desde Journo")
+                st.info("You can also record your audio directly from Journo")
 
             audio=mic_recorder(start_prompt="Start recording",stop_prompt="Stop recording",key='recorder')
             if audio is not None:
-                if st.button("Generar transcripción", type = "primary", key = "record"):
-                    with st.spinner("Transcribiendo..."):
-                        st.info('¡No cambies de pestaña para no perder el progreso!')
+                if st.button("Generate transcription", type = "primary", key = "record"):
+                    with st.spinner("Transcribing..."):
+                        st.info("Don't switch tabs so as not to lose progress!")
                         cargar_y_transcribir_audio(audio['bytes'])
 
         if 'mp3_audio_path' in st.session_state:
             st.audio(st.session_state.mp3_audio_path, format="audio/mpeg", start_time=st.session_state.start_time)
-            with st.expander('**¿Dudas con algún instante de la transcripción?** Consúltala aquí segundo a segundo'):
+            with st.expander('**Do you have any doubts about any part of the transcript?** Check it here second by second'):
                 with st.container(height = 300, border = False):
                     with stylable_container(
                         key="link_buttons",
@@ -179,24 +179,24 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
 
 
         if 'transcripcion_editada' in st.session_state:
-            st.info("¡Listo! Recuerda revisar y editar el texto por si ha ocurrido algún error de transcripción, ¡cuidado con los nombres propios! Para continuar con la redacción, avanza a 2️⃣ Contexto")
+            st.info("You're done! Remember to check and edit the text for any transcription errors - be careful with proper names! To continue with the writing, go to 2️⃣ Context")
 
-            st.session_state.transcripcion_editada = st.text_area(label = ":blue[Tus declaraciones]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
+            st.session_state.transcripcion_editada = st.text_area(label = ":blue[Your statements]", value = st.session_state.transcripcion_editada, height = int(len(st.session_state.transcripcion_editada)/4))
             st.session_state.lista_1 = st.session_state.transcripcion_editada.split('\n\n')
             
     if st.session_state.phase == 1:
-        st.session_state.X = st.text_input(":blue[¿Cuál es el cargo de la persona que habla?]", placeholder = 'El presidente de la Junta de Andalucía', value = st.session_state.X)
-        st.session_state.Y = st.text_input(":blue[¿Cuál es el nombre del orador?]", placeholder = 'Juanma Moreno', value = st.session_state.Y)
-        st.session_state.A = st.text_input(":blue[¿Dónde ha dicho las declaraciones?]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
-        st.session_state.B = st.text_input(":blue[¿Cuándo las ha dicho?]", placeholder = 'tras el Consejo de Gobierno autonómico durante la mañana de este martes', value = st.session_state.B)
-        st.session_state.Z = st.text_area(":blue[¿Qué más información de contexto es relevante para redactar la noticia?]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
-        st.info(f"¿Lo tienes? Continúa en 3️⃣ Destacados")
+        st.session_state.X = st.text_input(":blue[What is the position of the person speaking?]", placeholder = 'El presidente de la Junta de Andalucía', value = st.session_state.X)
+        st.session_state.Y = st.text_input(":blue[What is the name of the speaker?]", placeholder = 'Juanma Moreno', value = st.session_state.Y)
+        st.session_state.A = st.text_input(":blue[Where did he say the statements?]", placeholder = 'en una rueda de prensa en el Palacio de San Telmo, en Sevilla', value = st.session_state.A)
+        st.session_state.B = st.text_input(":blue[When did he say them?]", placeholder = 'tras el Consejo de Gobierno autonómico durante la mañana de este martes', value = st.session_state.B)
+        st.session_state.Z = st.text_area(":blue[What other contextual information is relevant to writing the news story?]", placeholder = 'Andalucía sufre desde hace meses una grave sequía, que ha llevado a la Junta a impulsar varios paquetes de medidas que...', value = st.session_state.Z)
+        st.info(f"Have you got it? Continued on 3️⃣ Highlights")
 
     
     if st.session_state.phase == 2:
         if 'transcripcion_editada' in st.session_state:
             if 'anotaciones_finales' not in st.session_state:
-                st.info('Puedes subrayar en el texto las frases más relevantes de las declaraciones para destacarlas en tu noticia')
+                st.info('You can underline in the text the most relevant sentences of the statements to highlight them in your press release.')
 
             if 'lista_2' not in st.session_state:
                 st.session_state.lista_2 = st.session_state.lista_1
@@ -219,7 +219,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             c,v,g = st.columns(3)
 
             with v: 
-                if st.button("Guardar destacados", type = "primary", key = "anotaciones_button"):
+                if st.button("Save highlights", type = "primary", key = "anotaciones_button"):
                     st.session_state.anotaciones_finales = []
                     for i in range(len(st.session_state.lista_2)):
                         st.session_state.anotaciones[i] = st.session_state.anotaciones_state[i]
@@ -229,10 +229,10 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.rerun()
 
             if 'anotaciones_finales' in st.session_state:
-                st.info("¡Ya tenemos los destacados! Avanza a 4️⃣ Tu noticia para culminar la redacción")
+                st.info("We've got the highlights! Go to 4️⃣ Your news to complete the editorial process.")
 
         else:
-            st.info('¡No tan rápido, Kapuściński! Vuelve a 1️⃣ Transcripción y asegúrate de que las declaraciones estén correctamente cargadas')
+            st.info('Not so fast, Kapuściński! Go back to 1️⃣ Transcription and make sure the statements are correctly loaded.')
 
     if st.session_state.phase == 3:
         
@@ -243,7 +243,7 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     if i == 0 or i == 1:
                         pass
                     elif i == 2:
-                        st.session_state.noticia_editada = st.text_area(label = ":blue[Noticia generada]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/4), key = st.session_state.noticia_editada)
+                        st.session_state.noticia_editada = st.text_area(label = ":blue[Generated news]", value = st.session_state.noticia_editada, height = int(len(st.session_state.noticia_editada)/4), key = st.session_state.noticia_editada)
                     elif st.session_state.messages[i]['role'] == 'user':
                         st.info(st.session_state.messages[i]['content'])
                     else:
@@ -278,14 +278,14 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
            a,b = st.columns([0.5,1])
            with a:
         
-                if st.button("Volver a redactar noticia", type = "primary"): 
-                  with st.spinner("Escribiendo..."):
+                if st.button("Rewrite news", type = "primary"): 
+                  with st.spinner("Writing..."):
                     st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.session_state.generacion = True
                     st.session_state.generacion_noticia = True
                     st.rerun()
            with b:
-                if prompt := st.chat_input("Haz que la noticia sea más larga / Propón tres titulares"):
+                if prompt := st.chat_input("Make the news longer / Propose three headlines."):
                         
                     st.session_state.messages.append({"role": "user", "content": prompt})
                     st.session_state.generacion = True
@@ -296,17 +296,17 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
             d,r,m = st.columns(3)
 
             with r: 
-                boton_generar = st.button("Redactar noticia", type = "primary")
+                boton_generar = st.button("Write news", type = "primary")
            
             if 'anotaciones_finales' in st.session_state:
                 if boton_generar:
-                  with st.spinner("Escribiendo..."):
+                  with st.spinner("Writing..."):
                     st.session_state.messages = generar_noticia(st.session_state.transcripcion_editada, st.session_state.anotaciones_finales, st.session_state.X, st.session_state.Y, st.session_state.Z, st.session_state.A, st.session_state.B)
                     st.session_state.generacion = True
                     st.session_state.generacion_noticia = True
                     st.rerun()
             else:
-                st.info('Journo no puede redactar tu noticia hasta que no le hayas dado toda la información que necesita :(')
+                st.info("Journo can't write your news until you have given him all the information he needs :(")
 
 
 #except Exception as e:
