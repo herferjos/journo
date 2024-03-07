@@ -343,7 +343,7 @@ def show_inicio():
         </div>
         <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 40px; padding-bottom: 3%; padding-top: 3%">
           
-        🎙 **Transcribe your audio in seconds ** You can review and, if needed, edit the transcript.
+        🎙 **Transcribe your audio in seconds** You can review and, if needed, edit the transcript.
           
         ❓ **Journo will ask you some contextual questions necessary for writing:** who is speaking, when, where....
           
