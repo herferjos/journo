@@ -338,27 +338,27 @@ def show_inicio():
   
   st.markdown("""
       <div style="background-color: #fbfbfb; border-radius: 20px;">
-          <div style="text-align: justify; margin-left: 22%; margin-right: 0%; padding-top: 3%">
-              <h1 style="font-size: 35px;">Turn your audio into news in a matter of minutes</h1>
-          </div>
-          <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 40px; padding-bottom: 3%; padding-top: 3%">
-      
-              🎙 **Transcribe your audio in seconds.** You can review and, if necessary, edit the transcription.
-      
-              ❓ **Journo will ask you some necessary context questions for writing:** who speaks, when, where...
-      
-              📝 **Select the most outstanding statements** so that Journo prioritizes the article according to your criteria.
-      
-              ✨ And, bam, **Journo writes your news instantly.** You can ask for headlines, personalize it, edit it yourself...
-      
-              #
-      
-              <p style="font-size: 15px;">Made with ❤️ from Malaga. By and for journalists.</p>
-      
-              <p> </p>
-      
-          </div>
-      
+        <div style="text-align: justify; margin-left: 22%; margin-right: 0%; padding-top: 3%">
+          <h1 style="font-size: 35px;">Turn your audio into news in minutes</h1>
+        </div>
+        <div style="text-align: justify; margin-left: 25%; margin-right: 0%; font-size: 40px; padding-bottom: 3%; padding-top: 3%">
+          
+        🎙 **Transcribe your audio in seconds ** You can review and, if needed, edit the transcript.
+          
+        ❓ **Journo will ask you some contextual questions necessary for writing:** who is speaking, when, where....
+          
+        📝 **Select the most outstanding statements** for Journo to rank the article according to your criteria.
+          
+        ✨ And, wham, **Journo writes your news on the fly.** You can ask him for headlines, customize it, edit it yourself...
+  
+        #
+  
+        <p style="font-size: 15px;">Made with ❤️ from Málaga. By and for journalists.</p>
+  
+        <p> </p>
+        
+        </div>
+        
       </div>
     """, unsafe_allow_html=True)
 
