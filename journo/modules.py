@@ -219,7 +219,7 @@ Result: 'The President of the Government, Pedro Sánchez, has criticized the opp
     
     messages = [
         {"role": "system", "content": f"{prompt} \n"},
-        {"role": "user", "content": f"Position: {X}, Name: {Y}, Where: {A}, When: {B}, Context: {Z}, Highlighted Statements: {annotations}, Statements: {declarations}."}
+        {"role": "user", "content": f"Position: {X}, Name: {Y}, Where: {A}, When: {B}, Context: {Z}, Highlighted Statements: {anotaciones}, Statements: {declaraciones}."}
     ]
   
     return messages
