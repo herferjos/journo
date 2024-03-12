@@ -95,14 +95,13 @@ def registrar_uso():
         if variable not in st.session_state:
             st.session_state[variable] = ''
 
-    with st.spinner("Guardando información... ⌛"):
-        if st.session_state.database.isna().all().all():
-            st.session_state.database = st.session_state.sheet.update(worksheet=st.session_state.email, data = pd.DataFrame({'Registro Uso': [st.session_state.time_session],'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada]}))
-        else:                                          
-            st.session_state.database = st.session_state.database.append({'Registro Uso': st.session_state.time_session, 'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada}, ignore_index=True)
-            st.session_state.database = st.session_state.database.dropna(how='all')
-            st.session_state.database = st.session_state.sheet.update(worksheet=f'{st.session_state.email}_tracking', data = st.session_state.database)
-    
+    if st.session_state.database.isna().all().all():
+        st.session_state.database_tracking = st.session_state.sheet.update(worksheet=f'{st.session_state.email}_tracking', data = pd.DataFrame({'Registro Uso': [st.session_state.time_session],'Transcripción': [st.session_state.transcription2], 'Transcripción editada': [st.session_state.transcripcion_editada], 'Cargo': [st.session_state.X], 'Nombre': [st.session_state.Y], 'Donde': [st.session_state.A], 'Cuando': [st.session_state.B], 'Extra': [st.session_state.Z], 'Anotaciones': [st.session_state.anotaciones_finales], 'Noticia': [st.session_state.noticia_generada], 'Noticia editada': [st.session_state.noticia_editada]}))
+    else:                                          
+        st.session_state.database_tracking = st.session_state.database_tracking.append({'Registro Uso': st.session_state.time_session, 'Transcripción': st.session_state.transcription2, 'Transcripción editada': st.session_state.transcripcion_editada, 'Cargo': st.session_state.X, 'Nombre': st.session_state.Y, 'Donde': st.session_state.A, 'Cuando': st.session_state.B, 'Extra': st.session_state.Z, 'Anotaciones': st.session_state.anotaciones_finales, 'Noticia': st.session_state.noticia_generada, 'Noticia editada': st.session_state.noticia_editada}, ignore_index=True)
+        st.session_state.database_tracking = st.session_state.database_tracking.dropna(how='all')
+        st.session_state.database_tracking = st.session_state.sheet.update(worksheet=f'{st.session_state.email}_tracking', data = st.session_state.database)
+
     st.rerun()
     return
     
