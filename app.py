@@ -8,6 +8,7 @@ import extra_streamlit_components as stx
 import pandas as pd
 from openai import OpenAI
 from streamlit_extras.stylable_container import stylable_container
+import datetime
 
 openai_client = OpenAI(api_key=st.secrets.openai_api)
 
@@ -58,6 +59,9 @@ if "start_time" not in st.session_state:
 auth()
 
 load_database()
+
+if 'time_session' not in st.session_state:
+    st.session_state.time_session = datetime.datetime.now()
 
 
 with st.sidebar:
@@ -272,6 +276,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.noticia_editada = st.session_state.noticia_generada
                 st.session_state.generacion = False
                 st.session_state.generacion_noticia = False
+
+                registrar_uso()
                
                 st.rerun()
                  
