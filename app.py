@@ -276,6 +276,8 @@ if 'email' in st.session_state and st.session_state.user_subscribed == True:
                     st.session_state.noticia_editada = st.session_state.noticia_generada
                 st.session_state.generacion = False
                 st.session_state.generacion_noticia = False
+
+                registrar_uso()
                
                 st.rerun()
                  
