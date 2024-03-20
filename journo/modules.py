@@ -235,6 +235,7 @@ def transcribe_audio_splitter(file_path):
             transcript_response = openai_client.audio.transcriptions.create(
                 model="whisper-1",
                 file=audio_file,
+                language = 'es',
                 response_format="verbose_json"
             )
             all_transcripts.append(transcript_response.text)
