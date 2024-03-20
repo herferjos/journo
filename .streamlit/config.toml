@@ -2,3 +2,6 @@
 base="light"
 primaryColor="#ff0000"
 secondaryBackgroundColor="#fbfbfb"
+
+[server]
+maxUploadSize = 400
