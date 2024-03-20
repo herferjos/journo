@@ -382,7 +382,7 @@ def encontrar_ocurrencias(texto, frase):
 def cargar_y_transcribir_audio(audio):
     # Convierte el audio a formato MP3
     st.session_state.mp3_audio_path = bytes_a_audio(audio, formato_destino="mp3")
-    st.session_state.transcription1, st.session_state.timestamps = transcribe_audio(st.session_state.mp3_audio_path)
+    st.session_state.transcription1, st.session_state.timestamps = transcribe_audio_splitter(st.session_state.mp3_audio_path)
     st.session_state.transcription2 = parrafer(st.session_state.transcription1)
     st.session_state.transcripcion_editada = st.session_state.transcription2
 
