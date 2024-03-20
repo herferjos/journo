@@ -204,6 +204,65 @@ def transcribe_audio(file_path):
         # Accede al texto de la transcripción directamente desde el objeto de respuesta
         return transcript_response.text, transcript_response.segments
 
+st.cache_resource(show_spinner = False)
+def split_audios(input_file, chunk_length_ms=1200000, output_format="mp3"):
+    audio = AudioSegment.from_file(input_file, format=output_format)
+    length_audio = len(audio)
+    chunks = []
+    for i in range(0, length_audio, chunk_length_ms):
+        chunk = audio[i:i+chunk_length_ms]
+        chunks.append(chunk)
+    return chunks
+
+st.cache_resource(show_spinner = False)
+def transcribe_audio_splitter(file_path):
+    import openai
+
+    # Divide el archivo de audio en trozos
+    audio_chunks = split_audios(file_path)
+
+    # Inicializa listas para almacenar las transcripciones de texto y los segmentos
+    all_transcripts = []
+    all_segments = []
+
+    # Para cada trozo, realiza la transcripción y almacena el resultado
+    for i, chunk in enumerate(audio_chunks):
+        # Guarda el trozo en un archivo temporal en formato MP3
+        chunk.export(f"temp_chunk_{i}.mp3", format="mp3")
+
+        # Transcribe el trozo
+        with open(f"temp_chunk_{i}.mp3", "rb") as audio_file:
+            transcript_response = openai_client.audio.transcriptions.create(
+                model="whisper-1",
+                file=audio_file,
+                response_format="verbose_json"
+            )
+            all_transcripts.append(transcript_response.text)
+            all_segments.append(transcript_response.segments)
+
+        # Elimina el trozo temporal
+        os.remove(f"temp_chunk_{i}.mp3")
+
+    # Elimina el archivo original
+    os.remove(file_path)
+
+    # Une todas las transcripciones en una sola cadena
+    merged_transcript = '\n'.join(all_transcripts)
+
+    if len(all_segments)>1:
+      for i in range(len(all_segments)):
+        time = all_segments[i][-1]['end']
+        if len(all_segments)-1 >= i+1:
+          for segment in all_segments[i+1]:
+            segment['start'] = segment['start'] + time
+            segment['end'] = segment['end'] + time
+
+    segments = []
+
+    for segment in all_segments:
+      segments.extend(segment)
+
+    return merged_transcript, segments
 
 st.cache_resource(show_spinner = False)
 def generar_noticia(declaraciones, anotaciones, X, Y, Z, A, B):
