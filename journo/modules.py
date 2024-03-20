@@ -243,9 +243,6 @@ def transcribe_audio_splitter(file_path):
         # Elimina el trozo temporal
         os.remove(f"temp_chunk_{i}.mp3")
 
-    # Elimina el archivo original
-    os.remove(file_path)
-
     # Une todas las transcripciones en una sola cadena
     merged_transcript = '\n'.join(all_transcripts)
 
